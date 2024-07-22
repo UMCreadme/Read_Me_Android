@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Primary">#0A46E0</color>
-    <color name="Primary_Sub">#D4EDFB</color>
-    <color name="Secondary">#B88CFF</color>
-    <color name="Line">#BDBDBD</color>
+    <color name="White">#ffffff</color>
     <color name="Light_Gray">#C8C8C8</color>
     <color name="Dark_Gray">#3B3B3B</color>
-    <color name="black">#101010</color>
-    <color name="White">#FFFFFFFF</color>
+    <color name="Black">#101010</color>
+
+    <color name="Primary">#0A46E0</color>
+    <color name="Primary_Sub">#D4EDFB</color>
+    <color name="line">#BDBDBD</color>
+
 </resources>
