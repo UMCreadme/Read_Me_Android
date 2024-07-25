@@ -1,6 +1,8 @@
 package com.example.readme.ui
 
 import android.os.Bundle
+import android.text.TextUtils.replace
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,9 +22,26 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_Readme)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        ShowInit()
         setupBottomNavigationView()
+        setSupportActionBar(binding.toolbar)
+        // Disable displaying the title in the Toolbar
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            supportFragmentManager
+                .popBackStack()
+        }
+        else {
+            super.onBackPressed()
+        }
     }
 
     private fun setupBottomNavigationView() {
@@ -44,6 +63,31 @@ class MainActivity : AppCompatActivity() {
         // Set default selection
         binding.bottomNavigationView.selectedItemId = R.id.navigation_home
     }
+
+    fun ShowInit(){
+        binding.mainLogo.visibility = View.VISIBLE
+        binding.btnFilter.visibility = View.VISIBLE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.GONE
+    }
+
+
+    fun ShowHome(){
+        binding.mainLogo.visibility = View.VISIBLE
+        binding.btnFilter.visibility = View.VISIBLE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.GONE
+    }
+
+    fun ShowSearch(){
+        binding.mainLogo.visibility = View.GONE
+        binding.btnFilter.visibility = View.GONE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.GONE
+        binding.search.visibility = View.VISIBLE
+    }
+
+
 
 }
 
