@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base application theme -->
+    <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-    <style name="Theme.Readme" parent="android:Theme.Material.Light.NoActionBar" />
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorPrimaryVariant">@color/Primary</item>
+        <item name="colorOnPrimary">@color/White</item>
+        <item name="colorSecondary">@color/Primary_Sub</item>
+        <item name="colorSecondaryVariant">@color/Primary_Sub</item>
+        <item name="colorOnSecondary">@color/Black</item>
+        <item name="backgroundColor">@color/White</item>
+        <item name="colorSurface">@color/White</item>
+        <item name="colorOnSurface">@color/Black</item>
+        <item name="colorError">@color/Black</item>
+        <item name="colorOnError">@color/White</item>
+    </style>
+
+    <!-- BottomNavigationView theme-->
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/White</item>
+        <item name="itemIconTint">@color/Black</item>
+        <item name="itemTextColor">@color/Black</item>
+    </style>
 </resources>
