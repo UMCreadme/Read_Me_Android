@@ -88,7 +88,7 @@ xmlns:tools="http://schemas.android.com/tools">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:backgroundTint="@color/White"
         app:itemIconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +96,8 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         style="@style/BottomNavigationViewStyle"/>
+
+
 
 
 
