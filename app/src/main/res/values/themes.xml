@@ -2,8 +2,6 @@
 <resources>
     <!-- Base application theme -->
     <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
-        <item name="actionBarStyle">@style/MyActionBar</item>
         <item name="colorPrimary">@color/Primary</item>
         <item name="colorPrimaryVariant">@color/Primary</item>
         <item name="colorOnPrimary">@color/White</item>
@@ -15,11 +13,11 @@
         <item name="colorOnSurface">@color/Black</item>
         <item name="colorError">@color/Black</item>
         <item name="colorOnError">@color/White</item>
-    </style>
 
-    <!-- ActionBar style -->
-    <style name="MyActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="background">@android:color/transparent</item>
+        <!-- 상태바 투명하게 설정 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
     <!-- BottomNavigationView theme-->

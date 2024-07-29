@@ -10,8 +10,6 @@ import com.example.readme.ui.community.CommunityFragment
 import com.example.readme.ui.home.HomeFragment
 import com.example.readme.ui.mypage.MyPageFragment
 import com.example.readme.ui.search.SearchFragment
-import com.google.android.material.navigation.NavigationBarView
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
