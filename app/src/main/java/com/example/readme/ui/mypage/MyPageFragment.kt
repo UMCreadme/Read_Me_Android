@@ -1,7 +1,14 @@
 package com.example.readme.ui.mypage
 
-import androidx.fragment.app.Fragment
+import com.example.readme.R
+import com.example.readme.databinding.FragmentSearchBinding
+import com.example.readme.ui.MainActivity
+import com.example.whashow.base.BaseFragment
 
-class MyPageFragment : Fragment() {
-    // Your fragment implementation here
+class MyPageFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_mypage) {
+
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).ShowMyPage()
+    }
 }

@@ -85,6 +85,13 @@ class MainActivity : AppCompatActivity() {
         binding.search.visibility = View.VISIBLE
     }
 
+    fun ShowMyPage(){
+        binding.mainLogo.visibility = View.VISIBLE
+        binding.btnFilter.visibility = View.GONE
+        binding.btnSetting.visibility = View.VISIBLE
+        binding.btnBack.visibility = View.GONE
+    }
+
 
 
 }
