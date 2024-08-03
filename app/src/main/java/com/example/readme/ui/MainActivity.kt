@@ -1,9 +1,12 @@
 package com.example.readme.ui
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.android.identity.android.legacy.Utility
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
 import com.example.readme.ui.community.CommunityFragment
@@ -18,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Readme)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setupBottomNavigationView()
