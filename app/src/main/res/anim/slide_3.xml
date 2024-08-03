@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:propertyName = "x"
+        android:valueType = "floatType"
+        android:valueFrom = "1280"
+        android:valueTo = "0"
+        android:duration = "500"/>
+
+</set>
+    <!-- 오른쪽 바깥 아이가 왼쪾 안으로 들어오고, 원래 아이는 왼쪾으로 빠짐 -->

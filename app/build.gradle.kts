@@ -1,8 +1,8 @@
 import org.gradle.api.JavaVersion
 
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android") 
 }
 
 android {
