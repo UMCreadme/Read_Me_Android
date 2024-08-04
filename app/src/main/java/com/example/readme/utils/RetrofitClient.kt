@@ -1,22 +1,47 @@
 package com.example.readme.utils
 
+import com.example.readme.data.remote.AladdinService
+import com.example.readme.data.remote.KakaoLoginService
+import com.example.readme.data.remote.ReadmeServerService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private var retrofit: Retrofit? = null
 
-    const val BASE_URL = "" //나중에 BASE URL 추가
-    //다른 url 사용하고 싶을 때 동적으로 변경 가능. 추가할 일이 있을까 논의?
+    private var aladdinRetrofit: Retrofit? = null
+    private var kakaoRetrofit: Retrofit? = null
+    private var customRetrofit: Retrofit? = null
 
-    fun getClient(): Retrofit {
-
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+    // 알라딘 API Retrofit 객체 생성
+    fun getAladdinService(): AladdinService {
+        if (aladdinRetrofit == null) {
+            aladdinRetrofit = Retrofit.Builder()
+                .baseUrl(AladdinService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return retrofit!!
+        return aladdinRetrofit!!.create(AladdinService::class.java)
+    }
+
+    // 카카오톡 로그인 API Retrofit 객체 생성
+    fun getKakaoLoginService(): KakaoLoginService {
+        if (kakaoRetrofit == null) {
+            kakaoRetrofit = Retrofit.Builder()
+                .baseUrl(KakaoLoginService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return kakaoRetrofit!!.create(KakaoLoginService::class.java)
+    }
+
+    // Readme 서버 API Retrofit 객체 생성
+    fun getReadmeServerService(): ReadmeServerService {
+        if (customRetrofit == null) {
+            customRetrofit = Retrofit.Builder()
+                .baseUrl(ReadmeServerService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return customRetrofit!!.create(ReadmeServerService::class.java)
     }
 }
