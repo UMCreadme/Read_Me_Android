@@ -2,7 +2,6 @@
 <resources>
     <!-- Base application theme -->
     <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-
         <item name="colorPrimary">@color/Primary</item>
         <item name="colorPrimaryVariant">@color/Primary</item>
         <item name="colorOnPrimary">@color/White</item>
@@ -14,12 +13,18 @@
         <item name="colorOnSurface">@color/Black</item>
         <item name="colorError">@color/Black</item>
         <item name="colorOnError">@color/White</item>
+
+        <!-- 상태바 투명하게 설정 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
     <!-- BottomNavigationView theme-->
     <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="backgroundTint">@color/White</item>
-        <item name="itemIconTint">@color/Black</item>
-        <item name="itemTextColor">@color/Black</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
     </style>
+
 </resources>

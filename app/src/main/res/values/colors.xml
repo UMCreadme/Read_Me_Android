@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color name="White">#ffffff</color>
     <color name="Light_Gray">#C8C8C8</color>
     <color name="Dark_Gray">#3B3B3B</color>
@@ -9,4 +9,6 @@
     <color name="Primary_Sub">#D4EDFB</color>
     <color name="line">#BDBDBD</color>
 
+
 </resources>
+
