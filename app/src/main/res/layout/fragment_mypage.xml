@@ -5,6 +5,12 @@
     android:padding="16dp"
     tools:context=".ui.MyPageFragment">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.readme.ui.mypage.MyPageViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile_section"
         android:layout_width="match_parent"
