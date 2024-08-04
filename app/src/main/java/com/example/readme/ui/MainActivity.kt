@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnFilter.visibility = View.GONE
         binding.btnSetting.visibility = View.VISIBLE
         binding.btnBack.visibility = View.GONE
+        binding.search.visibility = View.GONE
     }
 
 
