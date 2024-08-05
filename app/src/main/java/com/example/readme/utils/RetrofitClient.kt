@@ -1,8 +1,9 @@
 package com.example.readme.utils
 
 import com.example.readme.data.remote.AladdinService
-import com.example.readme.data.remote.KakaoLoginService
+
 import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.ui.login.KakaoLoginService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
