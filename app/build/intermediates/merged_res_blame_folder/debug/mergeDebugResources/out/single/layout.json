@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_notice.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_notice.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_place.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_place.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/activity_chat.xml",
+        "source": "com.example.readme.app-main-71:/layout/activity_chat.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/create_community.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/create_community.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_create.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_create.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_home.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_mypage.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_mypage.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_login.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_book_detail.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_book_detail.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/book_item.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/book_item.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/activity_create_fragment.xml",
+        "source": "com.example.readme.app-main-71:/layout/activity_create_fragment.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/item_community.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/item_community.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_start.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_start.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/activity_book_appoint.xml",
+        "source": "com.example.readme.app-main-71:/layout/activity_book_appoint.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/item_chat_self.xml",
+        "source": "com.example.readme.app-main-71:/layout/item_chat_self.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/item_chat_other.xml",
+        "source": "com.example.readme.app-main-71:/layout/item_chat_other.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_navigation_drawer.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_navigation_drawer.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_category.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_category.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_map_marker.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_map_marker.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/activity_create.xml",
+        "source": "com.example.readme.app-main-71:/layout/activity_create.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_search.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/start_image.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/start_image.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/fragment_book_detail.xml",
+        "source": "com.example.readme.app-main-71:/layout/fragment_book_detail.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_community_search.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_community_search.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_main.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/member_item.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/member_item.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_agreement.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_agreement.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/create_community.xml",
+        "source": "com.example.readme.app-main-71:/layout/create_community.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/activity_tab_layout.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/activity_tab_layout.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_create.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_create.xml"
+    },
+    {
+        "merged": "com.example.readme.app-mergeDebugResources-68:/layout/book_item.xml",
+        "source": "com.example.readme.app-main-71:/layout/book_item.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/custom_dialog.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_my_chat.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_my_chat.xml"
+    },
+    {
+        "merged": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-mergeDebugResources-68:/layout/fragment_community.xml",
+        "source": "/Users/jisun/Desktop/ReadMe/gradle/daemon/8.4/com.example.readme.app-main-71:/layout/fragment_community.xml"
+    }
+]

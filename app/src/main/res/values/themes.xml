@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorPrimaryVariant">@color/Primary</item>
+        <item name="colorOnPrimary">@color/White</item>
+        <item name="colorSecondary">@color/Primary_Sub</item>
+        <item name="colorSecondaryVariant">@color/Primary_Sub</item>
+        <item name="colorOnSecondary">@color/Black</item>
+        <item name="backgroundColor">@color/White</item>
+        <item name="colorSurface">@color/White</item>
+        <item name="colorOnSurface">@color/Black</item>
+        <item name="colorError">@color/Black</item>
+        <item name="colorOnError">@color/White</item>
+
+        <!-- 상태바 투명하게 설정 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+    </style>
+
+    <!-- BottomNavigationView theme-->
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/White</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+    </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+</resources>
