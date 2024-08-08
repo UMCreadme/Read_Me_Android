@@ -22,18 +22,6 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:searchIcon="@drawable/ic_search_default"
-            app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="태그를 검색해 볼 수 있어요."
-            android:visibility="gone"/>
-
         <TextView
             android:id="@+id/main_Logo"
             android:layout_width="wrap_content"
@@ -53,6 +41,47 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_marginEnd="20dp"
             android:src="@drawable/filter_icon"
             android:visibility="visible" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_search_view"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="20dp">
+
+            <!-- Custom Search Bar -->
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="태그를 검색해볼 수 있어요."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <!-- Search Button -->
+            <ImageButton
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Search"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:src="@drawable/tabler_search"
+                android:visibility="visible" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_setting"
@@ -96,9 +125,6 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         style="@style/BottomNavigationViewStyle"/>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
