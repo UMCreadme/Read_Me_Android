@@ -27,4 +27,10 @@
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
     </style>
 
+    <!-- 책 표지 Rounding 처리 -->
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>
