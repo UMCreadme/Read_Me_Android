@@ -16,7 +16,10 @@ class SearchBookPreviewAdapter : ListAdapter<BookInfo, SearchBookPreviewAdapter.
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        item?.let {
+            holder.bind(it)
+        }
     }
 
     inner class BookViewHolder(private val binding: SearchBookPreviewBinding) : RecyclerView.ViewHolder(binding.root) {

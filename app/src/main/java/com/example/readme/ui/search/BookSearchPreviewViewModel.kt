@@ -1,57 +1,62 @@
 package com.example.readme.ui.search
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.BookInfo
+import com.example.readme.data.remote.ReadmeServerService
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
-class BookSearchPreviewViewModel : ViewModel() {
-    // LiveData를 사용하여 검색 목록을 관리
-    private val _searchBookItems = MutableLiveData<List<BookInfo>>()
-    val searchBookItems: LiveData<List<BookInfo>> get() = _searchBookItems
+@OptIn(FlowPreview::class)
+class BookSearchPreviewViewModel(private val token: String, private val apiService: ReadmeServerService) : ViewModel() {
+    private val TAG = BookSearchPreviewViewModel::class.java.simpleName
+    private val _searchBookItems = MutableLiveData<List<BookInfo>?>()
+    val searchBookItems: MutableLiveData<List<BookInfo>?> get() = _searchBookItems
+
+    // MutableStateFlow to hold the search query
+    private val queryFlow = MutableStateFlow("")
+
+    init {
+        viewModelScope.launch {
+            queryFlow
+                .debounce(300) // 300ms debounce time to prevent excessive API calls
+                .distinctUntilChanged() // Only proceed if the query actually changes
+                .filter { it.isNotBlank() } // Ignore empty queries
+                .collect { query ->
+                    searchBook(query)
+                }
+        }
+    }
+
+    fun onQueryTextChange(newQuery: String) {
+        queryFlow.value = newQuery
+    }
 
     // 책 검색
-    fun searchBook(query: String) {
-        // 검색어를 서버로 전송하고, 검색 결과를 받아오는 로직
-        // 받아온 검색 결과를 BookInfo 객체로 변환하여 _searchBookItems에 추가
-        // 예시 데이터
-        _searchBookItems.value = listOf(
-            BookInfo(
-                ISBN = "9791193044179",
-                bookImg = "https://image.aladin.co.kr/product/34130/13/coversum/k292931290_1.jpg",
-                title = "아무튼, SF게임 - 건너편의 세계로 오신 것을 환영합니다",
-                author = "김초엽",
-                cid = 51371,
-                mallType = "BOOK",
-                link = "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=341301335&amp;partner=openAPI&amp;start=api"
-            ),
-            BookInfo(
-                ISBN = "9791190090018",
-                bookImg = "https://image.aladin.co.kr/product/19359/16/coversum/s152835852_1.jpg",
-                title = "우리가 빛의 속도로 갈 수 없다면 - 2019 제43회 오늘의 작가상 수상작",
-                author = "김초엽",
-                cid = 89482,
-                mallType = "BOOK",
-                link = "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=193591681&amp;partner=openAPI&amp;start=api"
-            ),
-            BookInfo(
-                ISBN = "9788960908925",
-                bookImg = "https://image.aladin.co.kr/product/34390/33/coversum/8960908924_1.jpg",
-                title = "스무 낮 읽고 스무 밤 느끼다 - 짧은 소설 스무 편",
-                author = "박완서, 정이현, 이기호, 김숨, 이승우, 김금희, 손보미, 백수린, 정지돈, 박서련, 최정화, 김초엽, 조해진, 최은영, 문진영, 김혜진, 정용준, 이주란, 이유리",
-                cid = 50993,
-                mallType = "BOOK",
-                link = "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=343903324&amp;partner=openAPI&amp;start=api"
-            ),
-            BookInfo(
-                ISBN = "9791191824001",
-                bookImg = "https://image.aladin.co.kr/product/27692/63/coversum/s222930473_1.jpg",
-                title = "지구 끝의 온실",
-                author = "김초엽",
-                cid = 89482,
-                mallType = "BOOK",
-                link = "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=276926308&amp;partner=openAPI&amp;start=api"
-            ),
-        )
+    fun searchBook(query: String): MutableLiveData<List<BookInfo>?> {
+        viewModelScope.launch {
+            try {
+                // Retrofit API 호출
+                val response = apiService.searchBooksPreview("Bearer $token", query, 1, 50)
+                Log.i(TAG, "response: $response")
+
+                // 응답이 성공일 경우
+                if(response.isSuccess){
+                    val items = response.result
+                    _searchBookItems.postValue(items)
+                } else {
+                    // 실패한 경우
+                    Log.e(TAG, "Failed to fetch search book items: ${response.code} - ${response.message}")
+                }
+            } catch (e: Exception) {
+                // 예외 발생한 경우
+                Log.e(TAG, "Error fetching search book items", e)
+            }
+        }
+
+        return _searchBookItems
     }
 }

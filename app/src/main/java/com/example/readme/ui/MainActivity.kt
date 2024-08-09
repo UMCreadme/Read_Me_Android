@@ -107,11 +107,16 @@ class MainActivity : AppCompatActivity() {
                     val searchFragment = SearchFragment()
                     setFragment(searchFragment)
                 } else {
-                    val searchBookPreviewFragment = BookSearchPreviewFragment()
-                    val bundle = Bundle()
-                    bundle.putString("keyword", keyword)
-                    searchBookPreviewFragment.arguments = bundle
-                    if (keyword.isNotEmpty()) {
+                    // BookSearchPreviewFragment가 이미 로드되어 있는지 확인
+                    val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+                    if (currentFragment is BookSearchPreviewFragment) {
+                        currentFragment.viewModel.onQueryTextChange(keyword)
+                    } else {
+                        // BookSearchPreviewFragment로 전환
+                        val searchBookPreviewFragment = BookSearchPreviewFragment()
+                        val bundle = Bundle()
+                        bundle.putString("keyword", keyword)
+                        searchBookPreviewFragment.arguments = bundle
                         setFragment(searchBookPreviewFragment)
                     }
                 }

@@ -1,11 +1,13 @@
 package com.example.readme.data.remote
 
 import com.example.readme.data.entities.RecentSearchResponse
+import com.example.readme.data.entities.SearchBookResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 //임시 ApiService
 interface ReadmeServerService {
@@ -20,9 +22,25 @@ interface ReadmeServerService {
         @Header("Authorization") token: String
     ): RecentSearchResponse
 
-    companion object {
+    @GET("/books")
+    suspend fun searchBooksPreview(
+        @Header("Authorization") token: String,
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 50,
+        @Query("preview") preview: Boolean = true
+    ): SearchBookResponse
 
-        //나중에 서버 URL 추가
+    @GET("/books")
+    suspend fun searchBooks(
+        @Header("Authorization") token: String,
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 50,
+        @Query("preview") preview: Boolean = false
+    ): SearchBookResponse
+
+    companion object {
         const val BASE_URL ="https://api.umcreadme11.shop/"
     }
 }
