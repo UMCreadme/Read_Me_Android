@@ -3,6 +3,7 @@ package com.example.readme.ui.search
 import com.example.readme.R
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentSearchbookPreviewBinding
 import com.example.readme.ui.base.BaseFragment
@@ -43,5 +44,24 @@ class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>
         // Get the keyword from arguments and trigger search
         val keyword = arguments?.getString("keyword") ?: ""
         viewModel.onQueryTextChange(keyword)
+
+        // Add scroll listener for pagination
+        binding.bookSearchesPreviewRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if (firstVisibleItemPosition + visibleItemCount >= totalItemCount) {
+                        // Load more data if the end of the list is reached
+                        viewModel.loadMore()
+                    }
+                }
+            }
+        })
     }
 }

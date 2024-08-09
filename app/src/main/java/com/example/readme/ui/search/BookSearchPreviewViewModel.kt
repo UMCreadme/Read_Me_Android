@@ -16,17 +16,32 @@ class BookSearchPreviewViewModel(private val token: String, private val apiServi
     private val _searchBookItems = MutableLiveData<List<BookInfo>?>()
     val searchBookItems: MutableLiveData<List<BookInfo>?> get() = _searchBookItems
 
-    // MutableStateFlow to hold the search query
+    // MutableStateFlow to hold the search query and pagination state
     private val queryFlow = MutableStateFlow("")
+    private val pageFlow = MutableStateFlow(1)
+
+    private var isLoading = false
+    private var hasNext = true
 
     init {
         viewModelScope.launch {
             queryFlow
-                .debounce(300) // 300ms debounce time to prevent excessive API calls
+                .debounce(400) // 400ms debounce time to prevent excessive API calls
                 .distinctUntilChanged() // Only proceed if the query actually changes
                 .filter { it.isNotBlank() } // Ignore empty queries
+                .onEach { resetPagination() } // Reset pagination on query change
                 .collect { query ->
-                    searchBook(query)
+                    searchBook(query, pageFlow.value)
+                }
+        }
+
+        viewModelScope.launch {
+            pageFlow
+                .filter { it > 1 } // Only collect if pageFlow is greater than 1
+                .collect { page ->
+                    if (hasNext && !isLoading) {
+                        searchBook(queryFlow.value, page)
+                    }
                 }
         }
     }
@@ -35,18 +50,37 @@ class BookSearchPreviewViewModel(private val token: String, private val apiServi
         queryFlow.value = newQuery
     }
 
-    // 책 검색
-    fun searchBook(query: String): MutableLiveData<List<BookInfo>?> {
+    fun loadMore() {
+        if (!isLoading && hasNext) {
+            pageFlow.value += 1
+        }
+    }
+
+    private fun resetPagination() {
+        pageFlow.value = 1
+        hasNext = true
+    }
+
+    private fun searchBook(query: String, page: Int) {
+        if (isLoading) return
+        isLoading = true
+
         viewModelScope.launch {
             try {
                 // Retrofit API 호출
-                val response = apiService.searchBooksPreview("Bearer $token", query, 1, 50)
+                val response = apiService.searchBooksPreview("Bearer $token", query, page, 50)
                 Log.i(TAG, "response: $response")
 
                 // 응답이 성공일 경우
-                if(response.isSuccess){
-                    val items = response.result
-                    _searchBookItems.postValue(items)
+                if (response.isSuccess) {
+                    val items = response.result.filterNotNull()
+                    val currentList = _searchBookItems.value.orEmpty()
+                    _searchBookItems.postValue(currentList + items)
+
+                    // Check if there are more pages
+                    if (items.size < 50) {
+                        hasNext = false
+                    }
                 } else {
                     // 실패한 경우
                     Log.e(TAG, "Failed to fetch search book items: ${response.code} - ${response.message}")
@@ -54,9 +88,9 @@ class BookSearchPreviewViewModel(private val token: String, private val apiServi
             } catch (e: Exception) {
                 // 예외 발생한 경우
                 Log.e(TAG, "Error fetching search book items", e)
+            } finally {
+                isLoading = false
             }
         }
-
-        return _searchBookItems
     }
 }

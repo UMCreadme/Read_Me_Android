@@ -1,43 +1,65 @@
 package com.example.readme.ui.search
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
+import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentSearchBookBinding
 import com.example.readme.ui.base.BaseFragment
+import com.example.readme.utils.RetrofitClient
 
 class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.fragment_search_book) {
-    private val searchBookViewModel: SearchBookViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = searchBookViewModel
+    private val token: String = "" // 테스트 용
+    private val apiService: ReadmeServerService by lazy {
+        RetrofitClient.apiService
+    }
+    private val viewModel: SearchBookViewModel by viewModels {
+        SearchBookViewModelFactory(token, apiService)
+    }
+
+    override fun initDataBinding() {
+        super.initDataBinding()
+        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         // RecyclerView에 GridLayoutManager 설정 (한 줄에 2개의 아이템 배치)
         binding.searchBookRecyclerView.layoutManager = GridLayoutManager(context, 2)
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
 
         // RecyclerView에 어댑터 설정
         val adapter = SearchBookAdapter()
         binding.searchBookRecyclerView.adapter = adapter
 
-        // ViewModel의 데이터 관찰하여 RecyclerView 업데이트
-        setupObservers(adapter)
-
         // Bundle로 전달된 검색어를 가져와서 사용
         val keyword = arguments?.getString("keyword") ?: ""
         if (keyword.isNotEmpty()) {
-            searchBookViewModel.searchBook(keyword)
+            viewModel.searchBook(keyword).observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
         }
-    }
 
-    private fun setupObservers(adapter: SearchBookAdapter) {
-        // ViewModel에서 관리하는 책 목록을 관찰하고, RecyclerView 어댑터에 새로운 데이터 설정
-        searchBookViewModel.searchBookItems.observe(viewLifecycleOwner, Observer { items ->
-            adapter.submitList(items)
+        // RecyclerView의 스크롤 상태를 감지하여 페이지네이션 적용
+        binding.searchBookRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                // 3/4 시점에 도달하면 다음 페이지를 로드
+                val threshold = (totalItemCount * 3) / 4
+                if ((visibleItemCount + firstVisibleItemPosition) >= threshold &&
+                    firstVisibleItemPosition >= 0
+                ) {
+                    viewModel.loadNextPage()
+                }
+            }
         })
     }
 }

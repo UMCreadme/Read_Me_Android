@@ -12,8 +12,8 @@ data class SearchBookResponse(
 
 data class PageInfo(
     @SerializedName("page") val page: Int,
-    @SerializedName("size") val totalResults: Int,
-    @SerializedName("hasNext") val totalPages: Boolean,
+    @SerializedName("size") val size: Int,
+    @SerializedName("hasNext") val hasNext: Boolean,
 )
 
 data class BookInfo(
