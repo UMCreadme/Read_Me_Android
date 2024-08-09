@@ -1,6 +1,5 @@
 package com.example.readme.ui.search
 
-import BookInfoDiffCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

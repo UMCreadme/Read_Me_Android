@@ -1,6 +1,5 @@
 package com.example.readme.ui.search
 
-import SearchBookPreviewAdapter
 import android.os.Bundle
 import android.view.View
 import com.example.readme.R
