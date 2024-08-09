@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.readme.R
 import com.example.readme.databinding.FragmentSearchresultBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class SearchResultFragment : BaseFragment<FragmentSearchresultBinding>(R.layout.fragment_searchresult) {

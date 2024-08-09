@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.databinding.FragmentSearchbookPreviewBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
 
 class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>(R.layout.fragment_searchbook_preview) {
     private val bookSearchPreviewViewModel: BookSearchPreviewViewModel by viewModels()

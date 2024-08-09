@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.readme.R
 import com.example.readme.databinding.FragmentSearchBookBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
 
 class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.fragment_search_book) {
     private val searchBookViewModel: SearchBookViewModel by viewModels()

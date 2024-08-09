@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.databinding.FragmentSearchUserBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
 
 class SearchUserFragment : BaseFragment<FragmentSearchUserBinding>(R.layout.fragment_search_user) {
     private val searchUserViewModel: SearchUserViewModel by viewModels()
