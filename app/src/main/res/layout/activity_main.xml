@@ -42,48 +42,6 @@ xmlns:tools="http://schemas.android.com/tools">
             android:src="@drawable/filter_icon"
             android:visibility="visible" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_search_view"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="20dp">
-
-            <!-- Custom Search Bar -->
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:autofillHints="태그를 검색해볼 수 있어요."
-                android:hint="태그를 검색해볼 수 있어요."
-                android:background="@android:color/transparent"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="15dp"
-                android:textSize="14sp"
-                android:visibility="visible" />
-
-            <!-- Search Button -->
-            <ImageButton
-                android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Search"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="15dp"
-                android:src="@drawable/tabler_search"
-                android:visibility="visible" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_setting"
             android:layout_width="20dp"

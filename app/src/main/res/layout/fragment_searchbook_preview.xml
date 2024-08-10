@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.search.BookSearchPreviewFragment"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     android:paddingTop="10dp">
 
     <data>
@@ -16,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_section"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
 
         <!-- Book Searches List -->
         <androidx.recyclerview.widget.RecyclerView

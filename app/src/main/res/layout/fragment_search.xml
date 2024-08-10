@@ -4,47 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.search.SearchFragment">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.readme.ui.search.RecentSearchViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_section"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="10dp">
+        android:layout_height="match_parent">
 
-        <!-- Recent Searches Title -->
-        <TextView
-            android:id="@+id/recent_searches_title"
-            android:layout_width="wrap_content"
+        <!-- Custom Search Bar -->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="최근 검색"
-            android:textSize="14sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/rounded_search_view"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Recent Searches List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recent_searches_recycler_view"
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="태그를 검색해볼 수 있어요."
+                android:background="@android:color/transparent"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Search"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:src="@drawable/tabler_search" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <FrameLayout
+            android:id="@+id/search_section_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="10dp"
-            android:contentDescription="최근 검색된 항목 목록"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recent_searches_title"
-            tools:listitem="@layout/recent_search_book" />
+            app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
