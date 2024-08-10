@@ -18,7 +18,7 @@
             android:id="@+id/start_vp"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />

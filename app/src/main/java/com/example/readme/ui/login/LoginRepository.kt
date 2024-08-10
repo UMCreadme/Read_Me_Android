@@ -1,41 +1,49 @@
-import androidx.lifecycle.MutableLiveData
+// LoginRepository.kt
+package com.example.readme
+
 import com.example.readme.data.entities.KaKaoUser
+import com.example.readme.data.entities.UserData
+
 import com.example.readme.ui.login.KakaoLoginService
-import com.example.readme.ui.login.KakaoResponse
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.example.readme.ui.login.LoginResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class LoginRepository {
-    companion object {
-        private const val TAG = "LoginRepository"
-        private const val BASE_URL = "https://dev.umcreadme11.shop/"
 
-        private lateinit var kakaoLoginService: KakaoLoginService
-        private var kakaoLoginMutableLiveData: MutableLiveData<KakaoResponse> = MutableLiveData()
+    private val retrofit: Retrofit
 
-        init {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val client: OkHttpClient = OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
-
-            val gson: Gson = GsonBuilder().setLenient().create()
-
-            kakaoLoginService = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-                .create(KakaoLoginService::class.java)
+    init {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
         }
 
-        suspend fun sendKakaoUserInfo(user: KaKaoUser): KakaoResponse {
-            return kakaoLoginService.sendKakaoUserInfo(user)
-        }
+        // OkHttpClient 설정에 로깅 인터셉터 추가
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)  // 로깅 인터셉터 추가
+            .connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS)
+            .writeTimeout(100, TimeUnit.SECONDS)
+            .build()
+
+
+        retrofit = Retrofit.Builder()
+            .baseUrl("http://api.umcreadme11.shop/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    private val service = retrofit.create(KakaoLoginService::class.java)
+
+    suspend fun sendKakaoUserInfo(user: KaKaoUser): Response<LoginResponse> {
+        return service.sendKakaoUserInfo(user)
+    }
+
+    suspend fun sendSignUpInfo(user: UserData): Response<LoginResponse> {
+        return service.sendSignUpInfo(user)
     }
 }
