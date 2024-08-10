@@ -17,7 +17,11 @@ import com.example.readme.data.entities.RecentSearch
 import com.example.readme.databinding.RecentSearchBookBinding
 import com.example.readme.databinding.RecentSearchQueryBinding
 
-class RecentSearchAdapter : ListAdapter<RecentSearch, RecyclerView.ViewHolder>(RecentSearchDiffCallback()) {
+class RecentSearchAdapter(
+    private val onBookClick: (Int) -> Unit,
+    private val onQueryClick: (String) -> Unit,
+    private val onDeleteClick: (RecentSearch) -> Unit
+) : ListAdapter<RecentSearch, RecyclerView.ViewHolder>(RecentSearchDiffCallback()) {
 
     companion object {
         private const val TYPE_QUERY = 0
@@ -57,6 +61,16 @@ class RecentSearchAdapter : ListAdapter<RecentSearch, RecyclerView.ViewHolder>(R
         fun bind(item: RecentSearch) {
             binding.item = item
             binding.executePendingBindings()
+
+            // Click listener for book items
+            binding.bookInfo.setOnClickListener {
+                item.bookId?.let { bookId -> onBookClick(bookId) }
+            }
+
+            // Click listener for delete button
+            binding.deleteButton.setOnClickListener {
+                onDeleteClick(item)
+            }
         }
     }
 
@@ -64,6 +78,16 @@ class RecentSearchAdapter : ListAdapter<RecentSearch, RecyclerView.ViewHolder>(R
         fun bind(item: RecentSearch) {
             binding.item = item
             binding.executePendingBindings()
+
+            // Click listener for query items
+            binding.queryText.setOnClickListener {
+                onQueryClick(item.query)
+            }
+
+            // Click listener for delete button
+            binding.deleteButton.setOnClickListener {
+                onDeleteClick(item)
+            }
         }
     }
 }

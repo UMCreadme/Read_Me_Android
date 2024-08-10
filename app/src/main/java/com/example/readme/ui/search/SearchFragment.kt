@@ -78,7 +78,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.searchEditText.clearFocus() // 포커스 해제
     }
 
-    private fun setFragment(fragment: Fragment) {
+    fun setQuery(query: String) {
+        binding.searchEditText.setText(query)
+    }
+
+    fun setFragment(fragment: Fragment) {
         childFragmentManager.beginTransaction()
             .replace(R.id.search_section_fragment, fragment)
             .commit()

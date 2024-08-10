@@ -30,6 +30,7 @@
 
         <!-- Book Title and Author -->
         <LinearLayout
+            android:id="@+id/book_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
