@@ -15,7 +15,10 @@ class SearchBookAdapter : ListAdapter<BookInfo, SearchBookAdapter.BookViewHolder
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class BookViewHolder(private val binding: ItemSearchBookBinding) : RecyclerView.ViewHolder(binding.root) {

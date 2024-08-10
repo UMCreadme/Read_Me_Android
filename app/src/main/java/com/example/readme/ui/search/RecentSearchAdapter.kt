@@ -44,9 +44,12 @@ class RecentSearchAdapter : ListAdapter<RecentSearch, RecyclerView.ViewHolder>(R
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is BookViewHolder -> holder.bind(getItem(position))
-            is QueryViewHolder -> holder.bind(getItem(position))
+        val item = getItem(position)
+        if (item != null) {
+            when (holder) {
+                is BookViewHolder -> holder.bind(item)
+                is QueryViewHolder -> holder.bind(item)
+            }
         }
     }
 

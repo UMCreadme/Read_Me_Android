@@ -1,32 +1,68 @@
 package com.example.readme.ui.search
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.UserInfo
+import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.launch
 
-class SearchUserViewModel : ViewModel() {
-    // LiveData를 사용하여 사용자 검색 목록을 관리
-     private val _searchUserItems = MutableLiveData<List<UserInfo>>()
-        val searchUserItems: MutableLiveData<List<UserInfo>> get() = _searchUserItems
+class SearchUserViewModel(
+    private val repository: SearchRepository
+) : ViewModel() {
+    private val TAG = SearchUserViewModel::class.java.simpleName
+    private val _searchUserItems = MutableLiveData<List<UserInfo>?>()
+    val searchUserItems: LiveData<List<UserInfo>?> get() = _searchUserItems
 
-    // 사용자 검색
-    fun searchUser(query: String) {
-        // 검색어를 서버로 전송하고, 검색 결과를 받아오는 로직
-        // 받아온 검색 결과를 UserInfo 객체로 변환하여 _searchUserItems에 추가
-        // 예시 데이터
-        _searchUserItems.value = listOf(
-            UserInfo(
-                userId = 1,
-                profileImg = "https://readme-image.s3.ap-northeast-2.amazonaws.com/profile/default-profile.png",
-                account = "ossu-dev",
-                nickname = "ossu"
-            ),
-            UserInfo(
-                userId = 2,
-                profileImg = "https://readme-image.s3.ap-northeast-2.amazonaws.com/profile/default-profile.png",
-                account = "kimtomato",
-                nickname = "멍이"
-            ),
-        )
+    private var currentPage = 1
+    private var lastQuery: String? = null
+    private var hasNext = true
+    private var isLoading = false
+
+    fun searchUser(query: String, isNewSearch: Boolean = true) {
+        if (isNewSearch) {
+            // 새로운 검색이면 페이지 초기화
+            currentPage = 1
+            lastQuery = query
+            hasNext = true
+            _searchUserItems.value = emptyList() // 이전 검색 결과 초기화
+        } else if (!hasNext || isLoading) {
+            return // 더 이상 가져올 페이지가 없거나 로딩 중이면 return
+        }
+
+        isLoading = true
+        viewModelScope.launch {
+            try {
+                // Retrofit API 호출
+                val response = repository.searchUsers(query, currentPage, 50)
+
+                // 응답이 성공일 경우
+                if (response.isSuccess) {
+                    val items = response.result
+
+                    // 현재 페이지 결과를 기존 결과에 추가
+                    val currentList = _searchUserItems.value.orEmpty()
+                    _searchUserItems.postValue(currentList + items)
+
+                    // 다음 페이지가 있는지 확인
+                    hasNext = response.pageInfo.hasNext
+                    currentPage++
+                } else {
+                    Log.e(TAG, "Failed to fetch search user items: ${response.code} - ${response.message}")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error fetching search user items", e)
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    // 다음 페이지를 불러오는 함수
+    fun loadNextPage() {
+        if (!hasNext || isLoading) return
+        lastQuery?.let { searchUser(it, false) }
     }
 }

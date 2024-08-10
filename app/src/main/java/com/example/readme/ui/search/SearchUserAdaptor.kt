@@ -16,7 +16,10 @@ class SearchUserAdaptor : ListAdapter<UserInfo, SearchUserAdaptor.UserViewHolder
         }
 
         override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-            holder.bind(getItem(position))
+            val item = getItem(position)
+            if (item != null) {
+                holder.bind(item)
+            }
         }
 
         inner class UserViewHolder(private val binding: ItemSearchUserBinding) : RecyclerView.ViewHolder(binding.root) {

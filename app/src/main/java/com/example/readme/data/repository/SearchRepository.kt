@@ -19,4 +19,7 @@ object SearchRepository {
 
     // 책 검색
     suspend fun searchBooks(query: String, page: Int, size: Int) = apiService.searchBooks(query, page, size)
+
+    // 유저 검색
+    suspend fun searchUsers(query: String, page: Int, size: Int) = apiService.searchUsers(query, page, size)
 }
