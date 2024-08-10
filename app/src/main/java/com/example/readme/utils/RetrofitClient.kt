@@ -1,7 +1,5 @@
 package com.example.readme.utils
 
-import com.example.readme.data.remote.AladdinService
-
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.ui.login.KakaoLoginService
 import okhttp3.Interceptor
@@ -12,22 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    private var aladdinRetrofit: Retrofit? = null
     private var kakaoRetrofit: Retrofit? = null
     private var ReadmeRetrofit: Retrofit? = null
-    private var token: String = ""
-
-    // 알라딘 API Retrofit 객체 생성
-    fun getAladdinService(): AladdinService {
-        if (aladdinRetrofit == null) {
-            aladdinRetrofit = Retrofit.Builder()
-                .baseUrl(AladdinService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return aladdinRetrofit!!.create(AladdinService::class.java)
-    }
-
+    private val token: String = ""
     // 카카오톡 로그인 API Retrofit 객체 생성
     fun getKakaoLoginService(): KakaoLoginService {
         if (kakaoRetrofit == null) {

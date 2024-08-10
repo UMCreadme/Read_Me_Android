@@ -14,7 +14,7 @@ class GlobalApplication : Application() {
         KakaoSdk.init(this, "dbe31c51bcd2bae3fbab42016106e896")
 
         // 초기화 시 RetrofitClient 설정
-        val apiService = RetrofitClient.apiService
+        val apiService = RetrofitClient.getReadmeServerService()
         SearchRepository.init(apiService)
     }
 }
