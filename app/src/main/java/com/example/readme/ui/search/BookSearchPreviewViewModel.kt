@@ -1,20 +1,23 @@
 package com.example.readme.ui.search
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.BookInfo
-import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.SearchRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
-class BookSearchPreviewViewModel(private val token: String, private val apiService: ReadmeServerService) : ViewModel() {
+class BookSearchPreviewViewModel(
+    private val repository: SearchRepository
+) : ViewModel() {
     private val TAG = BookSearchPreviewViewModel::class.java.simpleName
     private val _searchBookItems = MutableLiveData<List<BookInfo>?>()
-    val searchBookItems: MutableLiveData<List<BookInfo>?> get() = _searchBookItems
+    val searchBookItems: LiveData<List<BookInfo>?> get() = _searchBookItems
 
     // MutableStateFlow to hold the search query and pagination state
     private val queryFlow = MutableStateFlow("")
@@ -68,12 +71,12 @@ class BookSearchPreviewViewModel(private val token: String, private val apiServi
         viewModelScope.launch {
             try {
                 // Retrofit API 호출
-                val response = apiService.searchBooksPreview("Bearer $token", query, page, 50)
+                val response = repository.searchBooksPreview(query, page, 50)
                 Log.i(TAG, "response: $response")
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
-                    val items = response.result.filterNotNull()
+                    val items = response.result
                     val currentList = _searchBookItems.value.orEmpty()
                     _searchBookItems.postValue(currentList + items)
 

@@ -2,16 +2,15 @@ package com.example.readme.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.SearchRepository
 
 class BookSearchPreviewViewModelFactory(
-    private val token: String,
-    private val apiService: ReadmeServerService
+    private val repository: SearchRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BookSearchPreviewViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return BookSearchPreviewViewModel(token, apiService) as T
+            return BookSearchPreviewViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

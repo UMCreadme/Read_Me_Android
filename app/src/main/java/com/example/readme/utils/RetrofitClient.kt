@@ -4,8 +4,7 @@ import com.example.readme.data.remote.AladdinService
 
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.ui.login.KakaoLoginService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,6 +15,7 @@ object RetrofitClient {
     private var aladdinRetrofit: Retrofit? = null
     private var kakaoRetrofit: Retrofit? = null
     private var ReadmeRetrofit: Retrofit? = null
+    private var token: String = ""
 
     // 알라딘 API Retrofit 객체 생성
     fun getAladdinService(): AladdinService {
@@ -44,7 +44,18 @@ object RetrofitClient {
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
+        val authInterceptor = Interceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .header("Authorization", "Bearer $token")
+                .method(original.method, original.body)
+                .build()
+            chain.proceed(request)
+        }
+
         val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
             .addInterceptor(interceptor)
             .build()
 
@@ -59,8 +70,27 @@ object RetrofitClient {
     }
 
     val retrofit: Retrofit by lazy {
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val authInterceptor = Interceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .header("Authorization", "Bearer $token")
+                .method(original.method, original.body)
+                .build()
+            chain.proceed(request)
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .addInterceptor(interceptor)
+            .build()
+
         Retrofit.Builder()
             .baseUrl(ReadmeServerService.BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -4,19 +4,14 @@ import com.example.readme.R
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchbookPreviewBinding
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.utils.RetrofitClient
 
 class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>(R.layout.fragment_searchbook_preview) {
 
-    private val token: String = "" // 테스트 용
-    private val apiService: ReadmeServerService by lazy {
-        RetrofitClient.apiService
-    }
     val viewModel: BookSearchPreviewViewModel by viewModels {
-        BookSearchPreviewViewModelFactory(token, apiService)
+        BookSearchPreviewViewModelFactory(SearchRepository)
     }
 
     override fun initDataBinding() {

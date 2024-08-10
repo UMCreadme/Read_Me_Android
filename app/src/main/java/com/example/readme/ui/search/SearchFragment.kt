@@ -3,20 +3,15 @@ package com.example.readme.ui.search
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
-import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.utils.RetrofitClient
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    private val token: String = "" // 테스트 용
-    private val apiService: ReadmeServerService by lazy {
-        RetrofitClient.apiService
-    }
     private val viewModel: RecentSearchViewModel by viewModels {
-        RecentSearchViewModelFactory(token, apiService)
+        RecentSearchViewModelFactory(SearchRepository)
     }
 
     override fun initStartView() {

@@ -75,7 +75,7 @@ class RecentSearchDiffCallback : DiffUtil.ItemCallback<RecentSearch>() {
     }
 }
 
-// BindingAdapter for loading images using Glide
+// BindingAdapter for loading images using Glide TODO: BindingAdapter 다른 파일로 이동
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {

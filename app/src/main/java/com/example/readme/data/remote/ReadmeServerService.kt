@@ -5,7 +5,6 @@ import com.example.readme.data.entities.SearchBookResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -18,13 +17,10 @@ interface ReadmeServerService {
     fun getData(): Call<ReadmeResponse>
 
     @GET("/recent-searches")
-    suspend fun getRecentSearches(
-        @Header("Authorization") token: String
-    ): RecentSearchResponse
+    suspend fun getRecentSearches(): RecentSearchResponse
 
     @GET("/books")
     suspend fun searchBooksPreview(
-        @Header("Authorization") token: String,
         @Query("keyword") query: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
@@ -33,7 +29,6 @@ interface ReadmeServerService {
 
     @GET("/books")
     suspend fun searchBooks(
-        @Header("Authorization") token: String,
         @Query("keyword") query: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
