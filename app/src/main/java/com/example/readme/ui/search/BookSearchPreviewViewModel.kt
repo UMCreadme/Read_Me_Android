@@ -81,9 +81,7 @@ class BookSearchPreviewViewModel(
                     _searchBookItems.postValue(currentList + items)
 
                     // Check if there are more pages
-                    if (items.size < 50) {
-                        hasNext = false
-                    }
+                    hasNext = response.pageInfo.hasNext
                 } else {
                     // 실패한 경우
                     Log.e(TAG, "Failed to fetch search book items: ${response.code} - ${response.message}")

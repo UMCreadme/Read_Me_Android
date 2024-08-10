@@ -4,19 +4,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
-import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchBookBinding
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.utils.RetrofitClient
 
 class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.fragment_search_book) {
 
-    private val token: String = "" // 테스트 용
-    private val apiService: ReadmeServerService by lazy {
-        RetrofitClient.apiService
-    }
     private val viewModel: SearchBookViewModel by viewModels {
-        SearchBookViewModelFactory(token, apiService)
+        SearchBookViewModelFactory(SearchRepository)
     }
 
     override fun initDataBinding() {
@@ -38,7 +33,9 @@ class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.frag
         // Bundle로 전달된 검색어를 가져와서 사용
         val keyword = arguments?.getString("keyword") ?: ""
         if (keyword.isNotEmpty()) {
-            viewModel.searchBook(keyword).observe(viewLifecycleOwner) {
+            viewModel.searchBook(keyword) // 초기 검색 수행
+
+            viewModel.searchBookItems.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
             }
         }
