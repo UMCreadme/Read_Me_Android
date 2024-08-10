@@ -22,4 +22,7 @@ object SearchRepository {
 
     // 유저 검색
     suspend fun searchUsers(query: String, page: Int, size: Int) = apiService.searchUsers(query, page, size)
+
+    // 최근 검색어 삭제
+    suspend fun deleteRecentSearch(recentSearchesId: Int) = apiService.deleteRecentSearch(recentSearchesId)
 }

@@ -40,7 +40,7 @@ class SearchBookViewModel(
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
-                    val items = response.result
+                    val items = response.result.filterNotNull()
 
                     // 현재 페이지 결과를 기존 결과에 추가
                     val currentList = _searchBookItems.value.orEmpty()

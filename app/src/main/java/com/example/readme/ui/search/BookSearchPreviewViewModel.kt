@@ -76,7 +76,7 @@ class BookSearchPreviewViewModel(
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
-                    val items = response.result
+                    val items = response.result.filterNotNull()
                     val currentList = _searchBookItems.value.orEmpty()
                     _searchBookItems.postValue(currentList + items)
 

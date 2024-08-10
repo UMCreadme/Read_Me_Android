@@ -5,8 +5,10 @@ import com.example.readme.data.entities.SearchBookResponse
 import com.example.readme.data.entities.SearchUserResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 //임시 ApiService
@@ -42,6 +44,11 @@ interface ReadmeServerService {
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20
     ): SearchUserResponse
+
+    @DELETE("/recent-searches/{recentSearchesId}")
+    suspend fun deleteRecentSearch(
+        @Path("recentSearchesId") recentSearchesId: Int
+    ): RecentSearchResponse
 
     companion object {
         const val BASE_URL ="https://api.umcreadme11.shop/"
