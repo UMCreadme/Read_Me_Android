@@ -1,12 +1,12 @@
 package com.example.readme.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentRecentSearchBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.book.BookDetailActivity
 
@@ -29,12 +29,13 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
 
         // RecyclerView 어댑터 설정
         val adapter = RecentSearchAdapter(
-            onBookClick = { isbn ->
+            onBookClick = { bookId ->
                 // 책 상세 화면으로 전환
-                val intent = Intent(requireContext(), BookDetailActivity::class.java).apply {
-                    putExtra("ISBN", isbn)
-                }
-                startActivity(intent)
+                val bookDetailFragment = BookDetailActivity()
+                val bundle = Bundle()
+                bundle.putInt("book_id", bookId)
+                bookDetailFragment.arguments = bundle
+                (activity as MainActivity).addFragment(BookDetailActivity())
             },
             onQueryClick = { query ->
                 // 검색 결과 화면으로 전환

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.readme.ui.search.SearchUserViewModel" />
+            type="com.example.readme.ui.search.user.SearchUserViewModel" />
         <variable
             name="user"
             type="com.example.readme.data.entities.UserInfo" />

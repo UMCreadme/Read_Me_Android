@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.shorts
 
 import com.example.readme.R
 import com.example.readme.databinding.FragmentSearchShortsBinding

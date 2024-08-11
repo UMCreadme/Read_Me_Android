@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.readme.ui.search.book.SearchBookFragment
+import com.example.readme.ui.search.shorts.SearchShortsFragment
+import com.example.readme.ui.search.user.SearchUserFragment
 
 class SearchResultAdapter(
     fragmentActivity: FragmentActivity,

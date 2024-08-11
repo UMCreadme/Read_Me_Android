@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.book
 
 import com.example.readme.R
 import androidx.fragment.app.viewModels

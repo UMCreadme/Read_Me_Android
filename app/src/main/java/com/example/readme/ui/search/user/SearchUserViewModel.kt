@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.user
 
 import android.util.Log
 import androidx.lifecycle.LiveData

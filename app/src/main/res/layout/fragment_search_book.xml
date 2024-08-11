@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.search.SearchBookFragment">
+    tools:context=".ui.search.book.SearchBookFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.readme.ui.search.SearchBookViewModel" />
+            type="com.example.readme.ui.search.book.SearchBookViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

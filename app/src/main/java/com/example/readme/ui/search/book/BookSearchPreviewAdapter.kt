@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.book
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.entities.BookInfo
 import com.example.readme.databinding.SearchBookPreviewBinding
 
-class SearchBookPreviewAdapter : ListAdapter<BookInfo, SearchBookPreviewAdapter.BookViewHolder>(BookInfoDiffCallback()) {
+class SearchBookPreviewAdapter : ListAdapter<BookInfo, SearchBookPreviewAdapter.BookViewHolder>(
+    BookInfoDiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = SearchBookPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)

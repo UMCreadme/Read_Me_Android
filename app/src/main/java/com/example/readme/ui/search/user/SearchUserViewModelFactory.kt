@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

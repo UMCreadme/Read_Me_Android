@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
 import com.example.readme.ui.community.CommunityFragment
@@ -42,23 +43,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationView() {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            val selectedFragment: Fragment? = when (item.itemId) {
-                R.id.navigation_home -> HomeFragment()
-                R.id.navigation_search -> SearchFragment()
-                R.id.navigation_community -> CommunityFragment()
-                R.id.navigation_mypage -> MyPageFragment()
-                else -> null
+        binding.bottomNavigationView.itemIconTintList = null
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.navigation_home -> {
+                    changeFragment(HomeFragment())
+                }
+
+                R.id.navigation_search -> {
+                    addFragment(SearchFragment())
+                }
+
+                R.id.navigation_community -> {
+                    changeFragment(CommunityFragment())
+                }
+                R.id.navigation_mypage -> {
+                    changeFragment(MyPageFragment())
+                }
             }
-            selectedFragment?.let {
-                setFragment(it)
-            }
-            true
+            return@setOnItemSelectedListener true
         }
-        // Set default selection
-        binding.bottomNavigationView.selectedItemId = R.id.navigation_home
+        binding.bottomNavigationView.setOnItemReselectedListener {  } // 바텀네비 재클릭시 화면 재생성 방지
     }
 
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, fragment).commit()
+    }
+
+    fun addFragment(fragment: Fragment) {
+        supportFragmentManager
+            .commit {
+                setCustomAnimations(
+                    R.anim.slide_3,
+                    R.anim.fade_out,
+                    R.anim.slide_1,
+                    R.anim.fade_out
+                )
+                replace(R.id.nav_host_fragment, fragment)
+
+                addToBackStack(null)
+            }
+    }
 
     private fun setFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

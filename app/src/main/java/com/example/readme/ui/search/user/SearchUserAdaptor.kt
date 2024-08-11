@@ -1,4 +1,4 @@
-package com.example.readme.ui.search
+package com.example.readme.ui.search.user
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.entities.UserInfo
 import com.example.readme.databinding.ItemSearchUserBinding
 
-class SearchUserAdaptor : ListAdapter<UserInfo, SearchUserAdaptor.UserViewHolder>(UserInfoDiffCallback()) {
+class SearchUserAdaptor : ListAdapter<UserInfo, SearchUserAdaptor.UserViewHolder>(
+    UserInfoDiffCallback()
+) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
             val binding = ItemSearchUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
