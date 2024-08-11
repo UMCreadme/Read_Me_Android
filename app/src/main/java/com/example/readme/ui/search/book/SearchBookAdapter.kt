@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.readme.data.entities.BookInfo
+import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.databinding.ItemSearchBookBinding
 
-class SearchBookAdapter : ListAdapter<BookInfo, SearchBookAdapter.BookViewHolder>(
+class SearchBookAdapter : ListAdapter<BookSearchResult, SearchBookAdapter.BookViewHolder>(
     BookInfoDiffCallback()
 ) {
 
@@ -24,7 +24,7 @@ class SearchBookAdapter : ListAdapter<BookInfo, SearchBookAdapter.BookViewHolder
     }
 
     inner class BookViewHolder(private val binding: ItemSearchBookBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BookInfo) {
+        fun bind(item: BookSearchResult) {
             binding.book = item
             binding.executePendingBindings()
         }

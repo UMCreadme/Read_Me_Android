@@ -1,8 +1,8 @@
 package com.example.readme.data.remote
 
-import com.example.readme.data.entities.RecentSearchResponse
-import com.example.readme.data.entities.SearchBookResponse
-import com.example.readme.data.entities.SearchUserResponse
+import com.example.readme.data.entities.BookSearchResult
+import com.example.readme.data.entities.RecentSearch
+import com.example.readme.data.entities.UserInfo
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -20,7 +20,7 @@ interface ReadmeServerService {
     fun getData(): Call<ReadmeResponse>
 
     @GET("/recent-searches")
-    suspend fun getRecentSearches(): RecentSearchResponse
+    suspend fun getRecentSearches(): ResponseWithData<List<RecentSearch>>
 
     @GET("/books")
     suspend fun searchBooksPreview(
@@ -28,7 +28,7 @@ interface ReadmeServerService {
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
         @Query("preview") preview: Boolean = true
-    ): SearchBookResponse
+    ): ResponseWithPagination<List<BookSearchResult>>
 
     @GET("/books")
     suspend fun searchBooks(
@@ -36,21 +36,21 @@ interface ReadmeServerService {
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
         @Query("preview") preview: Boolean = false
-    ): SearchBookResponse
+    ): ResponseWithPagination<List<BookSearchResult>>
 
     @GET("/users")
     suspend fun searchUsers(
         @Query("keyword") query: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20
-    ): SearchUserResponse
+    ): ResponseWithPagination<List<UserInfo>>
 
     @DELETE("/recent-searches/{recentSearchesId}")
     suspend fun deleteRecentSearch(
         @Path("recentSearchesId") recentSearchesId: Int
-    ): RecentSearchResponse
+    ): Response
 
     companion object {
-        const val BASE_URL ="https://api.umcreadme11.shop/"
+        const val BASE_URL ="https://api.umcreadme11.shop"
     }
 }

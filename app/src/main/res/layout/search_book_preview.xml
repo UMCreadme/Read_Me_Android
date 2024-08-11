@@ -8,7 +8,7 @@
             type="com.example.readme.ui.search.book.BookSearchPreviewViewModel" />
         <variable
             name="item"
-            type="com.example.readme.data.entities.BookInfo" />
+            type="com.example.readme.data.entities.BookSearchResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

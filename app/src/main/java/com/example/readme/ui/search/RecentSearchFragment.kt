@@ -8,7 +8,7 @@ import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentRecentSearchBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.ui.book.BookDetailActivity
+import com.example.readme.ui.search.book.BookDetailFragment
 
 class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.fragment_recent_search) {
     private val viewModel: RecentSearchViewModel by viewModels {
@@ -29,13 +29,13 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
 
         // RecyclerView 어댑터 설정
         val adapter = RecentSearchAdapter(
-            onBookClick = { bookId ->
+            onBookClick = { ISBN ->
                 // 책 상세 화면으로 전환
-                val bookDetailFragment = BookDetailActivity()
+                val bookDetailFragment = BookDetailFragment()
                 val bundle = Bundle()
-                bundle.putInt("book_id", bookId)
+                bundle.putInt("ISBN", ISBN)
                 bookDetailFragment.arguments = bundle
-                (activity as MainActivity).addFragment(BookDetailActivity())
+                (activity as MainActivity).addFragment(BookDetailFragment())
             },
             onQueryClick = { query ->
                 // 검색 결과 화면으로 전환

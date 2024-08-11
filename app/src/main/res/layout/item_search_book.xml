@@ -6,7 +6,7 @@
     <data>
         <variable
             name="book"
-            type="com.example.readme.data.entities.BookInfo" />
+            type="com.example.readme.data.entities.BookSearchResult" />
     </data>
 
     <androidx.cardview.widget.CardView

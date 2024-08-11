@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readme.data.entities.BookInfo
+import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.repository.SearchRepository
 import kotlinx.coroutines.launch
 
@@ -13,8 +13,8 @@ class SearchBookViewModel(
     private val repository: SearchRepository
 ) : ViewModel() {
     private val TAG = SearchBookViewModel::class.java.simpleName
-    private val _searchBookItems = MutableLiveData<List<BookInfo>?>()
-    val searchBookItems: LiveData<List<BookInfo>?> get() = _searchBookItems
+    private val _searchBookItems = MutableLiveData<List<BookSearchResult>?>()
+    val searchBookItems: LiveData<List<BookSearchResult>?> get() = _searchBookItems
 
     private var currentPage = 1
     private var lastQuery: String? = null

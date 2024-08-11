@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readme.data.entities.BookInfo
+import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.repository.SearchRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
@@ -16,8 +16,8 @@ class BookSearchPreviewViewModel(
     private val repository: SearchRepository
 ) : ViewModel() {
     private val TAG = BookSearchPreviewViewModel::class.java.simpleName
-    private val _searchBookItems = MutableLiveData<List<BookInfo>?>()
-    val searchBookItems: LiveData<List<BookInfo>?> get() = _searchBookItems
+    private val _searchBookItems = MutableLiveData<List<BookSearchResult>?>()
+    val searchBookItems: LiveData<List<BookSearchResult>?> get() = _searchBookItems
 
     // MutableStateFlow to hold the search query and pagination state
     private val queryFlow = MutableStateFlow("")

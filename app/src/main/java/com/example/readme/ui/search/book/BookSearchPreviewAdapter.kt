@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.readme.data.entities.BookInfo
+import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.databinding.SearchBookPreviewBinding
 
-class SearchBookPreviewAdapter : ListAdapter<BookInfo, SearchBookPreviewAdapter.BookViewHolder>(
+class SearchBookPreviewAdapter : ListAdapter<BookSearchResult, SearchBookPreviewAdapter.BookViewHolder>(
     BookInfoDiffCallback()
 ) {
 
@@ -25,19 +25,19 @@ class SearchBookPreviewAdapter : ListAdapter<BookInfo, SearchBookPreviewAdapter.
     }
 
     inner class BookViewHolder(private val binding: SearchBookPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BookInfo) {
+        fun bind(item: BookSearchResult) {
             binding.item = item
             binding.executePendingBindings()
         }
     }
 }
 
-class BookInfoDiffCallback : DiffUtil.ItemCallback<BookInfo>() {
-    override fun areItemsTheSame(oldItem: BookInfo, newItem: BookInfo): Boolean {
+class BookInfoDiffCallback : DiffUtil.ItemCallback<BookSearchResult>() {
+    override fun areItemsTheSame(oldItem: BookSearchResult, newItem: BookSearchResult): Boolean {
         return oldItem.ISBN == newItem.ISBN
     }
 
-    override fun areContentsTheSame(oldItem: BookInfo, newItem: BookInfo): Boolean {
+    override fun areContentsTheSame(oldItem: BookSearchResult, newItem: BookSearchResult): Boolean {
         return oldItem == newItem
     }
 }
