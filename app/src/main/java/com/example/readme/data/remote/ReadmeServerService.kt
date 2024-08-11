@@ -1,5 +1,6 @@
 package com.example.readme.data.remote
 
+import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.UserInfo
@@ -53,6 +54,30 @@ interface ReadmeServerService {
     @POST("/books/{isbn}")
     suspend fun saveRecentSearchBook(
         @Path("isbn") isbn: String
+    ): Response
+
+    @GET("/books/{isbn}")
+    suspend fun getBookDetail(
+        @Path("isbn") isbn: String,
+        @Query("isBookId") isBookId: Boolean = false
+    ): ResponseWithPagination<BookDetailResponse>
+
+    @GET("/books/{bookId}")
+    suspend fun getBookDetail(
+        @Path("bookId") bookId: Int,
+        @Query("isBookId") isBookId: Boolean = true
+    ): ResponseWithPagination<BookDetailResponse>
+
+    @POST("/books/{bookId}/read")
+    suspend fun updateReadStatus(
+        @Path("bookId") bookId: Int,
+        @Query("isBookId") isBookId: Boolean = true
+    ): Response
+
+    @POST("/books/{isbn}/read")
+    suspend fun updateReadStatus(
+        @Path("isbn") isbn: String,
+        @Query("isBookId") isBookId: Boolean = false
     ): Response
 
     companion object {

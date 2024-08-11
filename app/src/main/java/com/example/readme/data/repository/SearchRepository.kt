@@ -28,4 +28,12 @@ object SearchRepository {
 
     // 책 검색기록 저장
     suspend fun saveRecentSearchBook(isbn:String) = apiService.saveRecentSearchBook(isbn)
+
+    // 책 상세 정보 조회
+    suspend fun getBookDetail(isbn: String) = apiService.getBookDetail(isbn)
+    suspend fun getBookDetail(bookId: Int) = apiService.getBookDetail(bookId)
+
+    // 책 읽음 여부 업데이트
+    suspend fun updateReadStatus(bookId: Int) = apiService.updateReadStatus(bookId)
+    suspend fun updateReadStatus(isbn: String) = apiService.updateReadStatus(isbn)
 }

@@ -1,27 +1,92 @@
 package com.example.readme.ui.search.book
 
 import android.util.Log
+import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
+import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentBookDetailBinding
 import com.example.readme.ui.base.BaseFragment
 
 class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.fragment_book_detail) {
+
+    val viewModel: BookDetailViewModel by viewModels {
+        BookDetailViewModelFactory(SearchRepository)
+    }
+
     override fun initDataBinding() {
         super.initDataBinding()
-        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
+        // Set the layout manager for the RecyclerView
+        binding.shortsPreviewRecyclerView.layoutManager = GridLayoutManager(context, 2)
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
+
+        // Set the adapter for the RecyclerView
+        val adapter = BookDetailAdapter()
+        binding.shortsPreviewRecyclerView.adapter = adapter
+
         val ISBN = arguments?.getString("ISBN")
         val bookId = arguments?.getInt("bookId")
-
         Log.d("BookDetailFragment", "ISBN: $ISBN")
         Log.d("BookDetailFragment", "BookId: $bookId")
 
-        // 읽음 버튼 리스너
+        // Observe the shorts list managed by the ViewModel
+        if (bookId != null && bookId != 0) {
+            viewModel.getBookDetail(bookId)
+        } else if (ISBN != null) {
+            viewModel.getBookDetail(ISBN)
+        }
 
+        viewModel.bookDetail.observe(viewLifecycleOwner) {
+            // Set the new data to the RecyclerView adapter
+            binding.book = it
+            updateReadStatus()
+        }
+
+        binding.shortsPreviewRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
+
+                    if (lastVisibleItemPosition + 1 == itemTotalCount) {
+                        // Load more shorts
+                    }
+                }
+            }
+        })
+
+        // 읽음 버튼 리스너
+        binding.readBtn.setOnClickListener {
+            val bookId = viewModel.bookDetail.value?.bookId ?: 0
+            if(bookId == 0) {
+                val isbn = viewModel.bookDetail.value?.ISBN ?: ""
+                viewModel.updateReadStatus(isbn)
+            } else {
+                viewModel.updateReadStatus(bookId)
+            }
+        }
+
+    }
+
+    private fun updateReadStatus() {
+        val isRead = viewModel.bookDetail.value?.isRead == true
+        if (isRead) {
+            binding.tvNotRead.visibility = View.VISIBLE
+            binding.tvRead.visibility = View.GONE
+        } else {
+            binding.tvNotRead.visibility = View.GONE
+            binding.tvRead.visibility = View.VISIBLE
+        }
     }
 
 }

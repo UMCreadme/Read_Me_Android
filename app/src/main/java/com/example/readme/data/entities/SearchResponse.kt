@@ -9,6 +9,27 @@ data class BookSearchResult(
     @SerializedName("author") val author: String
 )
 
+data class BookDetailResponse(
+    @SerializedName("book") val bookDetail: BookDetail,
+    @SerializedName("shorts") val shorts: List<ShortsPreview>
+)
+
+data class BookDetail(
+    @SerializedName("bookId") val bookId: Int? = null,
+    @SerializedName("ISBN") val ISBN: String,
+    @SerializedName("bookCover") val bookImg: String,
+    @SerializedName("bookTitle") val title: String,
+    @SerializedName("author") val author: String,
+    @SerializedName("link") val link: String,
+    @SerializedName("isRead") var isRead: Boolean
+)
+
+data class ShortsPreview(
+    @SerializedName("shortsId") val shortsId: Int,
+    @SerializedName("shortsImg") val shortsImg: String,
+    @SerializedName("phrase") val phrase: String
+)
+
 data class RecentSearch(
     @SerializedName("query") val query: String,
     @SerializedName("recent_searches_id") val recentSearchesId: Int,
