@@ -29,11 +29,11 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
 
         // RecyclerView 어댑터 설정
         val adapter = RecentSearchAdapter(
-            onBookClick = { ISBN ->
+            onBookClick = { bookId ->
                 // 책 상세 화면으로 전환
                 val bookDetailFragment = BookDetailFragment()
                 val bundle = Bundle()
-                bundle.putInt("ISBN", ISBN)
+                bundle.putInt("bookId", bookId)
                 bookDetailFragment.arguments = bundle
                 (activity as MainActivity).addFragment(BookDetailFragment())
             },

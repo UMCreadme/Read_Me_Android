@@ -25,4 +25,7 @@ object SearchRepository {
 
     // 최근 검색어 삭제
     suspend fun deleteRecentSearch(recentSearchesId: Int) = apiService.deleteRecentSearch(recentSearchesId)
+
+    // 책 검색기록 저장
+    suspend fun saveRecentSearchBook(isbn:String) = apiService.saveRecentSearchBook(isbn)
 }

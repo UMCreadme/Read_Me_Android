@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.databinding.SearchBookPreviewBinding
 
-class SearchBookPreviewAdapter : ListAdapter<BookSearchResult, SearchBookPreviewAdapter.BookViewHolder>(
+class SearchBookPreviewAdapter(
+    private val onBookClick: (String) -> Unit
+) : ListAdapter<BookSearchResult, SearchBookPreviewAdapter.BookViewHolder>(
     BookInfoDiffCallback()
 ) {
 
@@ -28,6 +30,10 @@ class SearchBookPreviewAdapter : ListAdapter<BookSearchResult, SearchBookPreview
         fun bind(item: BookSearchResult) {
             binding.item = item
             binding.executePendingBindings()
+
+            binding.searchBookPreview.setOnClickListener {
+                onBookClick(item.ISBN)
+            }
         }
     }
 }

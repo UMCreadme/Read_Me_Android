@@ -1,11 +1,13 @@
 package com.example.readme.ui.search.book
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchBookBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 
 class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.fragment_search_book) {
@@ -27,7 +29,16 @@ class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.frag
         super.initAfterBinding()
 
         // RecyclerView에 어댑터 설정
-        val adapter = SearchBookAdapter()
+        val adapter = SearchBookAdapter(
+            onBookClick = { ISBN ->
+                // 책 상세 화면으로 전환
+                val bookDetailFragment = BookDetailFragment()
+                val bundle = Bundle()
+                bundle.putString("ISBN", ISBN)
+                bookDetailFragment.arguments = bundle
+                (activity as MainActivity).addFragment(bookDetailFragment)
+            }
+        )
         binding.searchBookRecyclerView.adapter = adapter
 
         // Bundle로 전달된 검색어를 가져와서 사용

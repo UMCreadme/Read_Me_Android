@@ -50,6 +50,11 @@ interface ReadmeServerService {
         @Path("recentSearchesId") recentSearchesId: Int
     ): Response
 
+    @POST("/books/{isbn}")
+    suspend fun saveRecentSearchBook(
+        @Path("isbn") isbn: String
+    ): Response
+
     companion object {
         const val BASE_URL ="https://api.umcreadme11.shop"
     }

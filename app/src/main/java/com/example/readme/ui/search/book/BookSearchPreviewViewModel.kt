@@ -72,7 +72,6 @@ class BookSearchPreviewViewModel(
             try {
                 // Retrofit API 호출
                 val response = repository.searchBooksPreview(query, page, 50)
-                Log.i(TAG, "response: $response")
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
@@ -91,6 +90,22 @@ class BookSearchPreviewViewModel(
                 Log.e(TAG, "Error fetching search book items", e)
             } finally {
                 isLoading = false
+            }
+        }
+    }
+
+    // 최근 검색어 저장
+    fun saveRecentSearch(isbn: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.saveRecentSearchBook(isbn)
+
+                if(!response.isSuccess) {
+                    Log.e(TAG, "Failed to save recent search: ${response.code} - ${response.message}")
+                }
+            } catch (e: Exception) {
+                // 예외 발생한 경우
+                Log.e(TAG, "Error fetching search book items", e)
             }
         }
     }

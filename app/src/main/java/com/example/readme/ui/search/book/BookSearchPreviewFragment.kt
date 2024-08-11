@@ -1,11 +1,13 @@
 package com.example.readme.ui.search.book
 
+import android.os.Bundle
 import com.example.readme.R
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchbookPreviewBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 
 class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>(R.layout.fragment_searchbook_preview) {
@@ -27,7 +29,17 @@ class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>
         super.initAfterBinding()
 
         // Set the adapter for the RecyclerView
-        val adapter = SearchBookPreviewAdapter()
+        val adapter = SearchBookPreviewAdapter(
+            onBookClick = { ISBN ->
+                // 책 상세 화면으로 전환
+                val bookDetailFragment = BookDetailFragment()
+                val bundle = Bundle()
+                bundle.putString("ISBN", ISBN)
+                bookDetailFragment.arguments = bundle
+                (activity as MainActivity).addFragment(bookDetailFragment)
+                viewModel.saveRecentSearch(ISBN)
+            }
+        )
         binding.bookSearchesPreviewRecyclerView.adapter = adapter
 
         // Observe the search term list managed by the ViewModel
