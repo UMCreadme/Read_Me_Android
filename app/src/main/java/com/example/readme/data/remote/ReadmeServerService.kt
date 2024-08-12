@@ -59,12 +59,16 @@ interface ReadmeServerService {
     @GET("/books/{isbn}")
     suspend fun getBookDetail(
         @Path("isbn") isbn: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20,
         @Query("isBookId") isBookId: Boolean = false
     ): ResponseWithPagination<BookDetailResponse>
 
     @GET("/books/{bookId}")
     suspend fun getBookDetail(
         @Path("bookId") bookId: Int,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20,
         @Query("isBookId") isBookId: Boolean = true
     ): ResponseWithPagination<BookDetailResponse>
 

@@ -3,7 +3,6 @@ package com.example.readme.ui.search.book
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +36,7 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
         val ISBN = arguments?.getString("ISBN")
         val bookId = arguments?.getInt("bookId")
         Log.d("BookDetailFragment", "ISBN: $ISBN")
-        Log.d("BookDetailFragment", "BookId: $bookId")
+        Log.d("BookDetailFragment", "bookId: $bookId")
 
         // Observe the shorts list managed by the ViewModel
         if (bookId != null && bookId != 0) {
@@ -49,7 +48,6 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
         viewModel.bookDetail.observe(viewLifecycleOwner) {
             // Set the new data to the RecyclerView adapter
             binding.book = it
-            updateReadStatus()
         }
 
         viewModel.shorts.observe(viewLifecycleOwner) {
@@ -99,16 +97,4 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
         }
 
     }
-
-    private fun updateReadStatus() {
-        val isRead = viewModel.bookDetail.value?.isRead == true
-        if (isRead) {
-            binding.tvNotRead.visibility = View.VISIBLE
-            binding.tvRead.visibility = View.GONE
-        } else {
-            binding.tvNotRead.visibility = View.GONE
-            binding.tvRead.visibility = View.VISIBLE
-        }
-    }
-
 }
