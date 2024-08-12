@@ -1,5 +1,7 @@
 package com.example.readme.ui.search.book
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -50,17 +52,22 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
             updateReadStatus()
         }
 
+        viewModel.shorts.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
+        // Scroll listener for pagination
         binding.shortsPreviewRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val lastVisibleItemPosition = (recyclerView.layoutManager as GridLayoutManager).findLastCompletelyVisibleItemPosition()
-                    val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter?.itemCount ?: 0
 
-                    if (lastVisibleItemPosition + 1 == itemTotalCount) {
-                        // Load more shorts
-                    }
+                if (lastVisibleItemPosition >= itemTotalCount - 1) {
+                    // Load more shorts when reaching the end of the list
+                    viewModel.loadMoreShorts()
                 }
             }
         })
@@ -74,6 +81,21 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
             } else {
                 viewModel.updateReadStatus(bookId)
             }
+        }
+
+        // 구매하기 버튼 리스너
+        binding.buyButton.setOnClickListener {
+            // 구매하기 링크로 이동
+            val url = viewModel.bookDetail.value?.link ?: ""
+            if (url.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+        }
+
+        // 뒤로가기 버튼 리스너
+        binding.backButton.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
     }

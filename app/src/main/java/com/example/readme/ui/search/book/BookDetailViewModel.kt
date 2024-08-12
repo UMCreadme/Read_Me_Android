@@ -18,38 +18,74 @@ class BookDetailViewModel(
     val bookDetail: LiveData<BookDetail?> get() = _bookDetail
 
     private val _shorts = MutableLiveData<List<ShortsPreview>?>()
-    private val shorts: LiveData<List<ShortsPreview>?> get() = _shorts
+    val shorts: LiveData<List<ShortsPreview>?> get() = _shorts
 
-    fun getBookDetail(isbn: String) {
+    // 페이지네이션 관련 변수들
+    private var currentPage = 1
+    private var hasNext = true
+    private var isLoading = false
+    private val SIZE = 30
+
+    fun getBookDetail(bookId: Int, page: Int = 1) {
+        if (isLoading) return
+        isLoading = true
         viewModelScope.launch {
             try {
-                val response = repository.getBookDetail(isbn)
+                val response = repository.getBookDetail(bookId, page, SIZE)
                 if (response.isSuccess) {
-                    _bookDetail.postValue(response.result.bookDetail)
-                    _shorts.postValue(response.result.shorts)
+                    if (page == 1) {
+                        _bookDetail.postValue(response.result.bookDetail)
+                        _shorts.postValue(response.result.shorts)
+                    } else {
+                        val currentList = _shorts.value.orEmpty().toMutableList()
+                        currentList.addAll(response.result.shorts)
+                        _shorts.postValue(currentList)
+                    }
+                    hasNext = response.pageInfo.hasNext
+                    currentPage = page
                 } else {
                     Log.e(TAG, "Failed to fetch book detail: ${response.code} - ${response.message}")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching book detail", e)
+            } finally {
+                isLoading = false
             }
         }
     }
 
-    fun getBookDetail(bookId: Int) {
+    fun getBookDetail(ISBN: String, page: Int = 1) {
+        if (isLoading) return
+        isLoading = true
         viewModelScope.launch {
             try {
-                val response = repository.getBookDetail(bookId)
+                val response = repository.getBookDetail(ISBN, page, SIZE)
                 if (response.isSuccess) {
-                    _bookDetail.postValue(response.result.bookDetail)
-                    _shorts.postValue(response.result.shorts)
+                    if (page == 1) {
+                        _bookDetail.postValue(response.result.bookDetail)
+                        _shorts.postValue(response.result.shorts)
+                    } else {
+                        val currentList = _shorts.value.orEmpty().toMutableList()
+                        currentList.addAll(response.result.shorts)
+                        _shorts.postValue(currentList)
+                    }
+                    hasNext = response.pageInfo.hasNext
+                    currentPage = page
                 } else {
                     Log.e(TAG, "Failed to fetch book detail: ${response.code} - ${response.message}")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching book detail", e)
+            } finally {
+                isLoading = false
             }
         }
+    }
+
+    fun loadMoreShorts() {
+        if (isLoading || !hasNext) return
+        val bookId = _bookDetail.value?.bookId ?: return
+        getBookDetail(bookId, currentPage + 1)
     }
 
     fun updateReadStatus(bookId: Int) {
@@ -74,6 +110,11 @@ class BookDetailViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.updateReadStatus(isbn)
+                if(response.code == "2010") {
+                    _bookDetail.postValue(_bookDetail.value?.copy(isRead = true))
+                } else if (response.code == "2040") {
+                    _bookDetail.postValue(_bookDetail.value?.copy(isRead = false))
+                }
                 if (!response.isSuccess) {
                     Log.e(TAG, "Failed to update read status: ${response.code} - ${response.message}")
                 }

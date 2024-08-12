@@ -26,7 +26,7 @@ class BookDetailAdapter: ListAdapter<ShortsPreview, BookDetailAdapter.ShortsView
 
         inner class ShortsViewHolder(private val binding: ShortsPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
             fun bind(item: ShortsPreview) {
-                binding.item = item
+                binding.shorts = item
                 binding.executePendingBindings()
             }
         }

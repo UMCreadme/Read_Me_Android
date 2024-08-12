@@ -30,8 +30,8 @@ object SearchRepository {
     suspend fun saveRecentSearchBook(isbn:String) = apiService.saveRecentSearchBook(isbn)
 
     // 책 상세 정보 조회
-    suspend fun getBookDetail(isbn: String) = apiService.getBookDetail(isbn)
-    suspend fun getBookDetail(bookId: Int) = apiService.getBookDetail(bookId)
+    suspend fun getBookDetail(isbn: String, page:Int, size: Int) = apiService.getBookDetail(isbn, page, size)
+    suspend fun getBookDetail(bookId: Int, page:Int, size: Int) = apiService.getBookDetail(bookId, page, size)
 
     // 책 읽음 여부 업데이트
     suspend fun updateReadStatus(bookId: Int) = apiService.updateReadStatus(bookId)

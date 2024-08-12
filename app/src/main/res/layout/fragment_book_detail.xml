@@ -191,14 +191,14 @@
                 android:id="@+id/shorts_preview_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:paddingHorizontal="24dp"
+                android:paddingHorizontal="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shorts_title"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
-                tools:listitem="@layout/item_search_book"/>
+                tools:listitem="@layout/shorts_preview"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
