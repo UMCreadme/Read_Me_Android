@@ -9,7 +9,7 @@ import com.example.readme.data.entities.category.CategoryFeedResponse
 import com.example.readme.data.entities.category.FeedInfo
 import com.example.readme.data.entities.inithome.MainInfoResponse
 import com.example.readme.data.entities.inithome.ShortsInfo
-import com.example.readme.ui.utils.RetrofitClient
+import com.example.readme.utils.RetrofitClient
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
