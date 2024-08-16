@@ -1,0 +1,27 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.readme.ui.community.CommunityViewModel" /> <!-- ViewModel 클래스 경로를 맞게 수정하세요 -->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="55dp"
+            android:scrollbars="vertical"/>
+
+        <!-- 다른 뷰들 -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -53,10 +53,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nickname_tf"
-            android:layout_width="380dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/nickname_info_tv"
+
             app:layout_constraintTop_toBottomOf="@id/nickname_info_tv"
             android:layout_marginTop="10dp">
 
@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:hint="닉네임을 입력해주세요" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/nicknameError_tv"
@@ -94,10 +95,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/id_tf"
-            android:layout_width="380dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/id_info_tv"
+
             app:layout_constraintTop_toBottomOf="@id/id_info_tv"
             android:layout_marginTop="10dp">
 
@@ -107,6 +108,19 @@
                 android:layout_height="wrap_content"
                 android:hint="아이디를 입력해주세요" />
         </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <Button-->
+<!--            android:id="@+id/id_duplicate_btn"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:text="중복 체크"-->
+<!--            android:layout_marginTop="8dp"-->
+
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintHorizontal_bias="0.509"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/id_tf"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/id_tf" />-->
+
         <TextView
             android:id="@+id/idnameError_tv"
             android:layout_width="100dp"
@@ -119,7 +133,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/id_info_tv"
             app:layout_constraintTop_toBottomOf="@id/id_tf" />
-
+        <TextView
+            android:id="@+id/idnameduplicateError_tv"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@id/id_info_tv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/id_info_tv"
+            app:layout_constraintTop_toBottomOf="@id/id_tf" />
 
         <Button
             android:id="@+id/userinfo_next_btn"

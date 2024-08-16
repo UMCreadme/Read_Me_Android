@@ -1,19 +1,16 @@
 package com.example.readme.ui
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 
 
-import android.text.TextUtils.replace
 import android.view.View
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.android.identity.android.legacy.Utility
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
-import com.example.readme.ui.community.CommunityFragment
+import com.example.readme.ui.community.CommunitySearchFragment
 import com.example.readme.ui.home.HomeFragment
 import com.example.readme.ui.mypage.MyPageFragment
 import com.example.readme.ui.search.SearchFragment
@@ -51,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             val selectedFragment: Fragment? = when (item.itemId) {
                 R.id.navigation_home -> HomeFragment()
                 R.id.navigation_search -> SearchFragment()
-                R.id.navigation_community -> CommunityFragment()
+                R.id.navigation_community -> CommunitySearchFragment()
                 R.id.navigation_mypage -> MyPageFragment()
                 else -> null
             }
