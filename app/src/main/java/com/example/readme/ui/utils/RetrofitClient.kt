@@ -31,10 +31,17 @@ object RetrofitClient {
             chain.proceed(request)
         }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
-            .addInterceptor(interceptor)
-            .build()
+        val client = if(token !== null) {
+            OkHttpClient.Builder()
+                .addInterceptor(authInterceptor)
+                .addInterceptor(interceptor)
+                .build()
+        } else {
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+        }
+
         if (mainInfoRetrofit == null) {
             mainInfoRetrofit = Retrofit.Builder()
                 .baseUrl(MainInfoService.BASE_URL)  // baseUrl은 해당 서비스에 맞게 설정

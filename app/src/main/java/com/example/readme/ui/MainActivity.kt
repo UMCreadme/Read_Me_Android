@@ -23,16 +23,17 @@ class MainActivity : AppCompatActivity() {
 
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        showInit()
         setupBottomNavigationView()
+
         setSupportActionBar(binding.toolbar)
 
-        // Disable displaying the title in the Toolbar
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
-
     }
 
     override fun onBackPressed() {
