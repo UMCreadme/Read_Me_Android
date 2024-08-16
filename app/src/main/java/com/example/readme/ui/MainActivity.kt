@@ -2,13 +2,14 @@ package com.example.readme.ui
 
 import android.os.Bundle
 import android.view.View
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
-import com.example.readme.ui.community.CommunityFragment
+import com.example.readme.ui.community.CommunitySearchFragment
 import com.example.readme.ui.home.HomeFragment
 import com.example.readme.ui.mypage.MyPageFragment
 import com.example.readme.ui.search.SearchFragment
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_community -> {
-                    changeFragment(CommunityFragment())
+                    changeFragment(CommunitySearchFragment())
                 }
                 R.id.navigation_mypage -> {
                     changeFragment(MyPageFragment())
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
     }
+
 
     fun ShowHome(){
         binding.toolbar.visibility = View.VISIBLE

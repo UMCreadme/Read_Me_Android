@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     private var _binding: FragmentMypageBinding? = null
+
     private val information = arrayListOf("내 쇼츠", "찜 쇼츠", "읽은 책")
 
     private val viewModel: MyPageViewModel by viewModels()
