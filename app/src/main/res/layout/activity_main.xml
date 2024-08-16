@@ -18,6 +18,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="70dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
@@ -26,13 +27,13 @@ xmlns:tools="http://schemas.android.com/tools">
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:searchIcon="@drawable/ic_search_default"
+            android:visibility="gone"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:queryHint="태그를 검색해 볼 수 있어요."
-            android:visibility="gone"/>
+            app:searchIcon="@drawable/search_icon" />
 
         <TextView
             android:id="@+id/main_Logo"
@@ -40,19 +41,11 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Read Me"
-            android:textSize="35sp"
             android:textColor="@color/Primary"
+            android:textSize="35sp"
             android:textStyle="bold"
             android:visibility="visible" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btn_filter"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/filter_icon"
-            android:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_setting"
@@ -71,6 +64,30 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_marginStart="20dp"
             android:src="@drawable/backbtn_icon"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:text="프레이즈 만들기"
+            android:textColor="@color/Black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20sp"
+            android:background="@drawable/round"
+            android:text="미리 보기"
+            android:visibility="gone"
+             />
 
     </androidx.appcompat.widget.Toolbar>
 
