@@ -95,16 +95,18 @@ class UserinfoViewModel : ViewModel() {
                 val response = repository.sendSignUpInfo(user)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        Log.d("UserinfoViewModel", "Sign up response: ${response.body()}")
-                        _member4005Error.value = false // 성공적인 경우에는 4005 오류 리셋
+                        Log.d("UserinfoViewModel", "Sign up response: ${response.body(
+                            
+                        )}")
+                        _member4005Error.value = false
                     } else {
                         val errorMessage = response.errorBody()?.string()
                         Log.e("UserinfoViewModel", "Sign up failed: $errorMessage")
                         if (response.code() == 400 && errorMessage?.contains("MEMBER4005") == true) {
-                            _member4005Error.value = true // MEMBER4005 오류 발생 시
+                            _member4005Error.value = true
                         } else {
-                            _member4005Error.value = false // 다른 오류는 4005 오류 리셋
-                            // MainActivity로 이동하는 로직을 추가할 수 있음
+                            _member4005Error.value = false
+
 
                         }
                     }

@@ -185,19 +185,19 @@ class UserinfoActivity : AppCompatActivity() {
             submitUserInfo()
         }
 
-        // ViewModel의 member4005Error를 관찰하여 오류 메시지 표시
+
         userinfoViewModel.member4005Error.observe(this) { isMember4005 ->
             if (isMember4005) {
                 idDuplicateTextView.visibility = View.VISIBLE
                 idDuplicateTextView.text = "*아이디 중복"
                 idDuplicateTextView.setTextColor(Color.RED)
-                // 글씨체 변경 (예: 굵게)
+
                 idDuplicateTextView.setTypeface(null, android.graphics.Typeface.BOLD)
                 Toast.makeText(this, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 idDuplicateTextView.visibility = View.GONE
                 idDuplicateTextView.text = ""
-                goToMainActivity() // 정상 처리 시 MainActivity로 이동
+                goToMainActivity()
             }
         }
     }
