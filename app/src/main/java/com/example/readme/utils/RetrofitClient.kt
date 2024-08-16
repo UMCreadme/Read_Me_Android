@@ -39,16 +39,13 @@ object RetrofitClient {
             chain.proceed(request)
         }
 
-        var client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build();
-        if(token !== null) {
-            client = OkHttpClient.Builder()
+        val client = if(token !== null) {
+            OkHttpClient.Builder()
                 .addInterceptor(authInterceptor)
                 .addInterceptor(interceptor)
                 .build()
         } else {
-            client = OkHttpClient.Builder()
+            OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build()
         }
