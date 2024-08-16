@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
     fun ShowHome(){
         binding.btnNext.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
+        binding.toolbar.visibility = View.VISIBLE
         binding.mainLogo.visibility = View.VISIBLE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ShowSearch(){
+        binding.toolbar.visibility = View.GONE
         binding.mainLogo.visibility = View.GONE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE

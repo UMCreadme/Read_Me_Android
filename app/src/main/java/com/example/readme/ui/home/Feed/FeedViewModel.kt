@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.readme.data.entities.category.CategoryFeedResponse
 import com.example.readme.data.entities.category.FeedInfo
-import com.example.readme.data.entities.inithome.FeedInfo
 import com.example.readme.data.entities.inithome.MainInfoResponse
 import com.example.readme.data.entities.inithome.ShortsInfo
 import com.example.readme.ui.utils.RetrofitClient

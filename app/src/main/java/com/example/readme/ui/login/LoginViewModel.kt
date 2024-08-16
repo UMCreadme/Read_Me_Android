@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.readme.LoginRepository
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.entities.UserData
 import com.google.gson.Gson

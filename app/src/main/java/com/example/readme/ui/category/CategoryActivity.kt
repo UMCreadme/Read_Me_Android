@@ -1,23 +1,20 @@
 // CategoryActivity.kt
-package com.example.readme
+package com.example.readme.ui.category
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ToggleButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.readme.ui.category.CategoryViewModel
+import com.example.readme.R
 import com.example.readme.ui.userinfo.UserinfoActivity
 
 class CategoryActivity : AppCompatActivity() {
 
     private val categoryViewModel: CategoryViewModel by viewModels()
     private lateinit var toggleButtons: List<ToggleButton>
-//    private lateinit var uniqueId: String
-//    private lateinit var email: String
     private var uniqueId: String? = null
     private var email: String? = null
 
@@ -26,8 +23,6 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-//        uniqueId = intent.getStringExtra("uniqueId") ?: ""
-//        email = intent.getStringExtra("email") ?: ""
         uniqueId = intent.getStringExtra("uniqueId")
         email = intent.getStringExtra("email")
 
@@ -60,29 +55,6 @@ class CategoryActivity : AppCompatActivity() {
             toggleButton.setOnClickListener { onToggleButtonClicked(it) }
         }
 
-//        val btnNext: Button = findViewById(R.id.category_next_btn)
-//        btnNext.setOnClickListener {
-//            val selectedIds = categoryViewModel.selectedToggleIds.value ?: listOf()
-//            val intent = Intent(this, UserinfoActivity::class.java).apply {
-//                putExtra("categoryIdList", ArrayList(selectedIds))
-//                putExtra("uniqueId", uniqueId)
-//                putExtra("email", email)
-//            }
-//            startActivity(intent)
-//            finish()
-//        }
-//    }
-//
-//    private fun onToggleButtonClicked(view: View?) {
-//        val isChecked = (view as ToggleButton).isChecked
-//        val customId = view.tag.toString().toInt()
-//        if (!isChecked || categoryViewModel.canSelectMore()) {
-//            categoryViewModel.toggleSelection(isChecked, customId)
-//        } else {
-//            view.isChecked = false
-//        }
-//    }
-//}
         val btnNext: Button = findViewById(R.id.category_next_btn)
         btnNext.setOnClickListener {
             goToUserinfoActivity()

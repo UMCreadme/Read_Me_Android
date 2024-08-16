@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-
 class StartImgViewModel : ViewModel(){
 
    private  val repository = StartImgRepository()

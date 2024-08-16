@@ -1,7 +1,6 @@
-package com.example.readme.ui.home
+package com.example.readme.ui.home.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.databinding.TagItemBinding

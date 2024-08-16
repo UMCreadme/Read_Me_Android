@@ -1,4 +1,4 @@
-package com.example.readme.ui.community
+package com.example.readme.data.entities
 
 data class CommunityItem(
     val title: String,

@@ -1,6 +1,5 @@
 package com.example.readme.ui.home.make.book
 
-import RecentBookAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.data.entities.booklist.Book
 import com.example.readme.databinding.FragmentBookSearchBinding
-import com.example.readme.data.entities.recentbook.Book
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItemClickListener,

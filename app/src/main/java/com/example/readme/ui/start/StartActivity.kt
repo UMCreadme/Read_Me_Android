@@ -1,4 +1,4 @@
-package com.example.readme
+package com.example.readme.ui.start
 
 import ImagePagerAdapter
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.readme.R
 import com.example.readme.databinding.ActivityStartBinding
-import com.example.readme.ui.start.StartImgViewModel
 import me.relex.circleindicator.CircleIndicator3
 
 class StartActivity : AppCompatActivity() {

@@ -3,6 +3,7 @@ package com.example.readme.ui.community
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.readme.data.entities.CommunityItem
 
 class CommunityViewModel: ViewModel() {
     private val _communityItems = MutableLiveData<List<CommunityItem>>()

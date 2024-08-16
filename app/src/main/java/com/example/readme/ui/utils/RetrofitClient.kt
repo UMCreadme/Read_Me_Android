@@ -12,9 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
 
     private var kakaoRetrofit: Retrofit? = null
-    private var customRetrofit: Retrofit? = null
+    private var ReadmeRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
-    private var token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJlbWFpbCI6InJlYWRtZV9hZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzgwNDExMCwiZXhwIjoxNzIzODE0OTEwfQ.qj1juB3-ieziWcUZ9yIWFVOdoX7qN9MIRBIyuM7ujtk"
+    private val token: String? = null
 
     // MainInfoService Retrofit 객체 생성
     fun getMainInfoService(): MainInfoService {
@@ -58,14 +58,37 @@ object RetrofitClient {
 
     // Readme 서버 API Retrofit 객체 생성
     fun getReadmeServerService(): ReadmeServerService {
-        if (customRetrofit == null) {
-            customRetrofit = Retrofit.Builder()
+        val interceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val authInterceptor = Interceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .header("Authorization", "Bearer $token")
+                .method(original.method, original.body)
+                .build()
+            chain.proceed(request)
+        }
+
+        val client = if(token !== null) {
+            OkHttpClient.Builder()
+                .addInterceptor(authInterceptor)
+                .addInterceptor(interceptor)
+                .build()
+        } else {
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+        }
+
+        if (ReadmeRetrofit == null) {
+            ReadmeRetrofit = Retrofit.Builder()
                 .baseUrl(ReadmeServerService.BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return customRetrofit!!.create(ReadmeServerService::class.java)
+        return ReadmeRetrofit!!.create(ReadmeServerService::class.java)
     }
-
-
 }

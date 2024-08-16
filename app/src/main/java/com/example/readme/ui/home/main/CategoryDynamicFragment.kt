@@ -9,14 +9,13 @@ import com.example.readme.R
 import com.example.readme.data.entities.category.FeedInfo
 import com.example.readme.databinding.FragmentDynamicBinding
 import com.example.readme.ui.MainActivity
-import com.example.readme.data.entities.inithome.FeedInfo
 import com.example.readme.data.entities.inithome.ShortsInfo
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.home.Feed.Feed2Adapter
 import com.example.readme.ui.home.Feed.FeedAdapter
 import com.example.readme.ui.home.Feed.FeedViewModel
 import com.example.readme.ui.home.Feed.ShortsAdapter
 import com.example.readme.ui.home.shortsdetail.ShortsDetailFragment
-import com.example.whashow.base.BaseFragment
 
 class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fragment_dynamic) {
 
@@ -76,8 +75,8 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
 
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", feed.shorts_id)
-                                Log.d("shortId", feed.shorts_id.toString())
+                                putInt("shortsId", feed.shortsId)
+                                Log.d("shortId", feed.shortsId.toString())
                                 putString("start", "main")
                                 // 필요한 경우 추가 데이터도 함께 전달
                             }

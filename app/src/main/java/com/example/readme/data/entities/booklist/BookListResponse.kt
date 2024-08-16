@@ -1,7 +1,6 @@
 package com.example.readme.data.entities.booklist
 
-import com.example.readme.data.entities.recentbook.Book
-import com.example.readme.data.entities.recentbook.PageInfo
+import com.example.readme.data.remote.PageInfo
 import com.google.gson.annotations.SerializedName
 
 // 전체 응답을 감싸는 데이터 클래스

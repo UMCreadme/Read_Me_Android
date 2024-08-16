@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.databinding.ShortsdetailItemBinding
 import com.bumptech.glide.Glide // 또는 다른 이미지 로딩 라이브러리 사용
 import com.example.readme.data.entities.detail.ShortsDetailInfo
-import com.example.readme.data.entities.detail.ShortsDetailResponse
 
 class ShortsDetailAdapter(val list: List<ShortsDetailInfo>) : RecyclerView.Adapter<ShortsDetailAdapter.ShortsDetailHolder>() {
 

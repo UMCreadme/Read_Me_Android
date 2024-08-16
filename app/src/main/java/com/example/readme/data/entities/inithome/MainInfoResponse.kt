@@ -1,4 +1,5 @@
 package com.example.readme.data.entities.inithome
+
 import com.example.readme.data.remote.PageInfo
 import com.google.gson.annotations.SerializedName
 
@@ -33,7 +34,7 @@ data class FeedInfo(
     @SerializedName("userId") val userId: Int,
     @SerializedName("profileImg") val profileImg: String,
     @SerializedName("nickname") val nickname: String,
-    @SerializedName("shorts_id") val shorts_id: Int,
+    @SerializedName("shortsId") val shortsId: Int,
     @SerializedName("shortsImg") val shortsImg: String,
     @SerializedName("phrase") val phrase: String,
     @SerializedName("title") val title: String,

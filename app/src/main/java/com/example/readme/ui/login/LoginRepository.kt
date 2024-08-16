@@ -1,11 +1,9 @@
 // LoginRepository.kt
-package com.example.readme
+package com.example.readme.ui.login
 
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.entities.UserData
 
-import com.example.readme.ui.login.KakaoLoginService
-import com.example.readme.ui.login.LoginResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
