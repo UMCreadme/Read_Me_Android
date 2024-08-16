@@ -12,7 +12,7 @@ object RetrofitClient {
 
     private var kakaoRetrofit: Retrofit? = null
     private var ReadmeRetrofit: Retrofit? = null
-    private val token: String = ""
+    private val token: String? = null
     // 카카오톡 로그인 API Retrofit 객체 생성
     fun getKakaoLoginService(): KakaoLoginService {
         if (kakaoRetrofit == null) {
@@ -39,10 +39,19 @@ object RetrofitClient {
             chain.proceed(request)
         }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
+        var client = OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .build()
+            .build();
+        if(token !== null) {
+            client = OkHttpClient.Builder()
+                .addInterceptor(authInterceptor)
+                .addInterceptor(interceptor)
+                .build()
+        } else {
+            client = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+        }
 
         if (ReadmeRetrofit == null) {
             ReadmeRetrofit = Retrofit.Builder()
