@@ -18,6 +18,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
 
+        <item name="android:fontFamily">@font/font_pretendard</item>
+        <item name="fontFamily">@font/font_pretendard</item>
+
     </style>
 
     <!-- BottomNavigationView theme-->
@@ -25,6 +28,34 @@
         <item name="backgroundTint">@color/White</item>
         <item name="itemIconTint">@color/bottom_nav_item_color</item>
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
+    </style>
+
+    <!-- 지선님 tab layout 스타일-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+    <!-- 책 표지 Rounding 처리 -->
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- 둥근 이미지를 위한 스타일 -->
+    <style name="RoundImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- 읽음 버튼을 위한 스타일-->
+    <style name="ReadSwitchButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
     </style>
 
 </resources>

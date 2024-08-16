@@ -22,18 +22,6 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:searchIcon="@drawable/ic_search_default"
-            app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="태그를 검색해 볼 수 있어요."
-            android:visibility="gone"/>
-
         <TextView
             android:id="@+id/main_Logo"
             android:layout_width="wrap_content"
@@ -96,9 +84,6 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         style="@style/BottomNavigationViewStyle"/>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
