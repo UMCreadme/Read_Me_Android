@@ -1,7 +1,6 @@
 package com.example.readme.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
@@ -32,12 +31,12 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
         val adapter = RecentSearchAdapter(
             onBookClick = { bookId ->
                 // 책 상세 화면으로 전환
-                val bookDetailFragment = BookDetailFragment()
-                val bundle = Bundle()
-                bundle.putInt("bookId", bookId)
-                bookDetailFragment.arguments = bundle
-                Log.d("RecentSearchFragment", "bookId: ${bookDetailFragment.arguments?.getInt("bookId")}")
-                (activity as MainActivity).addFragment(BookDetailFragment())
+                val bookDetailFragment = BookDetailFragment().apply{
+                    arguments = Bundle().apply {
+                        putInt("bookId", bookId)
+                    }
+                }
+                (activity as MainActivity).addFragment(bookDetailFragment)
             },
             onQueryClick = { query ->
                 // 검색 결과 화면으로 전환
