@@ -133,6 +133,6 @@ dependencies {
     implementation ("com.kakao.sdk:v2-cert:2.20.3") // 카카오톡 인증 서비스 API 모듈
 
     //Glide
-    implementation (libs.glide)
-    annotationProcessor(libs.compiler)
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 }
