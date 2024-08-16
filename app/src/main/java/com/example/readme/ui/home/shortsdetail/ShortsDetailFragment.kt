@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.example.readme.R
 import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
-import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
+import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.home.ShortsDetailAdapter
 import com.example.whashow.base.BaseFragment
 

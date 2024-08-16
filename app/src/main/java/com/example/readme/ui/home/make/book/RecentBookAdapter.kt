@@ -4,11 +4,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.databinding.ItemBookBinding
-import com.example.readme.ui.data.entities.recentbook.Book
+import com.example.readme.data.entities.recentbook.Book
 
 import com.example.readme.ui.home.make.book.BookSearchFragment
 
-class RecentBookAdapter(var list: List<com.example.readme.ui.data.entities.recentbook.Book>, private var isRecent: Boolean = true) : RecyclerView.Adapter<RecentBookAdapter.BookHolder>() {
+class RecentBookAdapter(var list: List<Book>, private var isRecent: Boolean = true) : RecyclerView.Adapter<RecentBookAdapter.BookHolder>() {
 
     interface MyItemClickListener {
         fun onItemClick(book: Book)

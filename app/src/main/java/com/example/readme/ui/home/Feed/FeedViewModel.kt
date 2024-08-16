@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.readme.ui.data.entities.category.CategoryFeedResponse
-import com.example.readme.ui.data.entities.inithome.FeedInfo
-import com.example.readme.ui.data.entities.inithome.MainInfoResponse
-import com.example.readme.ui.data.entities.inithome.ShortsInfo
+import com.example.readme.data.entities.category.CategoryFeedResponse
+import com.example.readme.data.entities.category.FeedInfo
+import com.example.readme.data.entities.inithome.FeedInfo
+import com.example.readme.data.entities.inithome.MainInfoResponse
+import com.example.readme.data.entities.inithome.ShortsInfo
 import com.example.readme.ui.utils.RetrofitClient
 import retrofit2.Response
 import retrofit2.Call
@@ -16,21 +17,21 @@ import retrofit2.Callback
 
 // ViewModel에서 데이터 요청
 class FeedViewModel : ViewModel() {
-    private val _feeds = MutableLiveData<List<FeedInfo>>()
-    val feeds: LiveData<List<FeedInfo>> get() = _feeds
+    private val _feeds = MutableLiveData<List<com.example.readme.data.entities.inithome.FeedInfo>>()
+    val feeds: LiveData<List<com.example.readme.data.entities.inithome.FeedInfo>> get() = _feeds
 
     private val _shorts = MutableLiveData<List<ShortsInfo>>()
     val shorts: LiveData<List<ShortsInfo>> get() = _shorts
 
-    private val _categoryFeeds = MutableLiveData<List<com.example.readme.ui.data.entities.category.FeedInfo>>()
-    val categoryFeeds: LiveData<List<com.example.readme.ui.data.entities.category.FeedInfo>> get() = _categoryFeeds
+    private val _categoryFeeds = MutableLiveData<List<FeedInfo>>()
+    val categoryFeeds: LiveData<List<FeedInfo>> get() = _categoryFeeds
 
 
     private val _categories = MutableLiveData<List<String>>()
     val categories: LiveData<List<String>> get() = _categories
 
-    private val _combinedData = MediatorLiveData<Pair<List<FeedInfo>, List<ShortsInfo>>>()
-    val combinedData: LiveData<Pair<List<FeedInfo>, List<ShortsInfo>>> get() = _combinedData
+    private val _combinedData = MediatorLiveData<Pair<List<com.example.readme.data.entities.inithome.FeedInfo>, List<ShortsInfo>>>()
+    val combinedData: LiveData<Pair<List<com.example.readme.data.entities.inithome.FeedInfo>, List<ShortsInfo>>> get() = _combinedData
 
     init {
         _combinedData.value = Pair(emptyList(), emptyList())
@@ -83,7 +84,7 @@ class FeedViewModel : ViewModel() {
             override fun onResponse(call: Call<CategoryFeedResponse>, response: Response<CategoryFeedResponse>) {
                 Log.d("anothor", "fetchCatrgory")
                 if (response.body()?.isSuccess == true) {
-                    val feedList: List<com.example.readme.ui.data.entities.category.FeedInfo> = response.body()?.result ?: emptyList()
+                    val feedList: List<FeedInfo> = response.body()?.result ?: emptyList()
                     _categoryFeeds.postValue(feedList)
                     Log.d("anothor", "${feedList}")
                 } else {

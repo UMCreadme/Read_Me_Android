@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.databinding.ShortsItemBinding
-import com.example.readme.ui.data.entities.inithome.ShortsInfo
+import com.example.readme.data.entities.inithome.ShortsInfo
 
 class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<ShortsAdapter.ShortsHolder>() {
 

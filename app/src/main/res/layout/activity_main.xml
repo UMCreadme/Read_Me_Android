@@ -18,22 +18,9 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="70dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:visibility="gone"
-            app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="태그를 검색해 볼 수 있어요."
-            app:searchIcon="@drawable/search_icon" />
 
         <TextView
             android:id="@+id/main_Logo"
@@ -45,7 +32,6 @@ xmlns:tools="http://schemas.android.com/tools">
             android:textSize="35sp"
             android:textStyle="bold"
             android:visibility="visible" />
-
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_setting"
@@ -105,16 +91,14 @@ xmlns:tools="http://schemas.android.com/tools">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:backgroundTint="@color/White"
-        app:itemIconTint="@color/Black"
-        app:itemTextColor="@color/Black"
         app:itemIconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
-
+        app:menu="@menu/bottom_nav_menu"
+        style="@style/BottomNavigationViewStyle"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

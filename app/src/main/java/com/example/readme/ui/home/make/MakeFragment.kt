@@ -1,7 +1,6 @@
 package com.example.readme.ui.home.make
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -20,8 +19,6 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ListPopupWindow
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,9 +27,9 @@ import androidx.core.content.ContextCompat
 import com.example.readme.R
 import com.example.readme.databinding.FragmentMakeBinding
 import com.example.readme.ui.MainActivity
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.home.make.book.BookSearchFragment
 import com.example.readme.ui.home.make.preview.PreViewFragment
-import com.example.whashow.base.BaseFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 

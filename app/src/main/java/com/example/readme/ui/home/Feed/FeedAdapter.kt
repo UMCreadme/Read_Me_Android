@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.readme.R
 import com.example.readme.databinding.FeedItemBinding
-import com.example.readme.ui.data.entities.inithome.FeedInfo
+import com.example.readme.data.entities.inithome.FeedInfo
 
 class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
 

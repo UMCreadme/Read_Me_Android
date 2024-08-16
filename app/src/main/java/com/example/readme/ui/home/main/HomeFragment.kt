@@ -7,11 +7,10 @@ import androidx.lifecycle.Observer
 import com.example.readme.R
 import com.example.readme.databinding.FragmentHomeBinding
 import com.example.readme.ui.MainActivity
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.home.Feed.FeedViewModel
 import com.example.readme.ui.home.make.MakeFragment
-//import com.example.readme.ui.home.make.MakeFragment
 
-import com.example.whashow.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.databinding.ItemBookBinding
-import com.example.readme.ui.data.entities.booklist.Book
+import com.example.readme.data.entities.booklist.Book
 
 class BookListAdapter(var list: List<Book>) : RecyclerView.Adapter<BookListAdapter.BookHolder>() {
 

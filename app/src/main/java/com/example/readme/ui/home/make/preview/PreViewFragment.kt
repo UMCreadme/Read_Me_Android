@@ -8,20 +8,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.children
 import com.example.readme.R
 import com.example.readme.databinding.FragmentPreViewBinding
 import com.example.readme.ui.MainActivity
-import com.example.readme.ui.utils.RetrofitClient
-import com.example.whashow.base.BaseFragment
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.File
+import com.example.readme.ui.base.BaseFragment
 
 class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_pre_view) {
 

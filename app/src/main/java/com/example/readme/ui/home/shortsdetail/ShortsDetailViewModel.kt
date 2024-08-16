@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
-import com.example.readme.ui.data.entities.detail.ShortsDetailResponse
+import com.example.readme.data.entities.detail.ShortsDetailInfo
+import com.example.readme.data.entities.detail.ShortsDetailResponse
 
 import com.example.readme.ui.utils.RetrofitClient
 import retrofit2.Call
