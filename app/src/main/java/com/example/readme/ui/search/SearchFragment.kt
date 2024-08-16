@@ -1,5 +1,6 @@
 package com.example.readme.ui.search
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.readme.R
 import com.example.readme.databinding.FragmentHomeBinding
@@ -12,4 +13,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         super.initStartView()
         (activity as MainActivity).ShowSearch()
     }
+    
+
 }
