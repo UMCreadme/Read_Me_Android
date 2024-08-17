@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tagText"
+    android:padding = "3dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/tag_background"
+    android:gravity="center"
+    android:text="#아름다운"
+    android:textColor="@color/White"
+    android:textSize="15sp"
+    android:textStyle="bold" />

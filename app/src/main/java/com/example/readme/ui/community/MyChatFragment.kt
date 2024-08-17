@@ -39,7 +39,7 @@ class MyChatFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_my_chat, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerView)
-        adapter = CommunityAdapter(chatList)
+//        adapter = CommunityAdapter(chatList) // TODO: 승연님이 사용하는 어댑터와 지선님이 사용하는 어댑터 상이
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter

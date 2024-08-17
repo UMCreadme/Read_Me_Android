@@ -3,7 +3,6 @@ package com.example.readme.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.readme.data.remote.ReadmeServerService
-import com.example.readme.ui.mypage.MyPageViewModel
 
 class UserProfileViewModelFactory(private val userId: String, private val apiService: ReadmeServerService) : ViewModelProvider.Factory {
 

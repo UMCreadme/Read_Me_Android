@@ -1,16 +1,8 @@
 package com.example.readme.ui.profile
 
-import MyPageViewModelFactory
-import androidx.fragment.app.viewModels
 import com.example.readme.R
 import com.example.readme.databinding.FragmentUserprofileBinding
-import androidx.fragment.app.viewModels
-import com.example.readme.data.remote.ReadmeServerService
-import com.example.readme.ui.MainActivity
-import com.example.readme.ui.mypage.ViewPagerAdapter
-import com.example.readme.utils.RetrofitClient
-import com.example.whashow.base.BaseFragment
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.readme.ui.base.BaseFragment
 
 class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fragment_userprofile) {
 

@@ -2,293 +2,201 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.community.BookDetailFragment">
+    tools:context=".ui.search.book.BookDetailFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.readme.ui.community.BookDetailViewModel" />
+            type="com.example.readme.ui.search.book.BookDetailViewModel" />
+        <variable
+            name="book"
+            type="com.example.readme.data.entities.BookDetail" />
+        <variable
+            name="shorts"
+            type="com.example.readme.data.entities.ShortsPreview" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/Light_Light_Gray">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <!-- Collapsing Toolbar Layout -->
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"
-            tools:ignore="MissingConstraints">
+            android:background="@color/Light_Light_Gray"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!-- 뒤로가기 버튼 -->
-            <ImageView
-                android:id="@+id/back_community_list"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/back_btn"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin">
+
+                <!-- Container for centralizing the Book Cover Image -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Book Cover Image -->
+                    <ImageView
+                        android:id="@+id/book_cover_image"
+                        android:layout_width="150dp"
+                        android:layout_height="210dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="60dp"
+                        android:contentDescription="책 표지 이미지"
+                        app:layout_collapseMode="parallax"
+                        app:imageUrl="@{book.bookImg}"/>
+                    
+                    <!-- Read Button -->
+                    <RelativeLayout
+                        android:layout_width="130dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="end|bottom"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="20dp">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/read_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@{book.isRead}"
+                            android:minWidth="120dp"
+                            android:thumb="@drawable/thumb"
+                            app:switchTextAppearance="@style/ReadSwitchButton"
+                            app:track="@drawable/track" />
+
+                        <TextView
+                            android:id="@+id/tv_not_read"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:gravity="start|center_vertical"
+                            android:paddingStart="11dp"
+                            android:text="안 읽음"
+                            android:textColor="@color/White"
+                            android:textSize="14sp"
+                            android:visibility="visible"/>
+
+                        <TextView
+                            android:id="@+id/tv_read"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:gravity="end|center_vertical"
+                            android:paddingEnd="27dp"
+                            android:text="읽음"
+                            android:textColor="@color/White"
+                            android:textSize="14sp"
+                            android:visibility="visible"/>
+
+                    </RelativeLayout>
+                    
+                </FrameLayout>
+
+                <!-- Back Button -->
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="뒤로가기 버튼"
+                    android:src="@drawable/back_btn"
+                    app:layout_collapseMode="pin"
+                    android:layout_gravity="start|top" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Book Info & Buy Button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/book_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                android:id="@+id/book_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="12dp"
+                android:text="@{book.title}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/author_info"
+                app:layout_constraintEnd_toStartOf="@+id/buy_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 책 제목과 저자 -->
-            <LinearLayout
-                android:id="@+id/book_name_layout_detail"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/author_info"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="24dp"
+                android:text="@{book.author}"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toStartOf="@+id/buy_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/back_community_list">
-
-                <TextView
-                    android:id="@+id/bookTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아무것도 없는 책"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/bookAuthor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="레미 쿠르종 글/그림    이성엽 옮김"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- ScrollView 시작 -->
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_layout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- 책 커버 이미지 -->
-                <ImageView
-                    android:id="@+id/bookCover"
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/book_cover" />
-
-                <!-- 사용자 정보 섹션 -->
-                <LinearLayout
-                    android:id="@+id/user_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/Sub"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:id="@+id/user_profile"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/user_profile" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="kimtomato"
-                            android:textColor="@color/White"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="김토마"
-                            android:textColor="@color/White"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/userLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="150dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/place_background"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="부산"
-                        android:textColor="@color/Light_Light_Gray"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <!-- 작성 시간 -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="8dp"
-                    android:text="20분 전" />
-
-                <!-- 사용자 댓글 -->
-                <TextView
-                    android:id="@+id/userComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="16dp"
-                    android:text="저는 이 책을 읽고 어떤한 부분에서 설렜는데 비슷하게 설렌 분 찾습니다.\n\n누구든 좋아요~"
-                    android:textSize="16sp" />
-
-                <!-- 태그 레이블 -->
-                <TextView
-                    android:id="@+id/tagsLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="# 태그"
-                    android:textColor="@color/Black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <!-- 태그를 추가하는 컨테이너 -->
-                <LinearLayout
-                    android:id="@+id/tagsContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/tag1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-
-                </LinearLayout>
-
-
-                <!-- 태그를 배치하는 Flow -->
-                <androidx.constraintlayout.helper.widget.Flow
-                    android:id="@+id/tagsFlow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="tag1,tag2,tag3,tag4"
-                    app:flow_horizontalGap="8dp"
-                    app:flow_verticalGap="8dp"
-                    app:flow_wrapMode="chain"
-                    app:flow_horizontalStyle="spread_inside" />
-            </LinearLayout>
-        </ScrollView>
-
-        <!-- 멤버 수와 채팅 버튼 -->
-        <LinearLayout
-            android:id="@+id/btn_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:id="@+id/member_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/member"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_members2" />
-
-                <TextView
-                    android:id="@+id/memberCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2/6"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/book_title" />
 
             <Button
-                android:id="@+id/chatButton"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/Primary"
-                android:text="채팅하기"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp" />
-        </LinearLayout>
+                android:id="@+id/buy_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="21dp"
+                android:backgroundTint="@color/Primary_Sub"
+                android:text="구매하기"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:textColor="@color/Primary"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/Light_White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/author_info" />
+
+            <TextView
+                android:id="@+id/shorts_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginVertical="7dp"
+                android:text="프레이즈"
+                app:layout_constraintBottom_toTopOf="@+id/shorts_preview_recycler_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/shorts_preview_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shorts_title"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/shorts_preview"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

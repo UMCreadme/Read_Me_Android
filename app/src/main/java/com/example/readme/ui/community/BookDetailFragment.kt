@@ -6,10 +6,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.readme.R
-import com.example.readme.databinding.FragmentBookDetailBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.databinding.FragmentCommunityDetailBinding
+import com.example.readme.ui.base.BaseFragment
 
-class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.fragment_book_detail) {
+class BookDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.layout.fragment_community_detail) {
 
     private val viewModel: BookDetailViewModel by viewModels()
 

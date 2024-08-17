@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.search.SearchFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_section"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/store_fragment_tablayout"
+        <!-- Custom Search Bar -->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/rounded_search_view"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="추천" />
+                android:layout_weight="1"
+                android:hint="태그를 검색해볼 수 있어요."
+                android:background="@android:color/transparent"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:textSize="14sp" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="문학" />
+            <ImageButton
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Search"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:src="@drawable/tabler_search" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="경제" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="과학" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="정치" />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="웹소설" />
-        </com.google.android.material.tabs.TabLayout>
-
-<!--        각 탭마다 담을 fragment 여기에 리사이클러뷰 추가-->
         <FrameLayout
-            android:id="@+id/tab_layout_container"
+            android:id="@+id/search_section_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/store_fragment_tablayout">
-        </FrameLayout>
+            app:layout_constraintTop_toBottomOf="@+id/search_view">
 
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

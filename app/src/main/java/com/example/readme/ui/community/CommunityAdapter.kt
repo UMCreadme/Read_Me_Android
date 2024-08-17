@@ -1,36 +1,44 @@
 package com.example.readme.ui.community
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.readme.databinding.ItemCommunityBinding
+import com.example.readme.R
+import com.example.readme.data.entities.CommunityItem
 
-class CommunityAdapter(private val communityList: List<Community>) : RecyclerView.Adapter<CommunityAdapter.CommunityViewHolder>() {
+class CommunityAdapter : RecyclerView.Adapter<CommunityAdapter.CommunityViewHolder>() {
+
+    private var items: List<CommunityItem> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommunityViewHolder {
-        val binding = ItemCommunityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CommunityViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_community, parent, false)
+        return CommunityViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommunityViewHolder, position: Int) {
-        holder.bind(communityList[position])
+        holder.bind(items[position])
     }
 
-    override fun getItemCount(): Int {
-        return communityList.size
+    override fun getItemCount(): Int = items.size
+
+    fun submitList(newItems: List<CommunityItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 
-    inner class CommunityViewHolder(private val binding: ItemCommunityBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(communityItem: Community) {
-            binding.itemImage.setImageResource(communityItem.imageResId)
-            binding.itemLocation.text = communityItem.location
-            binding.itemTitle.text = communityItem.title
-            binding.itemMembersCurrent.text = communityItem.currentMembers.toString()
-            binding.itemMembersTotal.text = communityItem.totalMembers.toString()
+    class CommunityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val title: TextView = itemView.findViewById(R.id.item_title)
+        private val location: TextView = itemView.findViewById(R.id.item_location)
+        private val membersCurrent: TextView = itemView.findViewById(R.id.item_members_current)
+        private val membersTotal: TextView = itemView.findViewById(R.id.item_members_total)
 
-            // 태그 설정
-            binding.tagBox1.text = communityItem.tags.getOrNull(0) ?: ""
-            binding.tagBox2.text = communityItem.tags.getOrNull(1) ?: ""
+        fun bind(item: CommunityItem) {
+            title.text = item.title
+            location.text = item.location
+            membersCurrent.text = item.membersCurrent.toString()
+            membersTotal.text = item.membersTotal.toString()
         }
     }
 }
