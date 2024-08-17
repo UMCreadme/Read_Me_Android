@@ -1,5 +1,6 @@
 package com.example.readme.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,7 +9,7 @@ import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentRecentSearchBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.ui.search.book.BookDetailFragment
+import com.example.readme.ui.search.book.BookDetailActivity
 
 class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.fragment_recent_search) {
     private val viewModel: RecentSearchViewModel by viewModels {
@@ -31,12 +32,11 @@ class RecentSearchFragment : BaseFragment<FragmentRecentSearchBinding>(R.layout.
         val adapter = RecentSearchAdapter(
             onBookClick = { bookId ->
                 // 책 상세 화면으로 전환
-                val bookDetailFragment = BookDetailFragment().apply{
-                    arguments = Bundle().apply {
-                        putInt("bookId", bookId)
-                    }
+                val intent = Intent(requireActivity(), BookDetailActivity::class.java)
+                intent.apply {
+                    this.putExtra("bookId", bookId)
                 }
-                (activity as MainActivity).addFragment(bookDetailFragment)
+                startActivity(intent)
             },
             onQueryClick = { query ->
                 // 검색 결과 화면으로 전환

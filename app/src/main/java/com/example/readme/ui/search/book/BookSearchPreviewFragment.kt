@@ -1,5 +1,6 @@
 package com.example.readme.ui.search.book
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.readme.R
 import androidx.fragment.app.viewModels
@@ -32,11 +33,11 @@ class BookSearchPreviewFragment : BaseFragment<FragmentSearchbookPreviewBinding>
         val adapter = SearchBookPreviewAdapter(
             onBookClick = { ISBN ->
                 // 책 상세 화면으로 전환
-                val bookDetailFragment = BookDetailFragment()
-                val bundle = Bundle()
-                bundle.putString("ISBN", ISBN)
-                bookDetailFragment.arguments = bundle
-                (activity as MainActivity).addFragment(bookDetailFragment)
+                val intent = Intent(requireActivity(), BookDetailActivity::class.java)
+                intent.apply {
+                    this.putExtra("ISBN", ISBN)
+                }
+                startActivity(intent)
                 viewModel.saveRecentSearch(ISBN)
             }
         )
