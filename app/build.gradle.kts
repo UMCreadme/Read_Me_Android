@@ -23,7 +23,6 @@ android {
         }
     }
 
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -34,16 +33,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         dataBinding = true
+        viewBinding=true
         compose = true
-        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -139,4 +138,8 @@ dependencies {
     //Glide
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
+    kapt("com.github.bumptech.glide:compiler:4.11.0")
+
+    //해시태그
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
 }

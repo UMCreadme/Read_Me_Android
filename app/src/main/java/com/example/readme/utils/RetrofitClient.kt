@@ -18,7 +18,7 @@ object RetrofitClient {
     private var locationRetrofit: Retrofit? = null
     private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
-    private val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJlbWFpbCI6InJlYWRtZV9hZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzg4MzEwNSwiZXhwIjoxNzIzODkzOTA1fQ.ksVuzkOhIEiI_C4qsCblxX0KALh8TZUp2rs98Chys4Q"
+    private val token: String? = null
 
     // 로깅 인터셉터
     private val interceptor = HttpLoggingInterceptor().apply {
