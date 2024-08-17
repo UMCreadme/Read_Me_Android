@@ -5,11 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 
@@ -44,6 +47,29 @@ class BookDetailActivity : AppCompatActivity(R.layout.activity_book_detail) {
             bookDetailAdapter.submitList(shorts)
         }
 
+        val readButton = findViewById<SwitchCompat>(R.id.read_btn)
+        val buyButton = findViewById<Button>(R.id.buy_button)
+
+        viewModel.bookDetail.observe(this) { bookDetail ->
+            // Set the book detail information
+            if (bookDetail != null) {
+                Glide.with(this)
+                    .load(bookDetail.bookImg)
+                    .placeholder(R.drawable.ic_book_placeholder)
+                    .into(findViewById(R.id.book_cover_image))
+                readButton.isChecked = bookDetail.isRead
+                buyButton.isEnabled = bookDetail.link.isNotEmpty()
+                findViewById<TextView>(R.id.book_title).text = bookDetail.title
+                findViewById<TextView>(R.id.author_info).text = bookDetail.author
+            }
+        }
+
+        viewModel.toastMessage.observe(this) {
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -60,7 +86,6 @@ class BookDetailActivity : AppCompatActivity(R.layout.activity_book_detail) {
         })
 
         // Set click listeners for buttons
-        val readButton = findViewById<SwitchCompat>(R.id.read_btn)
         readButton.setOnClickListener {
             val bookId = viewModel.bookDetail.value?.bookId ?: 0
             if (bookId == 0) {
@@ -71,7 +96,6 @@ class BookDetailActivity : AppCompatActivity(R.layout.activity_book_detail) {
             }
         }
 
-        val buyButton = findViewById<Button>(R.id.buy_button)
         buyButton.setOnClickListener {
             // Navigate to purchase link
             val url = viewModel.bookDetail.value?.link ?: ""
@@ -86,4 +110,27 @@ class BookDetailActivity : AppCompatActivity(R.layout.activity_book_detail) {
             onBackPressed()
         }
     }
+}
+
+open class Event<out T>(private val content: T) {
+
+    var hasBeenHandled = false
+        private set // Allow external read but not write
+
+    /**
+     * Returns the content and prevents its use again.
+     */
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+    /**
+     * Returns the content, even if it's already been handled.
+     */
+    fun peekContent(): T = content
 }

@@ -1,14 +1,12 @@
 package com.example.readme.ui.search.book
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchBookBinding
-import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 
 class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.fragment_search_book) {
@@ -38,11 +36,6 @@ class SearchBookFragment : BaseFragment<FragmentSearchBookBinding>(R.layout.frag
                     this.putExtra("ISBN", ISBN)
                 }
                 startActivity(intent)
-//                val bookDetailActivity = BookDetailActivity()
-//                val bundle = Bundle()
-//                bundle.putString("ISBN", ISBN)
-//                bookDetailActivity.arguments = bundle
-//                (activity as MainActivity).addFragment(bookDetailActivity)
             }
         )
         binding.searchBookRecyclerView.adapter = adapter
