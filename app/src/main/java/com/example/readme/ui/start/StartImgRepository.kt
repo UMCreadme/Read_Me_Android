@@ -1,6 +1,5 @@
 package com.example.readme.ui.start
 
-import android.media.Image
 import com.example.readme.R
 
 class StartImgRepository {

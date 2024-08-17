@@ -8,12 +8,13 @@ import com.example.readme.R
 import com.example.readme.databinding.FragmentMypageBinding
 import androidx.fragment.app.viewModels
 import com.example.readme.ui.MainActivity
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
     private var _binding: FragmentMypageBinding? = null
+
     private val information = arrayListOf("내 쇼츠", "찜 쇼츠", "읽은 책")
 
     private val viewModel: MyPageViewModel by viewModels()

@@ -1,4 +1,4 @@
-package com.example.tablayout
+package com.example.readme.ui.community
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

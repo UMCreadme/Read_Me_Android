@@ -14,7 +14,7 @@ class CreateFragmentActivity : AppCompatActivity() {
 
         val btnGoToChat: Button = findViewById(R.id.btn_go_to_chat)
         btnGoToChat.setOnClickListener {
-            val intent = Intent(this, ChatActivity::class.java)
+            val intent = Intent(this, TabLayoutActivity::class.java)
             startActivity(intent)
         }
     }

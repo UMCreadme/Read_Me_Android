@@ -1,11 +1,13 @@
 package com.example.readme.ui.community
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
+
 
 class BookAdapter(private var bookList: List<Book>) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
@@ -25,6 +27,7 @@ class BookAdapter(private var bookList: List<Book>) :
         return bookList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBooks(books: List<Book>) {
         this.bookList = books
         notifyDataSetChanged()
@@ -35,8 +38,3 @@ class BookAdapter(private var bookList: List<Book>) :
         val author: TextView = view.findViewById(R.id.author)
     }
 }
-
-    class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.title)
-        val author: TextView = view.findViewById(R.id.author)
-    }

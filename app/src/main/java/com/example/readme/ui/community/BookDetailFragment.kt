@@ -1,20 +1,21 @@
 package com.example.readme.ui.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.example.readme.R
-import com.example.readme.databinding.FragmentBookDetailBinding
-import com.example.whashow.base.BaseFragment
+import com.example.readme.databinding.FragmentCommunityDetailBinding
+import com.example.readme.ui.base.BaseFragment
 
-class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.fragment_book_detail) {
+class BookDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.layout.fragment_community_detail) {
 
     private val viewModel: BookDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 초기화 작업
+        // Initialization code if needed
     }
 
     override fun initStartView() {
@@ -22,8 +23,9 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // 태그 동적으로 추가
+        // Dynamically add tags
         viewModel.tags.observe(viewLifecycleOwner) { tags ->
+            binding.tagsContainer.removeAllViews() // Clear existing views
             val tagIds = mutableListOf<Int>()
             for (tag in tags) {
                 val tagView = TextView(requireContext()).apply {
@@ -35,11 +37,14 @@ class BookDetailFragment : BaseFragment<FragmentBookDetailBinding>(R.layout.frag
                 binding.tagsContainer.addView(tagView)
                 tagIds.add(tagView.id)
             }
+            // Assuming you're using ConstraintLayout's Flow
             binding.tagsFlow.setReferencedIds(tagIds.toIntArray())
         }
 
         binding.chatButton.setOnClickListener {
-            // 채팅하기 버튼 클릭 이벤트 처리
+            // Handle chat button click
+            val intent = Intent(requireContext(), ChatActivity::class.java)
+            startActivity(intent)
         }
     }
 }
