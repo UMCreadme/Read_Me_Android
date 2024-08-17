@@ -1,0 +1,571 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:2:1-64:12
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:2:1-64:12
+MERGED from [androidx.databinding:databinding-adapters:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7b2d961545163f26bdcfab00325cbce4/transformed/databinding-adapters-8.3.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.databinding:databinding-ktx:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e3bc9cede84565c0c433eac4f1f72145/transformed/databinding-ktx-8.3.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.databinding:databinding-runtime:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/63b310b353a694d0150fbc96264f34e2/transformed/databinding-runtime-8.5.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.databinding:viewbinding:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/11fc34eb9f5468322e191fa7b68e5ac4/transformed/viewbinding-8.5.1/AndroidManifest.xml:2:1-7:12
+MERGED from [com.android.identity:identity-credential-android:20231002] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0a1803ec15bec2cf716fe9aa65a1d2d6/transformed/identity-credential-android-20231002/AndroidManifest.xml:17:1-23:12
+MERGED from [com.google.android.material:material:1.11.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8e25eb74bc6b1a8a45750bdc9154c6d0/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0cf08b4d57f66e805874cd5fa1479e7/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c41bc49775274987b359af409ef471c4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1c1af7cfeabe179ea904cd944dd3e019/transformed/appcompat-1.6.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/172951d65d708104f2dfb65c728bb517/transformed/recyclerview-1.3.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1f488ac867db3608a432f75f1802ffcd/transformed/viewpager2-1.1.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:17:1-44:12
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7e03d330c595828caab5c0e0ca7732c0/transformed/play-services-tasks-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.fragment:fragment:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6749dadc164ec0bf5f1e31bc9830cd87/transformed/fragment-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.fragment:fragment-ktx:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/877a5660b6b57b10f9bf256ad2c90f23/transformed/fragment-ktx-1.8.2/AndroidManifest.xml:2:1-7:12
+MERGED from [me.relex:circleindicator:2.1.6] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aa4f998e2faa64cbb2688b1c69419e19/transformed/circleindicator-2.1.6/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6d1442d4e5261a1e5d4e00614b2201b5/transformed/material3-1.1.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d954bd89e39c6e5bb4e8e8aaac45ce90/transformed/material-ripple-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a16e07511033e1607c37c27a3640523b/transformed/material-icons-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e2123a9e8c9550f737932e97582490c3/transformed/material-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0c76c6c279300d0359d5ecec96265c6/transformed/animation-core-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8043727ad0f7ced4170c032a2b23208/transformed/animation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b43efeb7d752edfc921f33b272350a64/transformed/foundation-layout-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e9f0a90a7bf6dbcdba77fe7a4d963bd4/transformed/foundation-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/77e26c79b92fdb0f42c13e3c181cb510/transformed/ui-tooling-data-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/378c6d3f5d63b7f1a40015d4407c3e25/transformed/ui-unit-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a7697eb018543cc46a8683c269ae405b/transformed/ui-geometry-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/74f476f1ca00faf5a597f337273b03c9/transformed/ui-util-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f593e35b88d4520d292444526a6ca4a5/transformed/ui-text-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a73c717a806b99c1f3a8fb1137bfd03e/transformed/ui-tooling-preview-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e0253ff96d45e93840fd67ae2c97a40e/transformed/ui-graphics-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.activity:activity-compose:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f06e862221977c0cb327dafd67269907/transformed/activity-compose-1.8.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/22cadbd4f57f1041a16d80ec247a5569/transformed/ui-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.activity:activity:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/04a975e43a71c26b18014f7fe5bfcdeb/transformed/activity-1.8.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/845091b83dd6f6791f2d4e73c14b3625/transformed/activity-ktx-1.8.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0f16ff9f2c251792640b170a1382a20/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0be7123598f2b02c3e7cab5daa7dcd27/transformed/core-ktx-1.10.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aadeb40409d8f7ab8c3619f8fe2007ea/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/18ea5f02c49ec840371c0604f0353c9a/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/941a93e41a2a89b02577ae5ba7dfe7e8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/9cf8ce2df8666700249ba77fc200415c/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2cbb458789bd13d0670cd5ae84b65cac/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/20e142e684b88977bac898f1211d0d59/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8fa54184cb7cd91a82874202cee97b7/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2285ee21c8630b1dfe71d05a4b8f5726/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/edf1874d711af1adbca161396347512c/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/05fea92a75f20d43cc219e896889bcfa/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e1b70f4fa7d7ef3a6d2e7234bb090857/transformed/autofill-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c105d2d3b23bc096ded0b2238e5ad6f4/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f2fea88fbaee20d28b2dbef457f237d9/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9e3502f4e01da6dce4f732b830d9bfe/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/faea9e4ac6b1f1168b72d613bc0ffd71/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc6721deb3075b6edb84434f882c422f/transformed/lifecycle-runtime-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bfb135c9957364de20e38d7e012590b/transformed/lifecycle-livedata-core-ktx-2.8.4/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3a4eaebda0f618b33b866be7a62f63eb/transformed/lifecycle-livedata-core-2.8.4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ea5c15b44e4da73e54ed35caed2060b7/transformed/lifecycle-viewmodel-2.8.4/AndroidManifest.xml:2:1-5:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d64366ab6496efd50943117664add29c/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3efe1764bdeab0f8e0db47bb5d967e14/transformed/lifecycle-livedata-ktx-2.8.4/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-reactivestreams:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/200186bb8d7b52c026ad5832a5e0ac50/transformed/lifecycle-reactivestreams-2.8.4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc074d0430a0e6d2708de47e21be3290/transformed/lifecycle-service-2.8.4/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f1559b6ad2161c9017240ec58f0352f3/transformed/lifecycle-viewmodel-savedstate-2.8.4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5e216a529e7a87022343a5bfdd72592d/transformed/lifecycle-livedata-2.8.4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/dc8d59d78e2d4b2742f277f0bba4ad7a/transformed/lifecycle-viewmodel-ktx-2.8.4/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bf7222fe6f0ea4acff7eb8c6ad14cfb/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a1501745842becf0004472e5c099bbfe/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b4c15b6104bbf439bdbd6d12a6d3c25d/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b5e50502e544d5e75010303651eb27c8/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/db33799f582cb3fadda349fd9c01ae7f/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8eb0972992c956067c160eb4e1471300/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f0a1553f5c50799349d9e5ae717892ce/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9b9ed9b1e61367f80b9f667afc06c85/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5c31541d3a8bf9a28c7b3e4926523935/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8ed79c8f3e2849b31c84ce9b98a8f8c3/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ef9c67135c6b9c395f4e119b6f22189c/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/83bd075bf2b064a9246cb34369f76f49/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.volley:volley:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/4094607d0a40fde076cf2bea8345533f/transformed/volley-1.2.1/AndroidManifest.xml:2:1-7:12
+	package
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:5:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:24:5-67
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:7:22-78
+application
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:9:5-62:19
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:9:5-62:19
+MERGED from [com.google.android.material:material:1.11.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8e25eb74bc6b1a8a45750bdc9154c6d0/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.11.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8e25eb74bc6b1a8a45750bdc9154c6d0/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0cf08b4d57f66e805874cd5fa1479e7/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0cf08b4d57f66e805874cd5fa1479e7/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7e03d330c595828caab5c0e0ca7732c0/transformed/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7e03d330c595828caab5c0e0ca7732c0/transformed/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8eb0972992c956067c160eb4e1471300/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8eb0972992c956067c160eb4e1471300/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:16:9-35
+	android:label
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:14:9-41
+	android:fullBackupContent
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:12:9-54
+	android:roundIcon
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:15:9-54
+	tools:targetApi
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:18:9-29
+	android:icon
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:13:9-43
+	android:allowBackup
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:10:9-35
+	android:theme
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:17:9-44
+	android:dataExtractionRules
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:11:9-65
+activity#com.example.readme.ui.community.CreateFragmentActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:19:9-21:40
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:21:13-37
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:20:13-64
+activity#com.example.readme.ui.community.ChatActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:22:9-24:40
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:24:13-37
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:23:13-54
+activity#com.example.readme.ui.community.BookAppointActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:25:9-27:40
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:26:13-61
+activity#com.example.readme.ui.community.TabLayoutActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:28:9-30:40
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:29:13-59
+activity#com.example.readme.ui.community.CreateActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:31:9-33:39
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:33:13-36
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:32:13-56
+activity#com.example.readme.ui.community.NavigationDrawerActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:34:9-36:40
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:36:13-37
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:35:13-66
+activity#com.example.readme.ui.MainActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:37:9-41:51
+	android:label
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:40:13-45
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:39:13-36
+	android:theme
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:41:13-48
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:38:13-44
+activity#com.example.readme.StartActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:42:9-46:51
+	android:label
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:45:13-45
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:44:13-36
+	android:theme
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:46:13-48
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:43:13-42
+activity#com.example.readme.ui.login.LoginActivity
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:51:9-61:20
+	android:label
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:54:13-45
+	android:exported
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:53:13-36
+	android:theme
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:55:13-48
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:52:13-51
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:56:13-60:29
+action#android.intent.action.MAIN
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:57:17-69
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:57:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:59:17-77
+	android:name
+		ADDED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml:59:27-74
+uses-sdk
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+MERGED from [androidx.databinding:databinding-adapters:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7b2d961545163f26bdcfab00325cbce4/transformed/databinding-adapters-8.3.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-adapters:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7b2d961545163f26bdcfab00325cbce4/transformed/databinding-adapters-8.3.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-ktx:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e3bc9cede84565c0c433eac4f1f72145/transformed/databinding-ktx-8.3.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-ktx:8.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e3bc9cede84565c0c433eac4f1f72145/transformed/databinding-ktx-8.3.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-runtime:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/63b310b353a694d0150fbc96264f34e2/transformed/databinding-runtime-8.5.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:databinding-runtime:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/63b310b353a694d0150fbc96264f34e2/transformed/databinding-runtime-8.5.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/11fc34eb9f5468322e191fa7b68e5ac4/transformed/viewbinding-8.5.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.5.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/11fc34eb9f5468322e191fa7b68e5ac4/transformed/viewbinding-8.5.1/AndroidManifest.xml:5:5-44
+MERGED from [com.android.identity:identity-credential-android:20231002] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0a1803ec15bec2cf716fe9aa65a1d2d6/transformed/identity-credential-android-20231002/AndroidManifest.xml:21:5-44
+MERGED from [com.android.identity:identity-credential-android:20231002] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0a1803ec15bec2cf716fe9aa65a1d2d6/transformed/identity-credential-android-20231002/AndroidManifest.xml:21:5-44
+MERGED from [com.google.android.material:material:1.11.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8e25eb74bc6b1a8a45750bdc9154c6d0/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.11.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8e25eb74bc6b1a8a45750bdc9154c6d0/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0cf08b4d57f66e805874cd5fa1479e7/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0cf08b4d57f66e805874cd5fa1479e7/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c41bc49775274987b359af409ef471c4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c41bc49775274987b359af409ef471c4/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:20:5-44
+MERGED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1c1af7cfeabe179ea904cd944dd3e019/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1c1af7cfeabe179ea904cd944dd3e019/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/172951d65d708104f2dfb65c728bb517/transformed/recyclerview-1.3.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/172951d65d708104f2dfb65c728bb517/transformed/recyclerview-1.3.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1f488ac867db3608a432f75f1802ffcd/transformed/viewpager2-1.1.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/1f488ac867db3608a432f75f1802ffcd/transformed/viewpager2-1.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7e03d330c595828caab5c0e0ca7732c0/transformed/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/7e03d330c595828caab5c0e0ca7732c0/transformed/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6749dadc164ec0bf5f1e31bc9830cd87/transformed/fragment-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6749dadc164ec0bf5f1e31bc9830cd87/transformed/fragment-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/877a5660b6b57b10f9bf256ad2c90f23/transformed/fragment-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.8.2] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/877a5660b6b57b10f9bf256ad2c90f23/transformed/fragment-ktx-1.8.2/AndroidManifest.xml:5:5-44
+MERGED from [me.relex:circleindicator:2.1.6] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aa4f998e2faa64cbb2688b1c69419e19/transformed/circleindicator-2.1.6/AndroidManifest.xml:7:5-9:41
+MERGED from [me.relex:circleindicator:2.1.6] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aa4f998e2faa64cbb2688b1c69419e19/transformed/circleindicator-2.1.6/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6d1442d4e5261a1e5d4e00614b2201b5/transformed/material3-1.1.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6d1442d4e5261a1e5d4e00614b2201b5/transformed/material3-1.1.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d954bd89e39c6e5bb4e8e8aaac45ce90/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d954bd89e39c6e5bb4e8e8aaac45ce90/transformed/material-ripple-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a16e07511033e1607c37c27a3640523b/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a16e07511033e1607c37c27a3640523b/transformed/material-icons-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e2123a9e8c9550f737932e97582490c3/transformed/material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e2123a9e8c9550f737932e97582490c3/transformed/material-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0c76c6c279300d0359d5ecec96265c6/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0c76c6c279300d0359d5ecec96265c6/transformed/animation-core-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8043727ad0f7ced4170c032a2b23208/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8043727ad0f7ced4170c032a2b23208/transformed/animation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b43efeb7d752edfc921f33b272350a64/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b43efeb7d752edfc921f33b272350a64/transformed/foundation-layout-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e9f0a90a7bf6dbcdba77fe7a4d963bd4/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e9f0a90a7bf6dbcdba77fe7a4d963bd4/transformed/foundation-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/77e26c79b92fdb0f42c13e3c181cb510/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-data-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/77e26c79b92fdb0f42c13e3c181cb510/transformed/ui-tooling-data-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/378c6d3f5d63b7f1a40015d4407c3e25/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/378c6d3f5d63b7f1a40015d4407c3e25/transformed/ui-unit-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a7697eb018543cc46a8683c269ae405b/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a7697eb018543cc46a8683c269ae405b/transformed/ui-geometry-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/74f476f1ca00faf5a597f337273b03c9/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/74f476f1ca00faf5a597f337273b03c9/transformed/ui-util-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f593e35b88d4520d292444526a6ca4a5/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f593e35b88d4520d292444526a6ca4a5/transformed/ui-text-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a73c717a806b99c1f3a8fb1137bfd03e/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-preview-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a73c717a806b99c1f3a8fb1137bfd03e/transformed/ui-tooling-preview-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e0253ff96d45e93840fd67ae2c97a40e/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e0253ff96d45e93840fd67ae2c97a40e/transformed/ui-graphics-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f06e862221977c0cb327dafd67269907/transformed/activity-compose-1.8.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-compose:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f06e862221977c0cb327dafd67269907/transformed/activity-compose-1.8.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/22cadbd4f57f1041a16d80ec247a5569/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/22cadbd4f57f1041a16d80ec247a5569/transformed/ui-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/04a975e43a71c26b18014f7fe5bfcdeb/transformed/activity-1.8.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/04a975e43a71c26b18014f7fe5bfcdeb/transformed/activity-1.8.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/845091b83dd6f6791f2d4e73c14b3625/transformed/activity-ktx-1.8.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/845091b83dd6f6791f2d4e73c14b3625/transformed/activity-ktx-1.8.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0f16ff9f2c251792640b170a1382a20/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c0f16ff9f2c251792640b170a1382a20/transformed/customview-poolingcontainer-1.0.0/AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0be7123598f2b02c3e7cab5daa7dcd27/transformed/core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0be7123598f2b02c3e7cab5daa7dcd27/transformed/core-ktx-1.10.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aadeb40409d8f7ab8c3619f8fe2007ea/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/aadeb40409d8f7ab8c3619f8fe2007ea/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/18ea5f02c49ec840371c0604f0353c9a/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/18ea5f02c49ec840371c0604f0353c9a/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/941a93e41a2a89b02577ae5ba7dfe7e8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/941a93e41a2a89b02577ae5ba7dfe7e8/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/9cf8ce2df8666700249ba77fc200415c/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/9cf8ce2df8666700249ba77fc200415c/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2cbb458789bd13d0670cd5ae84b65cac/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2cbb458789bd13d0670cd5ae84b65cac/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/20e142e684b88977bac898f1211d0d59/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/20e142e684b88977bac898f1211d0d59/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8fa54184cb7cd91a82874202cee97b7/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c8fa54184cb7cd91a82874202cee97b7/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2285ee21c8630b1dfe71d05a4b8f5726/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/2285ee21c8630b1dfe71d05a4b8f5726/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/edf1874d711af1adbca161396347512c/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/edf1874d711af1adbca161396347512c/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/05fea92a75f20d43cc219e896889bcfa/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/05fea92a75f20d43cc219e896889bcfa/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e1b70f4fa7d7ef3a6d2e7234bb090857/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/e1b70f4fa7d7ef3a6d2e7234bb090857/transformed/autofill-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c105d2d3b23bc096ded0b2238e5ad6f4/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c105d2d3b23bc096ded0b2238e5ad6f4/transformed/emoji2-views-helper-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f2fea88fbaee20d28b2dbef457f237d9/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f2fea88fbaee20d28b2dbef457f237d9/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9e3502f4e01da6dce4f732b830d9bfe/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9e3502f4e01da6dce4f732b830d9bfe/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/faea9e4ac6b1f1168b72d613bc0ffd71/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/faea9e4ac6b1f1168b72d613bc0ffd71/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc6721deb3075b6edb84434f882c422f/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc6721deb3075b6edb84434f882c422f/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bfb135c9957364de20e38d7e012590b/transformed/lifecycle-livedata-core-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bfb135c9957364de20e38d7e012590b/transformed/lifecycle-livedata-core-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3a4eaebda0f618b33b866be7a62f63eb/transformed/lifecycle-livedata-core-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3a4eaebda0f618b33b866be7a62f63eb/transformed/lifecycle-livedata-core-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ea5c15b44e4da73e54ed35caed2060b7/transformed/lifecycle-viewmodel-2.8.4/AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ea5c15b44e4da73e54ed35caed2060b7/transformed/lifecycle-viewmodel-2.8.4/AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d64366ab6496efd50943117664add29c/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/d64366ab6496efd50943117664add29c/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3efe1764bdeab0f8e0db47bb5d967e14/transformed/lifecycle-livedata-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/3efe1764bdeab0f8e0db47bb5d967e14/transformed/lifecycle-livedata-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-reactivestreams:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/200186bb8d7b52c026ad5832a5e0ac50/transformed/lifecycle-reactivestreams-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-reactivestreams:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/200186bb8d7b52c026ad5832a5e0ac50/transformed/lifecycle-reactivestreams-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc074d0430a0e6d2708de47e21be3290/transformed/lifecycle-service-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/fc074d0430a0e6d2708de47e21be3290/transformed/lifecycle-service-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f1559b6ad2161c9017240ec58f0352f3/transformed/lifecycle-viewmodel-savedstate-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f1559b6ad2161c9017240ec58f0352f3/transformed/lifecycle-viewmodel-savedstate-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5e216a529e7a87022343a5bfdd72592d/transformed/lifecycle-livedata-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5e216a529e7a87022343a5bfdd72592d/transformed/lifecycle-livedata-2.8.4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/dc8d59d78e2d4b2742f277f0bba4ad7a/transformed/lifecycle-viewmodel-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/dc8d59d78e2d4b2742f277f0bba4ad7a/transformed/lifecycle-viewmodel-ktx-2.8.4/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bf7222fe6f0ea4acff7eb8c6ad14cfb/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/6bf7222fe6f0ea4acff7eb8c6ad14cfb/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a1501745842becf0004472e5c099bbfe/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/a1501745842becf0004472e5c099bbfe/transformed/runtime-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b4c15b6104bbf439bdbd6d12a6d3c25d/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b4c15b6104bbf439bdbd6d12a6d3c25d/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b5e50502e544d5e75010303651eb27c8/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b5e50502e544d5e75010303651eb27c8/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/db33799f582cb3fadda349fd9c01ae7f/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/db33799f582cb3fadda349fd9c01ae7f/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8eb0972992c956067c160eb4e1471300/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8eb0972992c956067c160eb4e1471300/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f0a1553f5c50799349d9e5ae717892ce/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/f0a1553f5c50799349d9e5ae717892ce/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9b9ed9b1e61367f80b9f667afc06c85/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/b9b9ed9b1e61367f80b9f667afc06c85/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5c31541d3a8bf9a28c7b3e4926523935/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/5c31541d3a8bf9a28c7b3e4926523935/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8ed79c8f3e2849b31c84ce9b98a8f8c3/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8ed79c8f3e2849b31c84ce9b98a8f8c3/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ef9c67135c6b9c395f4e119b6f22189c/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/ef9c67135c6b9c395f4e119b6f22189c/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/83bd075bf2b064a9246cb34369f76f49/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/83bd075bf2b064a9246cb34369f76f49/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.volley:volley:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/4094607d0a40fde076cf2bea8345533f/transformed/volley-1.2.1/AndroidManifest.xml:5:5-43
+MERGED from [com.android.volley:volley:1.2.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/4094607d0a40fde076cf2bea8345533f/transformed/volley-1.2.1/AndroidManifest.xml:5:5-43
+	android:targetSdkVersion
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/jisun/Documents/GitHub/Read_Me_Android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.USE_BIOMETRIC
+ADDED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:22:5-72
+	android:name
+		ADDED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:22:22-69
+uses-permission#android.permission.USE_FINGERPRINT
+ADDED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:25:5-74
+	android:name
+		ADDED from [androidx.biometric:biometric:1.2.0-alpha05] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/92ab68e916e099acd0a57209557a2b63/transformed/biometric-1.2.0-alpha05/AndroidManifest.xml:25:22-71
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:23:5-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:23:22-76
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:28:9-32
+queries
+ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:30:5-34:15
+package#com.google.android.apps.maps
+ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:33:9-64
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:33:18-61
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:39:9-41:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:41:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/357895b006a48c3ad6f0f98e86ff36a0/transformed/play-services-maps-18.0.0/AndroidManifest.xml:40:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/787e1e7a96c06ee2420978f06322daea/transformed/play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8542ba6239f474a4e86a2eb6d36d211b/transformed/play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+activity#androidx.compose.ui.tooling.PreviewActivity
+ADDED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+	android:exported
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+	android:name
+		ADDED from [androidx.compose.ui:ui-tooling-android:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/8c689188ac2fab377c7d899aae1c754a/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+activity#androidx.activity.ComponentActivity
+ADDED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:23:9-25:39
+	android:exported
+		ADDED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:25:13-36
+	android:name
+		ADDED from [androidx.compose.ui:ui-test-manifest:1.5.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/88d4ffec2b4bfb8bbba2c87abcb58a78/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:24:13-63
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/c42905624425badeb12852f5d542a390/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0e1f35c3fcc8def4b87ba4b0b817f655/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+permission#com.example.readme.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+uses-permission#com.example.readme.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.10.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/0dfd1f43c0af751eaeb555e7e9a8811a/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.4] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/98a50844ff9bb91c73d90f67b518665f/transformed/lifecycle-process-2.8.4/AndroidManifest.xml:30:17-78
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] /Users/jisun/Desktop/ReadMe/gradle/caches/transforms-3/64d041a8649e61a87eaeb9f8194514bf/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
