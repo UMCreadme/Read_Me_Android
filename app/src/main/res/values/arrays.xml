@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations">
+        <item>홍대</item>
+        <item>강남</item>
+        <item>신촌</item>
+        <item>종로</item>
+        <item>명동</item>
+    </string-array>
+
+        <string-array name="month_array">
+            <item>월</item>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+            <item>9</item>
+            <item>10</item>
+            <item>11</item>
+            <item>12</item>
+
+            <!-- Add more items as needed -->
+        </string-array>
+        <string-array name="day_array">
+            <item>일</item>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>4</item>
+            <item>5</item>
+            <item>6</item>
+            <item>7</item>
+            <item>8</item>
+            <item>9</item>
+            <item>10</item>
+            <item>11</item>
+            <item>12</item>
+            <item>13</item>
+            <item>14</item>
+            <item>15</item>
+            <item>16</item>
+            <item>17</item>
+            <item>18</item>
+            <item>19</item>
+            <item>20</item>
+            <item>21</item>
+            <item>22</item>
+            <item>23</item>
+            <item>24</item>
+            <item>25</item>
+            <item>26</item>
+            <item>27</item>
+            <item>28</item>
+            <item>29</item>
+            <item>30</item>
+            <item>31</item>
+
+            <!-- Add more items as needed -->
+        </string-array>
+        <string-array name="ampm_array">
+            <item>오전</item>
+            <item>오후</item>
+        </string-array>
+        <string-array name="hour_array">
+            <item>시</item>
+            <item>00시</item>
+            <item>01시</item>
+            <item>02시</item>
+            <item>03시</item>
+            <item>04시</item>
+            <item>05시</item>
+            <item>06시</item>
+            <item>07시</item>
+            <item>08시</item>
+            <item>09시</item>
+            <item>10시</item>
+            <item>11시</item>
+            <item>12시</item>
+            <item>13시</item>
+            <item>14시</item>
+            <item>15시</item>
+            <item>16시</item>
+            <item>17시</item>
+            <item>18시</item>
+            <item>19시</item>
+            <item>20시</item>
+            <item>21시</item>
+            <item>22시</item>
+            <item>23시</item>
+
+            <!-- Add more items as needed -->
+        </string-array>
+
+</resources>

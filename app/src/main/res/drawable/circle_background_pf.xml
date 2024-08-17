@@ -1,5 +1,5 @@
-<!-- res/drawable/circle_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/Primary"/>
-    <corners android:radius="40dp"/>
+    <solid android:color="@color/Primary" />
+    <corners android:radius="66dp" /> <!-- 반지름 값은 반으로 나눈 크기 -->
 </shape>
