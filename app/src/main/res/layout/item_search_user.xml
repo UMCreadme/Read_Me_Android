@@ -8,7 +8,7 @@
             type="com.example.readme.ui.search.user.SearchUserViewModel" />
         <variable
             name="user"
-            type="com.example.readme.data.entities.UserInfo" />
+            type="com.example.readme.data.entities.SearchUserResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

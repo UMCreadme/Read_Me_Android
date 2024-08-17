@@ -3,7 +3,8 @@ package com.example.readme.data.remote
 import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
-import com.example.readme.data.entities.UserInfo
+import com.example.readme.data.entities.SearchShortsResult
+import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.ui.community.Chat
 import retrofit2.Call
 import retrofit2.http.Body
@@ -65,12 +66,19 @@ interface ReadmeServerService {
         @Query("keyword") query: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20
-    ): ResponseWithPagination<List<UserInfo>>
+    ): ResponseWithPagination<List<SearchUserResult>>
 
     @DELETE("/recent-searches/{recentSearchesId}")
     suspend fun deleteRecentSearch(
         @Path("recentSearchesId") recentSearchesId: Int
     ): Response
+
+    @GET("/shorts")
+    suspend fun searchShorts(
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseWithPagination<List<SearchShortsResult>>
 
     @POST("/books/{isbn}")
     suspend fun saveRecentSearchBook(
@@ -106,6 +114,6 @@ interface ReadmeServerService {
     ): Response
 
     companion object {
-        const val BASE_URL ="https://api.umcreadme11.shop"
+        const val BASE_URL ="http://192.168.35.243:3000"
     }
 }

@@ -28,7 +28,7 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
         val shortsImage = binding.shortsImage   // 게시물 이미지
         val content = binding.content           // 게시물 내용
         val likeCount = binding.likeCount       // 좋아요 수
-        val commentCount = binding.commentCount // 댓글 수
+        val commentCount = binding.commentTxt // 댓글 수
         val timestamp = binding.timestamp       // 타임스탬프
     }
 
@@ -60,8 +60,8 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
             .into(holder.shortsImage)
 
         holder.content.text = feed.content // 게시물 내용
-        holder.likeCount.text = feed.likeCnt.toString() // 좋아요 수
-        holder.commentCount.text = feed.commentCnt.toString() // 댓글 수
+        holder.likeCount.text = "좋아요 ${feed.likeCnt}개" // 좋아요 수
+        holder.commentCount.text = "댓글 ${feed.commentCnt}개 모두보기" // 댓글 수
         holder.timestamp.text = feed.postingDate // 타임스탬프
 
         // 아이템 클릭 리스너 설정
