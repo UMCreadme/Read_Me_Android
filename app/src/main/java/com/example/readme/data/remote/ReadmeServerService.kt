@@ -4,22 +4,13 @@ import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.UserInfo
-import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-//임시 ApiService
 interface ReadmeServerService {
-    @POST("yourEndpoint")
-    fun postData(@Body data: YourDataClass): Call<ReadmeResponse>
-
-    @GET("yourEndpoint")
-    fun getData(): Call<ReadmeResponse>
-
     @GET("/recent-searches")
     suspend fun getRecentSearches(): ResponseWithData<List<RecentSearch>>
 

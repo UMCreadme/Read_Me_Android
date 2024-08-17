@@ -57,5 +57,4 @@
         <item name="android:textColor">@color/White</item>
         <item name="fontFamily">@font/pretendard_medium</item>
     </style>
-
 </resources>

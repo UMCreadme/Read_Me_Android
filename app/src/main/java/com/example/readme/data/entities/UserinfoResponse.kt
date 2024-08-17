@@ -1,6 +1,4 @@
-package com.example.readme.ui.userinfo
-
-import android.security.identity.ResultData
+package com.example.readme.data.entities
 
 data class UserinfoResponse(
     val isSuccess: Boolean,

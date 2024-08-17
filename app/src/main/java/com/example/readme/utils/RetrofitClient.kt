@@ -1,5 +1,6 @@
 package com.example.readme.utils
 
+import com.example.readme.data.remote.MainInfoService
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.ui.login.KakaoLoginService
 import okhttp3.Interceptor
@@ -12,7 +13,36 @@ object RetrofitClient {
 
     private var kakaoRetrofit: Retrofit? = null
     private var ReadmeRetrofit: Retrofit? = null
+    private var mainInfoRetrofit: Retrofit? = null
     private val token: String? = null
+
+    // 로깅 인터셉터
+    private val interceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
+    // auth 인터셉터
+    private val authInterceptor = Interceptor{ chain ->
+        val original = chain.request()
+        val request = original.newBuilder()
+            .header("Authorization", "Bearer ${token}")
+            .method(original.method, original.body)
+            .build()
+        chain.proceed(request)
+    }
+
+    // OkHttpClient 객체 생성
+    private val client = if(token !== null) {
+        OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .addInterceptor(interceptor)
+            .build()
+    } else {
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+    }
+
     // 카카오톡 로그인 API Retrofit 객체 생성
     fun getKakaoLoginService(): KakaoLoginService {
         if (kakaoRetrofit == null) {
@@ -24,35 +54,20 @@ object RetrofitClient {
         return kakaoRetrofit!!.create(KakaoLoginService::class.java)
     }
 
+    // MainInfoService Retrofit 객체 생성
+    fun getMainInfoService(): MainInfoService {
+        if (mainInfoRetrofit == null) {
+            mainInfoRetrofit = Retrofit.Builder()
+                .baseUrl(MainInfoService.BASE_URL)  // baseUrl은 해당 서비스에 맞게 설정
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return mainInfoRetrofit!!.create(MainInfoService::class.java)
+    }
+
     // Readme 서버 API Retrofit 객체 생성
     fun getReadmeServerService(): ReadmeServerService {
-        val interceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        val authInterceptor = Interceptor { chain ->
-            val original = chain.request()
-            val request = original.newBuilder()
-                .header("Authorization", "Bearer $token")
-                .method(original.method, original.body)
-                .build()
-            chain.proceed(request)
-        }
-
-        var client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build();
-        if(token !== null) {
-            client = OkHttpClient.Builder()
-                .addInterceptor(authInterceptor)
-                .addInterceptor(interceptor)
-                .build()
-        } else {
-            client = OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
-        }
-
         if (ReadmeRetrofit == null) {
             ReadmeRetrofit = Retrofit.Builder()
                 .baseUrl(ReadmeServerService.BASE_URL)
@@ -64,24 +79,6 @@ object RetrofitClient {
     }
 
     val retrofit: Retrofit by lazy {
-        val interceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        val authInterceptor = Interceptor { chain ->
-            val original = chain.request()
-            val request = original.newBuilder()
-                .header("Authorization", "Bearer $token")
-                .method(original.method, original.body)
-                .build()
-            chain.proceed(request)
-        }
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
-            .addInterceptor(interceptor)
-            .build()
-
         Retrofit.Builder()
             .baseUrl(ReadmeServerService.BASE_URL)
             .client(client)
