@@ -3,6 +3,7 @@ package com.example.readme.ui.community
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -96,8 +97,12 @@ class ChatActivity : AppCompatActivity() {
                 val response = service.fetchMessages(communityId)
                 if (response.isSuccess) {
                     val messages = response.result ?: emptyList()
-                    Log.d("ChatActivity", "Fetched ${messages.size} messages: $messages")
-                    chatAdapter.submitList(messages)
+                    if (messages.isNotEmpty()) {
+                        chatAdapter.submitList(messages)
+                        recyclerView.visibility = View.VISIBLE
+                    } else {
+                        recyclerView.visibility = View.GONE
+                    }
                 } else {
                     showToast("Failed to load messages: ${response.code}")
                 }
