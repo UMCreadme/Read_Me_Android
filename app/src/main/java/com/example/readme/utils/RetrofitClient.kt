@@ -85,7 +85,7 @@ object RetrofitClient {
     fun getChatFetchService(): ChatFetchService {
         if (chatRetrofit == null) {
             chatRetrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.35.243:3000") // BASE_URL을 사용
+                .baseUrl(ReadmeServerService.BASE_URL) // BASE_URL을 사용
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
