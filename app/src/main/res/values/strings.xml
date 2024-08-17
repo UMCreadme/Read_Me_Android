@@ -24,4 +24,6 @@
         <item>기타</item>
     </string-array>
 
+    <string name="open_nav">Open NavigationDrawer</string>
+    <string name="close_nav">Close NavigationDrawer</string>
 </resources>

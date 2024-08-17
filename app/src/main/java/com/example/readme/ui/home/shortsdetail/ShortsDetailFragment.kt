@@ -7,7 +7,7 @@ import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.ui.home.ShortsDetailAdapter
+import com.example.readme.ui.home.main.ShortsDetailAdapter
 
 class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragment_shorts) {
 

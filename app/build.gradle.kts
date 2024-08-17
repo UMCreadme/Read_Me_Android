@@ -56,6 +56,9 @@ android {
 
 dependencies {
 
+    // Google Play Services 및 추가 종속성
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+
     //추가 impl
     //version 설정: 편의성을 위해 이전에 사용했던 버전으로 맞췄습니다.
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -66,7 +69,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation ("me.relex:circleindicator:2.1.6")
 
-
+    //리사이클러 뷰 설정
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     //안드로이드 공식 문서 : ViewModel 최신 dependencies
 

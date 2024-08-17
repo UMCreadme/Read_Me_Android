@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
+    <!-- 지도 관련 설정 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".ui.GlobalApplication"
@@ -24,7 +29,41 @@
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.Readme"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true">
+
+        <activity
+            android:name=".ui.community.BookDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.community.BookAppointDoneActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.community.CreateActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.community.ChatActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity
+            android:name=".ui.community.MapMarkerActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.community.BookAppointActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.community.TabLayoutActivity"
+            android:exported="true" />
+
+        <!-- 구글 geo API KEY -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAnr87XpMn-jRGdCtk6HbxNf3OezfHcKgI" />
 
         <!-- MainActivity에 대한 선언 -->
         <activity
@@ -32,6 +71,10 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- StartActivity에 대한 선언 -->
@@ -42,12 +85,6 @@
             android:theme="@style/Theme.Readme">
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".ui.login.UsernameActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.Readme">-->
-<!--        </activity>-->
         <activity
             android:name=".ui.category.CategoryActivity"
             android:exported="true"
@@ -61,6 +98,7 @@
             android:theme="@style/Theme.Readme">
         </activity>
 
+        <!-- Kakao SDK 초기화 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="8bd1ca39d5eb15687ae52deb301f1abe"/>
@@ -68,17 +106,6 @@
         <!-- LoginActivity를 런처로 설정 -->
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Readme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ui.community.TabLayoutActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">

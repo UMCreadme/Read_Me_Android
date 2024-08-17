@@ -1,0 +1,518 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.community.CreateActivity">
+
+    <!-- 타이틀 텍스트 뷰 -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="책 모임 개설"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/Black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+    <!-- 스크롤 뷰 -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintBottom_toTopOf="@id/updateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 책 모임 이름 입력 -->
+            <EditText
+                android:id="@+id/bookClubNameEditText"
+                android:layout_width="380dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/map_background"
+                android:hint=" 아무것도 없는 책"
+                android:layout_marginTop="8dp" />
+
+            <!-- 책 이미지 -->
+            <ImageView
+                android:id="@+id/bookImageView"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:contentDescription="Book Cover"
+                android:src="@drawable/book_cover"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:background="@color/Secondary">
+
+                <!-- 책 제목 텍스트 뷰 -->
+                <TextView
+                    android:id="@+id/bookTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아무것도 없는 책"
+                    android:textColor="@color/White"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp">
+
+                    <!-- 책 저자 텍스트 뷰 -->
+                    <TextView
+                        android:id="@+id/bookAuthorTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="레미 쿠르종 글/그림"
+                        android:textColor="@color/White"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/bookAuthorTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이성엽 옮김"
+                        android:textColor="@color/White"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- 내용 입력 -->
+            <EditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="400dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:hint=" 내용을 입력하세요 (300자 이내)"
+                android:background="@drawable/text_background"
+                android:inputType="text"
+                android:layout_marginTop="24dp" />
+
+            <!-- 태그 입력 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="# 태그"
+                android:textColor="@color/Black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp" />
+
+            <EditText
+                android:id="@+id/tagsEditText"
+                android:layout_width="400dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/text_background"
+                android:inputType="text"
+                android:layout_marginTop="5dp" />
+
+            <!-- 참여 인원 입력 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="참여 인원"
+                android:textColor="@color/Black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:id="@+id/participantsEditText"
+                android:layout_width="400dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/text_background"
+                android:hint=" 최소 4명, 최대 10명과 같이 읽을 수 있어요."
+                android:inputType="number"
+                android:layout_marginTop="5dp" />
+
+            <!-- 만날 장소 타이틀 -->
+            <TextView
+                android:id="@+id/meet_where"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="만남 장소"
+                android:textSize="18sp"
+                android:textColor="@color/Black"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="10dp"/>
+
+            <!-- 만날 장소 섹션 -->
+            <GridLayout
+                android:id="@+id/grid_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4"
+                android:padding="10dp"
+                android:layout_marginTop="5dp">
+
+                <!-- 서울 -->
+                <TextView
+                    android:id="@+id/place_seoul"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="서울"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 부산 -->
+                <TextView
+                    android:id="@+id/place_busan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="부산"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 대구 -->
+                <TextView
+                    android:id="@+id/place_daegu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="대구"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 인천 -->
+                <TextView
+                    android:id="@+id/place_incheon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="인천"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 광주 -->
+                <TextView
+                    android:id="@+id/place_gwangju"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="광주"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 대전 -->
+                <TextView
+                    android:id="@+id/place_daejeon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="대전"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 울산 -->
+                <TextView
+                    android:id="@+id/place_ulsan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="울산"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 세종 -->
+                <TextView
+                    android:id="@+id/place_sejong"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="세종"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 경기 -->
+                <TextView
+                    android:id="@+id/place_gyeonggi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="경기"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 강원 -->
+                <TextView
+                    android:id="@+id/place_gangwon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="강원"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 충북 -->
+                <TextView
+                    android:id="@+id/place_chungbuk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="충북"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 충남 -->
+                <TextView
+                    android:id="@+id/place_chungnam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="충남"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 전북 -->
+                <TextView
+                    android:id="@+id/place_jeonbuk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="전북"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 전남 -->
+                <TextView
+                    android:id="@+id/place_jeonnam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="전남"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 경북 -->
+                <TextView
+                    android:id="@+id/place_gyeongbuk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="경북"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 경남 -->
+                <TextView
+                    android:id="@+id/place_gyeongnam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="경남"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+                <!-- 제주 -->
+                <TextView
+                    android:id="@+id/place_jeju"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:background="@drawable/place_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="제주"
+                    android:textSize="16sp"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:layout_margin="4dp" />
+
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 생성하기 버튼 -->
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="생성하기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/Light_Gray"
+        android:textColor="@android:color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

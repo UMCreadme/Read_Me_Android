@@ -4,13 +4,43 @@ import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.UserInfo
+import com.example.readme.ui.community.Chat
+import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ReadmeServerService {
+    @GET("/users/my")
+    suspend fun getMyProfile(
+        @Header("Authorization") token: String
+    ): ProfileResponse
+
+    @GET("/users/my/shorts")
+    suspend fun getMyShorts(): ProfileShortsResponse
+
+    // userId를 경로 매개변수로 받아서 요청
+    @GET("/users/{userId}")
+    suspend fun getProfile(
+        //@Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): ProfileResponse
+
+    @GET("/users/{userId}/shorts")
+    suspend fun getShorts(
+        @Path("userId") userId: String
+    ): ProfileShortsResponse
+
+    @POST("communities/{communityId}/messages")
+    fun postMessage(@Path("communityId") communityId: String, @Body chat: Chat): Call<Chat>
+
+    @GET("communities/{communityId}/messages")
+    fun getMessages(@Path("communityId") communityId: String): Call<List<Chat>>
+
     @GET("/recent-searches")
     suspend fun getRecentSearches(): ResponseWithData<List<RecentSearch>>
 

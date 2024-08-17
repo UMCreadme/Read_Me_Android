@@ -1,8 +1,10 @@
 package com.example.readme.utils
 
+import com.example.readme.data.remote.ChatFetchService
+import com.example.readme.data.remote.KakaoLoginService
+import com.example.readme.data.remote.LocationService
 import com.example.readme.data.remote.MainInfoService
 import com.example.readme.data.remote.ReadmeServerService
-import com.example.readme.ui.login.KakaoLoginService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,6 +15,8 @@ object RetrofitClient {
 
     private var kakaoRetrofit: Retrofit? = null
     private var ReadmeRetrofit: Retrofit? = null
+    private var locationRetrofit: Retrofit? = null
+    private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
     private val token: String? = null
 
@@ -64,6 +68,29 @@ object RetrofitClient {
                 .build()
         }
         return mainInfoRetrofit!!.create(MainInfoService::class.java)
+    }
+
+    // Location 서버 API Retrofit 객체 생성
+    fun getLocationService(): LocationService {
+        if (locationRetrofit == null) {
+            locationRetrofit = Retrofit.Builder()
+                .baseUrl(ReadmeServerService.BASE_URL) // 실제 서버 URL로 변경하세요.
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return locationRetrofit!!.create(LocationService::class.java)
+    }
+
+    // ChatFetchService Retrofit 객체 생성
+    fun getChatFetchService(): ChatFetchService {
+        if (chatRetrofit == null) {
+            chatRetrofit = Retrofit.Builder()
+                .baseUrl(ReadmeServerService.BASE_URL) // BASE_URL을 사용
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return chatRetrofit!!.create(ChatFetchService::class.java)
     }
 
     // Readme 서버 API Retrofit 객체 생성
