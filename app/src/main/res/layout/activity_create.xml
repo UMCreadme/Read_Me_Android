@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="vertical"
-                android:background="@color/Sub">
+                android:background="@color/Secondary">
 
                 <!-- 책 제목 텍스트 뷰 -->
                 <TextView

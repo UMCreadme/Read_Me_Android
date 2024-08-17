@@ -23,18 +23,9 @@
                 android:id="@+id/item_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/book"
+                android:src="@drawable/gray_radius"
                 android:scaleType="centerCrop"/>
 
-            <TextView
-                android:id="@+id/item_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="서울 홍대"
-                android:textSize="14sp"
-                android:textColor="@color/Primary"
-                android:layout_marginTop="4dp"
-                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,92 +41,183 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/item_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="우리는 빛의 속도로 갈 수 있다!!"
-                    android:textSize="20sp"
-                    android:textColor="@color/Black"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/member"
-                        android:src="@drawable/ic_members"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"/>
+                    <TextView
+                        android:id="@+id/item_title"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="우리는 빛의 속도로 갈 수 있다!!"
+                        android:textColor="@color/Black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/item_location"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="서울"-->
+                    <!--                        android:textSize="14sp"-->
+                    <!--                        android:textColor="@color/Primary"-->
+                    <!--                        android:layout_marginTop="4dp"-->
+                    <!--                        android:gravity="center"/>-->
+
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="-10dp">
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/item_members_current"
+                            android:id="@+id/item_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2"
-                            android:textSize="24sp"
-                            android:textColor="@color/line"/>
+                            android:text="서울"
+                            android:textColor="@color/Primary"
+                            android:textSize="14sp"
 
-                        <TextView
-                            android:id="@+id/item_members_separator"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/"
-                            android:textSize="24sp"
-                            android:textColor="@color/line"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginEnd="2dp"/>
+                            />
 
-                        <TextView
-                            android:id="@+id/item_members_total"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6"
-                            android:textSize="24sp"
-                            android:textColor="@color/line"/>
+
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="230dp">
+
+                            <ImageView
+                                android:id="@+id/member"
+                                android:layout_width="16.98dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_members2" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/item_members_current"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2"
+                                    android:textColor="@color/Black"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/item_members_separator"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:text="/"
+                                    android:textColor="@color/Black"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/item_members_total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="6"
+                                    android:textColor="@color/Black"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:id="@+id/item_tag1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#20대끼리"
-                    android:textSize="14sp"
-                    android:textColor="@color/line"
-                    android:padding="4dp"
-                    android:layout_marginEnd="4dp"/>
-
-                <TextView
-                    android:id="@+id/item_tag2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#김초엽작가님덕질하실분"
-                    android:textSize="14sp"
-                    android:textColor="@color/line"
-                    android:padding="4dp"
-                    android:layout_marginEnd="4dp"/>
-            </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+
+        <TextView
+            android:id="@+id/tagBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/tag_background"
+            android:text="#20대끼리"
+            android:textSize="10sp"
+            android:layout_margin="3dp"
+            android:textColor="@color/line"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:id="@+id/tagBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/tag_background"
+            android:text="#김초엽작가님덕질하실분"
+            android:textSize="10sp"
+            android:layout_margin="3dp"
+            android:textColor="@color/line"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+        <TextView
+            android:id="@+id/tagBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/tag_background"
+            android:text="#요즘SF소설"
+            android:textSize="10sp"
+            android:layout_margin="3dp"
+            android:textColor="@color/line"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tagBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_background"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="#우리가빛의속도로갈수없다면"
+            android:layout_margin="3dp"
+            android:textColor="@color/line"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_background"
+            android:layout_marginLeft="5dp"
+            android:text="#20대"
+            android:textColor="@color/line"
+            android:textSize="10sp"
+            android:layout_margin="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
     </LinearLayout>
 
 </LinearLayout>

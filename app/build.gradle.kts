@@ -57,6 +57,9 @@ android {
 
 dependencies {
 
+    // Google Play Services 및 추가 종속성
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+
     //추가 impl
     //version 설정: 편의성을 위해 이전에 사용했던 버전으로 맞췄습니다.
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -66,8 +69,9 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation ("me.relex:circleindicator:2.1.6")
-    implementation(libs.androidx.activity)
 
+    //리사이클러 뷰 설정
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     //안드로이드 공식 문서 : ViewModel 최신 dependencies
 
@@ -127,21 +131,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-//    //카카오톡
-//    implementation ("com.kakao.sdk:v2-all:2.20.3") // 전체 모듈 설치, 2.11.0 버전부터 지원
-//    implementation ("com.kakao.sdk:v2-user:2.20.3" )// 카카오 로그인 API 모듈
-//    implementation ("com.kakao.sdk:v2-cert:2.20.3") // 카카오톡 인증 서비스 API 모듈
-
-    //google map
-    implementation("com.google.android.gms:play-services-maps:18.0.0")
-
-    //tablayout
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("com.google.android.material:material:1.7.0")
-
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
-
-    //constraintlayout 최신버전
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    //카카오톡
+    implementation ("com.kakao.sdk:v2-all:2.20.3") // 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation ("com.kakao.sdk:v2-user:2.20.3" )// 카카오 로그인 API 모듈
+    implementation ("com.kakao.sdk:v2-talk:2.20.3" )// 카카오톡 API 모듈
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 }

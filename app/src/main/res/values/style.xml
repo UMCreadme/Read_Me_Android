@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSpinnerStyle" parent="Widget.AppCompat.Spinner.Underlined">
+        <item name="android:dropDownHeight">50dp</item> <!-- 드롭다운의 최대 높이 설정 -->
+        <item name="android:popupBackground">@drawable/custom_spinner_background</item> <!-- 드롭다운 배경 설정 -->
+    </style>
+</resources>

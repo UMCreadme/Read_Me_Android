@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.databinding.FragmentCreateBinding
-import com.example.tablayout.BookAdapter
-import com.example.tablayout.CreateViewModel
-
 
 class CreateFragment : Fragment() {
 
@@ -24,11 +21,10 @@ class CreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_create, container, false)
         _binding = FragmentCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,9 +32,9 @@ class CreateFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = bookAdapter
 
-        searchViewModel.books.observe(viewLifecycleOwner, { books ->
+        searchViewModel.books.observe(viewLifecycleOwner) { books: List<Book> ->
             bookAdapter.updateBooks(books)
-        })
+        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
