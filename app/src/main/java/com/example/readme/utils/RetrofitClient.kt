@@ -18,7 +18,7 @@ object RetrofitClient {
     private var locationRetrofit: Retrofit? = null
     private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
-    private val token: String? = null
+    private val token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJlbWFpbCI6InJlYWRtZV9hZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTcyMzg4MzEwNSwiZXhwIjoxNzIzODkzOTA1fQ.ksVuzkOhIEiI_C4qsCblxX0KALh8TZUp2rs98Chys4Q"
 
     // 로깅 인터셉터
     private val interceptor = HttpLoggingInterceptor().apply {
@@ -85,7 +85,8 @@ object RetrofitClient {
     fun getChatFetchService(): ChatFetchService {
         if (chatRetrofit == null) {
             chatRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL) // BASE_URL을 사용
+                .baseUrl("http://192.168.35.243:3000") // BASE_URL을 사용
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

@@ -1,6 +1,7 @@
 package com.example.readme.ui.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
@@ -14,10 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
-import com.example.readme.data.remote.ChatFetchService
-import com.example.readme.data.remote.CommunityMessageResponse
 import com.example.readme.data.remote.MessageRequest
-import com.example.readme.data.remote.PostResponse
 import com.example.readme.utils.RetrofitClient
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
@@ -33,7 +31,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
-    private val communityId = "1234"  // 테스트 커뮤니티 ID
+    private val communityId = "50"  // 테스트 커뮤니티 ID
     private val userId = 1  // 현재 사용자 ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,11 +94,12 @@ class ChatActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val response = service.fetchMessages(communityId)
-                if (response.isSuccessful) {
-                    val messages = response.body() ?: emptyList()
+                if (response.isSuccess) {
+                    val messages = response.result ?: emptyList()
+                    Log.d("ChatActivity", "Fetched ${messages.size} messages: $messages")
                     chatAdapter.submitList(messages)
                 } else {
-                    showToast("Failed to load messages: ${response.code()}")
+                    showToast("Failed to load messages: ${response.code}")
                 }
             } catch (e: IOException) {
                 showToast("Network failure, please try again later.")

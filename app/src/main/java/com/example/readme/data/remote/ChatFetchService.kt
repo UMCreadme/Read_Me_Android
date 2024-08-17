@@ -8,10 +8,10 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ChatFetchService {
-    @GET("chat/{communityId}/messages")
-    suspend fun fetchMessages(@Path("communityId") communityId: String): Response<List<Chat>>
+    @GET("communities/{communityId}/messages")
+    suspend fun fetchMessages(@Path("communityId") communityId: String): ResponseWithPagination<List<Chat>>
 
-    @POST("chat/{communityId}/send")
+    @POST("communities/{communityId}/messages")
     suspend fun sendMessage(
         @Path("communityId") communityId: String,
         @Body messageRequest: MessageRequest
