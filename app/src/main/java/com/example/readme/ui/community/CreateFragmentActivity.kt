@@ -9,7 +9,7 @@ class CreateFragmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.create_community)
+        setContentView(R.layout.activity_create_fragment)
 
         val btnGoToChat: Button = findViewById(R.id.btn_go_to_chat)
         btnGoToChat.setOnClickListener {

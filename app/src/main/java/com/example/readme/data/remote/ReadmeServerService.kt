@@ -6,6 +6,7 @@ import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.UserInfo
+import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.ui.community.Chat
 import retrofit2.Call
 import retrofit2.http.Body
@@ -141,6 +142,12 @@ interface ReadmeServerService {
         @Path("isbn") isbn: String,
         @Query("isBookId") isBookId: Boolean = false
     ): Response
+
+    @GET("/books/recent")
+    suspend fun getRecentSelectBooks(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseWithPagination<List<Book>>
 
     companion object {
         const val BASE_URL ="https://api.umcreadme11.shop"

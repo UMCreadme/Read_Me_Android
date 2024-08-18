@@ -9,6 +9,9 @@
         <variable
             name="item"
             type="com.example.readme.data.entities.BookSearchResult" />
+        <variable
+            name="selectedBook"
+            type="com.example.readme.data.entities.recentbook.Book" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +26,7 @@
             android:layout_height="60dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.bookImg}"
+            app:imageUrl="@{item != null ? item.bookImg : selectedBook.imageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.title}"
+                android:text="@{item != null ? item.title : selectedBook.title}"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
@@ -57,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.author}"
+                android:text="@{item != null ? item.author : selectedBook.author}"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
 

@@ -14,6 +14,9 @@ object SearchRepository {
     // 최근 검색어 조회
     suspend fun getRecentSearches() = apiService.getRecentSearches()
 
+    // 최근 선택한 책 조회
+    suspend fun getRecentSelectBooks() = apiService.getRecentSelectBooks()
+
     // 책 미리보기 검색
     suspend fun searchBooksPreview(query: String, page: Int, size: Int) = apiService.searchBooksPreview(query, page, size)
 
