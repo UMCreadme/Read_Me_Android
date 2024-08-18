@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import com.example.readme.data.remote.KakaoLoginService
 import com.example.readme.data.remote.ReadmeServerService
-import com.example.readme.data.repository.CommunityRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.KeyStore
@@ -35,10 +34,8 @@ object RetrofitClient {
         mainInfoRetrofit = null
         locationRetrofit = null
         chatRetrofit = null
-        createRetrofit = null
 
         SearchRepository.init(getReadmeServerService())
-        CommunityRepository.init(getReadmeServerService())
     }
 
     // 로깅 인터셉터
@@ -56,11 +53,35 @@ object RetrofitClient {
 
         Log.d("RetrofitClient", "Request to ${request.url} with token: ${token}")
 
+
         chain.proceed(request)
     }
 
-    // OkHttpClient 객체 생성: 인증이 필요한 경우와 아닌 경우로 분기 처리
-    private val client: OkHttpClient = OkHttpClient.Builder().apply {
+    // OkHttpClient 객체 생성
+    private val client: OkHttpClient
+        get() = if (token != null) {
+            OkHttpClient.Builder()
+                .addInterceptor(authInterceptor)
+                .addInterceptor(interceptor)
+                .build()
+        } else {
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+        }
+
+    // SSLContext 및 TrustManager 설정
+    private val trustManager: X509TrustManager = TrustManagerFactory.getInstance(
+        TrustManagerFactory.getDefaultAlgorithm()
+    ).apply {
+        init(null as KeyStore?)
+    }.trustManagers[0] as X509TrustManager
+
+    private val sslContext: SSLContext = SSLContext.getInstance("TLS").apply {
+        init(null, arrayOf(trustManager), null)
+    }
+
+    private val chatClient: OkHttpClient = OkHttpClient.Builder().apply {
         if (token != null) {
             addInterceptor(authInterceptor)
         }
@@ -95,26 +116,6 @@ object RetrofitClient {
         return mainInfoRetrofit!!.create(MainInfoService::class.java)
     }
 
-    // SSLContext 및 TrustManager 설정
-    private val trustManager: X509TrustManager = TrustManagerFactory.getInstance(
-        TrustManagerFactory.getDefaultAlgorithm()
-    ).apply {
-        init(null as KeyStore?)
-    }.trustManagers[0] as X509TrustManager
-
-    private val sslContext: SSLContext = SSLContext.getInstance("TLS").apply {
-        init(null, arrayOf(trustManager), null)
-    }
-
-    // Retrofit 객체를 생성하는 공통 함수
-    private fun createRetrofitInstance(baseUrl: String): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     // Location 서버 API Retrofit 객체 생성
     fun getLocationService(): LocationService {
         if (locationRetrofit == null) {
@@ -132,11 +133,23 @@ object RetrofitClient {
         if (chatRetrofit == null) {
             chatRetrofit = Retrofit.Builder()
                 .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
+                .client(chatClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
         return chatRetrofit!!.create(ChatFetchService::class.java)
+    }
+
+    // CreateService Retrofit 객체 생성
+    fun getCreateService(): CreateService {
+        if (createRetrofit == null) {
+            createRetrofit = Retrofit.Builder()
+                .baseUrl(ReadmeServerService.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return createRetrofit!!.create(CreateService::class.java)
     }
 
     // Readme 서버 API Retrofit 객체 생성
@@ -149,13 +162,5 @@ object RetrofitClient {
                 .build()
         }
         return readmeRetrofit!!.create(ReadmeServerService::class.java)
-    }
-
-    // CreateService Retrofit 객체 생성
-    fun getCreateService(): CreateService {
-        if (createRetrofit == null) {
-            createRetrofit = createRetrofitInstance(ReadmeServerService.BASE_URL)
-        }
-        return createRetrofit!!.create(CreateService::class.java)
     }
 }
