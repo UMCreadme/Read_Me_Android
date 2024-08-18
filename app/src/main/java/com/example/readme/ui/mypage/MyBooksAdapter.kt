@@ -20,7 +20,7 @@ class MyBooksAdapter (private val booksList: List<Book>) : RecyclerView.Adapter<
                     .load(book.bookImage)
                     .into(binding.shortsImage)
             } else {
-                binding.shortsImage.setImageResource(R.drawable.img_profile_default)  // 기본 이미지 설정
+                binding.shortsImage.setImageResource(R.drawable.img_profile_default)
                 // 나중에 책 기본 이미지 추가!!!
             }
         }

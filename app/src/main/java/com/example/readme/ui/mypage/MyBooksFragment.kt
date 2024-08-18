@@ -18,7 +18,7 @@ class MyBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
     private lateinit var booksAdapter: MyBooksAdapter
     private val booksList = mutableListOf<Book>()
 
-    private val userId: Int = 3 // 테스트용 사용자 ID
+    private val token: String = "example_your_token" // 토큰
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
@@ -37,7 +37,7 @@ class MyBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
     private fun fetchBooks() {
         lifecycleScope.launch {
             try {
-                val booksResponse = apiService.getBooks(userId)
+                val booksResponse = apiService.getMyBooks(token)
                 Log.d("UserShortsFragment", "Fetched shorts: ${booksResponse.result.size}")
                 booksList.clear()
                 booksList.addAll(booksResponse.result)
