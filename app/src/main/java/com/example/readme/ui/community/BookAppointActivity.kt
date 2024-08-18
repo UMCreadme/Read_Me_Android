@@ -20,6 +20,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.readme.R
+import com.example.readme.ui.community.my.CommunityMyFragment
 import com.example.readme.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -81,7 +82,7 @@ class BookAppointActivity : AppCompatActivity() {
         // 확인 버튼 클릭 시 동작 처리
         confirmButton.setOnClickListener {
             if (areAllFieldsValid()) {
-                val intent = Intent(this, MyChatFragment::class.java)
+                val intent = Intent(this, CommunityMyFragment::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show()

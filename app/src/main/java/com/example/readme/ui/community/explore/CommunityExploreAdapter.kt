@@ -1,6 +1,5 @@
 package com.example.readme.ui.community.explore
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +23,6 @@ class CommunityExploreAdapter(
     override fun onBindViewHolder(holder: CommunityViewHolder, position: Int) {
         val item = getItem(position)
         item?.let {
-            Log.d("CommunityExploreAdapter", "item: $it")
             holder.bind(it)
         }
     }

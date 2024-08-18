@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.readme.ui.community.create.CommunityCreateFragment
+import com.example.readme.ui.community.my.CommunityMyFragment
 
 class CommunityFragmentAdapter(
     fragmentActivity: FragmentActivity
@@ -14,7 +15,7 @@ class CommunityFragmentAdapter(
         return when (position) {
             0 -> CommunityExploreFragment()
             1 -> CommunityCreateFragment()
-            2 -> CommunityCreateFragment()
+            2 -> CommunityMyFragment()
             else -> throw IllegalArgumentException("Invalid tab position")
         }
     }
