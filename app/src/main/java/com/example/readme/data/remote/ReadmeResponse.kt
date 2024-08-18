@@ -3,7 +3,7 @@ package com.example.readme.data.remote
 import com.google.gson.annotations.SerializedName
 
 // 기본 응답
-data class Response (
+data class Response(
     @SerializedName("isSuccess") val isSuccess: Boolean,
     @SerializedName("code") val code: String,
     @SerializedName("message") val message: String
