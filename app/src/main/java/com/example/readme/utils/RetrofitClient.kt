@@ -11,6 +11,10 @@ import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.data.repository.CommunityRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.KeyStore
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManagerFactory
+import javax.net.ssl.X509TrustManager
 
 object RetrofitClient {
 
@@ -19,6 +23,7 @@ object RetrofitClient {
     private var locationRetrofit: Retrofit? = null
     private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
+    private var createRetrofit: Retrofit? = null
     private var token: String? = null
 
     fun setToken(accessToken: String) {
@@ -30,6 +35,7 @@ object RetrofitClient {
         mainInfoRetrofit = null
         locationRetrofit = null
         chatRetrofit = null
+        createRetrofit = null
 
         SearchRepository.init(getReadmeServerService())
         CommunityRepository.init(getReadmeServerService())
@@ -53,18 +59,17 @@ object RetrofitClient {
         chain.proceed(request)
     }
 
-    // OkHttpClient 객체 생성
-    private val client: OkHttpClient
-        get() = if (token != null) {
-            OkHttpClient.Builder()
-                .addInterceptor(authInterceptor)
-                .addInterceptor(interceptor)
-                .build()
-        } else {
-            OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
+    // OkHttpClient 객체 생성: 인증이 필요한 경우와 아닌 경우로 분기 처리
+    private val client: OkHttpClient = OkHttpClient.Builder().apply {
+        if (token != null) {
+            addInterceptor(authInterceptor)
         }
+        addInterceptor(interceptor)
+
+        // SSL 설정 추가
+        sslSocketFactory(sslContext.socketFactory, trustManager)
+        hostnameVerifier { _, _ -> true } // 필요에 따라 호스트 이름 검증을 끔
+    }.build()
 
     // 카카오톡 로그인 API Retrofit 객체 생성
     fun getKakaoLoginService(): KakaoLoginService {
@@ -88,6 +93,26 @@ object RetrofitClient {
                 .build()
         }
         return mainInfoRetrofit!!.create(MainInfoService::class.java)
+    }
+
+    // SSLContext 및 TrustManager 설정
+    private val trustManager: X509TrustManager = TrustManagerFactory.getInstance(
+        TrustManagerFactory.getDefaultAlgorithm()
+    ).apply {
+        init(null as KeyStore?)
+    }.trustManagers[0] as X509TrustManager
+
+    private val sslContext: SSLContext = SSLContext.getInstance("TLS").apply {
+        init(null, arrayOf(trustManager), null)
+    }
+
+    // Retrofit 객체를 생성하는 공통 함수
+    private fun createRetrofitInstance(baseUrl: String): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     // Location 서버 API Retrofit 객체 생성
@@ -124,5 +149,13 @@ object RetrofitClient {
                 .build()
         }
         return readmeRetrofit!!.create(ReadmeServerService::class.java)
+    }
+
+    // CreateService Retrofit 객체 생성
+    fun getCreateService(): CreateService {
+        if (createRetrofit == null) {
+            createRetrofit = createRetrofitInstance(ReadmeServerService.BASE_URL)
+        }
+        return createRetrofit!!.create(CreateService::class.java)
     }
 }
