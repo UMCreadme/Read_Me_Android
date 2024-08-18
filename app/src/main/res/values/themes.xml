@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- 상태바 투명하게 설정 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="android:fontFamily">@font/font_pretendard</item>
+        <item name="fontFamily">@font/font_pretendard</item>
+        <item name="materialButtonStyle">@style/CustomButtonStyle</item>
+        <item name="toolbarStyle">@style/CustomToolbar</item>
+
+        <item name="colorPrimary">@color/Primary</item>
+        <item name="colorPrimaryVariant">@color/Primary</item>
+        <item name="colorOnPrimary">@color/White</item>
+        <item name="colorSecondary">@color/Primary_Sub</item>
+        <item name="colorSecondaryVariant">@color/Primary_Sub</item>
+        <item name="colorOnSecondary">@color/Black</item>
+        <item name="backgroundColor">@color/White</item>
+        <item name="colorSurface">@color/White</item>
+        <item name="colorOnSurface">@color/Black</item>
+        <item name="colorError">@color/Black</item>
+        <item name="colorOnError">@color/White</item>
+
+    </style>
+
+    <!-- BottomNavigationView theme-->
+    <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/White</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:background">@drawable/btn_pf_edit</item> <!-- 기본 배경 Drawable -->
+        <item name="android:textColor">@color/Black</item> <!-- 텍스트 색상 -->
+        <item name="android:textStyle">bold</item> <!-- 텍스트 스타일 -->
+        <item name="android:layout_width">wrap_content</item> <!-- 기본 너비 -->
+        <item name="android:layout_height">wrap_content</item> <!-- 기본 높이 -->
+    </style>
+
+    <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextStyle">@style/CustomToolbarTitleText</item>
+    </style>
+
+    <style name="CustomToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/robotoslab_extrabold</item>
+    </style>
+
+    <!-- 지선님 tab layout 스타일-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+</resources>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+     <data>
+          <variable
+              name="viewModel"
+              type="com.example.readme.ui.category.CategoryViewModel" />
+     </data>
+
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+          android:background="@color/design_default_color_background"
+          tools:context=".ui.category.CategoryActivity">
+     <ImageButton
+         android:id="@+id/back_btn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="24dp"
+         android:layout_marginTop="32dp"
+         android:background="@color/White"
+         android:src="@drawable/back_btn"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
+         android:id="@+id/category_title_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="27dp"
+         android:layout_marginStart="10dp"
+         android:layout_marginTop="22dp"
+         android:text="선호 카테고리를 선택해주세요"
+         android:textAppearance= "@style/TextAppearance.AppCompat.Large"
+         android:textSize="20sp"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintStart_toStartOf="@id/back_btn"
+         app:layout_constraintTop_toBottomOf = "@id/back_btn" />
+
+     <TextView
+         android:id="@+id/category_subtitle_tv"
+         android:layout_width="123dp"
+         android:layout_height="19dp"
+
+         android:layout_marginTop="5dp"
+         android:text="*변경 할 수 있어요."
+         android:textSize="12sp"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintStart_toStartOf="@id/category_title_tv"
+         app:layout_constraintTop_toBottomOf="@id/category_title_tv"  />
+
+
+
+     <TextView
+         android:id="@+id/category_hint_tv"
+         android:layout_width="170dp"
+         android:layout_height="wrap_content"
+
+         android:layout_marginTop="50dp"
+         android:text="4개 이상, 8개 이하로 선택하시면 관련 컨텐츠를 추천해드려요."
+         android:textSize="12sp"
+          app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/category_subtitle_tv" />
+
+<LinearLayout
+    android:id="@+id/linear1"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center"
+     android:orientation="horizontal"
+    android:layout_marginTop="30dp"
+
+     app:layout_constraintTop_toBottomOf="@id/category_hint_tv">
+
+     <ToggleButton
+         android:id="@+id/checkBox_1"
+         android:layout_width="90dp"
+         android:layout_height="38dp"
+         android:layout_margin="5dp"
+         android:background="@drawable/toggle_button_selector"
+         android:textOff="소설"
+         android:textOn="소설"
+         android:textSize="18sp"/>
+
+     <ToggleButton
+         android:id="@+id/checkBox_2"
+         android:layout_width="74dp"
+         android:layout_height="38dp"
+         android:layout_margin="5dp"
+         android:background="@drawable/toggle_button_selector"
+         android:textOff="시"
+         android:textOn="시"
+         android:textSize="18sp"/>
+
+     <ToggleButton
+         android:id="@+id/checkBox_3"
+         android:layout_width="105dp"
+         android:layout_height="38dp"
+         android:layout_margin="5dp"
+         android:background="@drawable/toggle_button_selector"
+         android:textOff="에세이"
+         android:textOn="에세이"
+         android:textSize="18sp"/>
+</LinearLayout>
+
+     <LinearLayout
+         android:id="@+id/linear2"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear1">
+
+          <ToggleButton
+              android:id="@+id/checkBox_4"
+              android:layout_width="105dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="인문학"
+              android:textOn="인문학"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_5"
+              android:layout_width="127dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="가정/육아"
+              android:textOn="가정/육아"
+              android:textSize="18sp"/>
+
+
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/linear3"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear2">
+
+          <ToggleButton
+              android:id="@+id/checkBox_6"
+              android:layout_width="127dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="건강/운동"
+              android:textOn="건강/운동"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_7"
+              android:layout_width="90dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="취미"
+              android:textOn="취미"
+              android:textSize="18sp"/>
+
+
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/linear4"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear3">
+
+          <ToggleButton
+              android:id="@+id/checkBox_8"
+              android:layout_width="121dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="자기계발"
+              android:textOn="자기계발"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_9"
+              android:layout_width="127dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="경제/경영"
+              android:textOn="경제/경영"
+              android:textSize="18sp"/>
+
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/linear5"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear4">
+
+          <ToggleButton
+              android:id="@+id/checkBox_10"
+              android:layout_width="121dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="정치/사회"
+              android:textOn="정치/사회"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_11"
+              android:layout_width="90dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="️역사"
+              android:textOn="️역사"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_12"
+              android:layout_width="90dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="종교"
+              android:textOn="종교"
+              android:textSize="18sp"/>
+
+
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/linear6"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear5">
+
+          <ToggleButton
+              android:id="@+id/checkBox_13"
+              android:layout_width="127dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="예술/문화"
+              android:textOn="예술/문화"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_14"
+              android:layout_width="90dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="과학"
+              android:textOn="과학"
+              android:textSize="18sp"/>
+
+
+
+
+     </LinearLayout>
+
+     <LinearLayout
+         android:id="@+id/linear7"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear6">
+
+          <ToggleButton
+              android:id="@+id/checkBox_15"
+              android:layout_width="127dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="컴퓨터/IT"
+              android:textOn="컴퓨터/IT"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_16"
+              android:layout_width="143dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="교육/외국어"
+              android:textOn="교육/외국어"
+              android:textSize="18sp"/>
+
+
+
+
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/linear8"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:layout_marginTop="0dp"
+         app:layout_constraintTop_toBottomOf="@id/linear7">
+
+          <ToggleButton
+              android:id="@+id/checkBox_17"
+              android:layout_width="90dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="여행"
+              android:textOn="여행"
+              android:textSize="18sp"/>
+
+          <ToggleButton
+              android:id="@+id/checkBox_18"
+              android:layout_width="105dp"
+              android:layout_height="38dp"
+              android:layout_margin="5dp"
+              android:background="@drawable/toggle_button_selector"
+              android:textOff="웹소설"
+              android:textOn="웹소설"
+              android:textSize="18sp"/>
+
+
+
+
+     </LinearLayout>
+
+
+     <Button
+         android:id="@+id/category_next_btn"
+         android:layout_width="324dp"
+         android:layout_height="55dp"
+         android:text="확인"
+         android:textSize="18sp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"
+         android:layout_marginBottom="30dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

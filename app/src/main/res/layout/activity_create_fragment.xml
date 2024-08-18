@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_community_done"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="10dp">
+
+        <ImageView
+            android:id="@+id/ic_like"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/ic_like"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="책 모임 생성 완료!"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="즐거운 책 모임까지 반은 성공했어요!"
+            android:textSize="16sp"
+            android:layout_marginBottom="40dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_go_to_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="나의 채팅방 가기"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@drawable/btn_rect_background"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
