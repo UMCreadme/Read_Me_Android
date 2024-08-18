@@ -4,13 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.remote.MyPageResponse
 import com.example.readme.data.remote.ProfileUpdateRequest
 import com.example.readme.data.remote.ReadmeServerService
-import com.example.readme.utils.RetrofitClient.apiService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MyPageViewModel(private val token: String, private val apiService: ReadmeServerService) : ViewModel() {
