@@ -1,7 +1,12 @@
 package com.example.readme.data.entities
 
 data class User(
-    val id: Int,
-    val name: String,
-    val bio: String
+    val userId: Int,
+    val nickname: String,
+    val account: String,
+    val comment: String,
+    val readCount: Int,
+    val followerNum: Int,
+    val followingNum: Int,
+    val profileImg: String
 )

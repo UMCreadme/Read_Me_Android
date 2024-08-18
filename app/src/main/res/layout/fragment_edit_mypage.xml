@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.readme.ui.mypage.EditMyPageViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".ui.mypage.EditMyPageFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="16dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/btn_pf_back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="4dp"
+                android:text="프로필 편집"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/Black"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/completeButton"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:text="완료"
+                android:textStyle="bold"
+                android:textColor="@color/White"
+                android:background="@drawable/btn_pf_finish"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/circle_background_pf"
+                android:scaleType="centerCrop"
+                android:src="@{viewModel.profileImg}"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_edit_default_pic"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/btn_pf_x"
+                android:contentDescription="Edit default pic"
+                app:layout_constraintTop_toTopOf="@id/profile_image"
+                app:layout_constraintEnd_toEndOf="@id/profile_image"
+                android:layout_marginEnd="-20dp"
+                android:layout_marginTop="-20dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_pic_edit"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/White"
+            android:text="사진 수정"
+            android:textSize="14sp"
+            android:textColor="@color/Black"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="25dp"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="이메일"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/emailText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{viewModel.profileEmail}"
+                    android:textSize="14sp"
+                    android:background="@null"
+                    android:padding="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/nicknameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{viewModel.profileName}"
+                    android:textSize="14sp"
+                    android:background="@null"
+                    android:padding="4dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_edit_nickname"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/btn_pf_x"
+                    android:contentDescription="Edit nickname" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="ID"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/idEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{'@'+viewModel.profileAccount}"
+                    android:textSize="14sp"
+                    android:background="@null"
+                    android:padding="4dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_edit_id"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/btn_pf_x"
+                    android:contentDescription="Edit ID" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="설명"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{viewModel.profileBio}"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:textSize="14sp"
+                    android:background="@null"
+                    android:padding="4dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_edit_bio"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/btn_pf_x"
+                    android:contentDescription="Edit bio" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -6,6 +6,9 @@ import com.example.readme.data.repository.SearchRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import com.example.readme.data.remote.AladdinService
+import com.example.readme.data.remote.KakaoLoginService
+import com.example.readme.data.remote.ReadmeServerService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

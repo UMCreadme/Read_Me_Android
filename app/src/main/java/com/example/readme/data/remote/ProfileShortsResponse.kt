@@ -2,7 +2,7 @@ package com.example.readme.data.remote
 
 data class ProfileShortsResponse(
     val isSuccess: Boolean,
-    val code: Int,
+    val code: String,
     val message: String,
     val pageInfo: ProfileShortsPageInfo,
     val result: List<ProfileShortsItem>

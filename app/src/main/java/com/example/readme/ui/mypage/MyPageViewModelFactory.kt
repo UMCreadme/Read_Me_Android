@@ -1,20 +1,15 @@
-package com.example.readme.ui.profile
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.ui.mypage.MyPageViewModel
 
-class UserProfileViewModelFactory(
-    private val userId: Int,
-    private val apiService: ReadmeServerService
-) : ViewModelProvider.Factory {
+class MyPageViewModelFactory(private val token: String, private val apiService: ReadmeServerService) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserProfileViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(MyPageViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return UserProfileViewModel(userId, apiService) as T
+            return MyPageViewModel(token, apiService) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }
