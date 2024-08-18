@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+
 }
 
 android {
@@ -110,6 +111,17 @@ dependencies {
 
     // OkHttp (optional, for logging)
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+    implementation("com.squareup.okhttp3:okhttp")
+
+    // DataStore
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
+    //hilt
+    implementation ("com.google.dagger:hilt-android:2.42")
+    kapt ("com.google.dagger:hilt-compiler:2.42")
+
+
 
     //기본 impl
     implementation(libs.androidx.core.ktx)
