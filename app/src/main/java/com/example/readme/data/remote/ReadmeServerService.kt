@@ -114,6 +114,6 @@ interface ReadmeServerService {
     ): Response
 
     companion object {
-        const val BASE_URL ="http://192.168.35.243:3000"
+        const val BASE_URL ="https://api.umcreadm11.shop"
     }
 }
