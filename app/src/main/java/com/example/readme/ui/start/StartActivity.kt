@@ -9,6 +9,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import com.example.readme.R
 import com.example.readme.databinding.ActivityStartBinding
 import com.example.readme.ui.login.LoginActivity
 import com.example.readme.ui.start.StartImgViewModel
