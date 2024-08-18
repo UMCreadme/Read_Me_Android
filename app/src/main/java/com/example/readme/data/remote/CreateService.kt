@@ -6,5 +6,5 @@ import retrofit2.http.POST
 
 interface CreateService {
     @POST("communities")
-    suspend fun createPost(@Body postData: PostData): Response<PostResponse>
+    suspend fun createPost(@Body postData: PostData): Response
 }
