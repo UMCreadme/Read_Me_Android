@@ -14,7 +14,6 @@ import com.example.readme.ui.base.BaseFragment
 class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateBinding>(R.layout.fragment_community_create) {
     override fun initStartView() {
         super.initStartView()
-        // TODO: 최근 선택한 책 불러오는 Fragment로 설정
          setFragment(RecentSelectBookFragment())
     }
 
@@ -46,11 +45,16 @@ class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateBinding>(R.l
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                val bookSearchResultFragment = BookSearchResultFragment()
-                val bundle = Bundle()
-                bundle.putString("keyword", binding.searchEditText.text.toString())
-                bookSearchResultFragment.arguments = bundle
-                setFragment(bookSearchResultFragment)
+                val keyword = binding.searchEditText.text.toString()
+                if (keyword.isEmpty()) {
+                    setFragment(RecentSelectBookFragment())
+                } else {
+                    val bookSearchResultFragment = BookSearchResultFragment()
+                    val bundle = Bundle()
+                    bundle.putString("keyword", keyword)
+                    bookSearchResultFragment.arguments = bundle
+                    setFragment(bookSearchResultFragment)
+                }
             }
         })
     }
