@@ -9,20 +9,40 @@ import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.repository.CommunityRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
 
+@OptIn(FlowPreview::class)
 class CommunityExploreViewModel(
     private val repository: CommunityRepository
 ) : ViewModel() {
     private val _communityItems = MutableLiveData<List<CommunityListResponse>?>()
     val communityItems: LiveData<List<CommunityListResponse>?> get() = _communityItems
 
+    private val queryFlow = MutableStateFlow("")
     private var currentPage = 1
     private var lastQuery: String? = null
     private var hasNext = true
     private var isLoading = false
 
-    fun fetchCommunityList() {
-        if (!hasNext || isLoading) {
+    init {
+        viewModelScope.launch {
+            queryFlow
+                .debounce(400) // 400ms debounce time to prevent excessive API calls
+                .distinctUntilChanged() // Only proceed if the query actually changes
+                .collect { query ->
+                    if (query.isEmpty()) {
+                        fetchCommunityList() // 검색어가 비어 있을 때 전체 커뮤니티 리스트 조회
+                    } else {
+                        searchCommunity(query)
+                    }
+                }
+        }
+    }
+
+    fun fetchCommunityList(isNew: Boolean = true) {
+        if (isNew) {
+            resetPagination()
+        } else if (!hasNext || isLoading) {
             return
         }
 
@@ -85,9 +105,14 @@ class CommunityExploreViewModel(
         }
     }
 
+    private fun resetPagination() {
+        currentPage = 1
+        hasNext = true
+    }
+
     fun loadDefaultCommunityMore() {
         if (!hasNext || isLoading) return
-        fetchCommunityList()
+        fetchCommunityList(false)
     }
 
     fun loadSearchCommunityMore() {
