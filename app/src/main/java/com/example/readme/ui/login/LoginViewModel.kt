@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.entities.UserData
+import com.example.readme.utils.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = LoginRepository()
@@ -17,13 +19,16 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _userData = MutableLiveData<UserData>()
     val userData: LiveData<UserData> get() = _userData
+   // private var retrofitClient: Retrofit? = null
+
 
     fun sendKakaoUserInfo(user: KaKaoUser) {
         viewModelScope.launch {
             try {
                 val response = repository.sendKakaoUserInfo(user)
                 Log.d("LoginViewModel", "Login request: $user")
-                Log.d("LoginViewModel", "Login response: ${response.raw()}")  // 원본 응답을 출력하여 디버깅에 도움
+                Log.d("LoginViewModel", "Login response: ${response.body()}")
+                Log.d("accessTocken","accessTocken: ${response.body()!!.result!!.accessToken}")
 
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -38,6 +43,9 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                         )
                         Log.d("LoginViewModel", "New UserData: $newUserData")
                         _userData.postValue(newUserData)
+
+                        RetrofitClient.setToken(responseBody.result!!.accessToken)
+
                     } else {
                         Log.e("LoginViewModel", "Response body is null")
                     }
@@ -104,4 +112,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     fun updateUserData() {
         _userData.value?.let { sendSignUpInfo(it) }
     }
+
+
 }

@@ -56,6 +56,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
                 }
             }
+            binding.nonMembersTv.id -> {
+                nextMainActivity()
+            }
         }
     }
 
@@ -72,7 +75,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         setContentView(binding.root)
+
         binding.kakaoLoginBtn.setOnClickListener(this)
+        binding.nonMembersTv.setOnClickListener(this)
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
@@ -107,6 +112,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
 
     private fun nextMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
