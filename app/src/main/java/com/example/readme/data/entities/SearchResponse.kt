@@ -30,6 +30,24 @@ data class ShortsPreview(
     @SerializedName("phrase") val phrase: String
 )
 
+data class SearchShortsResult(
+    @SerializedName("userId") val userId: Int,
+    @SerializedName("profileImg") val profileImg: String,
+    @SerializedName("nickname") val nickname: String,
+    @SerializedName("shortsId") val shortsId: Int,
+    @SerializedName("shortsImg") val shortsImg: String,
+    @SerializedName("phrase") val phrase: String,
+    @SerializedName("phraseX") val phraseX: Float,
+    @SerializedName("phraseY") val phraseY: Float,
+    @SerializedName("title") val title: String,
+    @SerializedName("content") val content: String,
+    @SerializedName("tags") val tags: List<String>,
+    @SerializedName("isLike") val isLike: Boolean,
+    @SerializedName("likeCnt") val likeCnt: Int,
+    @SerializedName("commentCnt") val commentCnt: Int,
+    @SerializedName("postingDate") val postingDate: String
+)
+
 data class RecentSearch(
     @SerializedName("query") val query: String,
     @SerializedName("recent_searches_id") val recentSearchesId: Int,
@@ -39,7 +57,7 @@ data class RecentSearch(
     @SerializedName("author") val author: String? = null
 )
 
-data class UserInfo(
+data class SearchUserResult(
     @SerializedName("userId") val userId: Int,
     @SerializedName("profileImg") val profileImg: String,
     @SerializedName("account") val account: String,

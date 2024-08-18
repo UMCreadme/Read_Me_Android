@@ -7,7 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class SearchResultFragment : BaseFragment<FragmentSearchresultBinding>(R.layout.fragment_searchresult) {
 
-    private val tabs = arrayListOf("태그", "책", "프로필")
+    private val tabs = arrayListOf("프레", "책", "프로필")
 
     override fun initStartView() {
         super.initStartView()

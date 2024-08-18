@@ -17,6 +17,8 @@ object SearchRepository {
     // 책 미리보기 검색
     suspend fun searchBooksPreview(query: String, page: Int, size: Int) = apiService.searchBooksPreview(query, page, size)
 
+    // 쇼츠 검색
+    suspend fun searchShorts(query: String, page: Int, size: Int) = apiService.searchShorts(query, page, size)
     // 책 검색
     suspend fun searchBooks(query: String, page: Int, size: Int) = apiService.searchBooks(query, page, size)
 
