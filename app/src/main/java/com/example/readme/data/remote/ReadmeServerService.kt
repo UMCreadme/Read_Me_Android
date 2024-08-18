@@ -5,7 +5,7 @@ import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch
-import com.example.readme.data.entities.UserInfo
+import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.ui.community.Chat
 import retrofit2.Call
@@ -47,7 +47,7 @@ interface ReadmeServerService {
         @Query("keyword") query: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20
-    ): ResponseWithPagination<List<UserInfo>>
+    ): ResponseWithPagination<List<SearchUserResult>>
 
     /**
      * COMMUNITY 관련 API

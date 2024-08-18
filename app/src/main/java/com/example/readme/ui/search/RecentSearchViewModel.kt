@@ -26,6 +26,7 @@ class RecentSearchViewModel(
                 if(response.isSuccess){
                     val items = response.result
                     _recentSearchItems.postValue(items)
+                    Log.d("RecentSearchViewModel", "response:${response.result}")
                 } else if(response.code == "TOKEN4005"){
                     // 액세스 토큰 재발급 후 재요청?
                     Log.e(TAG, "Failed to fetch recent search items: ${response.code} - ${response.message}")

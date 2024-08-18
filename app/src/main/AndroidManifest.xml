@@ -17,8 +17,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-
-
     <application
         android:name=".ui.GlobalApplication"
         android:allowBackup="true"
@@ -58,11 +56,14 @@
             android:name=".ui.community.BookAppointActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".ui.search.book.BookDetailActivity"
+            android:exported="true" />
+
         <!-- 구글 geo API KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAnr87XpMn-jRGdCtk6HbxNf3OezfHcKgI" />
-
 
         <!-- MainActivity에 대한 선언 -->
         <activity

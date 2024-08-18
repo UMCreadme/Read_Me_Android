@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showInit() {
         val transaction = supportFragmentManager.beginTransaction()
-            .add(R.id.nav_host_fragment, HomeFragment())
+            .add(R.id.nav_host_fragment, SearchFragment()) // TODO: 다시 HomeFragment()로 변경
         transaction.commit()
     }
 

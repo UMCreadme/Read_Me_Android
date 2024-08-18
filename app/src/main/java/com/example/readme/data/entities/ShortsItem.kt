@@ -1,7 +1,9 @@
 package com.example.readme.data.entities
 
 data class ShortsItem(
-    var title: String? = "",
-    var author: String? = "",
-    var coverImg: Int? = null
+    val shortsId: Int,
+    val shortsImage: String,
+    val shortsPhrase: String,
+    val shortsBookTitle: String,
+    val shortsBookAuthor: String
 )

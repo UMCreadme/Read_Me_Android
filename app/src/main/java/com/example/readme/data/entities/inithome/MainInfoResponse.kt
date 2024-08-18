@@ -25,7 +25,7 @@ data class ShortsInfo(
     @SerializedName("phrase") val phrase: String,
     @SerializedName("bookTitle") val bookTitle: String,
     @SerializedName("author") val author: String,
-    @SerializedName("translator") val translator: String?,
+    @SerializedName("translator") val translator: String?, // TODO: 지우기!
     @SerializedName("category") val category: String
 )
 
