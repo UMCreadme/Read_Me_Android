@@ -70,12 +70,12 @@ interface ReadmeServerService {
     @DELETE("/recent-searches/{recentSearchesId}")
     suspend fun deleteRecentSearch(
         @Path("recentSearchesId") recentSearchesId: Int
-    ): Response
+    ): Response<Any?>
 
     @POST("/books/{isbn}")
     suspend fun saveRecentSearchBook(
         @Path("isbn") isbn: String
-    ): Response
+    ): Response<Any?>
 
     @GET("/books/{isbn}")
     suspend fun getBookDetail(
@@ -97,15 +97,15 @@ interface ReadmeServerService {
     suspend fun updateReadStatus(
         @Path("bookId") bookId: Int,
         @Query("isBookId") isBookId: Boolean = true
-    ): Response
+    ): Response<Any?>
 
     @POST("/books/{isbn}/read")
     suspend fun updateReadStatus(
         @Path("isbn") isbn: String,
         @Query("isBookId") isBookId: Boolean = false
-    ): Response
+    ): Response<Any?>
 
     companion object {
-        const val BASE_URL ="https://api.umcreadme11.shop"
+        const val BASE_URL ="https://api.umcreadme11.shop/"
     }
 }
