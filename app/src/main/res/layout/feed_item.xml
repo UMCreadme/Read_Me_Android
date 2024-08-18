@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/feed_profile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/profilepost_icon" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="kimtomato"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/feed_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="kimtomato" />
+
+        <ImageView
+            android:id="@+id/shortsImage"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/feed_profile"
+
+            tools:srcCompat="@drawable/post_picture_icon" />
+
+        <Button
+            android:id="@+id/likeIcon"
+            android:layout_width="52dp"
+            android:layout_height="45dp"
+
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/like_icon"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/shortsImage"
+            app:layout_constraintTop_toBottomOf="@id/shortsImage" />
+
+        <Button
+            android:id="@+id/comment"
+            android:layout_width="52dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/comment_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/likeIcon"
+            app:layout_constraintStart_toEndOf="@id/likeIcon"
+            app:layout_constraintTop_toTopOf="@+id/likeIcon" />
+
+        <TextView
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="좋아요"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/likeIcon"
+            app:layout_constraintTop_toBottomOf="@id/likeIcon" />
+
+        <TextView
+            android:id="@+id/likeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="1388"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/like"
+            app:layout_constraintStart_toEndOf="@+id/like"
+            app:layout_constraintTop_toTopOf="@+id/like" />
+
+        <TextView
+            android:id="@+id/likeCount_Unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/likeCount"
+            app:layout_constraintStart_toEndOf="@+id/likeCount"
+            app:layout_constraintTop_toTopOf="@+id/likeCount" />
+
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="이거 진짜 개 짜는데"
+            android:textColor="@color/Black"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/likeCount" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="이거 진짜 개 짜는데 제발 읽으시라구요...!!! '둘이길 수 있는' 이거 진짜 모르고 봐야 한다니까..!!!"
+            android:textSize="15sp"
+            android:textColor="@color/Black"
+            app:layout_constraintStart_toStartOf="@id/main_title"
+            app:layout_constraintTop_toBottomOf="@id/main_title" />
+
+        <TextView
+            android:id="@+id/timestampCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/timestamp"
+            app:layout_constraintEnd_toStartOf="@+id/timestamp"
+            app:layout_constraintTop_toTopOf="@+id/timestamp" />
+
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일 전"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/shortsImage"
+            app:layout_constraintTop_toBottomOf="@id/shortsImage" />
+
+
+        <TextView
+            android:id="@+id/comment_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="댓글"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/content"
+            app:layout_constraintTop_toBottomOf="@id/content" />
+
+        <TextView
+            android:id="@+id/commentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_txt"
+            app:layout_constraintStart_toEndOf="@+id/comment_txt"
+            app:layout_constraintTop_toTopOf="@+id/comment_txt" />
+
+        <TextView
+            android:id="@+id/commentCount_Unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개 모두 보기"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/commentCount"
+            app:layout_constraintStart_toEndOf="@+id/commentCount"
+            app:layout_constraintTop_toTopOf="@+id/commentCount"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

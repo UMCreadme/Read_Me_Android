@@ -1,4 +1,4 @@
-package com.example.whashow.base
+package com.example.readme.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -48,5 +48,13 @@ abstract class BaseFragment<B: ViewDataBinding>(@LayoutRes private val layoutRes
         initStartView()
         initDataBinding()
         initAfterBinding()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // binding 해제
+        if (::binding.isInitialized) {
+            binding.unbind()
+        }
     }
 }
