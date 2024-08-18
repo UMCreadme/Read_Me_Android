@@ -5,9 +5,8 @@ import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.UserInfo
 import com.example.readme.ui.community.Chat
-import com.example.readme.data.entities.User
-import com.example.readme.ui.community.Chat
-import com.google.android.gms.common.api.Response
+import com.example.readme.data.remote.ProfileResponse
+
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -20,15 +19,7 @@ import retrofit2.http.PATCH
 
 
 interface ReadmeServerService {
-    @GET("/users/my")
-    suspend fun getMyProfile(
-        @Header("Authorization") token: String
-    ): ProfileResponse
-
-    @GET("/users/my/shorts")
-    suspend fun getMyShorts(): ProfileShortsResponse
-
-
+    
     // MyPage 관련 API 요청
     @GET("/users/my")
     suspend fun getMyProfile(
@@ -59,7 +50,7 @@ interface ReadmeServerService {
     @DELETE("/users/my")
     suspend fun deleteProfileImage(
         @Header("Authorization") token: String
-    ): BasicResponse
+    ): Response
 
 
 
