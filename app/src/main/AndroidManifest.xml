@@ -56,10 +56,6 @@
             android:name=".ui.community.BookAppointActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".ui.community.TabLayoutActivity"
-            android:exported="true" />
-
         <!-- 구글 geo API KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"

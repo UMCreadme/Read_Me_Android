@@ -12,7 +12,7 @@ import com.example.readme.R
 class MyChatFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CommunityAdapter
+//    private lateinit var adapter: CommunityAdapter
     private val chatList = listOf(
         Community(
             imageResId = R.drawable.book, // 적절한 이미지 리소스 ID로 대체하세요
@@ -42,7 +42,7 @@ class MyChatFragment : Fragment() {
 //        adapter = CommunityAdapter(chatList) // TODO: 승연님이 사용하는 어댑터와 지선님이 사용하는 어댑터 상이
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+//        recyclerView.adapter = adapter
 
         return view
     }

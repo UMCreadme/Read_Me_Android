@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
-import com.example.readme.ui.community.CommunitySearchFragment
+import com.example.readme.ui.community.explore.CommunityFragment
 import com.example.readme.ui.home.main.HomeFragment
 import com.example.readme.ui.mypage.MyPageFragment
 import com.example.readme.ui.search.SearchFragment
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_community -> {
-                    changeFragment(CommunitySearchFragment())
+                    changeFragment(CommunityFragment())
                 }
                 R.id.navigation_mypage -> {
                     changeFragment(MyPageFragment())
@@ -132,6 +132,13 @@ class MainActivity : AppCompatActivity() {
         binding.tvTitle.visibility = View.GONE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.VISIBLE
+    }
+
+    fun ShowCommunity(){
+        binding.toolbar.visibility = View.GONE
+        binding.mainLogo.visibility = View.GONE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.GONE
     }
 
     fun ShowMyPage(){

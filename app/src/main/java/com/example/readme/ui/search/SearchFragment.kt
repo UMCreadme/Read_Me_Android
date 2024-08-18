@@ -26,7 +26,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         // 검색 버튼 클릭 시 SearchResultFragment로 이동
         binding.searchButton.setOnClickListener {
             hideKeyboard()
-            val searchResultFragment = SearchResultFragment()
+            val searchResultFragment = SearchResultFragment() // TODO: CreateFragmnet 파일로 들어가면 모임 검색에 해당하는 Fragment를 갖고오도록 변경
             val bundle = Bundle()
             bundle.putString("keyword", binding.searchEditText.text.toString())
             searchResultFragment.arguments = bundle
