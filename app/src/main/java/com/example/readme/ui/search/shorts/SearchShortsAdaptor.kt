@@ -1,10 +1,14 @@
 package com.example.readme.ui.search.shorts
 
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
@@ -30,6 +34,17 @@ class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.
     inner class ShortsViewHolder(private val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SearchShortsResult) {
             binding.shorts = item
+            Glide.with(binding.root.context)
+                .load(item.shortsImg)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        binding.shortsImage.background = resource
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Called when the resource is no longer needed, here you can clear the background if needed
+                    }
+                })
             binding.likeCount.text = "좋아요 ${item.likeCnt}개"
             if(item.commentCnt == 0) {
                 binding.commentTxt.visibility = ViewGroup.GONE
@@ -51,9 +66,6 @@ class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.
         val minutes = timeDiff / 60000
         val hours = minutes / 60
         val days = hours / 24
-
-        Log.i("SearchShortsAdaptor", "postingDateTime: $dateString, nowDateTime: $nowDateTime")
-        Log.i("SearchShortsAdaptor", "minutes: $minutes, hours: $hours, days: $days")
 
         return when {
             minutes < 1 -> "방금 전"

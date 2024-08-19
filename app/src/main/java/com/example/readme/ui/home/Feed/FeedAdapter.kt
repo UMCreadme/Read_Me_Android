@@ -1,10 +1,13 @@
 package com.example.readme.ui.home.Feed
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.readme.databinding.FeedItemBinding
 import com.example.readme.data.entities.inithome.FeedInfo
 import java.text.SimpleDateFormat
@@ -74,12 +77,20 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
 
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
-                .into(binding.shortsImage)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        binding.shortsImage.background = resource
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Called when the resource is no longer needed, here you can clear the background if needed
+                    }
+                })
 
             binding.mainTitle.text = feed.title
             binding.content.text = feed.content
-            binding.likeCount.text = feed.likeCnt.toString()
-            binding.commentCount.text = feed.commentCnt.toString()
+            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
+            binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
             binding.timestamp.text = calculateDaysAgo(feed.postingDate)
 
 
@@ -123,24 +134,22 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
     }
 
     private fun calculateDaysAgo(postingDate: String): String {
-        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        val nowDateTime = Calendar.getInstance().timeInMillis
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREAN)
+        val postingDateTime = df.parse(postingDate)?.time ?: return ""
 
-        val postDate: Date? = formatter.parse(postingDate)
-        val currentDate = Date()
+        val timeDiff = nowDateTime - postingDateTime
 
-        postDate?.let {
-            val diffInMillis = currentDate.time - postDate.time
-            val daysBetween = (diffInMillis / (1000 * 60 * 60 * 24)).toInt()
+        val minutes = timeDiff / 60000
+        val hours = minutes / 60
+        val days = hours / 24
 
-            return if (daysBetween == 0) {
-                "오늘"
-            } else {
-                "${daysBetween}일 전"
-            }
+        return when {
+            minutes < 1 -> "방금 전"
+            minutes < 60 -> "${minutes}분 전"
+            hours < 24 -> "${hours}시간 전"
+            else -> "${days}일 전"
         }
-
-        return "날짜 불명"
     }
 }
 
