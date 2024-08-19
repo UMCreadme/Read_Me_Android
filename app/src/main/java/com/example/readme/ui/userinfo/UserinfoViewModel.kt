@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.readme.data.entities.UserinfoResponse
 import com.example.readme.data.entities.UserData
+import com.example.readme.data.remote.Response
 import com.example.readme.data.repository.LoginRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class UserinfoViewModel(
     private val repository: LoginRepository
@@ -26,17 +29,25 @@ class UserinfoViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = repository.sendSignUpInfo(user)
+                _member4005Error.value = false
                 withContext(Dispatchers.Main) {
                     if (response.isSuccess) {
                         Log.d("UserinfoViewModel", "Sign up response: ${response}")
-                        _member4005Error.value = false
                     } else {
-                        Log.e("UserinfoViewModel", "Failed to send sign up info: ${response.code} - ${response.message}")
-                        if (response.code == "MEMBER4005") {
-                            _member4005Error.value = true
-                        } else {
-                            _member4005Error.value = false
-                        }
+                        Log.e(
+                            "UserinfoViewModel", "Failed to send sign up info: ${response.code} - ${response.message}"
+                        )
+                    }
+                }
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                val errorBodyParsing = errorBody?.let {
+                    Gson().fromJson(it, Response::class.java)  // Gson으로 파싱
+                }
+
+                if (errorBodyParsing != null) {
+                    if(errorBodyParsing.code == "MEMBER4005") {
+                        _member4005Error.postValue(true)
                     }
                 }
             } catch (e: Exception) {
