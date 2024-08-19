@@ -8,6 +8,7 @@ import com.example.readme.data.entities.UserinfoResponse
 import com.example.readme.data.entities.UserData
 import com.example.readme.data.remote.Response
 import com.example.readme.data.repository.LoginRepository
+import com.example.readme.utils.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,8 @@ class UserinfoViewModel(
                 _member4005Error.value = false
                 withContext(Dispatchers.Main) {
                     if (response.isSuccess) {
+                        // 액세스 토큰 설정
+                        RetrofitClient.setToken(response.result.accessToken)
                         Log.d("UserinfoViewModel", "Sign up response: ${response}")
                     } else {
                         Log.e(
