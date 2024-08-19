@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchShortsViewModel(
@@ -33,7 +34,7 @@ class SearchShortsViewModel(
         }
 
         isLoading = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Retrofit API 호출
                 val response = repository.searchShorts(query, currentPage, 50)

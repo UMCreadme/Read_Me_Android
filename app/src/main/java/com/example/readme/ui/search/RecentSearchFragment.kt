@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentRecentSearchBinding
-import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.search.book.BookDetailActivity
 

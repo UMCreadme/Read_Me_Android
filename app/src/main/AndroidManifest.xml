@@ -101,7 +101,7 @@
         <!-- Kakao SDK 초기화 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="8bd1ca39d5eb15687ae52deb301f1abe"/>
+            android:value="${KAKAO_NATIVE_APP_KEY}"/>
 
         <activity android:name=".ui.community.CreateFragmentActivity"></activity>
 
@@ -123,7 +123,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
                 <data android:host="oauth"
-                    android:scheme="kakao8bd1ca39d5eb15687ae52deb301f1abe" /> <!-- 여기를 실제 네이티브 앱 키로 대체 -->
+                    android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" /> <!-- 여기를 실제 네이티브 앱 키로 대체 -->
             </intent-filter>
         </activity>
 

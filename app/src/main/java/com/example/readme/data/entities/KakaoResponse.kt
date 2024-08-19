@@ -1,4 +1,4 @@
-package com.example.readme.ui.login
+package com.example.readme.data.entities
 
 data class KakaoResponse(
     val isSuccess: Boolean,

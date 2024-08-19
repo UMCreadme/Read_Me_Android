@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecentSelectBookViewModel(
@@ -17,7 +18,7 @@ class RecentSelectBookViewModel(
     val recentSelectBookItems: LiveData<List<Book>?> get() = _recentSelectBookItems
 
     fun fetchRecentSelectBookItems(): LiveData<List<Book>?> {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.getRecentSelectBooks()
 

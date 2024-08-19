@@ -1,5 +1,6 @@
 package com.example.readme.data.remote
 
+import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.CommunityListResponse
@@ -49,6 +50,12 @@ interface ReadmeServerService {
         @Header("Authorization") token: String,
         @Body profileUpdateRequest: ProfileUpdateRequest
     ): MyPageResponse
+
+    @DELETE("/users/my")
+    suspend fun deleteProfileImage(
+        @Header("Authorization") token: String
+    ): Response
+
 
     // UserProfile 관련 API 요청
     @GET("/users/{userId}")
@@ -187,6 +194,6 @@ interface ReadmeServerService {
     ): ResponseWithPagination<List<SearchShortsResult>>
 
     companion object {
-        const val BASE_URL ="https://api.umcreadme11.shop"
+        const val BASE_URL = BuildConfig.SERVER_URL
     }
 }
