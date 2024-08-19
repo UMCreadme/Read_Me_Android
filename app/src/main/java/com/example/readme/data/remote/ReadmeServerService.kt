@@ -1,12 +1,12 @@
 package com.example.readme.data.remote
 
+import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.ui.community.Chat
-import com.example.readme.data.remote.ProfileResponse
 
 import retrofit2.Call
 import retrofit2.http.Body
@@ -155,6 +155,6 @@ interface ReadmeServerService {
     ): Response
 
     companion object {
-        const val BASE_URL ="https://api.umcreadm11.shop"
+        const val BASE_URL = BuildConfig.SERVER_URL
     }
 }
