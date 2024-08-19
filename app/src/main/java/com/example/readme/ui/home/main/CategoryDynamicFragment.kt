@@ -74,12 +74,12 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         // 아이템 전체 클릭 시의 동작 (기존 코드)
                     }
 
-                    override fun onImageClick(feed: FeedInfo) {
+                    override fun onImageClick(feed: com.example.readme.data.entities.inithome.FeedInfo) {
                         // 이미지 클릭 시 ShortsDetailFragment로 이동
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", feed.shorts_id)
-                                Log.d("shortId", feed.shorts_id.toString())
+                                putInt("shortsId", feed.shortsId)
+                                Log.d("shortId", feed.shortsId.toString())
                                 putString("start", "main")
                                 // 필요한 경우 추가 데이터도 함께 전달
                             }
@@ -87,7 +87,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         (context as? MainActivity)?.addFragment(fragment)
                     }
 
-                    override fun onLikeClick(feed: FeedInfo, isLiked: Boolean) {
+                    override fun onLikeClick(feed: com.example.readme.data.entities.inithome.FeedInfo, isLiked: Boolean) {
                         feedViewModel.likeShorts(feed)
                     }
                 })
@@ -137,7 +137,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         (context as? MainActivity)?.addFragment(fragment)
                     }
 
-                    override fun onLikeClick(feed: com.example.readme.ui.data.entities.category.FeedInfo, isLiked: Boolean) {
+                    override fun onLikeClick(feed: FeedInfo, isLiked: Boolean) {
                         feedViewModel.likeShorts2(feed)
                     }
                 })

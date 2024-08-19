@@ -4,12 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
-import com.example.readme.ui.data.entities.detail.ShortsDetailResponse
-import com.example.readme.ui.data.entities.inithome.FeedInfo
 import com.example.readme.ui.data.entities.like.LikeResponse
-
-import com.example.readme.ui.utils.RetrofitClient
 import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.data.entities.detail.ShortsDetailResponse
 import com.example.readme.utils.RetrofitClient

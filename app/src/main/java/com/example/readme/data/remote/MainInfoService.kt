@@ -1,5 +1,6 @@
 package com.example.readme.data.remote
 
+import com.example.readme.BuildConfig
 import com.example.readme.data.entities.booklist.BookListResponse
 import com.example.readme.data.entities.recentbook.RecentBookResponse
 import com.example.readme.data.entities.category.CategoryFeedResponse
@@ -49,7 +50,7 @@ interface MainInfoService {
 
 
     companion object {
-        const val BASE_URL = "https://api.umcreadme11.shop/"
+        const val BASE_URL = BuildConfig.SERVER_URL
     }
 }
 

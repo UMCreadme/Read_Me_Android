@@ -19,13 +19,10 @@ import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.data.entities.ShortsPostResponse
 import com.example.readme.ui.home.main.HomeFragment
-import com.example.readme.ui.home.make.MakeFragment
-import com.example.readme.ui.utils.RetrofitClient
-import com.google.gson.Gson
+import com.example.readme.utils.RetrofitClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -23,8 +23,8 @@ class FeedViewModel : ViewModel() {
     private val _shorts = MutableLiveData<List<ShortsInfo>>()
     val shorts: LiveData<List<ShortsInfo>> get() = _shorts
 
-    private val _categoryFeeds = MutableLiveData<List<com.example.readme.ui.data.entities.category.FeedInfo>>()
-    val categoryFeeds: LiveData<List<com.example.readme.ui.data.entities.category.FeedInfo>> get() = _categoryFeeds
+    private val _categoryFeeds = MutableLiveData<List<com.example.readme.data.entities.category.FeedInfo>>()
+    val categoryFeeds: LiveData<List<com.example.readme.data.entities.category.FeedInfo>> get() = _categoryFeeds
 
 
     private val _categories = MutableLiveData<List<String>>()
@@ -85,7 +85,7 @@ class FeedViewModel : ViewModel() {
             override fun onResponse(call: Call<CategoryFeedResponse>, response: Response<CategoryFeedResponse>) {
                 Log.d("anothor", "fetchCatrgory")
                 if (response.body()?.isSuccess == true) {
-                    val feedList: List<com.example.readme.ui.data.entities.category.FeedInfo> = response.body()?.result ?: emptyList()
+                    val feedList: List<com.example.readme.data.entities.category.FeedInfo> = response.body()?.result ?: emptyList()
                     _categoryFeeds.postValue(feedList)
                     Log.d("anothor", "${feedList}")
                 } else {
@@ -101,14 +101,14 @@ class FeedViewModel : ViewModel() {
     }
 
     fun likeShorts(feed: FeedInfo) {
-        RetrofitClient.getMainInfoService().likeShorts(feed.shorts_id).enqueue(object : Callback<LikeResponse> {
+        RetrofitClient.getMainInfoService().likeShorts(feed.shortsId).enqueue(object : Callback<LikeResponse> {
             override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
                 if (response.body()?.isSuccess == true) {
                     val currentFeeds = _feeds.value ?: emptyList()
 
                     // updatedFeeds 리스트 생성
                     val updatedFeeds = currentFeeds.map {
-                        if (it.shorts_id == feed.shorts_id) {
+                        if (it.shortsId == feed.shortsId) {
                             it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
                         } else {
                             it
@@ -117,7 +117,7 @@ class FeedViewModel : ViewModel() {
 
                     // updatedFeeds를 LiveData에 반영
                     _feeds.postValue(updatedFeeds)
-                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shorts_id}")
+                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
                     // 오류 처리
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
@@ -131,7 +131,7 @@ class FeedViewModel : ViewModel() {
         })
     }
 
-    fun likeShorts2(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
+    fun likeShorts2(categoryFeeds: com.example.readme.data.entities.category.FeedInfo) {
         RetrofitClient.getMainInfoService().likeShorts(categoryFeeds.shortsId).enqueue(object : Callback<LikeResponse> {
             override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
                 if (response.body()?.isSuccess == true) {

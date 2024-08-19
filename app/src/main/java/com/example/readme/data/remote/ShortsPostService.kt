@@ -1,5 +1,6 @@
 package com.example.readme.ui.data.remote
 
+import com.example.readme.BuildConfig
 import com.example.readme.ui.data.entities.ShortsPostResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -18,7 +19,7 @@ interface ShortsPostService {
     ): Call<ShortsPostResponse>
 
     companion object {
-        const val BASE_URL = "https://api.umcreadme11.shop/"
+        const val BASE_URL = BuildConfig.SERVER_URL
     }
 
 }

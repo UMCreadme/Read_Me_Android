@@ -1,18 +1,10 @@
 package com.example.readme.ui.home.Feed
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
-import com.example.readme.R
 import com.example.readme.databinding.FeedItemBinding
 import com.example.readme.data.entities.inithome.FeedInfo
 import java.text.SimpleDateFormat
@@ -25,7 +17,7 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         fun onItemClick(feed: FeedInfo)
         fun onImageClick(feed: FeedInfo)
         fun onLikeClick(feed: FeedInfo, isLiked: Boolean)
-//        fun onProfileClick(feed: FeedInfo)
+//        fun onProfileClick(feed: FeedInfo) TODO: 프로필 연결
     }
 
     // 리스너를 설정하는 함수

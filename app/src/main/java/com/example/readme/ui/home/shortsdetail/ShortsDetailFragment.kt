@@ -1,6 +1,5 @@
 package com.example.readme.ui.home.shortsdetail
 
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -9,9 +8,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.readme.R
 import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
-import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
+import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.ui.home.main.ShortsDetailAdapter
 
 class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragment_shorts) {
 

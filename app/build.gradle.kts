@@ -74,8 +74,7 @@ dependencies {
     // Google Play Services 및 추가 종속성
     implementation("com.google.android.gms:play-services-maps:18.0.0")
 
-    //추가 impl
-    //version 설정: 편의성을 위해 이전 클론 코딩에서 사용했던 버전으로 맞췄습니다.
+    // 추가 impl
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -122,10 +121,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.databinding.runtime)
     implementation(libs.identity.credential.android)
     testImplementation(libs.junit)
@@ -141,8 +136,8 @@ dependencies {
     implementation("com.kakao.sdk:v2-user:2.20.3") // 카카오 로그인 API 모듈
     implementation("com.kakao.sdk:v2-cert:2.20.3") // 카카오톡 인증 서비스 API 모듈
 
-    //Glide
-    implementation(libs.identity.credential.android)
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.11.0")
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // 해시태그

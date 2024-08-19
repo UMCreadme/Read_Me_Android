@@ -8,13 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.R
 import com.example.readme.databinding.ShortsdetailItemBinding
-import com.example.readme.ui.data.entities.category.FeedInfo
-import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
+import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.home.make.preview.FlowLayout
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.Adapter<ShortsDetailAdapter.ShortsDetailHolder>() {
 
@@ -87,10 +82,6 @@ class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.
             adjustViewPosition(binding.feedSentence, shortsDetail.phraseX, shortsDetail.phraseY)
 
             addTagsToFlowLayout(binding.etTags, shortsDetail.tags)
-
-//            binding.shortsImage.setOnClickListener {
-//                myItemClickListener.onImageClick(shortsDetail)  // 이미지 클릭 시 호출
-//            }
         }
     }
 
