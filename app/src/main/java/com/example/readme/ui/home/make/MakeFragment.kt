@@ -20,13 +20,13 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ListPopupWindow
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.databinding.FragmentMakeBinding
 import com.example.readme.ui.MainActivity
@@ -36,12 +36,34 @@ import com.example.whashow.base.BaseFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 
-
 class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
 
+    // 변수 선언
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
+    private lateinit var imageAdapter: ImageAdapter
     private var checkedImage: ImageView? = null
+    private val imageList: MutableList<Uri> = mutableListOf()
+
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val selectedImageUri: Uri? = data?.data
+            if (selectedImageUri != null) {
+                Log.d("MakeFragment", "Image selected: $selectedImageUri")
+
+                // 이미지 리스트에 새 이미지 추가
+                imageList.add(selectedImageUri)
+                imageAdapter.notifyItemInserted(imageList.size - 1)
+
+                // 새로 선택된 이미지를 checkedImage에 저장
+                checkedImage = binding.rvDefaultPhotos.findViewHolderForAdapterPosition(0)?.itemView?.findViewById(R.id.addPhoto) as? ImageView
+                checkedImage?.tag = selectedImageUri
+
+
+                checkFormValidity()
+            }
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun initStartView() {
@@ -52,12 +74,10 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             binding.btnNext.text = "미리보기"
             checkFormValidity() // 유효성 검사
         }
-
+        setupRecyclerView()
         setupImagePicker() // 갤러리 접근
-
         setupCategorySpinner() // 카테고리 스피너
         setupEditTextListeners() // 필수 입력 리스너
-        setupDefaultImageClickListener() //
         setupTagInputListener() // 해시태그 입력 리스너 설정
 
         requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -68,16 +88,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             }
         }
 
-        pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val selectedImageUri: Uri? = data?.data
-                if (selectedImageUri != null) {
-                    Log.d("MakeFragment", "Image selected: $selectedImageUri")
-                    addImageToContainer(selectedImageUri)
-                }
-            }
-        }
         // 데이터 수신 설정
         parentFragmentManager.setFragmentResultListener("requestKey", this) { _, bundle ->
             val bookTitle = bundle.getString("bookTitle")
@@ -85,7 +95,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             if (bookTitle != null) {
                 binding.search.setText(bookTitle)
                 binding.ISBN.text = ISBN
-
             }
         }
     }
@@ -93,18 +102,19 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
     override fun initDataBinding() {
         super.initDataBinding()
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
+
         binding.search.setOnClickListener {
             val bottomSheet = BookSearchFragment()
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }
 
-        // EditText를 클릭할 때 리스너가 작동하도록 설정
         binding.search.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val bottomSheet = BookSearchFragment()
                 bottomSheet.show(parentFragmentManager, bottomSheet.tag)
             }
         }
+
 
         (activity as MainActivity).binding.btnNext.setOnClickListener {
             // 다음 버튼 클릭 시 해쉬 태그 넘기기
@@ -116,17 +126,15 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             if (result.isBlank()) result = " "
             binding.etTags.setText(result)
 
+
+
             goToPreviewFragment()
-
-
         }
-
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
-
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -147,30 +155,41 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         pickImageLauncher.launch(intent)
     }
 
-    private fun addImageToContainer(imageUri: Uri) {
-        val inflater = LayoutInflater.from(requireContext())
-        val newPhotoContainer = inflater.inflate(R.layout.photo_item_layout, binding.imageContainer, false) as FrameLayout
 
-        val newImageView = newPhotoContainer.findViewById<ShapeableImageView>(R.id.addPhoto)
-        newImageView.setImageURI(imageUri)
-        newImageView.shapeAppearanceModel = newImageView.shapeAppearanceModel.toBuilder()
-            .setAllCorners(CornerFamily.ROUNDED, 21f) // 16f는 라운드의 반지름, 필요에 따라 조절
-            .build()
-
-        setupImageClickListener(newPhotoContainer)
-
-        binding.imageContainer.addView(newPhotoContainer, 0)
-
-
+    private fun setupRecyclerView() {
+        if (imageList.isEmpty()) {
+            val initialImages = listOf(
+                Uri.parse("android.resource://com.example.readme/${R.drawable.picture}"),
+                Uri.parse("android.resource://com.example.readme/${R.drawable.picture2}"),
+                Uri.parse("android.resource://com.example.readme/${R.drawable.picture3}"),
+                Uri.parse("android.resource://com.example.readme/${R.drawable.picture4}"),
+                Uri.parse("android.resource://com.example.readme/${R.drawable.picture5}")
+            )
+            imageList.addAll(initialImages)
+        }
+        imageAdapter = ImageAdapter(imageList).apply {
+            onImageClickListener = { imageUri, imageView ->
+                checkedImage = if (checkedImage == imageView) {
+                    null // 선택된 이미지가 다시 클릭되면 선택 해제
+                } else {
+                    checkedImage?.let {
+                        // 이전 선택된 이미지의 체크마커 숨기기
+                        it.findViewById<ImageView>(R.id.checkmark)?.visibility = View.GONE
+                    }
+                    imageView // 현재 선택된 이미지
+                }
+                // 선택된 이미지의 체크마커 보이기
+                checkedImage?.findViewById<ImageView>(R.id.checkmark)?.visibility = View.VISIBLE
+                checkedImage?.tag = imageUri
+                checkFormValidity() // 폼 유효성 검사
+            }
+        }
+        binding.rvDefaultPhotos.adapter = imageAdapter
+        binding.rvDefaultPhotos.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
 
-
     private fun setupCategorySpinner() {
-//        val categories = arrayOf("소설", "시", "에세이", "인문학", "자기계발", "경제/경영",
-//                                "정치/사회", "역사", "종교","예술/문화", "과학", "컴퓨터/IT",
-//                                "가정/육아", "건강/운동", "취미", "여행", "교육/ 외국어",
-//                                "어린이/청소", "만화", "웹소설", "기타")
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.category_array,
@@ -180,51 +199,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         binding.categorySpinner.adapter = adapter
     }
 
-
-    // 갤러리에서 업로드한 이미지 클릭 시 체크 표시 및 중복 방지
-
-    // 이미지 클릭 리스너 설정 시, 실제 이미지 뷰를 checkedImage로 저장합니다.
-    private fun setupImageClickListener(photoContainer: FrameLayout) {
-        val addPhoto = photoContainer.findViewById<ShapeableImageView>(R.id.addPhoto)
-        val checkmark = photoContainer.findViewById<ImageView>(R.id.checkmark)
-
-        addPhoto.setOnClickListener {
-            if (checkedImage == addPhoto) {
-                checkmark.visibility = View.GONE
-                checkedImage = null
-            } else {
-                checkedImage?.let { prevCheckmark ->
-                    prevCheckmark.visibility = View.GONE // 이전 체크된 이미지의 체크마크 숨기기
-                }
-                checkmark.visibility = View.VISIBLE
-                checkedImage = addPhoto // checkedImage에 실제 이미지 뷰를 저장
-            }
-            checkFormValidity()
-        }
-    }
-
-    // 디폴트 이미지 클릭 리스너 설정 시에도 동일하게 처리합니다.
-    private fun setupDefaultImageClickListener() {
-        val photoContainer = binding.imageContainer.findViewById<FrameLayout>(R.id.photoContainer)
-        val defaultphoto = photoContainer.findViewById<ImageView>(R.id.iv_Default)
-        val checkmark = photoContainer.findViewById<ImageView>(R.id.checkmark)
-
-        defaultphoto.setOnClickListener {
-            if (checkedImage == defaultphoto) {
-                checkmark.visibility = View.GONE
-                checkedImage = null
-            } else {
-                checkedImage?.let { prevCheckmark ->
-                    prevCheckmark.visibility = View.GONE
-                }
-                checkmark.visibility = View.VISIBLE
-                checkedImage = defaultphoto // 여기도 실제 이미지 뷰를 저장
-            }
-            checkFormValidity()
-        }
-    }
-
-    // goToPreviewFragment에서 이미지 URI를 번들에 추가할 때는, checkedImage에서 URI를 가져옵니다.
     private fun goToPreviewFragment() {
         val title = binding.etTitle.text.toString()
         val content = binding.etContent.text.toString()
@@ -254,9 +228,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         (activity as MainActivity).addFragment(previewFragment)
     }
 
-
-
-    // 필수 입력 표시
     private fun setupEditTextListeners() {
         binding.etTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -264,11 +235,7 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    binding.titleErrorText.visibility = View.VISIBLE
-                } else {
-                    binding.titleErrorText.visibility = View.GONE
-                }
+                binding.titleErrorText.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
         })
 
@@ -278,11 +245,7 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    binding.contentErrorText.visibility = View.VISIBLE
-                } else {
-                    binding.contentErrorText.visibility = View.GONE
-                }
+                binding.contentErrorText.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
         })
 
@@ -292,14 +255,11 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
-                    binding.sentenceErrorText.visibility = View.VISIBLE
-                } else {
-                    binding.sentenceErrorText.visibility = View.GONE
-                }
+                binding.sentenceErrorText.visibility = if (s.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
         })
     }
+
     private fun handleTagInput(input: CharSequence) {
         val tags = input.split(" ").filter { it.startsWith("#") }
         if (tags.size > 10) {
@@ -351,18 +311,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         binding.etTags.addTextChangedListener(tagTextWatcher)
     }
 
-    private fun checkFormValidity() {
-        val isTitleValid = binding.etTitle.text.isNotEmpty()
-        val isContentValid = binding.etContent.text.isNotEmpty()
-        val isSentenceValid = binding.etSentence.text.isNotEmpty()
-        val isImageSelected = checkedImage != null
-
-        (activity as MainActivity).binding.btnNext.isEnabled = isTitleValid && isContentValid && isSentenceValid && isImageSelected
-        // 필수 선택 문구 가시성 조정
-        binding.pictureErrorText.visibility = if (isImageSelected) View.GONE else View.VISIBLE
-    }
-
-
     // 해쉬태그 추출
     private fun getTags(text: String): Sequence<MatchResult> {
         val pattern = """#([^#\sㄱ-ㅣ가-힣]+)""" // 태그 추출 정규식
@@ -372,36 +320,17 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         return matches
     }
 
-//    // 번들로 미리보기 화면 이동
-//    private fun goToPreviewFragment() {
-//
-//        val title = binding.etTitle.text.toString()
-//        val content = binding.etContent.text.toString()
-//        val sentence = binding.etSentence.text.toString()
-//        val tags = binding.etTags.text.toString()
-//        val category = binding.tvCategory.text.toString()
-//        val ISBN = binding.ISBN.text.toString()
-//
-//        // 이미지 URI를 문자열로 변환
-//        val imageUri = (checkedImage?.drawable as? Uri)?.toString()
-//
-//        val bundle = Bundle().apply {
-//            putString("title", title)
-//            putString("content", content)
-//            putString("sentence", sentence)
-//            putString("tags", tags)
-//            putString("category", category)
-//            putString("imageUri", imageUri)
-//            Log.d("imageUri", "${imageUri}")
-//            putString("ISBN", ISBN)
-//        }
-//        val previewFragment = PreViewFragment().apply {
-//            arguments = bundle
-//        }
-//
-//        (activity as MainActivity).addFragment(previewFragment)
-//    }
+    private fun checkFormValidity() {
+        val isTitleValid = binding.etTitle.text.isNotEmpty()
+        val isContentValid = binding.etContent.text.isNotEmpty()
+        val isSentenceValid = binding.etSentence.text.isNotEmpty()
+        val isTagValid = binding.etTags.text.isNotEmpty()
+        val isImageSelected = (checkedImage != null)
+        Log.d("isImageSelected", "${isImageSelected}")
+        binding.pictureErrorText.visibility = if (isImageSelected) View.GONE else View.VISIBLE
 
+        (activity as MainActivity).binding.btnNext.isEnabled = isTitleValid && isContentValid && isSentenceValid && isTagValid && isImageSelected
+    }
 
     override fun onResume() {
         super.onResume()

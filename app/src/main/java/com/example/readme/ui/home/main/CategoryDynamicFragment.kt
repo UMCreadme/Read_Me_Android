@@ -56,7 +56,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         }
 
         feedViewModel.categoryFeeds.observe(viewLifecycleOwner) { categoryFeeds ->
-            Log.d("FeedViewModel", "Category Feeds: $categoryFeeds")
             setupCategoryRecyclerView(categoryFeeds)
         }
     }
@@ -72,7 +71,11 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                 // feedAdapter 초기화 완료 후 클릭 리스너 설정
                 feedAdapter.setMyItemClickListener(object : FeedAdapter.MyItemClickListener {
                     override fun onItemClick(feed: FeedInfo) {
+                        // 아이템 전체 클릭 시의 동작 (기존 코드)
+                    }
 
+                    override fun onImageClick(feed: FeedInfo) {
+                        // 이미지 클릭 시 ShortsDetailFragment로 이동
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
                                 putInt("shortsId", feed.shorts_id)
@@ -83,8 +86,11 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         }
                         (context as? MainActivity)?.addFragment(fragment)
                     }
-                })
 
+                    override fun onLikeClick(feed: FeedInfo, isLiked: Boolean) {
+                        feedViewModel.likeShorts(feed)
+                    }
+                })
             }
         } else {
             feedAdapter.updateData(feeds)  // 데이터 갱신 메서드
@@ -109,27 +115,37 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     private fun setupCategoryRecyclerView(categoryFeeds: List<com.example.readme.ui.data.entities.category.FeedInfo>) {
         if (!::feed2Adapter.isInitialized) {
             feed2ListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
+//            Log.d("categoryFeeds", "${categoryFeeds}")
+            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feed2ListManager
                 adapter = feed2Adapter
 
                 feed2Adapter.setMyItemClickListener(object : Feed2Adapter.MyItemClickListener {
-                    override fun onItemClick(feed: com.example.readme.ui.data.entities.category.FeedInfo) {
+                    override fun onItemClick(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
+                        // 아이템 전체 클릭 시의 동작 (기존 코드)
+                    }
+
+                    override fun onImageClick(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", feed.shortsId)
-                                Log.d("shortId", feed.shortsId.toString())
+                                putInt("shortsId", categoryFeeds.shortsId)
+                                Log.d("shortId", categoryFeeds.shortsId.toString())
                                 putString("start", "main")
                             }
                         }
                         (context as? MainActivity)?.addFragment(fragment)
                     }
+
+                    override fun onLikeClick(feed: com.example.readme.ui.data.entities.category.FeedInfo, isLiked: Boolean) {
+                        feedViewModel.likeShorts2(feed)
+                    }
                 })
             }
         } else {
             feed2Adapter.updateData(categoryFeeds)
+
         }
     }
 

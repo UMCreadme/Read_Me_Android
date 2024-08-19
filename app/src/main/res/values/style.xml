@@ -4,4 +4,11 @@
         <item name="android:dropDownHeight">50dp</item> <!-- 드롭다운의 최대 높이 설정 -->
         <item name="android:popupBackground">@drawable/custom_spinner_background</item> <!-- 드롭다운 배경 설정 -->
     </style>
+
+<!--    <style name="RoundedImageShape">-->
+<!--        <item name="cornerFamily">rounded</item>-->
+<!--        <item name="cornerSize">13dp</item> &lt;!&ndash; 원하는 곡률 크기로 조정 &ndash;&gt;-->
+<!--    </style>-->
+
+
 </resources>

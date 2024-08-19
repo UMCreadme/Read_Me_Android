@@ -5,8 +5,10 @@ import com.example.readme.ui.data.entities.recentbook.RecentBookResponse
 import com.example.readme.ui.data.entities.category.CategoryFeedResponse
 import com.example.readme.ui.data.entities.detail.ShortsDetailResponse
 import com.example.readme.ui.data.entities.inithome.MainInfoResponse
+import com.example.readme.ui.data.entities.like.LikeResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -39,6 +41,11 @@ interface MainInfoService {
         @Query("size") size: Int = 100,
         @Query("preview") preview: Boolean = true
     ) : Call<BookListResponse>
+
+    @POST("/shorts/{shortsId}/likes")
+    fun likeShorts(
+        @Path("shortsId") shortsId: Int
+    ): Call<LikeResponse>
 
 
     companion object {

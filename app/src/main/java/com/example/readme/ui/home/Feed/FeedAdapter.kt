@@ -1,6 +1,8 @@
 package com.example.readme.ui.home.Feed
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -13,12 +15,17 @@ import com.bumptech.glide.request.target.Target
 import com.example.readme.R
 import com.example.readme.databinding.FeedItemBinding
 import com.example.readme.ui.data.entities.inithome.FeedInfo
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
 
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
         fun onItemClick(feed: FeedInfo)
+        fun onImageClick(feed: FeedInfo)
+        fun onLikeClick(feed: FeedInfo, isLiked: Boolean)
+//        fun onProfileClick(feed: FeedInfo)
     }
 
     // 리스너를 설정하는 함수
@@ -29,16 +36,69 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
 
     // ViewHolder 정의
     inner class FeedHolder(val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val profileImage = binding.feedProfile // 사용자 프로필 이미지
-        val username = binding.username         // 사용자 이름
-        val shortsImage = binding.shortsImage   // 게시물 이미지
-        val content = binding.content           // 게시물 내용
-        val likeCount = binding.likeCount       // 좋아요 수
-        val commentCount = binding.commentCount // 댓글 수
-        val timestamp = binding.timestamp       // 타임스탬프
+        private var isLiked = false
+
+        init {
+            binding.likeIcon.setOnClickListener {
+                toggleLikeState()
+            }
+
+            binding.likefillIcon.setOnClickListener {
+                toggleLikeState()
+            }
+        }
+
+        // 좋아요 상태 토글
+        private fun toggleLikeState() {
+            isLiked = !isLiked
+            updateLikeIcon()
+            myItemClickListener.onLikeClick(list[adapterPosition], isLiked)
+
+
+        }
+
+        // 좋아요 업데이트
+        private fun updateLikeIcon() {
+            if (isLiked) {
+                binding.likeIcon.visibility = View.GONE
+                binding.likefillIcon.visibility = View.VISIBLE
+            } else {
+                binding.likeIcon.visibility = View.VISIBLE
+                binding.likefillIcon.visibility = View.GONE
+            }
+        }
+
+        fun bind(feed: FeedInfo) {
+
+            isLiked = feed.isLike
+            updateLikeIcon()
+
+
+            Glide.with(binding.root.context)
+                .load(feed.profileImg)
+                .into(binding.feedProfile)
+
+            binding.username.text = feed.nickname
+
+            Glide.with(binding.root.context)
+                .load(feed.shortsImg)
+                .into(binding.shortsImage)
+
+            binding.mainTitle.text = feed.title
+            binding.content.text = feed.content
+            binding.likeCount.text = feed.likeCnt.toString()
+            binding.commentCount.text = feed.commentCnt.toString()
+            binding.timestamp.text = calculateDaysAgo(feed.postingDate)
+
+
+            adjustViewPosition(binding.feedSentence, feed.phraseX, feed.phraseY)
+
+            binding.shortsImage.setOnClickListener {
+                myItemClickListener.onImageClick(feed)  // 이미지 클릭 시 호출
+            }
+        }
     }
 
-    // ViewHolder 생성
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedHolder {
         val binding = FeedItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -48,29 +108,15 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         return FeedHolder(binding)
     }
 
-    // ViewHolder에 데이터 바인딩
     override fun onBindViewHolder(holder: FeedHolder, position: Int) {
         val feed = list[position]
+        holder.bind(feed)
 
-        // 프로필 이미지 로드
-        Glide.with(holder.itemView.context)
-            .load(feed.profileImg)  // API에서 받아온 프로필 이미지 URL
-            .into(holder.profileImage)
+    }
 
-        holder.username.text = feed.nickname // 사용자 이름
-
-        // 숏츠 이미지 로드
-        Glide.with(holder.itemView.context)
-            .load(feed.shortsImg)  // API에서 받아온 숏츠 이미지 URL
-            .into(holder.shortsImage)
-
-        holder.content.text = feed.content // 게시물 내용
-        holder.likeCount.text = feed.likeCnt.toString() // 좋아요 수
-        holder.commentCount.text = feed.commentCnt.toString() // 댓글 수
-        holder.timestamp.text = feed.postingDate // 타임스탬프
-
-        // 아이템 클릭 리스너 설정
-        holder.itemView.setOnClickListener { myItemClickListener.onItemClick(feed) }
+    private fun adjustViewPosition(view: View, x: Double, y: Double) {
+        view.x = x.toFloat()
+        view.y = y.toFloat()
     }
 
     override fun getItemCount(): Int {
@@ -83,21 +129,26 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         list.addAll(newList)
         notifyDataSetChanged()
     }
-}
 
-@BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, imageUrl: String?) {
-    if(!imageUrl.isNullOrEmpty()) {
-        Glide.with(view.context)
-            .load(imageUrl)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.post_picture_icon)
-                    .error(R.drawable.shorts_picture)
-                    .override(Target.SIZE_ORIGINAL)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .priority(Priority.HIGH)
-                    .dontTransform())
-            .into(view)
+    private fun calculateDaysAgo(postingDate: String): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+
+        val postDate: Date? = formatter.parse(postingDate)
+        val currentDate = Date()
+
+        postDate?.let {
+            val diffInMillis = currentDate.time - postDate.time
+            val daysBetween = (diffInMillis / (1000 * 60 * 60 * 24)).toInt()
+
+            return if (daysBetween == 0) {
+                "오늘"
+            } else {
+                "${daysBetween}일 전"
+            }
+        }
+
+        return "날짜 불명"
     }
 }
+

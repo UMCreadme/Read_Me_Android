@@ -9,6 +9,7 @@ import com.example.readme.ui.data.entities.category.CategoryFeedResponse
 import com.example.readme.ui.data.entities.inithome.FeedInfo
 import com.example.readme.ui.data.entities.inithome.MainInfoResponse
 import com.example.readme.ui.data.entities.inithome.ShortsInfo
+import com.example.readme.ui.data.entities.like.LikeResponse
 import com.example.readme.ui.utils.RetrofitClient
 import retrofit2.Response
 import retrofit2.Call
@@ -18,6 +19,7 @@ import retrofit2.Callback
 class FeedViewModel : ViewModel() {
     private val _feeds = MutableLiveData<List<FeedInfo>>()
     val feeds: LiveData<List<FeedInfo>> get() = _feeds
+
 
     private val _shorts = MutableLiveData<List<ShortsInfo>>()
     val shorts: LiveData<List<ShortsInfo>> get() = _shorts
@@ -39,11 +41,14 @@ class FeedViewModel : ViewModel() {
             val shorts = _shorts.value
             _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
         }
+
         _combinedData.addSource(shorts) { shorts ->
             val feeds = _feeds.value
             _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
         }
     }
+
+
 
 
     fun fetchFeeds() {
@@ -94,6 +99,68 @@ class FeedViewModel : ViewModel() {
             override fun onFailure(call: Call<CategoryFeedResponse>, t: Throwable) {
                 // 오류 처리
                 Log.d("FeedApi", "통신 실패: ${t.message}")
+            }
+        })
+    }
+
+    fun likeShorts(feed: FeedInfo) {
+        RetrofitClient.getMainInfoService().likeShorts(feed.shorts_id).enqueue(object : Callback<LikeResponse> {
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                if (response.body()?.isSuccess == true) {
+                    val currentFeeds = _feeds.value ?: emptyList()
+
+                    // updatedFeeds 리스트 생성
+                    val updatedFeeds = currentFeeds.map {
+                        if (it.shorts_id == feed.shorts_id) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    }
+
+                    // updatedFeeds를 LiveData에 반영
+                    _feeds.postValue(updatedFeeds)
+                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shorts_id}")
+                } else {
+                    // 오류 처리
+                    Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                // 오류 처리
+                Log.d("FeedViewModel", "Failed to update like status: ${t.message}")
+            }
+        })
+    }
+
+    fun likeShorts2(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
+        RetrofitClient.getMainInfoService().likeShorts(categoryFeeds.shortsId).enqueue(object : Callback<LikeResponse> {
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                if (response.body()?.isSuccess == true) {
+                    val currentFeeds = _categoryFeeds.value ?: emptyList()
+
+                    // updatedFeeds 리스트 생성
+                    val updatedFeeds = currentFeeds.map {
+                        if (it.shortsId == categoryFeeds.shortsId) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    }
+
+                    // updatedFeeds를 LiveData에 반영
+                    _categoryFeeds.postValue(updatedFeeds)
+                    Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId} ${response.body()}")
+                } else {
+                    // 오류 처리
+                    Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                // 오류 처리
+                Log.d("FeedViewModel", "Failed to update like status: ${t.message}")
             }
         })
     }
