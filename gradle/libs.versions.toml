@@ -9,6 +9,7 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.7.0"
 composeBom = "2023.08.00"
 databindingRuntime = "8.5.1"
+identityCredentialAndroid = "20231002"
 appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.8.0"
@@ -34,6 +35,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databindingRuntime" }
+identity-credential-android = { group = "com.android.identity", name = "identity-credential-android", version.ref = "identityCredentialAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
