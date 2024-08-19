@@ -1,7 +1,6 @@
 package com.example.readme.ui.search.shorts
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
