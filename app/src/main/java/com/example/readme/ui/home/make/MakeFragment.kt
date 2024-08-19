@@ -30,9 +30,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.databinding.FragmentMakeBinding
 import com.example.readme.ui.MainActivity
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.home.make.book.BookSearchFragment
 import com.example.readme.ui.home.make.preview.PreViewFragment
-import com.example.whashow.base.BaseFragment
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.CornerFamily
 
@@ -115,7 +115,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             }
         }
 
-
         (activity as MainActivity).binding.btnNext.setOnClickListener {
             // 다음 버튼 클릭 시 해쉬 태그 넘기기
             val tags = getTags(binding.etTags.text.toString())
@@ -125,8 +124,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             }
             if (result.isBlank()) result = " "
             binding.etTags.setText(result)
-
-
 
             goToPreviewFragment()
         }

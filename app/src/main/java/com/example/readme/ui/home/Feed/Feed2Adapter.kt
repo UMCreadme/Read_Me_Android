@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.databinding.FeedItemBinding
-import com.example.readme.ui.data.entities.category.FeedInfo
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import com.example.readme.data.entities.category.FeedInfo
 
 
 class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
@@ -148,6 +148,3 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
     }
 
 }
-
-
-

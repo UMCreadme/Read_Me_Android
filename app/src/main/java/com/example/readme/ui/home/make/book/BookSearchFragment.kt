@@ -1,14 +1,13 @@
 package com.example.readme.ui.home.make.book
 
-import RecentBookAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.readme.data.entities.booklist.Book
 import com.example.readme.databinding.FragmentBookSearchBinding
-import com.example.readme.ui.data.entities.recentbook.Book
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItemClickListener,
@@ -20,8 +19,8 @@ class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItem
 
     private val viewModel: BookViewModel by viewModels()
 
-    private var recentSearches = listOf<Book>()
-    private var BookSearches = listOf<com.example.readme.ui.data.entities.booklist.Book>()
+    private var recentSearches = listOf<com.example.readme.data.entities.recentbook.Book>()
+    private var BookSearches = listOf<Book>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +85,7 @@ class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItem
         }
     }
 
-    override fun onItemClick(book: Book) {
+    override fun onItemClick(book: com.example.readme.data.entities.recentbook.Book) {
         parentFragmentManager.setFragmentResult("requestKey", Bundle().apply {
             putString("bookTitle", book.title)
             putString("ISBN", book.isbn)
@@ -95,11 +94,11 @@ class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItem
         dismiss()
     }
 
-    override fun onDeleteClick(book: Book) {
+    override fun onDeleteClick(book: com.example.readme.data.entities.recentbook.Book) {
         // 현재는 onDeleteClick을 사용하는 로직이 없지만 필요 시 수정
     }
 
-    override fun onItemClick(book: com.example.readme.ui.data.entities.booklist.Book) {
+    override fun onItemClick(book: Book) {
         parentFragmentManager.setFragmentResult("requestKey", Bundle().apply {
             putString("bookTitle", book.bookTitle)
             putString("ISBN", book.isbn)
@@ -107,7 +106,7 @@ class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItem
         dismiss()
     }
 
-    override fun onDeleteClick(book: com.example.readme.ui.data.entities.booklist.Book) {
+    override fun onDeleteClick(book: Book) {
         //TODO("Not yet implemented")
     }
 }

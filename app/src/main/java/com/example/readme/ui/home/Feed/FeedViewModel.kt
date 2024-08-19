@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.readme.ui.data.entities.category.CategoryFeedResponse
-import com.example.readme.ui.data.entities.inithome.FeedInfo
-import com.example.readme.ui.data.entities.inithome.MainInfoResponse
-import com.example.readme.ui.data.entities.inithome.ShortsInfo
 import com.example.readme.ui.data.entities.like.LikeResponse
-import com.example.readme.ui.utils.RetrofitClient
+import com.example.readme.data.entities.category.CategoryFeedResponse
+import com.example.readme.data.entities.inithome.FeedInfo
+import com.example.readme.data.entities.inithome.MainInfoResponse
+import com.example.readme.data.entities.inithome.ShortsInfo
+import com.example.readme.utils.RetrofitClient
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +19,6 @@ import retrofit2.Callback
 class FeedViewModel : ViewModel() {
     private val _feeds = MutableLiveData<List<FeedInfo>>()
     val feeds: LiveData<List<FeedInfo>> get() = _feeds
-
 
     private val _shorts = MutableLiveData<List<ShortsInfo>>()
     val shorts: LiveData<List<ShortsInfo>> get() = _shorts
@@ -47,8 +46,6 @@ class FeedViewModel : ViewModel() {
             _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
         }
     }
-
-
 
 
     fun fetchFeeds() {

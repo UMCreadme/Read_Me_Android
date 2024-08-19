@@ -88,24 +88,6 @@ object RetrofitClient {
         return shortspostRetrofit!!.create(ShortsPostService::class.java)
     }
 
-
-
-
-
-
-
-
-//    // 카카오톡 로그인 API Retrofit 객체 생성
-//    fun getKakaoLoginService(): KakaoLoginService {
-//        if (kakaoRetrofit == null) {
-//            kakaoRetrofit = Retrofit.Builder()
-//                .baseUrl(KakaoLoginService.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-//        }
-//        return kakaoRetrofit!!.create(KakaoLoginService::class.java)
-//    }
-
     // Readme 서버 API Retrofit 객체 생성
     fun getReadmeServerService(): ReadmeServerService {
         if (customRetrofit == null) {

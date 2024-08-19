@@ -4,18 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.readme.ui.data.entities.booklist.Book
-import com.example.readme.ui.data.entities.booklist.BookListResponse
-import com.example.readme.ui.data.entities.recentbook.RecentBookResponse
-import com.example.readme.ui.utils.RetrofitClient
+import com.example.readme.data.entities.booklist.Book
+import com.example.readme.data.entities.booklist.BookListResponse
+import com.example.readme.data.entities.recentbook.RecentBookResponse
+import com.example.readme.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class BookViewModel : ViewModel() {
 
-    private val _recentBooks = MutableLiveData<List<com.example.readme.ui.data.entities.recentbook.Book>>()
-    val recentBooks: LiveData<List<com.example.readme.ui.data.entities.recentbook.Book>> get() = _recentBooks
+    private val _recentBooks = MutableLiveData<List<com.example.readme.data.entities.recentbook.Book>>()
+    val recentBooks: LiveData<List<com.example.readme.data.entities.recentbook.Book>> get() = _recentBooks
 
     private val _BookList = MutableLiveData<List<Book>>()
     val BookList: LiveData<List<Book>> get() = _BookList

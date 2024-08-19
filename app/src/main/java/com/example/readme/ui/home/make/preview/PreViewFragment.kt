@@ -16,11 +16,11 @@ import androidx.core.view.children
 import com.example.readme.R
 import com.example.readme.databinding.FragmentPreViewBinding
 import com.example.readme.ui.MainActivity
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.data.entities.ShortsPostResponse
 import com.example.readme.ui.home.main.HomeFragment
 import com.example.readme.ui.home.make.MakeFragment
 import com.example.readme.ui.utils.RetrofitClient
-import com.example.whashow.base.BaseFragment
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -76,10 +76,7 @@ class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_p
         (activity as MainActivity).binding.btnNext.setOnClickListener {
             val imageUriString = arguments?.getString("imageUri")
             handleImageUpload(imageUriString)
-
         }
-
-
     }
 
     override fun initDataBinding() {
@@ -272,59 +269,4 @@ class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_p
             }
         })
     }
-
-
-
-
-//    private fun uploadPreviewData() {
-//        val title = binding.feedTitle.text.toString()
-//        val content = binding.feedContent.text.toString()
-//        val sentence = binding.feedSentence.text.toString()
-//        val tags = binding.etTags.children.toList().map { (it as TextView).text.toString() }.joinToString(" ")
-//        val ISBN = arguments?.getString("ISBN") ?: ""
-//        val imageUriString = arguments?.getString("imageUri")
-//        val imageFile = imageUriString?.let { Uri.parse(it).path?.let { it1 -> File(it1) } }
-//
-//        val requestFile = imageFile?.let {
-//            RequestBody.create("image/jpeg".toMediaTypeOrNull(), it)
-//        }
-//        val imagePart = requestFile?.let {
-//            MultipartBody.Part.createFormData("image", imageFile.name, it)
-//        }
-//
-//        val requestBodyMap = mutableMapOf<String, RequestBody>()
-//
-//        requestBodyMap["ISBN"] = RequestBody.create("text/plain".toMediaTypeOrNull(), ISBN)
-//        requestBodyMap["phrase"] = RequestBody.create("text/plain".toMediaTypeOrNull(), sentence)
-//        requestBodyMap["shortsTitle"] = RequestBody.create("text/plain".toMediaTypeOrNull(), title)
-//        requestBodyMap["content"] = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
-//        requestBodyMap["tags"] = RequestBody.create("text/plain".toMediaTypeOrNull(), tags)
-//        requestBodyMap["phraseX"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseX.toString())
-//        requestBodyMap["phraseY"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseY.toString())
-//
-//        val service = RetrofitClient.getShortsPostService()
-//
-//        val call = service.uploadShorts(
-//            body = requestBodyMap,
-//            image = imagePart
-//        )
-//
-//        call.enqueue(object : Callback<ShortsPostResponse> {
-//            override fun onResponse(call: Call<ShortsPostResponse>, response: Response<ShortsPostResponse>) {
-//                Log.d("upload", "${response.body()}")
-//                if (response.body()?.isSuccess == true) {
-//                    Toast.makeText(context, "업로드 성공", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(context, "업로드 실패", Toast.LENGTH_SHORT).show()
-//                    Log.e("Upload Error", "Error Code: ${response.code()}")
-//
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ShortsPostResponse>, t: Throwable) {
-//                Toast.makeText(context, "서버 오류: ${t.message}", Toast.LENGTH_SHORT).show()
-//                Log.e("Upload Failure", "Throwable: ${t.message}")
-//            }
-//        })
-//    }
 }

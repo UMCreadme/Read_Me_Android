@@ -10,7 +10,8 @@ import com.example.readme.R
 import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.ui.data.entities.detail.ShortsDetailInfo
-import com.example.whashow.base.BaseFragment
+import com.example.readme.ui.base.BaseFragment
+import com.example.readme.ui.home.main.ShortsDetailAdapter
 
 class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragment_shorts) {
 

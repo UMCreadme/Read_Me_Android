@@ -6,16 +6,16 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
+import com.example.readme.data.entities.category.FeedInfo
 import com.example.readme.databinding.FragmentDynamicBinding
 import com.example.readme.ui.MainActivity
-import com.example.readme.ui.data.entities.inithome.FeedInfo
-import com.example.readme.ui.data.entities.inithome.ShortsInfo
+import com.example.readme.data.entities.inithome.ShortsInfo
+import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.home.Feed.Feed2Adapter
 import com.example.readme.ui.home.Feed.FeedAdapter
 import com.example.readme.ui.home.Feed.FeedViewModel
 import com.example.readme.ui.home.Feed.ShortsAdapter
 import com.example.readme.ui.home.shortsdetail.ShortsDetailFragment
-import com.example.whashow.base.BaseFragment
 
 class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fragment_dynamic) {
 
@@ -60,7 +60,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         }
     }
 
-    private fun setupRecyclerView(feeds: List<FeedInfo>, shorts: List<ShortsInfo>) {
+    private fun setupRecyclerView(feeds: List<com.example.readme.data.entities.inithome.FeedInfo>, shorts: List<ShortsInfo>) {
         if (!::feedAdapter.isInitialized) {
             feedListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             feedAdapter = FeedAdapter(ArrayList(feeds))
@@ -70,7 +70,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                 adapter = feedAdapter
                 // feedAdapter 초기화 완료 후 클릭 리스너 설정
                 feedAdapter.setMyItemClickListener(object : FeedAdapter.MyItemClickListener {
-                    override fun onItemClick(feed: FeedInfo) {
+                    override fun onItemClick(feed: com.example.readme.data.entities.inithome.FeedInfo) {
                         // 아이템 전체 클릭 시의 동작 (기존 코드)
                     }
 
@@ -112,22 +112,21 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
     }
 
-    private fun setupCategoryRecyclerView(categoryFeeds: List<com.example.readme.ui.data.entities.category.FeedInfo>) {
+    private fun setupCategoryRecyclerView(categoryFeeds: List<FeedInfo>) {
         if (!::feed2Adapter.isInitialized) {
             feed2ListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            Log.d("categoryFeeds", "${categoryFeeds}")
-            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))
+            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feed2ListManager
                 adapter = feed2Adapter
 
                 feed2Adapter.setMyItemClickListener(object : Feed2Adapter.MyItemClickListener {
-                    override fun onItemClick(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
+                    override fun onItemClick(categoryFeeds: FeedInfo) {
                         // 아이템 전체 클릭 시의 동작 (기존 코드)
                     }
 
-                    override fun onImageClick(categoryFeeds: com.example.readme.ui.data.entities.category.FeedInfo) {
+                    override fun onImageClick(categoryFeeds: FeedInfo) {
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
                                 putInt("shortsId", categoryFeeds.shortsId)
@@ -145,7 +144,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             }
         } else {
             feed2Adapter.updateData(categoryFeeds)
-
         }
     }
 

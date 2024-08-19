@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- 주소를 표시할 TextView -->
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:padding="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- MapView -->
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@id/addressTextView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- 확인 버튼 -->
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/mapView"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
+        android:background="?attr/colorPrimary"/>
+
+</RelativeLayout>

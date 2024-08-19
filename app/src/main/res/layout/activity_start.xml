@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.readme.ui.start.StartImgViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/design_default_color_background">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/start_vp"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/start_vp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/start_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginBottom="30dp"
+            app:ci_animator="@animator/scale_with_alpha"
+            app:ci_drawable_unselected="@drawable/gray_radius"
+            app:ci_drawable="@drawable/black_radius"
+            app:layout_constraintTop_toBottomOf="@id/start_vp"
+            app:layout_constraintBottom_toTopOf="@id/start_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/start_btn"
+            android:layout_width="324dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
+            android:background="@color/Primary"
+            android:text="시작하기"
+            android:textAlignment="center"
+            android:textColor="@color/White"
+            android:textSize="18sp"
+            android:onClick="@{() -> viewModel.onStartButtonClick()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_vp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
