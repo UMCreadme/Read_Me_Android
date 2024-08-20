@@ -20,7 +20,7 @@ data class ResultData(
 
 // Shorts 정보 데이터 클래스
 data class ShortsInfo(
-    @SerializedName("shorts_id") val shortsId: Int,
+    @SerializedName("shorts_id") val shorts_id: Int,
     @SerializedName("shortsImg") val shortsImg: String,
     @SerializedName("phrase") val phrase: String,
     @SerializedName("bookTitle") val bookTitle: String,

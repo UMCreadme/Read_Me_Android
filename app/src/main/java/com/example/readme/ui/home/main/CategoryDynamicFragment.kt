@@ -43,13 +43,17 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         category = arguments?.getString(ARG_CATEGORY)
         Log.d("CategoryDynamicFragment", "Category: $category")
 
-        if (category == "추천") {
-            feedViewModel.fetchFeeds()
-        } else {
-            feedViewModel.fetchCategoryFeeds(category!!)
+        // 이미 데이터를 로드했는지 확인
+        if (isFirstLoad) {
+            isFirstLoad = false  // 데이터 로드를 시작했음을 표시
+
+            // 카테고리에 따라 적절한 데이터 로드 메서드 호출
+            if (category == "추천") {
+                feedViewModel.fetchFeeds()
+            } else {
+                feedViewModel.fetchCategoryFeeds(category!!)
+            }
         }
-
-
 
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
@@ -118,7 +122,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                     override fun onItemClick(shorts: ShortsInfo) {
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", shorts.shortsId)
+                                putInt("shorts_id", shorts.shorts_id)
                                 putString("start", "main")
                             }
                         }

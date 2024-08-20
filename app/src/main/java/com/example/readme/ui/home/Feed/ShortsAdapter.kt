@@ -46,7 +46,7 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
     }
 
     override fun getItemId(position: Int): Long {
-        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
+        return list[position].shorts_id.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     override fun getItemCount(): Int {
@@ -85,7 +85,7 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
+            return oldList[oldItemPosition].shorts_id == newList[newItemPosition].shorts_id
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
