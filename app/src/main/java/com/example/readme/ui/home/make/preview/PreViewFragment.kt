@@ -1,19 +1,38 @@
 package com.example.readme.ui.home.make.preview
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.children
 import com.example.readme.R
 import com.example.readme.databinding.FragmentPreViewBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
+import com.example.readme.ui.data.entities.ShortsPostResponse
+import com.example.readme.ui.home.main.HomeFragment
+import com.example.readme.utils.RetrofitClient
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_pre_view) {
+
+    private var phraseX: Float = 0.0f
+    private var phraseY: Float = 0.0f
 
     override fun initStartView() {
         super.initStartView()
@@ -28,10 +47,8 @@ class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_p
             val sentence = bundle.getString("sentence")
             val tags = bundle.getString("tags")
             val imageUriString = bundle.getString("imageUri")
-//            val imageUri = imageUriString?.let { Uri.parse(it) }
             val ISBN = bundle.getString("ISBN")
 
-            // 데이터 사용
             binding.feedTitle.text = title
             binding.feedContent.text = content
             binding.feedSentence.text = sentence
@@ -54,10 +71,9 @@ class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_p
         binding.etTags.verticalSpacing = 16
 
         (activity as MainActivity).binding.btnNext.setOnClickListener {
-//            uploadPreviewData()
+            val imageUriString = arguments?.getString("imageUri")
+            handleImageUpload(imageUriString)
         }
-
-
     }
 
     override fun initDataBinding() {
@@ -105,75 +121,149 @@ class PreViewFragment : BaseFragment<FragmentPreViewBinding>(R.layout.fragment_p
                         .start()
                     return@OnTouchListener true
                 }
+                MotionEvent.ACTION_UP -> {
+                    // ACTION_UP 이벤트 시 최종 위치를 저장
+                    phraseX = v.x
+                    phraseY = v.y
+                    return@OnTouchListener true
+                }
                 else -> return@OnTouchListener false
             }
         })
     }
+    private fun handleImageUpload(imageUriString: String?) {
+        if (imageUriString != null) {
+            val imageUri = Uri.parse(imageUriString)
+            when {
+                imageUri.scheme == "content" -> {
+                    // 갤러리에서 가져온 이미지
+                    val imageFile = File(getRealPathFromURI(imageUri))
+                    uploadGalleryImage(imageFile)
+                }
+                imageUri.scheme == "android.resource" -> {
+                    // drawable에 있는 이미지
+                    val resourceId = imageUri.lastPathSegment?.toIntOrNull()
+                    resourceId?.let {
+                        uploadDrawableImage(it)
+                    }
+                }
+                else -> {
+                    // 다른 URI 처리
+                    Log.e("ImageUpload", "알 수 없는 이미지 소스")
+                }
+            }
+        } else {
+            Log.e("ImageUpload", "이미지 URI가 null입니다.")
+        }
+    }
 
-//    private fun uploadPreviewData() {
-//        val isbn = RequestBody.create(MultipartBody.FORM, "isbn_value") // ISBN 값
-//        val title = RequestBody.create(MultipartBody.FORM, binding.feedTitle.text.toString())
-//        val cid = RequestBody.create(MultipartBody.FORM, "cid_value") // CID 값
-//        val bookCover = RequestBody.create(MultipartBody.FORM, "bookCover_url") // 책 표지 URL
-//        val author = RequestBody.create(MultipartBody.FORM, "author_name") // 저자 이름
-//        val link = RequestBody.create(MultipartBody.FORM, "purchase_link") // 구매 링크
-//        val phrase = RequestBody.create(MultipartBody.FORM, binding.feedSentence.text.toString())
-//        val postTitle = RequestBody.create(MultipartBody.FORM, binding.feedTitle.text.toString())
-//        val content = RequestBody.create(MultipartBody.FORM, binding.feedContent.text.toString())
-//
-//        // 태그 리스트
-//        val tagsList = mutableListOf<RequestBody>()
-//        val tags = binding.etTags.children.map { it as TextView }.map { it.text.toString() }
-//        for (tag in tags) {
-//            tagsList.add(RequestBody.create(MultipartBody.FORM, tag))
-//        }
-//
-//        // 문구의 위치와 크기 정보
-//        val xPosition = RequestBody.create(MultipartBody.FORM, binding.feedSentence.x.toString())
-//        val yPosition = RequestBody.create(MultipartBody.FORM, binding.feedSentence.y.toString())
-//
-//        // 이미지 URI를 MultipartBody.Part로 변환
-//        val imageUriString = arguments?.getString("imageUri")
-//        val imageUri = imageUriString?.let { Uri.parse(it) }
-//
-//        // imageUri가 null이 아닌지 확인하고 MultipartBody.Part로 변환
-//        val imagePart = imageUri?.let { uri ->
-//            val imageFile = File(uri.path)
-//            val requestFile = RequestBody.create(MultipartBody.FORM, imageFile)
-//            MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
-//        }
-//
-//        // API 호출을 통해 데이터를 업로드
-//        val call = RetrofitClient.makeShortsService.uploadPreview(
-//            isbn = isbn,
-//            title = title,
-//            cid = cid,
-//            bookCover = bookCover,
-//            author = author,
-//            link = link,
-//            phrase = phrase,
-//            postTitle = postTitle,
-//            content = content,
-//            tags = tagsList,
-//            xPosition = xPosition,
-//            yPosition = yPosition,
-//            image = imagePart!!
-//        )
-//
-//        // 서버 응답 처리
-//        call.enqueue(object : Callback<ResponseBody> {
-//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                if (response.isSuccessful) {
-//                    Toast.makeText(context, "업로드 성공!", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(context, "업로드 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                Toast.makeText(context, "업로드 실패: ${t.message}", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
+    // 갤러리 이미지의 실제 경로를 가져오는 메서드
+    private fun getRealPathFromURI(uri: Uri): String {
+        var path = ""
+        val cursor = context?.contentResolver?.query(uri, null, null, null, null)
+        cursor?.let {
+            it.moveToFirst()
+            val idx = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            path = it.getString(idx)
+            it.close()
+        }
+        return path
+    }
+
+    // 갤러리 이미지 업로드
+    private fun uploadGalleryImage(imageFile: File) {
+        val title = binding.feedTitle.text.toString()
+        val content = binding.feedContent.text.toString()
+        val sentence = binding.feedSentence.text.toString()
+        val tags = binding.etTags.children.toList().map { (it as TextView).text.toString() }
+        val ISBN = arguments?.getString("ISBN") ?: ""
+        val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), imageFile)
+        val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+
+        val requestBodyMap = mutableMapOf<String, RequestBody>()
+        // 여기에 추가적인 request body를 넣을 수 있습니다.
+        requestBodyMap["ISBN"] = RequestBody.create("text/plain".toMediaTypeOrNull(), ISBN)
+        requestBodyMap["phrase"] = RequestBody.create("text/plain".toMediaTypeOrNull(), sentence)
+        requestBodyMap["shortsTitle"] = RequestBody.create("text/plain".toMediaTypeOrNull(), title)
+        requestBodyMap["content"] = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
+        // 태그를 여러 개의 파라미터로 추가
+        tags.forEachIndexed { index, tag ->
+            requestBodyMap["tags[$index]"] = RequestBody.create("text/plain".toMediaTypeOrNull(), tag)
+        }
+        requestBodyMap["phraseX"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseX.toString())
+        requestBodyMap["phraseY"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseY.toString())
 
 
+        val service = RetrofitClient.getShortsPostService()
+        val call = service.uploadShorts(requestBodyMap, imagePart)
+
+        call.enqueue(object : Callback<ShortsPostResponse> {
+            override fun onResponse(call: Call<ShortsPostResponse>, response: Response<ShortsPostResponse>) {
+                Log.d("upload 갤러리", "${response.body()}")
+                if (response.body()?.isSuccess == true) {
+                    Toast.makeText(context, "업로드 성공", Toast.LENGTH_SHORT).show()
+                    (activity as MainActivity).addFragment(HomeFragment())
+                } else {
+                    Toast.makeText(context, "업로드 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ShortsPostResponse>, t: Throwable) {
+                Toast.makeText(context, "서버 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // Drawable 이미지 업로드
+    private fun uploadDrawableImage(resourceId: Int) {
+        val title = binding.feedTitle.text.toString()
+        val content = binding.feedContent.text.toString()
+        val sentence = binding.feedSentence.text.toString()
+        val tags = binding.etTags.children.toList().map { (it as TextView).text.toString() }
+        val ISBN = arguments?.getString("ISBN") ?: ""
+        val drawable = context?.resources?.getDrawable(resourceId, null)
+        val bitmap = (drawable as BitmapDrawable).bitmap
+
+
+        // Bitmap을 ByteArrayOutputStream으로 변환
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        val byteArray = stream.toByteArray()
+
+        val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), byteArray)
+        val imagePart = MultipartBody.Part.createFormData("image", "image.jpg", requestBody)
+
+        val requestBodyMap = mutableMapOf<String, RequestBody>()
+
+        requestBodyMap["ISBN"] = RequestBody.create("text/plain".toMediaTypeOrNull(), ISBN)
+        requestBodyMap["phrase"] = RequestBody.create("text/plain".toMediaTypeOrNull(), sentence)
+        requestBodyMap["shortsTitle"] = RequestBody.create("text/plain".toMediaTypeOrNull(), title)
+        requestBodyMap["content"] = RequestBody.create("text/plain".toMediaTypeOrNull(), content)
+        // 태그를 여러 개의 파라미터로 추가
+        tags.forEachIndexed { index, tag ->
+            requestBodyMap["tags[$index]"] = RequestBody.create("text/plain".toMediaTypeOrNull(), tag)
+        }
+        requestBodyMap["phraseX"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseX.toString())
+        requestBodyMap["phraseY"] = RequestBody.create("text/plain".toMediaTypeOrNull(), phraseY.toString())
+        Log.d("requestBodyMap", "${ISBN}, ${sentence}, ${title}, ${content}, ${tags}, ${phraseX}, ${phraseY} ")
+
+        val service = RetrofitClient.getShortsPostService()
+        val call = service.uploadShorts(requestBodyMap, imagePart)
+
+        call.enqueue(object : Callback<ShortsPostResponse> {
+            override fun onResponse(call: Call<ShortsPostResponse>, response: Response<ShortsPostResponse>) {
+                Log.d("upload", "${response.body()}")
+                if (response.body()?.isSuccess == true) {
+                    Toast.makeText(context, "업로드 성공", Toast.LENGTH_SHORT).show()
+                    (activity as MainActivity).addFragment(HomeFragment())
+                } else {
+                    Toast.makeText(context, "업로드 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ShortsPostResponse>, t: Throwable) {
+                Toast.makeText(context, "서버 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

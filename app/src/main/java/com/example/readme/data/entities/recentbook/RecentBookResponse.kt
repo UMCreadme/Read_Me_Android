@@ -12,6 +12,7 @@ data class RecentBookResponse(
 )
 
 data class Book(
+    @SerializedName("ISBN") val isbn: String,
     @SerializedName("book_id") val bookId: Int,
     @SerializedName("image_url") val imageUrl: String,
     @SerializedName("title") val title: String,

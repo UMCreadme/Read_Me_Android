@@ -138,7 +138,6 @@ dependencies {
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // 해시태그

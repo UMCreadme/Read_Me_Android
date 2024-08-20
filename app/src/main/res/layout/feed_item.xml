@@ -52,16 +52,27 @@
                 tools:text="kimtomato" />
         </LinearLayout>
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/shortsImage"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:scaleType="centerCrop"
+            android:layout_height="400dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/feed_header"
-            app:imageUrl="@{shorts.shortsImg}"
-            tools:srcCompat="@drawable/post_picture_icon" />
+            app:layout_constraintTop_toBottomOf="@id/feed_header">
+
+            <TextView
+                android:id="@+id/feed_sentence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="쇼츠 문장"
+                android:textColor="@color/Black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="40dp" />
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/feed_content"
@@ -83,27 +94,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
+                <ImageView
                     android:id="@+id/likeIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="start"
+                    android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/like_icon"
-                    android:gravity="center_vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:src="@drawable/like_icon"
+                    android:visibility="visible" />
 
-                <Button
+                <ImageView
+                    android:id="@+id/likefillIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/likefill_icon"
+                    android:visibility="gone" />
+
+                <ImageView
                     android:id="@+id/comment"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@color/transparent"
-                    android:drawableStart="@drawable/comment_icon"
-                    android:gravity="center_vertical"
-                    app:layout_constraintStart_toEndOf="@+id/likeIcon"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="6dp"
+                    android:paddingTop="2dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/comment_icon" />
 
                 <TextView
                     android:id="@+id/timestamp"

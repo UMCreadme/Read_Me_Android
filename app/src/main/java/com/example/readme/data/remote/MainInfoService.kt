@@ -1,50 +1,55 @@
 package com.example.readme.data.remote
 
+import com.example.readme.BuildConfig
 import com.example.readme.data.entities.booklist.BookListResponse
 import com.example.readme.data.entities.recentbook.RecentBookResponse
 import com.example.readme.data.entities.category.CategoryFeedResponse
 import com.example.readme.data.entities.detail.ShortsDetailResponse
 import com.example.readme.data.entities.inithome.MainInfoResponse
-import retrofit2.Call
+import com.example.readme.ui.data.entities.like.LikeResponse
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.Response
+
 
 interface MainInfoService {
     @GET("/home?page=1&size=20")
-    fun getMainInfo(): Call<MainInfoResponse>
+    suspend fun getMainInfo(): Response<MainInfoResponse>  // 수정: Call -> Response, suspend 추가
 
     @GET("/home/categories")
-    fun getCategoryFeeds(
+    suspend fun getCategoryFeeds(
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20,
         @Query("category") category: String
-    ): Call<CategoryFeedResponse>
+    ): Response<CategoryFeedResponse>  // 수정: Call -> Response, suspend 추가
 
     @GET("/shorts/{shortsId}")
-    fun getShortsDetailByFeeds(
+    suspend fun getShortsDetailByFeeds(
         @Path("shortsId") shortsId: Int,
         @Query("start") start: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 4
-    ): Call<ShortsDetailResponse>
+    ): Response<ShortsDetailResponse>  // 수정: Call -> Response, suspend 추가
 
     @GET("/books/recent?page=1&size=20")
-    fun getRecentBooks() : Call<RecentBookResponse>
+    suspend fun getRecentBooks(): Response<RecentBookResponse>  // 수정: Call -> Response, suspend 추가
 
     @GET("/books")
-    fun getBookList(
+    suspend fun getBookList(
         @Query("keyword") keyword: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 100,
         @Query("preview") preview: Boolean = true
-    ) : Call<BookListResponse>
+    ): Response<BookListResponse>  // 수정: Call -> Response, suspend 추가
 
+    @POST("/shorts/{shortsId}/likes")
+    suspend fun likeShorts(
+        @Path("shortsId") shortsId: Int
+    ): Response<LikeResponse>  // 수정: Call -> Response, suspend 추가
 
     companion object {
-        const val BASE_URL = "https://api.umcreadme11.shop/"
+        const val BASE_URL = BuildConfig.SERVER_URL
     }
 }
-
-
-
