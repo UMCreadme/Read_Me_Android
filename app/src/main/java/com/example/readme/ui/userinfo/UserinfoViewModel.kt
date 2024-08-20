@@ -30,16 +30,17 @@ class UserinfoViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = repository.sendSignUpInfo(user)
-                _member4005Error.value = false
                 withContext(Dispatchers.Main) {
                     if (response.isSuccess) {
                         // 액세스 토큰 설정
                         RetrofitClient.setToken(response.result.accessToken)
                         Log.d("UserinfoViewModel", "Sign up response: ${response}")
+                        _member4005Error.postValue(false)
                     } else {
                         Log.e(
                             "UserinfoViewModel", "Failed to send sign up info: ${response.code} - ${response.message}"
                         )
+                        _member4005Error.postValue(false)
                     }
                 }
             } catch (e: HttpException) {
@@ -52,9 +53,12 @@ class UserinfoViewModel(
                     if(errorBodyParsing.code == "MEMBER4005") {
                         _member4005Error.postValue(true)
                     }
+                } else {
+                    _member4005Error.postValue(false)
                 }
             } catch (e: Exception) {
                 Log.e("UserinfoViewModel", "Error sending sign up info", e)
+                _member4005Error.postValue(false)
             }
         }
     }

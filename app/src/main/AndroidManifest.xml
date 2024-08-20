@@ -75,10 +75,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <!-- LoginActivity에 대한 선언 -->
@@ -113,6 +110,10 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
