@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import com.example.readme.data.remote.KakaoLoginService
 import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.data.repository.CommunityRepository
 import com.example.readme.ui.data.remote.ShortsPostService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -38,6 +39,7 @@ object RetrofitClient {
         chatRetrofit = null
 
         SearchRepository.init(getReadmeServerService())
+        CommunityRepository.init(getReadmeServerService())
     }
 
     // 로깅 인터셉터
