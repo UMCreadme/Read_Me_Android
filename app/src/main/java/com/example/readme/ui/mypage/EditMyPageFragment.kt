@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.readme.R
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentEditMypageBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
@@ -18,7 +18,7 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
 
     private lateinit var binding: FragmentEditMypageBinding
 
-    private val token = "example_token" //실제 토큰 저장
+    private val token = "example_token"
 
     private val viewModel: EditMyPageViewModel by viewModels {
         EditMyPageViewModelFactory(requireActivity().application)
@@ -38,6 +38,7 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        (activity as MainActivity).NoShow() //툴바 안보이게
         initDataBinding()
         initAfterBinding()
     }
@@ -72,6 +73,27 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
             // 이미지 바인딩 어떻게 할 지
             // viewModel.setProfileImg(binding.profileImage.text.toString())
             saveProfileChanges()
+
+            // 이전 화면으로 돌아가기
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+
+            // 닉네임 EditText 내용 지우기
+            binding.btnEditNickname.setOnClickListener {
+                binding.nicknameEditText.text.clear()
+            }
+
+            // ID EditText 내용 지우기
+            binding.btnEditId.setOnClickListener {
+                binding.idEditText.text.clear()
+            }
+
+            // 설명 EditText 내용 지우기
+            binding.btnEditBio.setOnClickListener {
+                binding.descriptionEditText.text.clear()
+            }
+
+
+
         }
 
         // 기타 UI 요소들에 대한 이벤트 처리
