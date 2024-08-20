@@ -11,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.readme.R
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentEditMypageBinding
@@ -42,7 +44,12 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
             result.data?.data?.let { uri ->
                 // 이미지 URI를 사용해 프로필 사진 업데이트
                 binding.profileImage.setImageURI(uri)
-                viewModel.setProfileImg(uri.toString())  // ViewModel을 통해 이미지 URI 저장
+
+
+                // URI가 잘 저장되었는지 LiveData를 observe하여 확인
+                viewModel.profileImg.observe(viewLifecycleOwner) { imgUri ->
+                    Log.d("ViewModel uri", imgUri ?: "No URI set")
+                }
             }
         }
     }
@@ -68,7 +75,12 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
                 viewModel.setProfileName(myPage.result.nickname)
                 viewModel.setProfileAccount(myPage.result.account)
                 viewModel.setProfileBio(myPage.result.comment ?: "")
-                viewModel.setProfileImg(myPage.result.profileImg)
+
+                // 프로필 이미지를 Glide를 사용하여 ImageView에 로드
+                Glide.with(this)
+                    .load(myPage.result.profileImg)
+                    .transform(CircleCrop())
+                    .into(binding.profileImage)
             }
         }
     }
@@ -85,8 +97,8 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
             viewModel.setProfileName(binding.nicknameEditText.text.toString())
             viewModel.setProfileAccount(binding.idEditText.text.toString())
             viewModel.setProfileBio(binding.descriptionEditText.text.toString())
-            // 이미지 바인딩 어떻게 할 지
-            // viewModel.setProfileImg(binding.profileImage.text.toString())
+            viewModel.setProfileImg(binding.profileImage.toString())
+
             saveProfileChanges()
 
             // 이전 화면으로 돌아가기
@@ -98,6 +110,10 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
         // 사진 수정 버튼 클릭 리스너
         binding.btnPicEdit.setOnClickListener {
             openGallery()
+        }
+
+        binding.btnEditDefaultPic.setOnClickListener{
+            // 기본 사진 바인딩으로 바꾸기
         }
 
         // 닉네임 EditText 내용 지우기
