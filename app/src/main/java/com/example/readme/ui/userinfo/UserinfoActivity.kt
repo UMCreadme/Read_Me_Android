@@ -14,11 +14,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.readme.R
 import com.example.readme.data.entities.UserData
+import com.example.readme.data.repository.LoginRepository
 import com.example.readme.ui.MainActivity
 
 class UserinfoActivity : AppCompatActivity() {
 
-    private val userinfoViewModel: UserinfoViewModel by viewModels()
+    private val userinfoViewModel: UserinfoViewModel by viewModels {
+        UserinfoViewModelFactory(LoginRepository)
+    }
     private lateinit var nicknameEditText: EditText
     private lateinit var idEditText: EditText
     private lateinit var nicknameErrorTextView: TextView

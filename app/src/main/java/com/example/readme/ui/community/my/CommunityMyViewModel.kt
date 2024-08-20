@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.repository.CommunityRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CommunityMyViewModel(
@@ -28,7 +29,7 @@ class CommunityMyViewModel(
         }
 
         isLoading = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.getMyCommunities(currentPage, 20)
 

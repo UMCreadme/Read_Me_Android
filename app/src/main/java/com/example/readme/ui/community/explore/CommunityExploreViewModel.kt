@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.repository.CommunityRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.*
@@ -26,7 +27,7 @@ class CommunityExploreViewModel(
     private var isLoading = false
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             queryFlow
                 .debounce(400) // 400ms debounce time to prevent excessive API calls
                 .distinctUntilChanged() // Only proceed if the query actually changes
