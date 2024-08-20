@@ -1,7 +1,9 @@
 package com.example.readme.data.remote
 
 import com.example.readme.data.entities.BookDetailResponse
+import com.example.readme.data.entities.BookResponse
 import com.example.readme.data.entities.BookSearchResult
+import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch
@@ -106,6 +108,16 @@ interface ReadmeServerService {
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 50,
     ) : ResponseWithPagination<List<CommunityListResponse>>
+
+    @GET("communities/{communityId}")
+    suspend fun getCommunityDetail(@Path("communityId") communityId: Int): CommunityDetailResponse
+
+    @GET("books/search")
+    suspend fun searchBooks(@Query("keyword") keyword: String): BookResponse
+
+    @GET("/communities/{communityId}")
+    suspend fun getCommunityInfo(@Path("communityId") communityId: Int): CommunityDetailResponse
+
 
     /**
      * RECENT-SEARCH 관련 API

@@ -1,5 +1,6 @@
 package com.example.readme.ui.community.explore
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -7,12 +8,14 @@ import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
 import com.example.readme.data.repository.CommunityRepository
 import com.example.readme.databinding.FragmentCommunityExploreBinding
 import com.example.readme.ui.base.BaseFragment
+import kotlinx.coroutines.launch
 
 class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R.layout.fragment_community_explore) {
 
@@ -26,9 +29,21 @@ class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R
         // RecyclerView에 어댑터 설정
         val adapter = CommunityExploreAdapter(
             onCommunityClick = { communityId ->
-                // TODO: 커뮤니티 상세 화면으로 전환
+                lifecycleScope.launch {
+                    try {
+                        val communityInfo = viewModel.getCommunityInfo(communityId, isParticipating = true)
+                        if (communityInfo.isParticipating) {
+                            navigateToCommunityDetail(communityId)
+                        } else {
+                            navigateToCommunityJoin(communityId)
+                        }
+                    } catch (e: Exception) {
+                        Log.e("CommunityExploreFragment", "Failed to get community info", e)
+                    }
+                }
             }
         )
+
         binding.communityExploreRecyclerView.adapter = adapter
         binding.communityExploreRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -44,10 +59,7 @@ class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R
 
         // EditText 검색 버튼 클릭 시 키보드 숨김
         binding.searchEditText.setOnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP && binding.searchEditText.text.isNotEmpty()) {
-                hideKeyboard()
-                true
-            } else if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 hideKeyboard()
                 true
             } else {
@@ -64,7 +76,6 @@ class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R
             override fun afterTextChanged(s: Editable?) {
                 val keyword = binding.searchEditText.text.toString()
                 if (keyword.isEmpty()) {
-                    Log.d("CommunityExploreFragment", "keyword is empty")
                     viewModel.fetchCommunityList() // 검색어가 비어 있을 때 전체 커뮤니티 리스트 조회
                 } else {
                     viewModel.searchCommunity(keyword)
@@ -100,5 +111,31 @@ class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R
         val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
         binding.searchEditText.clearFocus() // 포커스 해제
+    }
+
+    private fun navigateToCommunityDetail(communityId: Int) {
+        val detailFragment = CommunityDetailFragment().apply {
+            arguments = Bundle().apply {
+                putInt("communityId", communityId)
+            }
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, detailFragment) // Ensure 'fragment_container' is the correct ID
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToCommunityJoin(communityId: Int) {
+        val joinFragment = CommunityDetailJoinFragment().apply {
+            arguments = Bundle().apply {
+                putInt("communityId", communityId)
+            }
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, joinFragment) // Ensure 'fragment_container' is the correct ID
+            .addToBackStack(null)
+            .commit()
     }
 }

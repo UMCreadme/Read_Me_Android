@@ -41,7 +41,7 @@ class BookDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.layout
             binding.tagsFlow.setReferencedIds(tagIds.toIntArray())
         }
 
-        binding.chatButton.setOnClickListener {
+        binding.btnGoToChat.setOnClickListener {
             // Handle chat button click
             val intent = Intent(requireContext(), ChatActivity::class.java)
             startActivity(intent)

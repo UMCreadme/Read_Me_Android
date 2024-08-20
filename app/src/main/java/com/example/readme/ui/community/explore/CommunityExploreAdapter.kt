@@ -1,5 +1,6 @@
 package com.example.readme.ui.community.explore
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -39,10 +40,12 @@ class CommunityExploreAdapter(
             binding.itemMembersCurrent.text = item.participants.toString()
             binding.itemMembersTotal.text = item.capacity.toString()
 
-            binding.communityItem.setOnClickListener {
+            binding.root.setOnClickListener {
+                Log.d("CommunityExploreAdapter", "Item clicked: ${item.communityId}")
                 onCommunityClick(item.communityId)
             }
         }
+
     }
 }
 

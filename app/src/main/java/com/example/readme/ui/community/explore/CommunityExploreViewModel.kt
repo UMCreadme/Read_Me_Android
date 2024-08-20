@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.repository.CommunityRepository
 import kotlinx.coroutines.FlowPreview
@@ -39,6 +40,10 @@ class CommunityExploreViewModel(
         }
     }
 
+    fun setQuery(query: String) {
+        queryFlow.value = query
+    }
+
     fun fetchCommunityList(isNew: Boolean = true) {
         if (isNew) {
             resetPagination()
@@ -53,7 +58,7 @@ class CommunityExploreViewModel(
 
                 if (response.isSuccess) {
                     Log.d("CommunityExploreViewModel", "Fetched community items: ${response.result}")
-                    val items = response.result.filterNotNull()
+                    val items = response.result
 
                     val currentList = _communityItems.value.orEmpty()
                     _communityItems.postValue(currentList + items)
@@ -118,5 +123,9 @@ class CommunityExploreViewModel(
     fun loadSearchCommunityMore() {
         if (!hasNext || isLoading) return
         lastQuery?.let { searchCommunity(it, false) }
+    }
+    // 커뮤니티 정보 가져오기
+    suspend fun getCommunityInfo(communityId: Int, isParticipating: Boolean): CommunityDetailResponse {
+        return repository.getCommunityInfo(communityId, isParticipating)
     }
 }
