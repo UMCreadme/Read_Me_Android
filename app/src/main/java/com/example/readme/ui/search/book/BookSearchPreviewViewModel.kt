@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ class BookSearchPreviewViewModel(
     private var hasNext = true
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             queryFlow
                 .debounce(400) // 400ms debounce time to prevent excessive API calls
                 .distinctUntilChanged() // Only proceed if the query actually changes
@@ -38,7 +39,7 @@ class BookSearchPreviewViewModel(
                 }
         }
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             pageFlow
                 .filter { it > 1 } // Only collect if pageFlow is greater than 1
                 .collect { page ->
@@ -68,7 +69,7 @@ class BookSearchPreviewViewModel(
         if (isLoading) return
         isLoading = true
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Retrofit API 호출
                 val response = repository.searchBooksPreview(query, page, 50)
@@ -96,7 +97,7 @@ class BookSearchPreviewViewModel(
 
     // 최근 검색어 저장
     fun saveRecentSearch(isbn: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.saveRecentSearchBook(isbn)
 

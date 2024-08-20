@@ -11,4 +11,8 @@ interface LocationService {
     @POST("location") // 서버의 엔드포인트를 "location"으로 가정
     fun sendLocation(@Body locationData: LocationData): Call<Void>
 
+    companion object {
+        const val BASE_URL = "https://api.umcreadme11.shop/"
+    }
+
 }

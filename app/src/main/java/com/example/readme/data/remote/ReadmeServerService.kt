@@ -2,26 +2,30 @@ package com.example.readme.data.remote
 
 import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
+import com.example.readme.data.entities.BookResponse
 import com.example.readme.data.entities.BookSearchResult
+import com.example.readme.data.entities.CommunityListResponse
+import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
+import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.ui.community.Chat
-
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.PATCH
-
 
 interface ReadmeServerService {
-    
-    // MyPage 관련 API 요청
+
+    /**
+     * USER 관련 API
+     */
     @GET("/users/my")
     suspend fun getMyProfile(
         @Header("Authorization") token: String
@@ -54,7 +58,6 @@ interface ReadmeServerService {
     ): Response
 
 
-
     // UserProfile 관련 API 요청
     @GET("/users/{userId}")
     suspend fun getProfile(
@@ -76,16 +79,66 @@ interface ReadmeServerService {
         @Path("userId") userId: Int
     ): ProfileBooksResponse
 
+    @GET("/users")
+    suspend fun searchUsers(
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseWithPagination<List<SearchUserResult>>
 
-    @POST("communities/{communityId}/messages")
-    fun postMessage(@Path("communityId") communityId: String, @Body chat: Chat): Call<Chat>
 
-    @GET("communities/{communityId}/messages")
-    fun getMessages(@Path("communityId") communityId: String): Call<List<Chat>>
+    /**
+     * COMMUNITY 관련 API
+     */
+    @POST("/communities/{communityId}/messages")
+    suspend fun postMessage(@Path("communityId") communityId: String, @Body chat: Chat): Call<Chat>
 
+    @GET("/communities/{communityId}/messages")
+    suspend fun getMessages(@Path("communityId") communityId: String): Call<List<Chat>>
+
+    @GET("/communities")
+    suspend fun getCommunities(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 50,
+    ) : ResponseWithPagination<List<CommunityListResponse>>
+
+    @GET("/communities/my")
+    suspend fun getMyCommunities(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 50,
+    ) : ResponseWithPagination<List<MyCommunityListResponse>>
+
+    @GET("/communities/search")
+    suspend fun searchCommunities(
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 50,
+    ) : ResponseWithPagination<List<CommunityListResponse>>
+
+    @GET("communities/{communityId}")
+    suspend fun getCommunityDetail(@Path("communityId") communityId: Int): CommunityDetailResponse
+
+    @GET("books/search")
+    suspend fun searchBooks(@Query("keyword") keyword: String): BookResponse
+
+    @GET("/communities/{communityId}")
+    suspend fun getCommunityInfo(@Path("communityId") communityId: Int): CommunityDetailResponse
+
+
+    /**
+     * RECENT-SEARCH 관련 API
+     */
     @GET("/recent-searches")
     suspend fun getRecentSearches(): ResponseWithData<List<RecentSearch>>
 
+    @DELETE("/recent-searches/{recentSearchesId}")
+    suspend fun deleteRecentSearch(
+        @Path("recentSearchesId") recentSearchesId: Int
+    ): Response
+
+    /**
+     * BOOK 관련 API
+     */
     @GET("/books")
     suspend fun searchBooksPreview(
         @Query("keyword") query: String,
@@ -101,25 +154,6 @@ interface ReadmeServerService {
         @Query("size") size: Int = 50,
         @Query("preview") preview: Boolean = false
     ): ResponseWithPagination<List<BookSearchResult>>
-
-    @GET("/users")
-    suspend fun searchUsers(
-        @Query("keyword") query: String,
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
-    ): ResponseWithPagination<List<SearchUserResult>>
-
-    @DELETE("/recent-searches/{recentSearchesId}")
-    suspend fun deleteRecentSearch(
-        @Path("recentSearchesId") recentSearchesId: Int
-    ): Response
-
-    @GET("/shorts")
-    suspend fun searchShorts(
-        @Query("keyword") query: String,
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
-    ): ResponseWithPagination<List<SearchShortsResult>>
 
     @POST("/books/{isbn}")
     suspend fun saveRecentSearchBook(
@@ -153,6 +187,22 @@ interface ReadmeServerService {
         @Path("isbn") isbn: String,
         @Query("isBookId") isBookId: Boolean = false
     ): Response
+
+    @GET("/books/recent")
+    suspend fun getRecentSelectBooks(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseWithPagination<List<Book>>
+
+    /**
+     * SHORTS 관련 API
+     */
+    @GET("/shorts")
+    suspend fun searchShorts(
+        @Query("keyword") query: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseWithPagination<List<SearchShortsResult>>
 
     companion object {
         const val BASE_URL = BuildConfig.SERVER_URL

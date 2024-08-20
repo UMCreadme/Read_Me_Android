@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_room_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 커뮤니티 정보-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_room_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- 커뮤니티 이미지 -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/community_image"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+            <!-- 커뮤니티 제목 및 장소 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/community_title_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/community_image"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/community_title_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- 커뮤니티 제목 -->
+                    <TextView
+                        android:id="@+id/community_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/unread_message"
+                        tools:text="커뮤니티 제목" />
+
+                    <!-- 안 읽음 개수 -->
+                    <TextView
+                        android:id="@+id/unread_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:text="안읽은 메세지"
+                        android:textColor="@color/Black"
+                        android:textSize="10sp"
+                        android:textAlignment="viewEnd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/unread_message_count"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/community_title"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- 안읽은 메시지 개수 -->
+                    <TextView
+                        android:id="@+id/unread_message_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/Primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textAlignment="viewEnd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/unread_message"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="300개" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 장소 -->
+                <LinearLayout
+                    android:id="@+id/community_participants"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/community_title_info">
+
+                    <TextView
+                        android:id="@+id/community_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:textColor="@color/Primary"
+                        android:textSize="14sp"
+                        tools:text="서울" />
+
+                    <ImageView
+                        android:id="@+id/member"
+                        android:layout_width="17dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_members2" />
+
+                    <TextView
+                        android:id="@+id/item_members_current"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textColor="@color/Black"
+                        android:textSize="12sp"
+                        tools:text="2" />
+
+                    <TextView
+                        android:id="@+id/item_members_separator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="/"
+                        android:textColor="@color/Black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/item_members_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/Black"
+                        android:textSize="12sp"
+                        tools:text="6" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 커뮤니티 태그 -->
+        <com.example.readme.ui.home.make.preview.FlowLayout
+            android:id="@+id/community_tags"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/Light_Light_Gray"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_room_info">
+
+        </com.example.readme.ui.home.make.preview.FlowLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/Light_White"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/community_tags"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
