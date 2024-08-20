@@ -17,11 +17,11 @@ import kotlinx.coroutines.withContext
 // ViewModel에서 데이터 요청
 class FeedViewModel : ViewModel() {
 
-    private val _feeds = MutableLiveData<List<FeedInfo>>()
-    val feeds: LiveData<List<FeedInfo>> get() = _feeds
-
     private val _shorts = MutableLiveData<List<ShortsInfo>>()
     val shorts: LiveData<List<ShortsInfo>> get() = _shorts
+
+    private val _feedsShorts = MutableLiveData<List<FeedInfo>>()
+    val feedsShorts: LiveData<List<FeedInfo>> get() = _feedsShorts
 
     private val _categoryFeeds = MutableLiveData<List<com.example.readme.data.entities.category.FeedInfo>>()
     val categoryFeeds: LiveData<List<com.example.readme.data.entities.category.FeedInfo>> get() = _categoryFeeds
@@ -36,13 +36,13 @@ class FeedViewModel : ViewModel() {
     init {
         _combinedData.value = Pair(emptyList(), emptyList())
 
-        _combinedData.addSource(feeds) { feeds ->
+        _combinedData.addSource(feedsShorts) { feedsShorts ->
             val shorts = _shorts.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            _combinedData.value = Pair(feedsShorts ?: emptyList(), shorts ?: emptyList())
         }
         _combinedData.addSource(shorts) { shorts ->
-            val feeds = _feeds.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            val feedsShorts = _feedsShorts.value
+            _combinedData.value = Pair(feedsShorts ?: emptyList(), shorts ?: emptyList())
         }
     }
 
@@ -58,12 +58,12 @@ class FeedViewModel : ViewModel() {
                     Log.d("FeedViewModel", "Fetched feeds: ${result}")
                     val categories = result?.categories ?: emptyList()
                     _categories.postValue(categories)
-                    // 서버에서 받아온 카테고리 정보를 LiveData에 저장
-                    // 필터링 없이 전체 feeds 리스트를 사용
-                    _feeds.postValue(result?.feeds ?: emptyList())
-
+                    val feedsShorts = result?.feeds ?: emptyList()
+                    Log.d("FeedViewModel", "Fetched feeds: ${feedsShorts}")
+                    _feedsShorts.setValue(feedsShorts)
+                    Log.d("FeedViewModel", "Fetched _feedsShorts: ${_feedsShorts}")
                     val shorts = result?.shorts ?: emptyList()
-                    _shorts.postValue(shorts)
+                    _shorts.setValue(shorts)
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
                 }
@@ -99,14 +99,14 @@ class FeedViewModel : ViewModel() {
                     RetrofitClient.getMainInfoService().likeShorts(feed.shortsId)
                 }
                 if (response.body()?.isSuccess == true) {
-                    val updatedFeeds = _feeds.value?.map {
+                    val updatedFeeds = _feedsShorts.value?.map {
                         if (it.shortsId == feed.shortsId) {
                             it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
                         } else {
                             it
                         }
                     } ?: emptyList()
-                    _feeds.value = updatedFeeds
+                    _feedsShorts.value = updatedFeeds
                     Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
@@ -146,7 +146,7 @@ class FeedViewModel : ViewModel() {
     fun updateLikeStatus(item: FeedInfo) {
         viewModelScope.launch(Dispatchers.IO) {
             // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
-            val updatedItems = _feeds.value.orEmpty().map {
+            val updatedItems = _feedsShorts.value.orEmpty().map {
                 if (it.shortsId == item.shortsId) {
                     it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
                 } else {
@@ -155,7 +155,7 @@ class FeedViewModel : ViewModel() {
             }
 
             // 업데이트된 리스트를 LiveData에 다시 할당
-            _feeds.postValue(updatedItems)
+            _feedsShorts.postValue(updatedItems)
         }
     }
 

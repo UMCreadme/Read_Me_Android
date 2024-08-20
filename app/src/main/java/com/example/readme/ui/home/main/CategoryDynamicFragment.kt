@@ -50,6 +50,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         }
 
 
+
 //        // 처음 로드일 때 "추천" 카테고리인지 확인하여 fetchFeeds 호출
 //        if (isFirstLoad) {
 //            if (category == "추천") {
@@ -74,10 +75,14 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
             Log.d("FeedViewModel", "Combined Data - Shorts: $shorts")
-            setupRecyclerView(feeds, shorts)
+            if (feeds.isNotEmpty() || shorts.isNotEmpty()) {
+                setupRecyclerView(feeds, shorts)
+            }
+
         }
 
         feedViewModel.categoryFeeds.observe(viewLifecycleOwner) { categoryFeeds ->
+            Log.d("FeedViewModel", "Combined Data - categoryFeeds: $categoryFeeds")
             setupCategoryRecyclerView(categoryFeeds)
         }
     }
@@ -91,10 +96,12 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         if (!::feedAdapter.isInitialized) {
             feedListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             feedAdapter = FeedAdapter(feedViewModel, ArrayList(feeds))
+            Log.d("feedAdapter", "feedAdapter : ${feeds}")
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feedListManager
                 adapter = feedAdapter
+
                 // feedAdapter 초기화 완료 후 클릭 리스너 설정
                 feedAdapter.setMyItemClickListener(object : FeedAdapter.MyItemClickListener {
                     override fun onItemClick(feed: com.example.readme.data.entities.inithome.FeedInfo) {

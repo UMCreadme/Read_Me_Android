@@ -14,9 +14,7 @@ import com.example.readme.databinding.ActivityLoginBinding
 import com.example.readme.ui.MainActivity
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
+
 import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
@@ -27,19 +25,18 @@ class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private var kakaoUser: KaKaoUser? = null
 
+    // 로그인 콜백
     private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error != null) {
-            Log.e("LoginActivity", "로그인 실패 $error")
-        } else if (token != null) {
-            Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
-            getUserInfo()
-        }
+        handleLoginResult(token, error)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        KakaoSdk.init(this, BuildConfig.KAKAO_NATIVE_APP_KEY)
+        // Kakao SDK 초기화는 Application 클래스에서 진행
+        setContentView(binding.root)
+
+        // 로그인 상태 확인 후 토큰이 있으면 사용자 정보 요청
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error == null) {
@@ -48,51 +45,58 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        setContentView(binding.root)
-
+        // 카카오 로그인 버튼 클릭 리스너
         binding.kakaoLoginBtn.setOnClickListener {
+            // 로그인 방법 선택
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                    if (error != null) {
-                        Log.e("LoginActivity", "로그인 실패 $error")
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        } else {
-                            UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
-                        }
-                    } else if (token != null) {
-                        Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
-                        Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                        getUserInfo()
-                    }
-                }
+                UserApiClient.instance.loginWithKakaoTalk(this, callback = mCallback)
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
             }
         }
+
+        // 비회원 로그인 버튼 클릭 리스너
         binding.nonMembersTv.setOnClickListener {
             nextMainActivity()
         }
 
+        // 회원가입 여부 옵저버 설정
         loginViewModel.isSignedUp.observe(this) {
-            if (!it) {
-                navigateToCategoryActivity(kakaoUser!!)
+            if (it == false) {
+                kakaoUser?.let { user -> navigateToCategoryActivity(user) }
             }
         }
 
-        // kakaoUserResponse 옵저버 설정
+        // 카카오 사용자 응답 옵저버 설정
         loginViewModel.kakaoUserResponse.observe(this) { response ->
-            if (response != null) {
+            response?.let {
                 nextMainActivity()
             }
         }
 
-        // userData 옵저버 설정
+        // 유저 데이터 옵저버 설정 (디버그 모드에서만 로그 출력)
         loginViewModel.userData.observe(this) { userData ->
-            Log.d("LoginActivity", "Observed UserData: $userData")
+            if (BuildConfig.DEBUG) {
+                Log.d("LoginActivity", "Observed UserData: $userData")
+            }
         }
     }
 
+    // 로그인 결과 처리 함수
+    private fun handleLoginResult(token: OAuthToken?, error: Throwable?) {
+        when {
+            error != null -> {
+                Log.e("LoginActivity", "로그인 실패 $error")
+            }
+            token != null -> {
+                Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
+                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                getUserInfo()
+            }
+        }
+    }
+
+    // 사용자 정보 요청 함수
     private fun getUserInfo() {
         UserApiClient.instance.me { user, error ->
             if (error != null) {
@@ -105,15 +109,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // 메인 액티비티로 이동
     private fun nextMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
+    // 카테고리 액티비티로 이동
     private fun navigateToCategoryActivity(kakaoUser: KaKaoUser) {
-        val intent = Intent(this, CategoryActivity::class.java)
-        intent.putExtra("uniqueId", kakaoUser.id)
-        intent.putExtra("email", kakaoUser.email)
+        val intent = Intent(this, CategoryActivity::class.java).apply {
+            putExtra("uniqueId", kakaoUser.id)
+            putExtra("email", kakaoUser.email)
+        }
         startActivity(intent)
         finish()
     }

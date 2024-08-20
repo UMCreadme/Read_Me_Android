@@ -26,7 +26,6 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
         fun onItemClick(feed: FeedInfo)
         fun onImageClick(feed: FeedInfo)
         fun onLikeClick(feed: FeedInfo, isLiked: Boolean)
-//        fun onProfileClick(feed: FeedInfo) TODO: 프로필 연결
     }
 
     // 리스너를 설정하는 함수
@@ -112,9 +111,9 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
 
     }
 
-    override fun getItemId(position: Int): Long {
-        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
-    }
+//    override fun getItemId(position: Int): Long {
+//        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
+//    }
 
     private fun adjustViewPosition(view: View, x: Double, y: Double) {
         view.x = x.toFloat()
