@@ -51,27 +51,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
 
 
 
-//        // 처음 로드일 때 "추천" 카테고리인지 확인하여 fetchFeeds 호출
-//        if (isFirstLoad) {
-//            if (category == "추천") {
-//                binding.rvExtra.visibility = View.VISIBLE
-//                feedViewModel.fetchFeeds()
-//            } else {
-//                binding.rvExtra.visibility = View.GONE
-//                feedViewModel.fetchCategoryFeeds(category!!)
-//            }
-//            isFirstLoad = false
-//        } else {
-//            // 이후에는 category에 따라 fetchCategoryFeeds 호출
-//            if (category == "추천") {
-//                binding.rvExtra.visibility = View.VISIBLE
-//                feedViewModel.fetchCategoryFeeds(category!!)
-//            } else {
-//                binding.rvExtra.visibility = View.GONE
-//                feedViewModel.fetchCategoryFeeds(category!!)
-//            }
-//        }
-
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
             Log.d("FeedViewModel", "Combined Data - Shorts: $shorts")
@@ -85,6 +64,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
 //            Log.d("FeedViewModel", "Combined Data - categoryFeeds: $categoryFeeds")
             setupCategoryRecyclerView(categoryFeeds)
         }
+
     }
 
     override fun initAfterBinding() {
@@ -133,7 +113,19 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             binding.rvExtra.apply {
                 setHasFixedSize(true)
                 layoutManager = shortsListManager
-                adapter = shortsAdapter
+                adapter = shortsAdapter // feedAdapter 초기화 완료 후 클릭 리스너 설정
+                shortsAdapter.setMyItemClickListener(object : ShortsAdapter.MyItemClickListener {
+                    override fun onItemClick(shorts: ShortsInfo) {
+                        val fragment = ShortsDetailFragment().apply {
+                            arguments = Bundle().apply {
+                                putInt("shortsId", shorts.shortsId)
+                                putString("start", "main")
+                            }
+                        }
+                        (context as? MainActivity)?.addFragment(fragment)
+                    }
+
+                })
             }
         } else {
             shortsAdapter.updateData(shorts)
