@@ -81,95 +81,93 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp">
 
-                <LinearLayout
-                    android:id="@+id/readbooks"
+            <LinearLayout
+                android:id="@+id/readbooks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/read_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginEnd="20dp">
+                    android:text="@{String.valueOf(viewModel.myPage.result.readCount)}"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/read_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.myPage.result.readCount)}"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="읽은 책"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="읽은 책"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
             </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/followers"
+            <LinearLayout
+                android:id="@+id/followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/followers_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginEnd="20dp">
+                    android:text="@{String.valueOf(viewModel.myPage.result.followerNum)}"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
 
-                    <TextView
-                        android:id="@+id/followers_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.myPage.result.followerNum)}"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="팔로워"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/follwings"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/following_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.myPage.result.followingNum)}"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="팔로잉"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
-                </LinearLayout>
+                    android:text="팔로워"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/follwings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/following_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(viewModel.myPage.result.followingNum)}"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="팔로잉"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- 이 사이에 프로필 관련 버튼 2개 들어가야 함 -->
-        <Button
+        <ImageButton
             android:id="@+id/btn_pf_edit"
             android:layout_width="150dp"
             android:layout_height="42dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_pf_edit"
-            android:backgroundTint="@color/Black"
-            style="@style/CustomButtonStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_bio" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_pf_share"
             android:layout_width="150dp"
             android:layout_height="42dp"
@@ -178,9 +176,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_pf_edit"
             android:backgroundTint="@null"
-            style="@style/CustomButtonStyle"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintTop_toBottomOf="@id/profile_bio" />
 
 
