@@ -37,12 +37,12 @@ class FeedViewModel : ViewModel() {
 
         _combinedData.addSource(feeds) { feeds ->
             val shorts = _shorts.value
-            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))  // setValue() 대신 postValue() 사용
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
         }
 
         _combinedData.addSource(shorts) { shorts ->
             val feeds = _feeds.value
-            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))  // setValue() 대신 postValue() 사용
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
         }
     }
 
@@ -54,13 +54,13 @@ class FeedViewModel : ViewModel() {
                 }
                 if (response.body()?.isSuccess == true) {
                     val result = response.body()?.result
-                    Log.d("FeedViewModel", "Fetched feeds: ${result?.feeds}")
+                    Log.d("FeedViewModel", "Fetched feeds: ${result}")
 
                     // 서버에서 받아온 카테고리 정보를 LiveData에 저장
                     _categories.postValue(result?.categories ?: emptyList())
 
                     // 필터링 없이 전체 feeds 리스트를 사용
-                    _feeds.postValue(result?.feeds)
+                    _feeds.postValue(result?.feeds ?: emptyList())
                     _shorts.postValue(result?.shorts ?: emptyList())
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
