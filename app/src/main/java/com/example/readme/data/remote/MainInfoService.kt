@@ -15,15 +15,14 @@ import retrofit2.Response
 
 
 interface MainInfoService {
-    @GET("/home?page=1&size=20")
-    suspend fun getMainInfo(): Response<MainInfoResponse>  // 수정: Call -> Response, suspend 추가
-
+    @GET("/home?page=1&size=10")
+    suspend fun getMainInfo(): Response<MainInfoResponse>
     @GET("/home/categories")
     suspend fun getCategoryFeeds(
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20,
         @Query("category") category: String
-    ): Response<CategoryFeedResponse>  // 수정: Call -> Response, suspend 추가
+    ): Response<CategoryFeedResponse>
 
     @GET("/shorts/{shortsId}")
     suspend fun getShortsDetailByFeeds(
@@ -31,10 +30,10 @@ interface MainInfoService {
         @Query("start") start: String,
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 4
-    ): Response<ShortsDetailResponse>  // 수정: Call -> Response, suspend 추가
+    ): Response<ShortsDetailResponse>
 
     @GET("/books/recent?page=1&size=20")
-    suspend fun getRecentBooks(): Response<RecentBookResponse>  // 수정: Call -> Response, suspend 추가
+    suspend fun getRecentBooks(): Response<RecentBookResponse>
 
     @GET("/books")
     suspend fun getBookList(
@@ -42,12 +41,12 @@ interface MainInfoService {
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 10,
         @Query("preview") preview: Boolean = true
-    ): Response<BookListResponse>  // 수정: Call -> Response, suspend 추가
+    ): Response<BookListResponse>
 
     @POST("/shorts/{shortsId}/likes")
     suspend fun likeShorts(
         @Path("shortsId") shortsId: Int
-    ): Response<LikeResponse>  // 수정: Call -> Response, suspend 추가
+    ): Response<LikeResponse>
 
     companion object {
         const val BASE_URL = BuildConfig.SERVER_URL

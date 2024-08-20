@@ -137,15 +137,25 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupImagePicker() {
         binding.addPhotoButton.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
                 requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
-            } else {
+                openGallery()}
+            else {
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                 openGallery()
+
             }
         }
     }
+
+//            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
+//                != PackageManager.PERMISSION_GRANTED
+//            ) {
+//                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+//            } else {
+//                openGallery()
+//            }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
