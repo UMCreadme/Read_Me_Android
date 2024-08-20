@@ -139,4 +139,38 @@ class FeedViewModel : ViewModel() {
             }
         }
     }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus(item: FeedInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _feeds.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+
+            // 업데이트된 리스트를 LiveData에 다시 할당
+            _feeds.postValue(updatedItems)
+        }
+    }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus2(item: com.example.readme.data.entities.category.FeedInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _feeds.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+
+            // 업데이트된 리스트를 LiveData에 다시 할당
+            _feeds.postValue(updatedItems)
+        }
+    }
 }

@@ -59,7 +59,6 @@ class SearchShortsAdaptor(
             binding.feedSentence.text = item.phrase
 
             // 좋아요 버튼
-            Log.i("SearchShortsAdaptor", "item.isLike: ${item.isLike}")
             if(item.isLike) {
                 binding.likeIcon.setImageResource(R.drawable.likefill_icon)
                 binding.likefillIcon.visibility = View.GONE
@@ -81,6 +80,9 @@ class SearchShortsAdaptor(
             }
 
             binding.likeCount.text = "좋아요 ${item.likeCnt}개"
+
+            binding.mainTitle.text = item.title
+            binding.content.text = item.content
             if(item.commentCnt == 0) {
                 binding.commentTxt.visibility = ViewGroup.GONE
             } else {

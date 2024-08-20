@@ -70,7 +70,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     private fun setupRecyclerView(feeds: List<com.example.readme.data.entities.inithome.FeedInfo>, shorts: List<ShortsInfo>) {
         if (!::feedAdapter.isInitialized) {
             feedListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            feedAdapter = FeedAdapter(ArrayList(feeds))
+            feedAdapter = FeedAdapter(feedViewModel, ArrayList(feeds))
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feedListManager
@@ -122,7 +122,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     private fun setupCategoryRecyclerView(categoryFeeds: List<FeedInfo>) {
         if (!::feed2Adapter.isInitialized) {
             feed2ListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
+            feed2Adapter = Feed2Adapter(feedViewModel, ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feed2ListManager

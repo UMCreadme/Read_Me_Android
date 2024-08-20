@@ -10,13 +10,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.example.readme.R
 import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.example.readme.data.entities.category.FeedInfo
 import java.util.Calendar
 
-class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
+class Feed2Adapter(
+    private val viewModel: FeedViewModel,
+    var list: ArrayList<FeedInfo>
+) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
 
     init {
         setHasStableIds(true)
@@ -69,21 +73,16 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
             }
         }
         fun bind(feed: FeedInfo) {
-
-            isLiked = feed.isLike
-            Log.d("feed.isLike", "${isLiked}")
-            updateLikeIcon()
-
+            // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
-                .centerInside()
+                .circleCrop()
                 .into(binding.feedProfile)
-
             binding.username.text = feed.nickname
 
+            // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
-                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource
@@ -93,13 +92,40 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
                         // Called when the resource is no longer needed, here you can clear the background if needed
                     }
                 })
+            binding.feedSentence.text = feed.phrase
+
+            // 좋아요 버튼
+            if(feed.isLike) {
+                binding.likeIcon.setImageResource(R.drawable.likefill_icon)
+                binding.likefillIcon.visibility = View.GONE
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.like_icon)
+                binding.likefillIcon.visibility = View.GONE
+            }
+
+            binding.likeIcon.setOnClickListener {
+                // 좋아요 상태를 업데이트
+                feed.isLike = !feed.isLike
+                feed.likeCnt += if (feed.isLike) 1 else -1
+
+                // 어댑터의 데이터 업데이트
+                notifyItemChanged(adapterPosition)
+
+                // ViewModel에 업데이트된 좋아요 정보를 전달
+                viewModel.updateLikeStatus2(feed)
+            }
+
+            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
 
             binding.mainTitle.text = feed.title
             binding.content.text = feed.content
-            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
-            binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            if(feed.commentCnt == 0) {
+                binding.commentTxt.visibility = ViewGroup.GONE
+            } else {
+                binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            }
             binding.timestamp.text = calculateDaysAgo(feed.postingDate)
-
+            binding.executePendingBindings()
 
             adjustViewPosition(binding.feedSentence, feed.phraseX, feed.phraseY)
 

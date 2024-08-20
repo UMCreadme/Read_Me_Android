@@ -42,8 +42,8 @@ data class FeedInfo(
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
     @SerializedName("tags") val tags: List<String>,
-    @SerializedName("isLike") val isLike: Boolean,
-    @SerializedName("likeCnt") val likeCnt: Int,
+    @SerializedName("isLike") var isLike: Boolean,
+    @SerializedName("likeCnt") var likeCnt: Int,
     @SerializedName("commentCnt") val commentCnt: Int,
     @SerializedName("postingDate") val postingDate: String
 )
