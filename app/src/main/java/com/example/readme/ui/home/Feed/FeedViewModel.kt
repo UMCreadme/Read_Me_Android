@@ -6,18 +6,16 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readme.ui.data.entities.like.LikeResponse
-import com.example.readme.data.entities.category.CategoryFeedResponse
 import com.example.readme.data.entities.inithome.FeedInfo
-import com.example.readme.data.entities.inithome.MainInfoResponse
 import com.example.readme.data.entities.inithome.ShortsInfo
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FeedViewModel : ViewModel() {
 
+// ViewModel에서 데이터 요청
+class FeedViewModel : ViewModel() {
     private val _feeds = MutableLiveData<List<FeedInfo>>()
     val feeds: LiveData<List<FeedInfo>> get() = _feeds
 
@@ -27,64 +25,45 @@ class FeedViewModel : ViewModel() {
     private val _categoryFeeds = MutableLiveData<List<com.example.readme.data.entities.category.FeedInfo>>()
     val categoryFeeds: LiveData<List<com.example.readme.data.entities.category.FeedInfo>> get() = _categoryFeeds
 
+
     private val _categories = MutableLiveData<List<String>>()
     val categories: LiveData<List<String>> get() = _categories
 
     private val _combinedData = MediatorLiveData<Pair<List<FeedInfo>, List<ShortsInfo>>>()
     val combinedData: LiveData<Pair<List<FeedInfo>, List<ShortsInfo>>> get() = _combinedData
 
-    private var cachedFeeds: List<FeedInfo>? = null
-    private var cachedShorts: List<ShortsInfo>? = null
-    private var cachedCategories: List<String>? = null
-
     init {
         _combinedData.value = Pair(emptyList(), emptyList())
 
         _combinedData.addSource(feeds) { feeds ->
             val shorts = _shorts.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
         }
 
         _combinedData.addSource(shorts) { shorts ->
             val feeds = _feeds.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
         }
     }
 
     fun fetchFeeds() {
         viewModelScope.launch {
             try {
-                if (cachedFeeds == null || cachedShorts == null || cachedCategories == null) {
-                    val response = withContext(Dispatchers.IO) {
-                        RetrofitClient.getMainInfoService().getMainInfo()
-                    }
-                    if (response.body()?.isSuccess == true) {
-                        val result = response.body()?.result
-                        Log.d("FeedViewModel", "Fetched feeds: ${result?.feeds}")
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitClient.getMainInfoService().getMainInfo()
+                }
+                if (response.body()?.isSuccess == true) {
+                    val result = response.body()?.result
+                    Log.d("FeedViewModel", "Fetched feeds: ${result}")
 
-                        val newCategories = result?.categories ?: emptyList()
-                        if (_categories.value != newCategories) {
-                            _categories.value = newCategories
-                        }
+                    // 서버에서 받아온 카테고리 정보를 LiveData에 저장
+                    _categories.postValue(result?.categories ?: emptyList())
 
-                        val newFeeds = result?.feeds ?: emptyList()
-                        if (cachedFeeds != newFeeds) {
-                            cachedFeeds = newFeeds
-                            _feeds.value = newFeeds
-                        }
-
-                        val newShorts = result?.shorts ?: emptyList()
-                        if (cachedShorts != newShorts) {
-                            cachedShorts = newShorts
-                            _shorts.value = newShorts
-                        }
-                    } else {
-                        Log.d("FeedViewModel", "Response not successful")
-                    }
+                    // 필터링 없이 전체 feeds 리스트를 사용
+                    _feeds.postValue(result?.feeds ?: emptyList())
+                    _shorts.postValue(result?.shorts ?: emptyList())
                 } else {
-                    _feeds.value = cachedFeeds!!
-                    _shorts.value = cachedShorts!!
-                    _categories.value = cachedCategories!!
+                    Log.d("FeedViewModel", "Response not successful")
                 }
             } catch (e: Exception) {
                 Log.d("FeedViewModel", "Failed to fetch data: ${e.message}")
@@ -96,13 +75,11 @@ class FeedViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    RetrofitClient.getMainInfoService().getCategoryFeeds(1, 20, category)
+                    RetrofitClient.getMainInfoService().getCategoryFeeds(1, 10, category)
                 }
-                if (response.isSuccessful && response.body()?.isSuccess == true) {
+                if (response.body()?.isSuccess == true) {
                     val feedList = response.body()?.result ?: emptyList()
-                    if (_categoryFeeds.value != feedList) {
-                        _categoryFeeds.value = feedList
-                    }
+                    _categoryFeeds.postValue(feedList)
                     Log.d("anothor", "${feedList}")
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
@@ -120,13 +97,15 @@ class FeedViewModel : ViewModel() {
                     RetrofitClient.getMainInfoService().likeShorts(feed.shortsId)
                 }
                 if (response.body()?.isSuccess == true) {
-                    val updatedFeed = _feeds.value?.find { it.shortsId == feed.shortsId }
-                    updatedFeed?.let {
-                        val newFeed = it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
-                        val updatedFeeds = _feeds.value?.map { if (it.shortsId == feed.shortsId) newFeed else it } ?: emptyList()
-                        _feeds.value = updatedFeeds
-                        Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
-                    }
+                    val updatedFeeds = _feeds.value?.map {
+                        if (it.shortsId == feed.shortsId) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    } ?: emptyList()
+                    _feeds.value = updatedFeeds
+                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
                 }
@@ -143,19 +122,55 @@ class FeedViewModel : ViewModel() {
                     RetrofitClient.getMainInfoService().likeShorts(categoryFeeds.shortsId)
                 }
                 if (response.body()?.isSuccess == true) {
-                    val updatedFeed = _categoryFeeds.value?.find { it.shortsId == categoryFeeds.shortsId }
-                    updatedFeed?.let {
-                        val newFeed = it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
-                        val updatedCategoryFeeds = _categoryFeeds.value?.map { if (it.shortsId == categoryFeeds.shortsId) newFeed else it } ?: emptyList()
-                        _categoryFeeds.value = updatedCategoryFeeds
-                        Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId}")
-                    }
+                    val updatedFeeds = _categoryFeeds.value?.map {
+                        if (it.shortsId == categoryFeeds.shortsId) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    } ?: emptyList()
+                    _categoryFeeds.value = updatedFeeds
+                    Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
                 Log.d("FeedViewModel", "Failed to update like status: ${e.message}")
             }
+        }
+    }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus(item: FeedInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _feeds.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+
+            // 업데이트된 리스트를 LiveData에 다시 할당
+            _feeds.postValue(updatedItems)
+        }
+    }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus2(item: com.example.readme.data.entities.category.FeedInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _feeds.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+
+            // 업데이트된 리스트를 LiveData에 다시 할당
+            _feeds.postValue(updatedItems)
         }
     }
 }

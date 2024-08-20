@@ -1,5 +1,6 @@
 package com.example.readme.ui.search.user
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.databinding.ItemSearchUserBinding
 
-class SearchUserAdaptor : ListAdapter<SearchUserResult, SearchUserAdaptor.UserViewHolder>(
+class SearchUserAdaptor(
+    private val onUserClick: (Int) -> Unit
+) : ListAdapter<SearchUserResult, SearchUserAdaptor.UserViewHolder>(
     UserInfoDiffCallback()
 ) {
 
@@ -28,6 +31,11 @@ class SearchUserAdaptor : ListAdapter<SearchUserResult, SearchUserAdaptor.UserVi
             fun bind(item: SearchUserResult) {
                 binding.user = item
                 binding.executePendingBindings()
+
+                binding.itemSearchUser.setOnClickListener {
+                    Log.i("SearchUserAdaptor", "User clicked: ${item.userId}")
+                    onUserClick(item.userId)
+                }
             }
         }
 }

@@ -33,7 +33,7 @@ data class ShortsInfo(
 data class FeedInfo(
     @SerializedName("userId") val userId: Int,
     @SerializedName("profileImg") val profileImg: String,
-    @SerializedName("nickname") val nickname: String,
+    @SerializedName("account") val nickname: String,
     @SerializedName("shortsId") val shortsId: Int,
     @SerializedName("shortsImg") val shortsImg: String,
     @SerializedName("phrase") val phrase: String,
@@ -42,8 +42,8 @@ data class FeedInfo(
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
     @SerializedName("tags") val tags: List<String>,
-    @SerializedName("isLike") val isLike: Boolean,
-    @SerializedName("likeCnt") val likeCnt: Int,
+    @SerializedName("isLike") var isLike: Boolean,
+    @SerializedName("likeCnt") var likeCnt: Int,
     @SerializedName("commentCnt") val commentCnt: Int,
     @SerializedName("postingDate") val postingDate: String
 )

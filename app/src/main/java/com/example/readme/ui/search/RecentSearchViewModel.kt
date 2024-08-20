@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecentSearchViewModel(
@@ -17,7 +18,7 @@ class RecentSearchViewModel(
     val recentSearchItems: LiveData<List<RecentSearch>?> get() = _recentSearchItems
 
     fun fetchRecentSearchItems(): LiveData<List<RecentSearch>?> {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Repository를 통해 최근 검색 목록을 가져옴
                 val response = repository.getRecentSearches()
@@ -47,7 +48,7 @@ class RecentSearchViewModel(
     }
 
     fun removeSearchItem(searchItem: RecentSearch) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Repository를 통해 최근 검색 목록을 삭제
                 val response = repository.deleteRecentSearch(searchItem.recentSearchesId)

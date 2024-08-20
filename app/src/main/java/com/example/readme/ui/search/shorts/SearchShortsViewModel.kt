@@ -7,11 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchShortsViewModel(
     private val repository: SearchRepository
-) : ViewModel(){
+) : ViewModel() {
     private val TAG = SearchShortsViewModel::class.java.simpleName
     private val _searchShortsItems = MutableLiveData<List<SearchShortsResult>?>()
     val searchShortsItems: LiveData<List<SearchShortsResult>?> get() = _searchShortsItems
@@ -33,14 +34,15 @@ class SearchShortsViewModel(
         }
 
         isLoading = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Retrofit API 호출
                 val response = repository.searchShorts(query, currentPage, 50)
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
-                    val items = response.result
+                    // response.result의 타입을 확인하여 적절히 캐스팅합니다.
+                    val items = response.result as? List<SearchShortsResult> ?: emptyList()
 
                     // 현재 페이지 결과를 기존 결과에 추가
                     val currentList = _searchShortsItems.value.orEmpty()
@@ -57,6 +59,23 @@ class SearchShortsViewModel(
             } finally {
                 isLoading = false
             }
+        }
+    }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus(item: SearchShortsResult) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _searchShortsItems.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+
+            // 업데이트된 리스트를 LiveData에 다시 할당
+            _searchShortsItems.postValue(updatedItems)
         }
     }
 

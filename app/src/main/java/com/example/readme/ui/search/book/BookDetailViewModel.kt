@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.BookDetail
 import com.example.readme.data.entities.ShortsPreview
 import com.example.readme.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class BookDetailViewModel(
@@ -33,7 +34,7 @@ class BookDetailViewModel(
     fun getBookDetail(bookId: Int, page: Int = 1) {
         if (isLoading) return
         isLoading = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.getBookDetail(bookId, page, SIZE)
                 if (response.isSuccess) {

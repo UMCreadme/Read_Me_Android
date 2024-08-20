@@ -2,22 +2,25 @@ package com.example.readme.ui.search.shorts
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.readme.R
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.ShortsViewHolder>(
+class SearchShortsAdaptor(
+    private val viewModel: SearchShortsViewModel
+) : ListAdapter<SearchShortsResult, SearchShortsAdaptor.ShortsViewHolder>(
     ShortsInfoDiffCallback()
 ) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortsViewHolder {
         val binding = FeedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ShortsViewHolder(binding)
@@ -32,7 +35,14 @@ class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.
 
     inner class ShortsViewHolder(private val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SearchShortsResult) {
-            binding.shorts = item
+            // 유저 정보 세팅
+            Glide.with(binding.root.context)
+                .load(item.profileImg)
+                .circleCrop()
+                .into(binding.feedProfile)
+            binding.username.text = item.nickname
+
+            // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(item.shortsImg)
                 .into(object : CustomTarget<Drawable>() {
@@ -44,13 +54,38 @@ class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.
                         // Called when the resource is no longer needed, here you can clear the background if needed
                     }
                 })
+            binding.feedSentence.text = item.phrase
+
+            // 좋아요 버튼
+            if(item.isLike) {
+                binding.likeIcon.setImageResource(R.drawable.likefill_icon)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.like_icon)
+            }
+
+            binding.likeIcon.setOnClickListener {
+                // 좋아요 상태를 업데이트
+                item.isLike = !item.isLike
+                item.likeCnt += if (item.isLike) 1 else -1
+
+                // 어댑터의 데이터 업데이트
+                notifyItemChanged(adapterPosition)
+
+                // ViewModel에 업데이트된 좋아요 정보를 전달
+                viewModel.updateLikeStatus(item)
+            }
+
             binding.likeCount.text = "좋아요 ${item.likeCnt}개"
+
+            binding.mainTitle.text = item.title
+            binding.content.text = item.content
             if(item.commentCnt == 0) {
                 binding.commentTxt.visibility = ViewGroup.GONE
             } else {
                 binding.commentTxt.text = "댓글 ${item.commentCnt}개 모두 보기"
             }
             binding.timestamp.text = getTimeAgo(item.postingDate)
+            adjustViewPosition(binding.feedSentence, item.phraseX, item.phraseY)
             binding.executePendingBindings()
         }
     }
@@ -72,6 +107,11 @@ class SearchShortsAdaptor : ListAdapter<SearchShortsResult, SearchShortsAdaptor.
             hours < 24 -> "${hours}시간 전"
             else -> "${days}일 전"
         }
+    }
+
+    private fun adjustViewPosition(view: View, x: Double, y: Double) {
+        view.x = x.toFloat()
+        view.y = y.toFloat()
     }
 }
 
