@@ -37,12 +37,12 @@ class FeedViewModel : ViewModel() {
 
         _combinedData.addSource(feeds) { feeds ->
             val shorts = _shorts.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))  // setValue() 대신 postValue() 사용
         }
 
         _combinedData.addSource(shorts) { shorts ->
             val feeds = _feeds.value
-            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
+            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))  // setValue() 대신 postValue() 사용
         }
     }
 
@@ -60,7 +60,7 @@ class FeedViewModel : ViewModel() {
                     _categories.postValue(result?.categories ?: emptyList())
 
                     // 필터링 없이 전체 feeds 리스트를 사용
-                    _feeds.postValue(result?.feeds ?: emptyList())
+                    _feeds.postValue(result?.feeds)
                     _shorts.postValue(result?.shorts ?: emptyList())
                 } else {
                     Log.d("FeedViewModel", "Response not successful")

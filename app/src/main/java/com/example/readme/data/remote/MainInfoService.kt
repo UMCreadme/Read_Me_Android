@@ -15,7 +15,7 @@ import retrofit2.Response
 
 
 interface MainInfoService {
-    @GET("/home?page=1&size=10")
+    @GET("/home?page=1&size=20")
     suspend fun getMainInfo(): Response<MainInfoResponse>
     @GET("/home/categories")
     suspend fun getCategoryFeeds(
