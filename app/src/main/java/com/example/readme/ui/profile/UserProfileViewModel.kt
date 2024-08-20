@@ -12,7 +12,7 @@ import com.example.readme.data.remote.ReadmeServerService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserProfileViewModel(private val userId: Int, private val apiService: ReadmeServerService) : ViewModel() {
+class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewModel() {
 
     // 1. 프로필 정보
     private val _profile = MutableLiveData<ProfileResponse>()
@@ -20,7 +20,7 @@ class UserProfileViewModel(private val userId: Int, private val apiService: Read
 
 
     // 프로필 정보를 가져오는 함수
-    fun fetchProfile(): LiveData<ProfileResponse> {
+    fun fetchProfile(userId: Int): LiveData<ProfileResponse> {
         viewModelScope.launch {
             try {
                 val response = apiService.getProfile(userId)
