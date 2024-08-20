@@ -8,42 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/back_community_list"
-            android:layout_width="13dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/backbtn_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/bookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/Black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintStart_toEndOf="@id/back_community_list"
             app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="53dp"
             tools:text="아무것도 없는 책" />
 
         <TextView
             android:id="@+id/bookAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginVertical="12dp"
             android:textColor="@color/Black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/book_img_section"
-            app:layout_constraintStart_toEndOf="@+id/back_community_list"
             app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+            tools:layout_editor_absoluteX="53dp"
             tools:text="레미 쿠르종 글/그림     이성엽 옮김" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

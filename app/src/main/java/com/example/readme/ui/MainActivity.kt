@@ -2,7 +2,6 @@ package com.example.readme.ui
 
 import android.os.Bundle
 import android.view.View
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -106,6 +105,16 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.visibility = View.GONE
     }
 
+
+    fun ShowCommunity(){
+        binding.btnNext.visibility = View.GONE
+        binding.tvTitle.visibility = View.GONE
+        binding.toolbar.visibility = View.VISIBLE
+        binding.mainLogo.visibility = View.GONE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.VISIBLE
+    }
+
     fun resetToolbar() {
         binding.tvTitle.text = "프레이즈 만들기"
         binding.btnNext.text = "미리 보기"
@@ -134,12 +143,6 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.visibility = View.VISIBLE
     }
 
-    fun ShowCommunity(){
-        binding.toolbar.visibility = View.GONE
-        binding.mainLogo.visibility = View.GONE
-        binding.btnSetting.visibility = View.GONE
-        binding.btnBack.visibility = View.GONE
-    }
 
     fun ShowMyPage(){
         binding.toolbar.visibility = View.VISIBLE

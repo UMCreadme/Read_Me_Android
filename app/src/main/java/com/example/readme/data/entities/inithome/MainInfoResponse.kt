@@ -34,7 +34,7 @@ data class FeedInfo(
     @SerializedName("userId") val userId: Int,
     @SerializedName("profileImg") val profileImg: String,
     @SerializedName("account") val nickname: String,
-    @SerializedName("shortsId") val shortsId: Int,
+    @SerializedName("shorts_id") val shortsId: Int,
     @SerializedName("shortsImg") val shortsImg: String,
     @SerializedName("phrase") val phrase: String,
     @SerializedName("phraseX") val phraseX: Double,

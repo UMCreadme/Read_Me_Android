@@ -149,13 +149,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         }
     }
 
-//            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
-//                != PackageManager.PERMISSION_GRANTED
-//            ) {
-//                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
-//            } else {
-//                openGallery()
-//            }
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

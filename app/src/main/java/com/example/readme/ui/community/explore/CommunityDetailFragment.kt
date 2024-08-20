@@ -25,6 +25,7 @@ class CommunityDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.l
 
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).NoShow()
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
     }
 
@@ -49,10 +50,6 @@ class CommunityDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.l
                 // 가입하기
                 viewModel.joinCommunity(arguments?.getInt("communityId") ?: 0)
             }
-        }
-
-        binding.backCommunityList.setOnClickListener {
-            (activity as MainActivity).onBackPressed()
         }
     }
 

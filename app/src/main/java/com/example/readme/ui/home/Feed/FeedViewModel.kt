@@ -61,7 +61,7 @@ class FeedViewModel : ViewModel() {
                     val feedsShorts = result?.feeds ?: emptyList()
 //                    Log.d("FeedViewModel", "Fetched feeds: ${feedsShorts}")
                     _feedsShorts.setValue(feedsShorts)
-//                    Log.d("FeedViewModel", "Fetched _feedsShorts: ${_feedsShorts}")
+                    Log.d("FeedViewModel", "Fetched _feedsShorts: ${feedsShorts}")
                     val shorts = result?.shorts ?: emptyList()
                     _shorts.setValue(shorts)
                 } else {
