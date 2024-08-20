@@ -80,9 +80,16 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         // 프로필 편집 버튼 클릭 리스너
         binding.btnPfEdit.setOnClickListener {
 
-            // 프로필 편집 기능 실행
-            val intent = Intent(context, EditMyPageFragment::class.java)
-            startActivity(intent)
+            val editFragment = EditMyPageFragment()
+
+            // FragmentManager와 FragmentTransaction을 통해 프래그먼트 교체
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, editFragment) // 프래그먼트 컨테이너와 교체할 프래그먼트를 지정
+                .addToBackStack(null) // 백스택에 추가하여 뒤로가기로 돌아갈 수 있게 설정
+                .commit() // 트랜잭션을 커밋하여 적용
+
+
+
         }
 
         // 프로필 공유 버튼 클릭 리스너
