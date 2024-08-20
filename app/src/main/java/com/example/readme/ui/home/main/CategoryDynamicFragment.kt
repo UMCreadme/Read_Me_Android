@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.Visibility
 import com.example.readme.R
 import com.example.readme.data.entities.category.FeedInfo
 import com.example.readme.databinding.FragmentDynamicBinding

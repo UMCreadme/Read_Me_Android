@@ -1,7 +1,6 @@
 package com.example.readme.ui.search.shorts
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class SearchShortsAdaptor(
-    private val viewModel: SearchShortsViewModel,
-    private val onShortsClick: (Int) -> Unit
+    private val viewModel: SearchShortsViewModel
 ) : ListAdapter<SearchShortsResult, SearchShortsAdaptor.ShortsViewHolder>(
     ShortsInfoDiffCallback()
 ) {
@@ -87,12 +85,8 @@ class SearchShortsAdaptor(
                 binding.commentTxt.text = "댓글 ${item.commentCnt}개 모두 보기"
             }
             binding.timestamp.text = getTimeAgo(item.postingDate)
+            adjustViewPosition(binding.feedSentence, item.phraseX, item.phraseY)
             binding.executePendingBindings()
-
-            // 쇼츠 클릭 시 상세 페이지로 이동
-            binding.shortsImage.setOnClickListener {
-                onShortsClick(item.shortsId)
-            }
         }
     }
 
@@ -113,6 +107,11 @@ class SearchShortsAdaptor(
             hours < 24 -> "${hours}시간 전"
             else -> "${days}일 전"
         }
+    }
+
+    private fun adjustViewPosition(view: View, x: Double, y: Double) {
+        view.x = x.toFloat()
+        view.y = y.toFloat()
     }
 }
 
