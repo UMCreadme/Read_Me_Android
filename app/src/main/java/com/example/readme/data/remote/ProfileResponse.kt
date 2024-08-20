@@ -17,10 +17,3 @@ data class ProfileResult(
     val followingNum: Int,
     val profileImg: String
 )
-
-data class ProfileUpdateRequest(
-    val nickname: String?,
-    val account: String?,
-    val comment: String?
-)
-

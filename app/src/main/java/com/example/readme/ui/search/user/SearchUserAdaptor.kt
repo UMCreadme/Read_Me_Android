@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.readme.data.entities.SearchUserResult
+import com.example.readme.data.entities.UserInfo
 import com.example.readme.databinding.ItemSearchUserBinding
 
-class SearchUserAdaptor : ListAdapter<SearchUserResult, SearchUserAdaptor.UserViewHolder>(
+class SearchUserAdaptor : ListAdapter<UserInfo, SearchUserAdaptor.UserViewHolder>(
     UserInfoDiffCallback()
 ) {
 
@@ -25,19 +25,19 @@ class SearchUserAdaptor : ListAdapter<SearchUserResult, SearchUserAdaptor.UserVi
         }
 
         inner class UserViewHolder(private val binding: ItemSearchUserBinding) : RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: SearchUserResult) {
+            fun bind(item: UserInfo) {
                 binding.user = item
                 binding.executePendingBindings()
             }
         }
 }
 
-class UserInfoDiffCallback : DiffUtil.ItemCallback<SearchUserResult>() {
-    override fun areItemsTheSame(oldItem: SearchUserResult, newItem: SearchUserResult): Boolean {
+class UserInfoDiffCallback : DiffUtil.ItemCallback<UserInfo>() {
+    override fun areItemsTheSame(oldItem: UserInfo, newItem: UserInfo): Boolean {
         return oldItem.userId == newItem.userId
     }
 
-    override fun areContentsTheSame(oldItem: SearchUserResult, newItem: SearchUserResult): Boolean {
+    override fun areContentsTheSame(oldItem: UserInfo, newItem: UserInfo): Boolean {
         return oldItem == newItem
     }
 }

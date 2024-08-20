@@ -1,64 +1,62 @@
 package com.example.readme.ui.login
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readme.data.LoginResult
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.entities.UserData
-import com.example.readme.data.remote.Response
-import com.example.readme.data.repository.LoginRepository
 import com.example.readme.utils.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import retrofit2.Retrofit
 
-class LoginViewModel(
-    private val repository: LoginRepository
-) : ViewModel() {
-    private val _kakaoUserResponse = MutableLiveData<LoginResult?>()
-    val kakaoUserResponse: LiveData<LoginResult?> get() = _kakaoUserResponse
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = LoginRepository()
+    val kakaoUserResponse = MutableLiveData<LoginResponse>()
 
     private val _userData = MutableLiveData<UserData>()
     val userData: LiveData<UserData> get() = _userData
+   // private var retrofitClient: Retrofit? = null
 
-    private val _isSignedUp = MutableLiveData<Boolean>()
-    val isSignedUp: LiveData<Boolean> get() = _isSignedUp
 
-    // 로그인 요청
     fun sendKakaoUserInfo(user: KaKaoUser) {
         viewModelScope.launch {
             try {
                 val response = repository.sendKakaoUserInfo(user)
+                Log.d("LoginViewModel", "Login request: $user")
+                Log.d("LoginViewModel", "Login response: ${response.body()}")
+                Log.d("accessTocken","accessTocken: ${response.body()!!.result!!.accessToken}")
 
-                if (response.isSuccess) {
-                    _kakaoUserResponse.postValue(response.result)
-                    val newUserData = UserData(
-                        uniqueId = user.id ?: "",
-                        email = user.email ?: "",
-                        nickname = "",
-                        account = "",
-                        categoryIdList = listOf()
-                    )
-                    Log.d("LoginViewModel", "New UserData: $newUserData")
-                    _userData.postValue(newUserData)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        kakaoUserResponse.postValue(response.body())
+                        val newUserData = UserData(
+                            uniqueId = user.id ?: "",
+                            email = user.email ?: "",
+                            nickname = "",
+                            account = "",
+                            categoryIdList = listOf()
+                        )
+                        Log.d("LoginViewModel", "New UserData: $newUserData")
+                        _userData.postValue(newUserData)
 
-                    RetrofitClient.setToken(response.result.accessToken)
-                } else {
-                    Log.e("LoginViewModel", "Failed to send Kakao user info: ${response.code} - ${response.message}")
-                }
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                val errorBodyParsing = errorBody?.let {
-                    Gson().fromJson(it, Response::class.java)  // Gson으로 파싱
-                }
+                        RetrofitClient.setToken(responseBody.result!!.accessToken)
 
-                if (errorBodyParsing != null) {
-                    if(errorBodyParsing.code == "MEMBER4001") {
-                        _isSignedUp.postValue(false)
+                    } else {
+                        Log.e("LoginViewModel", "Response body is null")
                     }
+                } else {
+                    Log.e("LoginViewModel", "Response is not successful: ${response.code()}")
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("LoginViewModel", "Error body: $errorBody")
+
+                    // 에러 응답을 파싱하여 처리
+                    val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
+                    kakaoUserResponse.postValue(errorResponse)
                 }
             } catch (e: Exception) {
                 Log.e("LoginViewModel", "Error sending Kakao user info", e)
@@ -66,17 +64,14 @@ class LoginViewModel(
         }
     }
 
-    // 회원가입 요청
     fun sendSignUpInfo(user: UserData) {
         viewModelScope.launch {
             try {
                 val response = repository.sendSignUpInfo(user)
                 Log.d("LoginViewModel", "Sign up request: $user")
-                Log.d("LoginViewModel", "Sign up response: ${response}")
-                if (response.isSuccess) {
-                    _kakaoUserResponse.postValue(response.result)
-                } else {
-                    Log.e("LoginViewModel", "Failed to send sign up info: ${response.code} - ${response.message}")
+                Log.d("LoginViewModel", "Sign up response: ${response.body()}")
+                if (response.isSuccessful) {
+                    kakaoUserResponse.postValue(response.body())
                 }
             } catch (e: Exception) {
                 Log.e("LoginViewModel", "Error sending sign up info", e)
@@ -117,4 +112,6 @@ class LoginViewModel(
     fun updateUserData() {
         _userData.value?.let { sendSignUpInfo(it) }
     }
+
+
 }

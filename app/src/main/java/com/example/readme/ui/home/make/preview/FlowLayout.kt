@@ -16,7 +16,6 @@ class FlowLayout @JvmOverloads constructor(
     var horizontalSpacing = 0
     var verticalSpacing = 0
 
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)

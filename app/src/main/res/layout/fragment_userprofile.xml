@@ -22,8 +22,9 @@
             android:layout_width="66dp"
             android:layout_height="66dp"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="67dp"
             android:background="@drawable/circle_background_pf"
+
             android:scaleType="centerCrop"
             android:src="@drawable/img_profile_default"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,13 +36,13 @@
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.profile.result.nickname}"
+            android:text="@{viewModel.profileName}"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/profile_id"
@@ -50,21 +51,17 @@
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_name"
-            android:text="@{'@'+viewModel.profile.result.account}"
-            android:textStyle="bold"
+            android:text="@{viewModel.profileId}"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/profile_bio"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_id"
-            android:text="@{viewModel.profile.result.comment}"
-            android:lines="2"
+            android:text="@{viewModel.profileBio}"
             android:textSize="16sp" />
 
 
@@ -79,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="82dp">
 
                 <LinearLayout
                     android:id="@+id/readbooks"
@@ -94,7 +91,7 @@
                         android:id="@+id/read_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.profile.result.readCount)}"
+                        android:text="@{String.valueOf(viewModel.readCount)}"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
 
@@ -102,7 +99,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="읽은 책"
-                        android:textStyle="bold"
                         android:textSize="16sp"/>
             </LinearLayout>
 
@@ -119,7 +115,7 @@
                         android:id="@+id/followers_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.profile.result.followerNum)}"
+                        android:text="@{String.valueOf(viewModel.followersCount)}"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
 
@@ -127,7 +123,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="팔로워"
-                        android:textStyle="bold"
                         android:textSize="16sp"/>
                 </LinearLayout>
 
@@ -143,7 +138,7 @@
                         android:id="@+id/following_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.profile.result.followingNum)}"
+                        android:text="@{String.valueOf(viewModel.followingCount)}"
                         android:textSize="20sp"
                         android:textStyle="bold"/>
 
@@ -151,7 +146,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="팔로잉"
-                        android:textStyle="bold"
                         android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>

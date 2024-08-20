@@ -7,115 +7,93 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:background="@color/White">
+        android:background="@color/Light_Gray">
 
         <ImageView
             android:id="@+id/shortsImage"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="68dp"
-            android:background="@drawable/background_rectangle"
-            android:scaleType="fitXY"
+            android:layout_height="500dp"
             android:src="@drawable/shorts_picture"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <Button
             android:id="@+id/likeIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginVertical="60dp"
+            android:layout_width="52dp"
+            android:layout_height="45dp"
+            android:layout_marginVertical="100dp"
             android:layout_marginEnd="10dp"
-            android:scaleType="fitXY"
             android:background="@android:color/transparent"
-            android:src="@drawable/like_icon"
+            android:drawableStart="@drawable/like_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="@+id/shortsImage" />
-
-        <ImageView
-            android:id="@+id/likefillIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginVertical="60dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="fitXY"
-            android:visibility="gone"
-            android:background="@android:color/transparent"
-            android:src="@drawable/likefill_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shortsImage" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/likeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:text="1388"
             android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/feed_comment"
-            app:layout_constraintEnd_toEndOf="@+id/feed_comment"
-            app:layout_constraintStart_toStartOf="@+id/feed_comment" />
+            app:layout_constraintStart_toStartOf="@+id/likeIcon"
+            app:layout_constraintTop_toBottomOf="@+id/likeIcon" />
 
-        <ImageView
-            android:id="@+id/feed_comment"
-            android:layout_width="45dp"
+        <Button
+            android:id="@+id/comment"
+            android:layout_width="52dp"
             android:layout_height="45dp"
-            android:layout_marginTop="130dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:padding="5dp"
-            android:src="@drawable/comment_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/shortsImage" />
+            android:drawableStart="@drawable/comment_icon"
+            app:layout_constraintEnd_toEndOf="@+id/likeIcon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/likeCount"
+            app:layout_constraintTop_toBottomOf="@+id/likeCount" />
 
         <TextView
             android:id="@+id/commentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:text="23"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@+id/feed_comment"
-            app:layout_constraintStart_toStartOf="@+id/feed_comment"
-            app:layout_constraintTop_toBottomOf="@+id/feed_comment" />
+            app:layout_constraintStart_toStartOf="@+id/comment"
+            app:layout_constraintTop_toBottomOf="@+id/comment" />
 
-        <ImageView
+        <Button
             android:id="@+id/detail"
-            android:layout_width="45dp"
+            android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/post_detail_icon"
-            app:layout_constraintEnd_toEndOf="@+id/feed_comment"
-            app:layout_constraintStart_toStartOf="@+id/feed_comment"
+            android:drawableStart="@drawable/post_detail_icon"
+            app:layout_constraintEnd_toEndOf="@+id/likeIcon"
+            app:layout_constraintStart_toStartOf="@+id/likeIcon"
             app:layout_constraintTop_toBottomOf="@+id/commentCount" />
 
-        <ImageView
+        <Button
             android:id="@+id/link"
-            android:layout_width="50dp"
+            android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="15dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/link_icon"
-            app:layout_constraintEnd_toEndOf="@+id/detail"
-            app:layout_constraintStart_toStartOf="@+id/detail"
+            android:drawableStart="@drawable/link_icon"
+            app:layout_constraintEnd_toEndOf="@+id/likeIcon"
+            app:layout_constraintStart_toStartOf="@+id/likeIcon"
             app:layout_constraintTop_toBottomOf="@+id/detail" />
 
 
         <ImageView
             android:id="@+id/feed_profile"
+            android:src="@drawable/profilepost_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/circle"
-            android:src="@drawable/profilepost_icon"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shortsImage"
+            android:background="@drawable/round"
             tools:srcCompat="@drawable/profilepost_icon" />
 
         <TextView
@@ -123,7 +101,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textColor="@color/Black"
             android:text="kimtomato"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -150,39 +127,32 @@
             android:id="@+id/feed_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="쇼츠 내용"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="25dp"
             android:textColor="@color/Black"
+            android:text="쇼츠 내용"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feed_title" />
+            app:layout_constraintTop_toBottomOf="@+id/feed_title"
+            tools:layout_editor_absoluteX="25dp" />
 
         <TextView
             android:id="@+id/feed_sentence"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:minWidth="50dp"
-            android:minHeight="50dp"
-            android:padding="8dp"
             android:text="쇼츠 문장"
-            android:textColor="@color/Black"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@+id/shortsImage"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="40dp" />
+            android:textColor="@color/Black"/>
 
-        <com.example.readme.ui.home.make.preview.FlowLayout
-            android:id="@+id/et_tags"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="25dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@+id/feed_content" />
 
 

@@ -1,47 +1,53 @@
 package com.example.readme.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.remote.ProfileResponse
-import com.example.readme.data.remote.ProfileShortsResponse
 import com.example.readme.data.remote.ReadmeServerService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserProfileViewModel(private val userId: Int, private val apiService: ReadmeServerService) : ViewModel() {
+class UserProfileViewModel(private val userId: String, private val apiService: ReadmeServerService) : ViewModel() {
 
-    // 1. 프로필 정보
-    private val _profile = MutableLiveData<ProfileResponse>()
-    val profile: LiveData<ProfileResponse> get() = _profile
+    private val _profileName = MutableLiveData<String>()
+    val profileName: LiveData<String> get() = _profileName
 
+    private val _profileId = MutableLiveData<String>()
+    val profileId: LiveData<String> get() = _profileId
 
-    // 프로필 정보를 가져오는 함수
-    fun fetchProfile(): LiveData<ProfileResponse> {
+    private val _profileBio = MutableLiveData<String>()
+    val profileBio: LiveData<String> get() = _profileBio
+
+    private val _readCount = MutableLiveData<Int>()
+    val readCount: LiveData<Int> get() = _readCount
+
+    private val _followersCount = MutableLiveData<Int>()
+    val followersCount: LiveData<Int> get() = _followersCount
+
+    private val _followingCount = MutableLiveData<Int>()
+    val followingCount: LiveData<Int> get() = _followingCount
+
+    fun getProfile(userId: String): LiveData<ProfileResponse> {
+        val result = MutableLiveData<ProfileResponse>()
         viewModelScope.launch {
             try {
                 val response = apiService.getProfile(userId)
-
-                // 응답 성공
-                if (response.isSuccess) {
-                    val profileResponse = response
-
-                    // profileResponse가 null이 아닌 경우에만 처리
-                    profileResponse?.let {
-                        _profile.postValue(it)
-                    } ?: run {
-                        Log.e("UserProfileViewModel", "Profile response body is null")
+                /*if (response.isSuccessful) {
+                    response.body()?.let {
+                        _profileName.value = it.name
+                        _profileId.value = it.id
+                        _profileBio.value = it.bio
+                        _readCount.value = it.readCount
+                        _followersCount.value = it.followersCount
+                        _followingCount.value = it.followingCount
+                        result.value = it
                     }
-                } else {
-                    Log.e("UserProfileViewModel_fetch_profile", "Error: ${response.code} - ${response.message}")
-                }
+                }*/
             } catch (e: Exception) {
-                Log.e("UserProfileViewModel_fetch_profile", "Exception: ${e.message}")
+                // Handle error
             }
         }
-        return profile
+        return result
     }
 }

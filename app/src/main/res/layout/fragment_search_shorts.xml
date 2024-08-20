@@ -5,9 +5,7 @@
     tools:context=".ui.search.shorts.SearchShortsFragment">
 
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.readme.ui.search.shorts.SearchShortsViewModel" />
+        <!-- ViewModel 혹은 필요한 데이터 바인딩을 여기에 추가 -->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +13,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchShortsRecyclerView"
+            android:id="@+id/shortsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/feed_item" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

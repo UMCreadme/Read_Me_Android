@@ -35,6 +35,8 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
         holder.itemView.setOnClickListener {
             myItemClickListener?.onItemClick(shorts) // `ShortsInfo` 객체를 전달
         }
+
+
     }
 
     override fun getItemCount(): Int {

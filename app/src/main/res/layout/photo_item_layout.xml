@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="116dp"
     android:layout_height="116dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="8dp">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -10,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/picture"/>
-<!--        app:shapeAppearanceOverlay="@style/RoundedImageShape"/>-->
+        android:src="@drawable/picture" />
 
     <ImageView
         android:layout_marginTop="5dp"
@@ -20,7 +18,8 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="end|top"
-        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:scaleType="fitEnd"
         android:src="@drawable/ic_checkmark"
         android:visibility="gone" />
 

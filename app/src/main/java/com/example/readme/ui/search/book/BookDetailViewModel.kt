@@ -1,7 +1,6 @@
 package com.example.readme.ui.search.book
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,9 +19,6 @@ class BookDetailViewModel(
 
     private val _shorts = MutableLiveData<List<ShortsPreview>?>()
     val shorts: LiveData<List<ShortsPreview>?> get() = _shorts
-
-    private val _toastMessage = MutableLiveData<Event<String>>()
-    val toastMessage: LiveData<Event<String>> get() = _toastMessage
 
     // 페이지네이션 관련 변수들
     private var currentPage = 1
@@ -96,12 +92,7 @@ class BookDetailViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.updateReadStatus(bookId)
-                if(response.code == "COMMON002") {
-                    // 읽음 업데이트 권한 없음 알림 표시
-                    _toastMessage.value = Event("로그인이 필요한 서비스입니다.")
-                    _bookDetail.postValue(_bookDetail.value?.copy(isRead = false))
-                }
-                else if(response.code == "2010") {
+                if(response.code == "2010") {
                     _bookDetail.postValue(_bookDetail.value?.copy(isRead = true))
                 } else if (response.code == "2040") {
                     _bookDetail.postValue(_bookDetail.value?.copy(isRead = false))
@@ -119,12 +110,7 @@ class BookDetailViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.updateReadStatus(isbn)
-                if(response.code == "COMMON002") {
-                    // 읽음 업데이트 권한 없음 알림 표시
-                    _toastMessage.value = Event("로그인이 필요한 서비스입니다.")
-                    _bookDetail.postValue(_bookDetail.value?.copy(isRead = false))
-                }
-                else if(response.code == "2010") {
+                if(response.code == "2010") {
                     _bookDetail.postValue(_bookDetail.value?.copy(isRead = true))
                 } else if (response.code == "2040") {
                     _bookDetail.postValue(_bookDetail.value?.copy(isRead = false))
