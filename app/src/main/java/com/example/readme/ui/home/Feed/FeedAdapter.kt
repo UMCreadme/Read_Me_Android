@@ -1,9 +1,11 @@
 package com.example.readme.ui.home.Feed
 
+import CommentFragment
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -11,10 +13,16 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.readme.databinding.FeedItemBinding
 import com.example.readme.data.entities.inithome.FeedInfo
+
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
+
+    init {
+        setHasStableIds(true)
+    }
+
 
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
@@ -72,12 +80,14 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
 
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .centerInside()
                 .into(binding.feedProfile)
 
             binding.username.text = feed.nickname
 
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(
                         resource: Drawable,
@@ -103,6 +113,15 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
             binding.shortsImage.setOnClickListener {
                 myItemClickListener.onImageClick(feed)  // 이미지 클릭 시 호출
             }
+
+            binding.commentIcon.setOnClickListener {
+                // FragmentActivity를 통해 FragmentManager를 가져옴
+                val fragmentActivity = itemView.context as? FragmentActivity
+                fragmentActivity?.let {
+                    val commentFragment = CommentFragment()
+                    commentFragment.show(it.supportFragmentManager, "CommentFragment")
+                }
+            }
         }
     }
 
@@ -119,6 +138,10 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         val feed = list[position]
         holder.bind(feed)
 
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     private fun adjustViewPosition(view: View, x: Double, y: Double) {

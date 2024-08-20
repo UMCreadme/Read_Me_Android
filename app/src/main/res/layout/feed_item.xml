@@ -112,7 +112,7 @@
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/comment"
+                    android:id="@+id/commentIcon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="6dp"

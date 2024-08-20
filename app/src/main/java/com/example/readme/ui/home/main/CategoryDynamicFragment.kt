@@ -1,5 +1,6 @@
 package com.example.readme.ui.home.main
 
+import Feed2Adapter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +12,7 @@ import com.example.readme.databinding.FragmentDynamicBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.data.entities.inithome.ShortsInfo
 import com.example.readme.ui.base.BaseFragment
-import com.example.readme.ui.home.Feed.Feed2Adapter
+
 import com.example.readme.ui.home.Feed.FeedAdapter
 import com.example.readme.ui.home.Feed.FeedViewModel
 import com.example.readme.ui.home.Feed.ShortsAdapter

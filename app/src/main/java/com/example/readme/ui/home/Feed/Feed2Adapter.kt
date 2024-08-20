@@ -1,11 +1,10 @@
-package com.example.readme.ui.home.Feed
-
 import android.graphics.drawable.Drawable
 import com.bumptech.glide.request.transition.Transition
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,9 +13,14 @@ import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 import com.example.readme.data.entities.category.FeedInfo
+
 import java.util.Calendar
 
 class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
+
+    init {
+        setHasStableIds(true)
+    }
 
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
@@ -64,6 +68,7 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
                 binding.likefillIcon.visibility = View.GONE
             }
         }
+
         fun bind(feed: FeedInfo) {
 
             isLiked = feed.isLike
@@ -72,12 +77,14 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
 
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .centerInside()
                 .into(binding.feedProfile)
 
             binding.username.text = feed.nickname
 
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource
@@ -94,12 +101,20 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
             binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
             binding.timestamp.text = calculateDaysAgo(feed.postingDate)
 
-
             adjustViewPosition(binding.feedSentence, feed.phraseX, feed.phraseY)
 
             binding.shortsImage.setOnClickListener {
                 myItemClickListener.onImageClick(feed)  // 이미지 클릭 시 호출
             }
+
+            binding.commentIcon.setOnClickListener {
+                val fragmentActivity = itemView.context as? FragmentActivity
+                fragmentActivity?.let {
+                    val commentFragment = CommentFragment.newInstance(feed.shortsId.toString())
+                    commentFragment.show(it.supportFragmentManager, "CommentFragment")
+                }
+            }
+
         }
     }
 
@@ -118,6 +133,10 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
     override fun onBindViewHolder(holder: Feed2Holder, position: Int) {
         val feed = list[position]
         holder.bind(feed)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     override fun getItemCount(): Int {
