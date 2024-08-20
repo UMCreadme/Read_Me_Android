@@ -88,7 +88,7 @@ class BookSearchFragment : BottomSheetDialogFragment(), RecentBookAdapter.MyItem
     override fun onItemClick(book: com.example.readme.data.entities.recentbook.Book) {
         parentFragmentManager.setFragmentResult("requestKey", Bundle().apply {
             putString("bookTitle", book.title)
-            putInt("ISBN", book.bookId)
+            putString("ISBN", book.isbn)
 
         })
         dismiss()
