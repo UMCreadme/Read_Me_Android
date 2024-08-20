@@ -10,26 +10,17 @@ import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.ui.data.remote.ShortsPostService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 object RetrofitClient {
 
-    private var kakaoRetrofit: Retrofit? = null
-    private var readmeRetrofit: Retrofit? = null
-    private var locationRetrofit: Retrofit? = null
-    private var chatRetrofit: Retrofit? = null
-    private var mainInfoRetrofit: Retrofit? = null
-    private var shortspostRetrofit : Retrofit ?= null
+    private var retrofitMap: MutableMap<String, Retrofit> = mutableMapOf()
     private var token: String? = null
 
     fun setToken(accessToken: String) {
         this.token = accessToken
         Log.d("Retrofit", "accessToken 전달 완료 : $token")
 
-        // 토큰이 변경되었으므로, 기존의 Retrofit 인스턴스를 무효화
-        readmeRetrofit = null
-        mainInfoRetrofit = null
-        locationRetrofit = null
-        chatRetrofit = null
+        // 토큰이 변경되었으므로, 모든 Retrofit 인스턴스를 무효화
+        retrofitMap.clear()
 
         SearchRepository.init(getReadmeServerService())
     }
@@ -49,91 +40,52 @@ object RetrofitClient {
 
         Log.d("RetrofitClient", "Request to ${request.url} with token: ${token}")
 
-
         chain.proceed(request)
     }
 
     // OkHttpClient 객체 생성
     private val client: OkHttpClient
-        get() = if (token != null) {
-            OkHttpClient.Builder()
-                .addInterceptor(authInterceptor)
-                .addInterceptor(interceptor)
-                .build()
-        } else {
-            OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
-        }
+        get() = OkHttpClient.Builder().apply {
+            addInterceptor(interceptor)
+            token?.let { addInterceptor(authInterceptor) }
+        }.build()
 
-    // 카카오톡 로그인 API Retrofit 객체 생성
-    fun getKakaoLoginService(): KakaoLoginService {
-        if (kakaoRetrofit == null) {
-            kakaoRetrofit = Retrofit.Builder()
-                .baseUrl(KakaoLoginService.BASE_URL)
-                .client(client) // 클라이언트 추가
+    private fun getRetrofit(baseUrl: String): Retrofit {
+        return retrofitMap.getOrPut(baseUrl) {
+            Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return kakaoRetrofit!!.create(KakaoLoginService::class.java)
+    }
+
+    // 카카오톡 로그인 API Retrofit 객체 생성
+    fun getKakaoLoginService(): KakaoLoginService {
+        return getRetrofit(KakaoLoginService.BASE_URL).create(KakaoLoginService::class.java)
     }
 
     // MainInfoService Retrofit 객체 생성
     fun getMainInfoService(): MainInfoService {
-        if (mainInfoRetrofit == null) {
-            mainInfoRetrofit = Retrofit.Builder()
-                .baseUrl(MainInfoService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return mainInfoRetrofit!!.create(MainInfoService::class.java)
+        return getRetrofit(MainInfoService.BASE_URL).create(MainInfoService::class.java)
     }
 
     fun getShortsPostService(): ShortsPostService {
-        if (shortspostRetrofit == null) {
-            shortspostRetrofit = Retrofit.Builder()
-                .baseUrl(ShortsPostService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return shortspostRetrofit!!.create(ShortsPostService::class.java)
+        return getRetrofit(ShortsPostService.BASE_URL).create(ShortsPostService::class.java)
     }
 
     // Location 서버 API Retrofit 객체 생성
     fun getLocationService(): LocationService {
-        if (locationRetrofit == null) {
-            locationRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return locationRetrofit!!.create(LocationService::class.java)
+        return getRetrofit(ReadmeServerService.BASE_URL).create(LocationService::class.java)
     }
 
     // ChatFetchService Retrofit 객체 생성
     fun getChatFetchService(): ChatFetchService {
-        if (chatRetrofit == null) {
-            chatRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return chatRetrofit!!.create(ChatFetchService::class.java)
+        return getRetrofit(ReadmeServerService.BASE_URL).create(ChatFetchService::class.java)
     }
 
     // Readme 서버 API Retrofit 객체 생성
     fun getReadmeServerService(): ReadmeServerService {
-        if (readmeRetrofit == null) {
-            readmeRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return readmeRetrofit!!.create(ReadmeServerService::class.java)
+        return getRetrofit(ReadmeServerService.BASE_URL).create(ReadmeServerService::class.java)
     }
 }
