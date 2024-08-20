@@ -57,11 +57,11 @@ class FeedViewModel : ViewModel() {
                     Log.d("FeedViewModel", "Fetched feeds: ${result?.feeds}")
 
                     // 서버에서 받아온 카테고리 정보를 LiveData에 저장
-                    _categories.value = result?.categories ?: emptyList()
+                    _categories.postValue(result?.categories ?: emptyList())
 
                     // 필터링 없이 전체 feeds 리스트를 사용
-                    _feeds.value = result?.feeds ?: emptyList()
-                    _shorts.value = result?.shorts ?: emptyList()
+                    _feeds.postValue(result?.feeds ?: emptyList())
+                    _shorts.postValue(result?.shorts ?: emptyList())
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
                 }
@@ -75,11 +75,11 @@ class FeedViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    RetrofitClient.getMainInfoService().getCategoryFeeds(1, 20, category)
+                    RetrofitClient.getMainInfoService().getCategoryFeeds(1, 10, category)
                 }
                 if (response.body()?.isSuccess == true) {
                     val feedList = response.body()?.result ?: emptyList()
-                    _categoryFeeds.value = feedList
+                    _categoryFeeds.postValue(feedList)
                     Log.d("anothor", "${feedList}")
                 } else {
                     Log.d("FeedViewModel", "Response not successful")

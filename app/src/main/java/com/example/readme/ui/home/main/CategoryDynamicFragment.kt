@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Visibility
 import com.example.readme.R
 import com.example.readme.data.entities.category.FeedInfo
 import com.example.readme.databinding.FragmentDynamicBinding
@@ -43,11 +44,12 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         Log.d("CategoryDynamicFragment", "Category: $category")
 
         if (category == "추천") {
-            feedViewModel.fetchFeeds()
+            binding.rvExtra.visibility = View.VISIBLE
+            feedViewModel.fetchCategoryFeeds(category!!)
         } else {
+            binding.rvExtra.visibility = View.GONE
             feedViewModel.fetchCategoryFeeds(category!!)
         }
-
 
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
@@ -58,6 +60,11 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         feedViewModel.categoryFeeds.observe(viewLifecycleOwner) { categoryFeeds ->
             setupCategoryRecyclerView(categoryFeeds)
         }
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
     private fun setupRecyclerView(feeds: List<com.example.readme.data.entities.inithome.FeedInfo>, shorts: List<ShortsInfo>) {
@@ -108,8 +115,8 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             shortsAdapter.updateData(shorts)
         }
 
-        // Show or hide rvExtra based on category
-        binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
+//        // Show or hide rvExtra based on category
+//        binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
     }
 
     private fun setupCategoryRecyclerView(categoryFeeds: List<FeedInfo>) {
@@ -148,11 +155,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     }
 
 
-    override fun initAfterBinding() {
-        super.initAfterBinding()
-        (activity as MainActivity).binding.bottomNavigationView.visibility = View.VISIBLE
-    }
-
     companion object {
         private const val ARG_CATEGORY = "category"
 
@@ -162,4 +164,5 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             }
         }
     }
+
 }
