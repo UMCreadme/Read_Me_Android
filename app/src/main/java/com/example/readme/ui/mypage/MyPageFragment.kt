@@ -88,8 +88,6 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
                 .addToBackStack(null) // 백스택에 추가하여 뒤로가기로 돌아갈 수 있게 설정
                 .commit() // 트랜잭션을 커밋하여 적용
 
-
-
         }
 
         // 프로필 공유 버튼 클릭 리스너
