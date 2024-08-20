@@ -1,17 +1,27 @@
 package com.example.readme.ui.home.shortsdetail
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.readme.R
 import com.example.readme.databinding.ShortsdetailItemBinding
 import com.example.readme.data.entities.detail.ShortsDetailInfo
+import com.example.readme.data.entities.inithome.FeedInfo
+import com.example.readme.ui.home.Feed.FeedAdapter.FeedDiffCallback
 import com.example.readme.ui.home.make.preview.FlowLayout
 
-class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.Adapter<ShortsDetailAdapter.ShortsDetailHolder>() {
+class ShortsDetailAdapter(private val viewModel: ShortsDetailViewModel, var list: ArrayList<ShortsDetailInfo>) : RecyclerView.Adapter<ShortsDetailAdapter.ShortsDetailHolder>() {
+
+    init {
+        setHasStableIds(true)
+    }
 
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
@@ -28,41 +38,28 @@ class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.
 
     inner class ShortsDetailHolder(val binding: ShortsdetailItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private var isLiked = false
-
-        init {
-            binding.likeIcon.setOnClickListener {
-                toggleLikeState()
-            }
-
-            binding.likefillIcon.setOnClickListener {
-                toggleLikeState()
-            }
-        }
-
-        // 좋아요 상태 토글
-        private fun toggleLikeState() {
-            isLiked = !isLiked
-            updateLikeIcon()
-            myItemClickListener.onLikeClick(list[adapterPosition], isLiked)
-        }
-
-        // 아이콘 업데이트
-        private fun updateLikeIcon() {
-            if (isLiked) {
-                binding.likeIcon.visibility = View.GONE
-                binding.likefillIcon.visibility = View.VISIBLE
-            } else {
-                binding.likeIcon.visibility = View.VISIBLE
-                binding.likefillIcon.visibility = View.GONE
-            }
-        }
 
         fun bind(shortsDetail: ShortsDetailInfo) {
-            // 초기 상태 설정
-            isLiked = shortsDetail.isLike
-            updateLikeIcon()
 
+            if(shortsDetail.isLike) {
+                binding.likeIcon.setImageResource(R.drawable.likefill_icon)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.like_icon)
+            }
+
+            binding.likeIcon.setOnClickListener {
+                // 좋아요 상태를 업데이트
+                shortsDetail.isLike = !shortsDetail.isLike
+                shortsDetail.likeCnt += if (shortsDetail.isLike) 1 else -1
+
+                // 어댑터의 데이터 업데이트
+                notifyItemChanged(adapterPosition)
+
+                // ViewModel에 업데이트된 좋아요 정보를 전달
+                viewModel.updateLikeStatus(shortsDetail)
+            }
+
+            binding.likeCount.text = "${shortsDetail.likeCnt}"
             // 기존 데이터 바인딩 로직
             Glide.with(binding.root.context)
                 .load(shortsDetail.profileImg)
@@ -70,17 +67,25 @@ class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.
 
             binding.username.text = shortsDetail.userAccount
 
+            // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(shortsDetail.shortsImg)
-                .into(binding.shortsImage)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        binding.shortsImage.background = resource
+                    }
 
-            binding.feedTitle.text = shortsDetail.title
-            binding.feedContent.text = shortsDetail.content
-            binding.likeCount.text = shortsDetail.likeCnt.toString()
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Called when the resource is no longer needed, here you can clear the background if needed
+                    }
+                })
+            binding.feedSentence.text = shortsDetail.phrase
+
+            binding.mainTitle.text = shortsDetail.title
+            binding.content.text = shortsDetail.content
             binding.commentCount.text = shortsDetail.commentCnt.toString()
-
             adjustViewPosition(binding.feedSentence, shortsDetail.phraseX, shortsDetail.phraseY)
-
+            binding.feedSentence.text = shortsDetail.phrase
             addTagsToFlowLayout(binding.etTags, shortsDetail.tags)
         }
     }
@@ -99,15 +104,21 @@ class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.
         holder.bind(shortsDetail)  // bind 함수를 호출하여 데이터를 바인딩
     }
 
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
+    }
+
     override fun getItemCount(): Int {
         return list.size
     }
 
     // 데이터를 업데이트하는 함수
     fun updateData(newList: List<ShortsDetailInfo>) {
+        val diffCallback = ShortsDetailDiffCallback(list, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         list.clear()
         list.addAll(newList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     private fun adjustViewPosition(view: View, x: Double, y: Double) {
@@ -125,6 +136,24 @@ class ShortsDetailAdapter(var list: ArrayList<ShortsDetailInfo>) : RecyclerView.
             val tagTextView = LayoutInflater.from(layout.context).inflate(R.layout.tag_item, layout, false) as TextView
             tagTextView.text = tag
             layout.addView(tagTextView)
+        }
+    }
+
+    class ShortsDetailDiffCallback(
+        private val oldList: List<ShortsDetailInfo>,
+        private val newList: List<ShortsDetailInfo>
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 }

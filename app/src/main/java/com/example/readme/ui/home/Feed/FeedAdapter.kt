@@ -36,6 +36,8 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
 
     // ViewHolder 정의
     inner class FeedHolder(val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
         fun bind(feed: FeedInfo) {
             // 유저 정보 세팅
             Glide.with(binding.root.context)

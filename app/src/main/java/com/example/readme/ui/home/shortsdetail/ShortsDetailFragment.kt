@@ -2,6 +2,7 @@ package com.example.readme.ui.home.shortsdetail
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -21,16 +22,13 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     private var isUserScrolling = false
 
     override fun initStartView() {
-
-
-
         super.initStartView()
         (activity as MainActivity).NoShow()
-
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
         val shortsId = arguments?.getInt("shortsId") ?: 0
         val start = arguments?.getString("start") ?: ""
 
-        shortsDetailAdapter = ShortsDetailAdapter(ArrayList())
+        shortsDetailAdapter = ShortsDetailAdapter(viewModel, ArrayList())
         binding.shortsViewPager.adapter = shortsDetailAdapter
 
         viewModel.fetchShortsDetails(shortsId, start, page = 1, size = 4)
@@ -41,6 +39,7 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
 
         viewModel.shorts.observe(viewLifecycleOwner) { shortsDetails ->
+            Log.d("shortsDetails", "${shortsDetails}")
             setInit(shortsDetails)
         }
 
@@ -61,9 +60,7 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
 
     private fun setInit(shortsDetails: List<ShortsDetailInfo>) {
         shortsDetailAdapter.updateData(shortsDetails)
-
         setupAutoScroll()
-
         binding.shortsViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
