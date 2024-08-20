@@ -41,37 +41,6 @@ class Feed2Adapter(
 
     // ViewHolder 정의
     inner class Feed2Holder(val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        private var isLiked = false
-
-        init {
-            binding.likeIcon.setOnClickListener {
-                toggleLikeState()
-            }
-
-            binding.likefillIcon.setOnClickListener {
-                toggleLikeState()
-            }
-        }
-
-        // 좋아요 상태 토글
-        private fun toggleLikeState() {
-            isLiked = !isLiked
-            updateLikeIcon()
-            myItemClickListener.onLikeClick(list[adapterPosition], isLiked)
-            Log.d("Feed2Adapter", "toggleLikeState: isLiked = $isLiked, likeCnt = ${list[adapterPosition].likeCnt}")
-        }
-
-        // 아이콘 업데이트
-        private fun updateLikeIcon() {
-            if (isLiked) {
-                binding.likeIcon.visibility = View.GONE
-                binding.likefillIcon.visibility = View.VISIBLE
-            } else {
-                binding.likeIcon.visibility = View.VISIBLE
-                binding.likefillIcon.visibility = View.GONE
-            }
-        }
         fun bind(feed: FeedInfo) {
             // 유저 정보 세팅
             Glide.with(binding.root.context)
@@ -97,10 +66,8 @@ class Feed2Adapter(
             // 좋아요 버튼
             if(feed.isLike) {
                 binding.likeIcon.setImageResource(R.drawable.likefill_icon)
-                binding.likefillIcon.visibility = View.GONE
             } else {
                 binding.likeIcon.setImageResource(R.drawable.like_icon)
-                binding.likefillIcon.visibility = View.GONE
             }
 
             binding.likeIcon.setOnClickListener {

@@ -15,7 +15,7 @@ data class CategoryFeedResponse(
 data class FeedInfo(
     @SerializedName("userId") val userId: Int,
     @SerializedName("profileImg") val profileImg: String,
-    @SerializedName("nickname") val nickname: String,
+    @SerializedName("account") val nickname: String,
     @SerializedName("shortsId") val shortsId: Int,
     @SerializedName("bookId") val bookId: Int,
     @SerializedName("shortsImg") val shortsImg: String,

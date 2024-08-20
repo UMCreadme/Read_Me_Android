@@ -61,10 +61,8 @@ class SearchShortsAdaptor(
             // 좋아요 버튼
             if(item.isLike) {
                 binding.likeIcon.setImageResource(R.drawable.likefill_icon)
-                binding.likefillIcon.visibility = View.GONE
             } else {
                 binding.likeIcon.setImageResource(R.drawable.like_icon)
-                binding.likefillIcon.visibility = View.GONE
             }
 
             binding.likeIcon.setOnClickListener {
