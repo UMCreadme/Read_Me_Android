@@ -40,7 +40,7 @@ interface MainInfoService {
     suspend fun getBookList(
         @Query("keyword") keyword: String,
         @Query("page") page: Int = 1,
-        @Query("size") size: Int = 100,
+        @Query("size") size: Int = 10,
         @Query("preview") preview: Boolean = true
     ): Response<BookListResponse>  // 수정: Call -> Response, suspend 추가
 

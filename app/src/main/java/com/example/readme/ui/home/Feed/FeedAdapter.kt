@@ -16,6 +16,11 @@ import java.util.*
 
 class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
+
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
         fun onItemClick(feed: FeedInfo)
@@ -72,12 +77,14 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
 
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .centerInside()
                 .into(binding.feedProfile)
 
             binding.username.text = feed.nickname
 
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(
                         resource: Drawable,
@@ -119,6 +126,10 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         val feed = list[position]
         holder.bind(feed)
 
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     private fun adjustViewPosition(view: View, x: Double, y: Double) {

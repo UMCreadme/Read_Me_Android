@@ -18,6 +18,10 @@ import java.util.Calendar
 
 class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
         fun onItemClick(feed: FeedInfo)
@@ -72,12 +76,14 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
 
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .centerInside()
                 .into(binding.feedProfile)
 
             binding.username.text = feed.nickname
 
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource
@@ -118,6 +124,10 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
     override fun onBindViewHolder(holder: Feed2Holder, position: Int) {
         val feed = list[position]
         holder.bind(feed)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     override fun getItemCount(): Int {
