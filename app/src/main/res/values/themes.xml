@@ -4,12 +4,11 @@
     <style name="Theme.Readme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- 상태바 투명하게 설정 -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowTranslucentStatus">true</item>
 
         <item name="android:fontFamily">@font/font_pretendard</item>
         <item name="fontFamily">@font/font_pretendard</item>
-        <item name="materialButtonStyle">@style/CustomButtonStyle</item>
         <item name="toolbarStyle">@style/CustomToolbar</item>
 
         <item name="colorPrimary">@color/Primary</item>
@@ -33,14 +32,6 @@
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
     </style>
 
-    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@null</item>
-        <item name="android:background">@drawable/btn_pf_edit</item> <!-- 기본 배경 Drawable -->
-        <item name="android:textColor">@color/Black</item> <!-- 텍스트 색상 -->
-        <item name="android:textStyle">bold</item> <!-- 텍스트 스타일 -->
-        <item name="android:layout_width">wrap_content</item> <!-- 기본 너비 -->
-        <item name="android:layout_height">wrap_content</item> <!-- 기본 높이 -->
-    </style>
 
     <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextStyle">@style/CustomToolbarTitleText</item>
@@ -57,4 +48,24 @@
         <item name="android:textColor">@color/White</item>
     </style>
 
+    <!-- 책 표지 Rounding 처리 -->
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- 둥근 이미지를 위한 스타일 -->
+    <style name="RoundImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- 읽음 버튼을 위한 스타일-->
+    <style name="ReadSwitchButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="fontFamily">@font/pretendard_medium</item>
+    </style>
 </resources>

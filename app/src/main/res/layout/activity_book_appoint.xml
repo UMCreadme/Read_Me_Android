@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="24dp" />
 
     <!-- 만남 시간 섹션 -->
@@ -93,7 +94,7 @@
                     android:text="에 만나고 싶어요."
                     android:textColor="@color/Black"
                     android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -112,10 +113,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/meeting_time_section"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="30dp"/>
-
-    <!-- This line makes the TextView align to the start (left) -->
-
+        android:layout_marginTop="30dp" />
 
     <!-- 세부 장소 섹션 -->
     <TextView
@@ -126,9 +124,10 @@
         android:layout_marginStart="@id/meet_where"
         android:layout_marginTop="20dp"
         android:background="@drawable/place_background"
+        android:backgroundTint="@color/Primary"
         android:padding="8dp"
-        android:text="서울"
-        android:textColor="@color/Black"
+        android:text=" 서울 "
+        android:textColor="@color/White"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,47 +145,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/meeting_place_section">
 
-        <EditText
-            android:id="@+id/search_place"
+        <!-- WebView for searching places -->
+        <WebView
+            android:id="@+id/location_search_webView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/text_background"
-            android:hint="지번, 도로명, 건물명으로 검색하세요."
-            android:padding="8dp"
-            android:textSize="16sp" />
+            android:layout_height="250dp"
+            tools:ignore="WebViewLayout" />
 
         <ImageView
             android:id="@+id/btn_current_location"
-            android:layout_width="160dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_current_location"/>
-    </LinearLayout>
 
-    <!-- 검색 결과 리스트 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/locationRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/confirm_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        <EditText
+            android:id="@+id/place_string_edit"
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:hint=" 입력될 주소"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:background="@drawable/text_background"/>
+
+        <EditText
+            android:id="@+id/place_string_edit2"
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:hint=" 상세주소"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:background="@drawable/text_background"/>
+
+    </LinearLayout>
 
     <!-- 확인 버튼 -->
     <Button
         android:id="@+id/confirm_button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/Primary"
-        android:text="약속 설정하기"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background"
+        android:enabled="false"
+        android:text="생성하기"
         android:textColor="@color/White"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

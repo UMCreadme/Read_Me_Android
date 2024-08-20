@@ -18,20 +18,22 @@
             android:id="@+id/start_vp"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/start_vp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/start_indicator"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
             app:ci_animator="@animator/scale_with_alpha"
             app:ci_drawable_unselected="@drawable/gray_radius"
             app:ci_drawable="@drawable/black_radius"
             app:layout_constraintTop_toBottomOf="@id/start_vp"
+            app:layout_constraintBottom_toTopOf="@id/start_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -40,6 +42,7 @@
             android:layout_width="324dp"
             android:layout_height="50dp"
             android:layout_marginTop="100dp"
+            android:layout_marginBottom="50dp"
             android:background="@color/Primary"
             android:text="시작하기"
             android:textAlignment="center"
@@ -49,6 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/start_vp" />
+            app:layout_constraintTop_toBottomOf="@id/start_vp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

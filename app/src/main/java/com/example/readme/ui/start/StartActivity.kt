@@ -1,12 +1,17 @@
-package com.example.readme
+
+package com.example.readme.ui.start
 
 import ImagePagerAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import com.example.readme.R
 import com.example.readme.databinding.ActivityStartBinding
+import com.example.readme.ui.login.LoginActivity
 import com.example.readme.ui.start.StartImgViewModel
 import me.relex.circleindicator.CircleIndicator3
 
@@ -27,6 +32,20 @@ class StartActivity : AppCompatActivity() {
 
         setupViewPager()
         setupAutoSlide()
+
+        // LiveData 관찰 및 LoginActivity로의 전환 처리
+        viewModel.navigateToLogin.observe(this, Observer { shouldNavigate ->
+            if (shouldNavigate) {
+                navigateToLogin()
+                viewModel.onNavigatedToLogin() // 상태 초기화
+            }
+        })
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun setupViewPager() {

@@ -2,98 +2,148 @@ package com.example.readme.ui.community
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.readme.databinding.ActivityChatBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.example.readme.R
+import com.example.readme.data.remote.MessageRequest
 import com.example.readme.utils.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityChatBinding
     private lateinit var chatAdapter: ChatAdapter
-    private val chatList = mutableListOf<Chat>()
-    private var userId = ""
-    private val communityId = "1" // Example community ID
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var messageInput: EditText
+    private lateinit var sendButton: ImageView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
+    private lateinit var toggle: ActionBarDrawerToggle
+    private val communityId = "50"  // 테스트 커뮤니티 ID
+    private val userId = 1  // 현재 사용자 ID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_chat)
 
-        userId = "abcd"
+        // Initialize views
+        recyclerView = findViewById(R.id.chatRecyclerView)
+        messageInput = findViewById(R.id.messageBox)
+        sendButton = findViewById(R.id.sentButton)  // sentButton으로 수정
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        val navButton: ImageButton = findViewById(R.id.nav_button)
 
-//        userId = intent.getStringExtra(USERID) ?: ""
-//        if (userId.isEmpty()) {
-//            Log.e("ChatActivity", "User ID is empty")
-//            finish()
-//            return
-//        }
+        // Setup RecyclerView
+        chatAdapter = ChatAdapter(userId)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = chatAdapter
 
-        if (userId.isEmpty()) {
-            finish()
-        } else {
-            chatAdapter = ChatAdapter()
+        // Setup DrawerLayout and ActionBarDrawerToggle
+        toggle = ActionBarDrawerToggle(
+            this, drawerLayout, R.string.open_nav, R.string.close_nav
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-            binding.chatRecyclerView.apply {
-                layoutManager = LinearLayoutManager(this@ChatActivity)
-                adapter = chatAdapter
+        // Set up navigation button to open the drawer
+        navButton.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.END)
             }
+        }
 
-            binding.sentButton.setOnClickListener {
-                val content = binding.messageBox.text.toString()
-                if (content.isNotEmpty()) {
-                    val chat = Chat(
-                        messageId = 0, // Server generates the message ID
-                        userId = userId.toInt(), // Assuming userId is an Int
-                        content = content,
-                        createdAt = "",
-                        isSelf = true // Message sent by the user, so set isSelf to true
-                    )
-                    RetrofitClient.getReadmeServerService().postMessage(communityId, chat).enqueue(object : Callback<Chat> {
-                        override fun onResponse(call: Call<Chat>, response: Response<Chat>) {
-                            if (response.isSuccessful) {
-                                response.body()?.let {
-                                    chatList.add(it)
-                                    chatAdapter.submitChat(chatList)
-                                    binding.messageBox.setText("")
-                                }
-                            }
-                        }
-
-                        override fun onFailure(call: Call<Chat>, t: Throwable) {
-                            // Handle failure
-                        }
-                    })
-                }
+        // Handle navigation item selection
+        navView.setNavigationItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                // Handle navigation menu item clicks here
             }
+            drawerLayout.closeDrawer(GravityCompat.END)
+            true
+        }
 
-            fetchMessages()
+        // Fetch existing messages
+        fetchMessages()
+
+        // Send message button click listener
+        sendButton.setOnClickListener {
+            val messageContent = messageInput.text.toString()
+            if (messageContent.isNotEmpty()) {
+                sendMessage(messageContent)
+            }
         }
     }
 
     private fun fetchMessages() {
-        RetrofitClient.getReadmeServerService().getMessages(communityId).enqueue(object : Callback<List<Chat>> {
-            override fun onResponse(call: Call<List<Chat>>, response: Response<List<Chat>>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        chatList.clear()
-                        chatList.addAll(it)
-                        chatAdapter.submitChat(chatList)
-                    }
-                }
-            }
+        val service = RetrofitClient.getChatFetchService()
 
-            override fun onFailure(call: Call<List<Chat>>, t: Throwable) {
-                // Handle failure
-                Log.e("ChatActivity", "Network error", t)
+        lifecycleScope.launch {
+            try {
+                val response = service.fetchMessages(communityId)
+                if (response.isSuccess) {
+                    val messages = response.result ?: emptyList()
+                    if (messages.isNotEmpty()) {
+                        chatAdapter.submitList(messages)
+                        recyclerView.visibility = View.VISIBLE
+                    } else {
+                        recyclerView.visibility = View.GONE
+                    }
+                } else {
+                    showToast("Failed to load messages: ${response.code}")
+                }
+            } catch (e: IOException) {
+                showToast("Network failure, please try again later.")
+            } catch (e: HttpException) {
+                showToast("Failed to load messages: ${e.code()}")
             }
-        })
+        }
     }
 
-    companion object {
-        const val USERID = "userid"
+    private fun sendMessage(content: String) {
+        val service = RetrofitClient.getChatFetchService()
+        val messageRequest = MessageRequest(content)
+
+        lifecycleScope.launch {
+            try {
+                val response = service.sendMessage(communityId, messageRequest)
+                if (response.isSuccessful) {
+                    fetchMessages()
+                    messageInput.text.clear()
+                } else {
+                    showToast("Failed to send message: ${response.code()}")
+                }
+            } catch (e: IOException) {
+                showToast("Network failure, please try again later.")
+            } catch (e: HttpException) {
+                showToast("Failed to send message: ${e.code()}")
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

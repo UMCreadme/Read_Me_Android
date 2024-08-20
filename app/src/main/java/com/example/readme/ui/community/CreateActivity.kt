@@ -8,9 +8,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.readme.R
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
 
 class CreateActivity : AppCompatActivity() {
 
@@ -27,7 +33,7 @@ class CreateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create)  // Ensure the correct layout file name
+        setContentView(R.layout.activity_create)
 
         // 뷰 초기화
         bookImageView = findViewById(R.id.bookImageView)
@@ -62,7 +68,7 @@ class CreateActivity : AppCompatActivity() {
 
         // 리스너 설정
         descriptionEditText.addTextChangedListener(textWatcher)
-        tagsEditText.addTextChangedListener(textWatcher)
+        tagsEditText.addTextChangedListener(tagsTextWatcher)
         participantsEditText.addTextChangedListener(textWatcher)
         placeTextViews.forEach { placeTextView ->
             placeTextView.setOnClickListener {
@@ -77,19 +83,93 @@ class CreateActivity : AppCompatActivity() {
 
         // 업데이트 버튼 클릭 리스너
         updateButton.setOnClickListener {
-            // 데이터 검증 및 전송
             if (validateFields()) {
-                // 화면 전환
+                val tagsList = getTagsList()
+                postTagsToServer(tagsList)
+
                 val intent = Intent(this, CreateFragmentActivity::class.java)
                 startActivity(intent)
             }
         }
     }
 
+    // 태그 리스트를 분리하여 반환
+    private fun getTagsList(): List<String> {
+        val tagsText = tagsEditText.text.toString().trim()
+        return tagsText.split("#").filter { it.isNotEmpty() } // 빈 문자열 필터링
+    }
+
+    // 태그를 서버로 POST 요청으로 전송
+    private fun postTagsToServer(tagsList: List<String>) {
+        val client = OkHttpClient()
+        val url = "https://your-server-endpoint.com/api/tags" // 서버 URL을 여기에 입력
+
+        // JSON 배열로 태그 리스트 변환
+        val jsonArray = JSONArray(tagsList)
+        val jsonObject = JSONObject().apply {
+            put("tags", jsonArray)
+        }
+
+        val requestBody = RequestBody.create(
+            "application/json; charset=utf-8".toMediaTypeOrNull(),
+            jsonObject.toString()
+        )
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@CreateActivity, "서버 요청 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        Toast.makeText(this@CreateActivity, "태그가 성공적으로 전송되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@CreateActivity, "서버 오류: ${response.code}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+    }
+
+    // 일반 TextWatcher
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            validateFields()
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    // 태그 TextWatcher
+    private val tagsTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val tags = s.toString().trim()
+            val tagList = tags.split("#").filter { it.isNotEmpty() }
+
+            // 태그의 개수와 각 태그의 길이를 체크
+            if (tagList.size > 10 || tagList.any { it.length > 10 }) {
+                tagsEditText.removeTextChangedListener(this)
+                tagsEditText.setText(tags.substring(0, start))
+                tagsEditText.setSelection(start)
+                tagsEditText.addTextChangedListener(this)
+
+                // 토스트 메시지 표시
+                Toast.makeText(this@CreateActivity, "글자 수는 10개, 태그의 개수는 10개로 제한합니다.", Toast.LENGTH_SHORT).show()
+            }
             validateFields()
         }
 

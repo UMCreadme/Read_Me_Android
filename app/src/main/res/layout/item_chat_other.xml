@@ -31,12 +31,9 @@
                     android:id="@+id/otherId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="로때"
-                    android:layout_gravity="start"
-                    android:layout_marginLeft="16dp"
                     android:textColor="@color/Black"
                     android:textSize="16sp"
-                    android:text="@{String.valueOf(chat.userId)}" /> <!-- Data Binding 추가 -->
+                    android:text="@{chat.nickname}" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -48,30 +45,26 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="end"
-                        android:layout_marginLeft="5dp"
                         android:background="@drawable/message_box_background">
 
                         <TextView
                             android:id="@+id/otherMsg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="Raystatic"
-                            android:layout_gravity="end"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:textColor="@color/Black"
-                            android:textSize="18sp"
-                            android:text="@{chat.content}" /> <!-- Data Binding 추가 -->
-
+                            android:text="@{chat.content}"
+                        android:textColor="@color/Black"
+                        android:textSize="18sp"/>
                     </LinearLayout>
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="13:34"
-                        android:textColor="@color/Light_Gray"
-                        android:textSize="12sp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="5dp"/>
+                        android:id="@+id/createdAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{chat.createdAt}"
+                    android:textColor="@color/Light_Gray"
+                    android:textSize="12sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="5dp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
