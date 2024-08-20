@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.repository.SearchRepository
+import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchShortsViewModel(
     private val repository: SearchRepository
@@ -62,20 +64,27 @@ class SearchShortsViewModel(
         }
     }
 
-    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
-    fun updateLikeStatus(item: SearchShortsResult) {
+    fun likeShorts(item: SearchShortsResult) {
         viewModelScope.launch(Dispatchers.IO) {
-            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
-            val updatedItems = _searchShortsItems.value.orEmpty().map {
-                if (it.shortsId == item.shortsId) {
-                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
-                } else {
-                    it
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitClient.getMainInfoService().likeShorts(item.shortsId)
                 }
+                if (response.body()?.isSuccess == true) {
+                    val updatedFeeds = _searchShortsItems.value?.map {
+                        if (it.shortsId == item.shortsId) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    } ?: emptyList()
+                    _searchShortsItems.postValue(updatedFeeds)
+                } else {
+                    Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.d("FeedViewModel", "Failed to update like status: ${e.message}")
             }
-
-            // 업데이트된 리스트를 LiveData에 다시 할당
-            _searchShortsItems.postValue(updatedItems)
         }
     }
 

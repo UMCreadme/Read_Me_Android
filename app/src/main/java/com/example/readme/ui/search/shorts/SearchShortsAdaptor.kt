@@ -64,15 +64,7 @@ class SearchShortsAdaptor(
             }
 
             binding.likeIcon.setOnClickListener {
-                // 좋아요 상태를 업데이트
-                item.isLike = !item.isLike
-                item.likeCnt += if (item.isLike) 1 else -1
-
-                // 어댑터의 데이터 업데이트
-                notifyItemChanged(adapterPosition)
-
-                // ViewModel에 업데이트된 좋아요 정보를 전달
-                viewModel.updateLikeStatus(item)
+                viewModel.likeShorts(item)
             }
 
             binding.likeCount.text = "좋아요 ${item.likeCnt}개"
