@@ -60,10 +60,10 @@ class FeedViewModel : ViewModel() {
                     _categories.postValue(categories)
                     val feedsShorts = result?.feeds ?: emptyList()
 //                    Log.d("FeedViewModel", "Fetched feeds: ${feedsShorts}")
-                    _feedsShorts.setValue(feedsShorts)
+                    _feedsShorts.postValue(feedsShorts)
                     Log.d("FeedViewModel", "Fetched _feedsShorts: ${feedsShorts}")
                     val shorts = result?.shorts ?: emptyList()
-                    _shorts.setValue(shorts)
+                    _shorts.postValue(shorts)
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
                 }

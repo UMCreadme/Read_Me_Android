@@ -25,13 +25,13 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
         super.initStartView()
         (activity as MainActivity).NoShow()
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
-        val shortsId = arguments?.getInt("shortsId") ?: 0
+        val shorts_id = arguments?.getInt("shorts_id") ?: 0
         val start = arguments?.getString("start") ?: ""
 
         shortsDetailAdapter = ShortsDetailAdapter(viewModel, ArrayList())
         binding.shortsViewPager.adapter = shortsDetailAdapter
 
-        viewModel.fetchShortsDetails(shortsId, start, page = 1, size = 4)
+        viewModel.fetchShortsDetails(shorts_id, start, page = 1, size = 4)
     }
 
     override fun initDataBinding() {
