@@ -162,7 +162,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

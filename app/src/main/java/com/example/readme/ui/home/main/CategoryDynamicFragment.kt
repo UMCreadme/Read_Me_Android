@@ -82,7 +82,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         }
 
         feedViewModel.categoryFeeds.observe(viewLifecycleOwner) { categoryFeeds ->
-            Log.d("FeedViewModel", "Combined Data - categoryFeeds: $categoryFeeds")
+//            Log.d("FeedViewModel", "Combined Data - categoryFeeds: $categoryFeeds")
             setupCategoryRecyclerView(categoryFeeds)
         }
     }
@@ -96,7 +96,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         if (!::feedAdapter.isInitialized) {
             feedListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             feedAdapter = FeedAdapter(feedViewModel, ArrayList(feeds))
-            Log.d("feedAdapter", "feedAdapter : ${feeds}")
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feedListManager
@@ -113,9 +112,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
                                 putInt("shortsId", feed.shortsId)
-                                Log.d("shortId", feed.shortsId.toString())
                                 putString("start", "main")
-                                // 필요한 경우 추가 데이터도 함께 전달
                             }
                         }
                         (context as? MainActivity)?.addFragment(fragment)
@@ -156,15 +153,14 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                 adapter = feed2Adapter
 
                 feed2Adapter.setMyItemClickListener(object : Feed2Adapter.MyItemClickListener {
-                    override fun onItemClick(categoryFeeds: FeedInfo) {
+                    override fun onItemClick(feed: FeedInfo) {
                         // 아이템 전체 클릭 시의 동작 (기존 코드)
                     }
 
-                    override fun onImageClick(categoryFeeds: FeedInfo) {
+                    override fun onImageClick(feed: FeedInfo) {
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", categoryFeeds.shortsId)
-                                Log.d("shortId", categoryFeeds.shortsId.toString())
+                                putInt("shortsId", feed.shortsId)
                                 putString("start", "main")
                             }
                         }

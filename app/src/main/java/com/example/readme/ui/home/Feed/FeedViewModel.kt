@@ -55,13 +55,13 @@ class FeedViewModel : ViewModel() {
                 }
                 if (response.body()?.isSuccess == true) {
                     val result = response.body()?.result
-                    Log.d("FeedViewModel", "Fetched feeds: ${result}")
+//                    Log.d("FeedViewModel", "Fetched feeds: ${result}")
                     val categories = result?.categories ?: emptyList()
                     _categories.postValue(categories)
                     val feedsShorts = result?.feeds ?: emptyList()
-                    Log.d("FeedViewModel", "Fetched feeds: ${feedsShorts}")
+//                    Log.d("FeedViewModel", "Fetched feeds: ${feedsShorts}")
                     _feedsShorts.setValue(feedsShorts)
-                    Log.d("FeedViewModel", "Fetched _feedsShorts: ${_feedsShorts}")
+//                    Log.d("FeedViewModel", "Fetched _feedsShorts: ${_feedsShorts}")
                     val shorts = result?.shorts ?: emptyList()
                     _shorts.setValue(shorts)
                 } else {
@@ -82,7 +82,7 @@ class FeedViewModel : ViewModel() {
                 if (response.body()?.isSuccess == true) {
                     val feedList = response.body()?.result ?: emptyList()
                     _categoryFeeds.postValue(feedList)
-                    Log.d("anothor", "${feedList}")
+//                    Log.d("anothor", "${feedList}")
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
                 }
@@ -107,7 +107,7 @@ class FeedViewModel : ViewModel() {
                         }
                     } ?: emptyList()
                     _feedsShorts.value = updatedFeeds
-                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
+//                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
                 }
@@ -132,7 +132,7 @@ class FeedViewModel : ViewModel() {
                         }
                     } ?: emptyList()
                     _categoryFeeds.value = updatedFeeds
-                    Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId}")
+//                    Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
                 }
@@ -153,8 +153,6 @@ class FeedViewModel : ViewModel() {
                     it
                 }
             }
-
-            // 업데이트된 리스트를 LiveData에 다시 할당
             _feedsShorts.postValue(updatedItems)
         }
     }
@@ -170,8 +168,6 @@ class FeedViewModel : ViewModel() {
                     it
                 }
             }
-
-            // 업데이트된 리스트를 LiveData에 다시 할당
             _categoryFeeds.postValue(updatedItems)
         }
     }
