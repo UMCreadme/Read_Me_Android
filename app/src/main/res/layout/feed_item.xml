@@ -7,9 +7,6 @@
         <variable
             name="viewModel"
             type="com.example.readme.ui.search.shorts.SearchShortsViewModel" />
-        <variable
-            name="shorts"
-            type="com.example.readme.data.entities.SearchShortsResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +32,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/profilepost_icon"
-                app:imageUrl="@{shorts.profileImg}"
                 app:shapeAppearanceOverlay="@style/RoundImageView" />
 
             <TextView
@@ -44,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:text="@{shorts.nickname}"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/feed_profile"
@@ -66,7 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="쇼츠 문장"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -148,7 +142,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@{shorts.title}"
                 android:textColor="@color/Black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -161,7 +154,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@{shorts.content}"
                 android:textColor="@color/Black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"

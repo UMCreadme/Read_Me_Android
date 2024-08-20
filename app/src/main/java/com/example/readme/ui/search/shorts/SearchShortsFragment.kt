@@ -1,5 +1,6 @@
 package com.example.readme.ui.search.shorts
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +8,8 @@ import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchShortsBinding
 import com.example.readme.ui.base.BaseFragment
+import com.example.readme.ui.home.shortsdetail.ShortsDetailFragment
+import com.example.readme.ui.search.SearchFragment
 
 class SearchShortsFragment : BaseFragment<FragmentSearchShortsBinding>(R.layout.fragment_search_shorts) {
     private val viewModel: SearchShortsViewModel by viewModels {
@@ -26,7 +29,20 @@ class SearchShortsFragment : BaseFragment<FragmentSearchShortsBinding>(R.layout.
         super.initAfterBinding()
 
         // RecyclerView에 어댑터 설정
-        val adapter = SearchShortsAdaptor()
+        val adapter = SearchShortsAdaptor(
+            viewModel,
+            onShortsClick = { shortsId ->
+                // 검색 결과 화면으로 전환
+                val parentFragment = parentFragment
+                if (parentFragment is SearchFragment) {
+                    val shortsDetailFragment = ShortsDetailFragment()
+                    val bundle = Bundle().apply {
+                        putInt("shortsId", shortsId)
+                    }
+                    shortsDetailFragment.arguments = bundle
+                    parentFragment.setFragment(shortsDetailFragment)
+                }
+            },)
         binding.searchShortsRecyclerView.adapter = adapter
 
         // Bundle로 전달된 검색어를 가져와서 사용
