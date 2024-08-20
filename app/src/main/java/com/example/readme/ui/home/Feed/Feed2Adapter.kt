@@ -119,9 +119,9 @@ class Feed2Adapter(
         holder.bind(feed)
     }
 
-//    override fun getItemId(position: Int): Long {
-//        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
-//    }
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
+    }
 
     override fun getItemCount(): Int {
         return list.size
