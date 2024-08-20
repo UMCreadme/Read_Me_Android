@@ -35,10 +35,9 @@ class ChatAdapter(private val userId: Int) : ListAdapter<ChatMessage, RecyclerVi
             holder.itemView.visibility = View.GONE
         } else {
             holder.itemView.visibility = View.VISIBLE
-            if (holder is SelfChatItemViewHolder) {
-                holder.bind(chat)
-            } else if (holder is OtherChatItemViewHolder) {
-                holder.bind(chat)
+            when (holder) {
+                is SelfChatItemViewHolder -> holder.bind(chat)
+                is OtherChatItemViewHolder -> holder.bind(chat)
             }
         }
     }

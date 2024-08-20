@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CommunityDetailJoinFragment : Fragment() {
 
     private var communityId: Int? = null
-    private var userId: String? = null
+    private var userId: Int? = null
 
     // Retrofit 인스턴스 초기화
     private val retrofit by lazy {
@@ -57,7 +57,7 @@ class CommunityDetailJoinFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val response = apiService.getCommunityDetail(communityId)
-                userId = response.userId.toString()
+                userId = response.communityId
                 userId?.let {
                     Toast.makeText(requireContext(), "$it 님 안녕하세요", Toast.LENGTH_LONG).show()
                 }

@@ -4,14 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.readme.R
+import com.example.readme.databinding.FragmentCommunityDetailBinding
+import com.example.readme.ui.community.Community
+import com.example.readme.utils.RetrofitClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CommunityDetailFragment : Fragment() {
 
     private var communityId: Int? = null
-    private var userId: String? = null // 유저 ID를 저장할 변수
+    private lateinit var binding: FragmentCommunityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,36 +31,62 @@ class CommunityDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community_detail, container, false)
+        binding = FragmentCommunityDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 예시로 communityId에 해당하는 userId를 임의로 설정
-        userId = getUserIdForCommunity(communityId)
-
-        // userId가 설정된 경우에만 토스트 메시지 표시
-        userId?.let {
-            Toast.makeText(requireContext(), "$it 님 안녕하세요", Toast.LENGTH_LONG).show()
+        // communityId가 존재할 경우에만 데이터를 가져옴
+        communityId?.let {
+            fetchCommunityDetails(it)
         }
     }
 
-    // communityId를 기반으로 userId를 가져오는 예시 함수 (여기서는 임의로 반환)
-    private fun getUserIdForCommunity(communityId: Int?): String? {
-        // 실제로는 API 호출 등을 통해 userId를 가져오는 로직이 필요
-        // 예를 들어, network request를 사용하여 userId를 가져오는 방식
-        return "사용자명" // 여기에 실제 userId를 반환하는 로직 추가
+    private fun fetchCommunityDetails(id: Int) {
+        lifecycleScope.launch {
+            try {
+                val service = RetrofitClient.getReadmeServerService()
+                val response = withContext(Dispatchers.IO) {
+                    service.getCommunityDetail(id)
+                }
+
+                if (response.isSuccess) {
+                    val community = response.result
+                    updateUI(community)
+                } else {
+                    // 실패 메시지 처리
+                }
+            } catch (e: Exception) {
+                // 예외 처리
+            }
+        }
     }
 
-    companion object {
-        fun newInstance(communityId: Int): CommunityDetailFragment {
-            val fragment = CommunityDetailFragment()
-            val args = Bundle()
-            args.putInt("COMMUNITY_ID", communityId)
-            fragment.arguments = args
-            return fragment
+    private fun updateUI(community: Community?) {
+        community?.let {
+            // 이미지 리소스 설정
+            binding.userProfileImg.setImageResource(it.imageResId)
+
+            // 제목, 저자, 위치, 책 커버, 닉네임, 내용, 생성일 설정
+            binding.bookTitle.text = it.title
+            binding.bookAuthor.text = it.author
+            binding.userLocation.text = it.location
+            binding.bookCover.setImageResource(it.bookCover)
+            binding.userNickname.text = it.userNickname
+            binding.userComment.text = it.content
+            binding.capacity.text = "${it.currentMembers}/${it.totalMembers}"
+
+            // 태그 추가
+//            context?.let { ctx ->
+//                binding.tagsContainer.removeAllViews()
+//                it.tags.forEach { tag ->
+//                    val tagView = LayoutInflater.from(ctx).inflate(R.layout.item_tag, binding.tagsContainer, false) as TextView
+//                    tagView.text = tag
+//                    binding.tagsContainer.addView(tagView)
+//                }
+//            }
         }
     }
 }

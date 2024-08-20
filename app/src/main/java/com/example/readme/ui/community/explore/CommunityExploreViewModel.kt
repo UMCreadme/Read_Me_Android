@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
+import com.example.readme.data.remote.CommunityDetailResponse
 import com.example.readme.data.repository.CommunityRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 
 @OptIn(FlowPreview::class)
 class CommunityExploreViewModel(
@@ -125,8 +126,28 @@ class CommunityExploreViewModel(
         if (!hasNext || isLoading) return
         lastQuery?.let { searchCommunity(it, false) }
     }
+
     // 커뮤니티 정보 가져오기
-    suspend fun getCommunityInfo(communityId: Int, isParticipating: Boolean): CommunityDetailResponse {
-        return repository.getCommunityInfo(communityId, isParticipating)
+    // 수정된 getCommunityInfo 함수
+    fun getCommunityInfo(communityId: Int, onResult: (CommunityDetailResponse?) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.getCommunityInfo(communityId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccess) {  // 이제 isSuccess 필드를 사용하여 성공 여부를 확인합니다.
+                        onResult(response)    // result 대신 response를 직접 사용합니다.
+                    } else {
+                        Log.e("CommunityExploreViewModel", "Failed to fetch community info: ${response.hashCode()} - ${response.content}")
+                        onResult(null)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("CommunityExploreViewModel", "Error fetching community info", e)
+                    onResult(null)
+                }
+            }
+        }
     }
+
 }

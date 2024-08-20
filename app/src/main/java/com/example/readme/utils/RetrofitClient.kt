@@ -51,24 +51,10 @@ object RetrofitClient {
             .method(original.method, original.body)
             .build()
 
-        Log.d("RetrofitClient", "Request to ${request.url} with token: ${token}")
-
+        Log.d("RetrofitClient", "Request to ${request.url} with token: $token")
 
         chain.proceed(request)
     }
-
-    // OkHttpClient 객체 생성
-    private val client: OkHttpClient
-        get() = if (token != null) {
-            OkHttpClient.Builder()
-                .addInterceptor(authInterceptor)
-                .addInterceptor(interceptor)
-                .build()
-        } else {
-            OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .build()
-        }
 
     // SSLContext 및 TrustManager 설정
     private val trustManager: X509TrustManager = TrustManagerFactory.getInstance(
@@ -81,23 +67,24 @@ object RetrofitClient {
         init(null, arrayOf(trustManager), null)
     }
 
-    private val chatClient: OkHttpClient = OkHttpClient.Builder().apply {
-        if (token != null) {
-            addInterceptor(authInterceptor)
-        }
-        addInterceptor(interceptor)
-
-        // SSL 설정 추가
-        sslSocketFactory(sslContext.socketFactory, trustManager)
-        hostnameVerifier { _, _ -> true } // 필요에 따라 호스트 이름 검증을 끔
-    }.build()
+    // OkHttpClient 객체 생성
+    private val client: OkHttpClient
+        get() = OkHttpClient.Builder().apply {
+            if (token != null) {
+                addInterceptor(authInterceptor)
+            }
+            addInterceptor(interceptor)
+            // SSL 설정 추가
+            sslSocketFactory(sslContext.socketFactory, trustManager)
+            hostnameVerifier { _, _ -> true } // 필요에 따라 호스트 이름 검증을 끔
+        }.build()
 
     // 카카오톡 로그인 API Retrofit 객체 생성
     fun getKakaoLoginService(): KakaoLoginService {
         if (kakaoRetrofit == null) {
             kakaoRetrofit = Retrofit.Builder()
                 .baseUrl(KakaoLoginService.BASE_URL)
-                .client(client) // 클라이언트 추가
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
@@ -120,7 +107,7 @@ object RetrofitClient {
     fun getLocationService(): LocationService {
         if (locationRetrofit == null) {
             locationRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
+                .baseUrl(LocationService.BASE_URL) // 위치 서비스에 맞는 BASE_URL 사용
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -133,7 +120,7 @@ object RetrofitClient {
         if (chatRetrofit == null) {
             chatRetrofit = Retrofit.Builder()
                 .baseUrl(ReadmeServerService.BASE_URL)
-                .client(chatClient)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
@@ -162,5 +149,10 @@ object RetrofitClient {
                 .build()
         }
         return readmeRetrofit!!.create(ReadmeServerService::class.java)
+    }
+
+    // getToken 메서드 추가
+    fun getToken(): String? {
+        return token
     }
 }

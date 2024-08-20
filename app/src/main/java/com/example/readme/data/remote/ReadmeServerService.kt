@@ -4,7 +4,6 @@ import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookResponse
 import com.example.readme.data.entities.BookSearchResult
-import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch

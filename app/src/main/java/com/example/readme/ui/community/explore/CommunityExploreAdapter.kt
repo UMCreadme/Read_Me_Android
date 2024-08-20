@@ -45,7 +45,6 @@ class CommunityExploreAdapter(
                 onCommunityClick(item.communityId)
             }
         }
-
     }
 }
 
@@ -57,5 +56,4 @@ class CommunityInfoDiffCallback : DiffUtil.ItemCallback<CommunityListResponse>()
     override fun areContentsTheSame(oldItem: CommunityListResponse, newItem: CommunityListResponse): Boolean {
         return oldItem == newItem
     }
-
 }

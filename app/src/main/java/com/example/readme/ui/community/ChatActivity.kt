@@ -54,8 +54,8 @@ class ChatActivity : AppCompatActivity() {
 
         // 지도를 비동기로 가져오고 초기화
         mapView.getMapAsync { googleMap ->
-            val seoul = LatLng(37.5665, 126.9780)
-            googleMap.addMarker(MarkerOptions().position(seoul).title("Marker in Seoul"))
+            val seoul = LatLng(37.5611, 126.9976)
+            googleMap.addMarker(MarkerOptions().position(seoul).title("Hongik"))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoul, 15f))
         }
 
@@ -70,6 +70,7 @@ class ChatActivity : AppCompatActivity() {
         // RecyclerView 설정
         chatAdapter = ChatAdapter(userId)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        chatAdapter = ChatAdapter(userId)
         recyclerView.adapter = chatAdapter
 
         // DrawerLayout 및 ActionBarDrawerToggle 설정
@@ -109,25 +110,11 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    // 메시지 내용을 포맷팅하는 함수
-    private fun formatMessageContent(content: String): String {
-        // 첫 번째 '#'은 빈 문자열로 대체하고 이후 '#'은 '|'로 대체
-        val firstHashIndex = content.indexOf('#')
-        if (firstHashIndex == -1) return content // '#'이 없는 경우 원본 문자열 반환
-
-        // 첫 번째 '#' 이후의 문자열 처리
-        val rest = content.substring(firstHashIndex + 1)
-        val formattedRest = rest.replace("#", "|")
-
-        // 포맷팅된 문자열 반환
-        return content.substring(0, firstHashIndex) + formattedRest
-    }
-
     // CommunityMessageResponse를 ChatMessage로 변환하는 확장 함수
     private fun CommunityMessageResponse.toChatMessage(userId: Int, nickname: String): ChatMessage? {
         // 유효하지 않은 데이터가 들어왔을 경우 기본값 설정
         val id = if (this.id > 0) this.id else 0
-        val content = this.content?.replace("|", "#") ?: "No content"
+        val content = this.content ?: "message"
         val timestamp = this.timestamp ?: "Unknown time"
 
         return ChatMessage(
@@ -161,6 +148,7 @@ class ChatActivity : AppCompatActivity() {
 
                         if (messages.isNotEmpty()) {
                             chatAdapter.submitList(messages)
+                            Log.d("ChatActivity", "Messages: $messages")
                             recyclerView.visibility = View.VISIBLE
                         } else {
                             recyclerView.visibility = View.GONE
@@ -181,14 +169,30 @@ class ChatActivity : AppCompatActivity() {
 
     // 메시지를 전송하는 함수
     private fun sendMessage(content: String) {
-        val formattedContent = formatMessageContent(content)
         val service = RetrofitClient.getChatFetchService()
-        val messageRequest = MessageRequest(formattedContent)
+        val messageRequest = MessageRequest(content)
 
         lifecycleScope.launch {
             try {
                 val response = service.sendMessage(communityId, messageRequest)
                 if (response.isSuccessful) {
+                    // 전송 성공 시 메시지를 RecyclerView에 추가
+                    val chatMessage = ChatMessage(
+                        messageId = 0,  // 서버에서 반환된 ID로 대체
+                        userId = userId,
+                        nickname = "Me",  // 실제 닉네임으로 대체
+                        content = content,
+                        createdAt = "Just now",
+                        isMine = true
+                    )
+
+                    // 현재 메시지 리스트에 새 메시지 추가
+                    val currentMessages = chatAdapter.currentList.toMutableList()
+                    currentMessages.add(chatMessage)
+                    chatAdapter.submitList(currentMessages)
+
+                    messageInput.text.clear()  // 입력 필드 비우기
+                    recyclerView.scrollToPosition(currentMessages.size - 1)  // 새로운 메시지로 스크롤
                     showToast("메시지가 성공적으로 전송되었습니다.")
                 } else {
                     val errorBody = response.errorBody()?.string() ?: "알 수 없는 오류"
