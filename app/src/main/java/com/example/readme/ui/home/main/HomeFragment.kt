@@ -34,14 +34,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.initAfterBinding()
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.VISIBLE
 
-        // 워커 스레드에서 데이터 가져오기 - lifecycleScope를 사용하여 프래그먼트 생명주기에 맞춰 코루틴 관리
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                feedViewModel.fetchFeeds() // 네트워크 또는 시간이 오래 걸리는 작업
-            } catch (e: Exception) {
-                Log.e("HomeFragment", "Failed to fetch feeds", e)
-            }
+        try {
+            feedViewModel.fetchFeeds() // 네트워크 또는 시간이 오래 걸리는 작업
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Failed to fetch feeds", e)
         }
+
 
         // categories 데이터가 변경될 때마다 UI를 업데이트
         feedViewModel.categories.observe(viewLifecycleOwner, Observer { categories ->

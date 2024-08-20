@@ -31,7 +31,7 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
         shortsDetailAdapter = ShortsDetailAdapter(ArrayList())
         binding.shortsViewPager.adapter = shortsDetailAdapter
 
-        viewModel.fetchShortsDetails(shortsId, start="main", page = 1, size = 4)
+        viewModel.fetchShortsDetails(shortsId, start, page = 1, size = 4)
     }
 
     override fun initDataBinding() {

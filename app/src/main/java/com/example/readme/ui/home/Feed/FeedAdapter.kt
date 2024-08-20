@@ -92,7 +92,6 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
                     ) {
                         binding.shortsImage.background = resource
                     }
-
                     override fun onLoadCleared(placeholder: Drawable?) {
                         // Called when the resource is no longer needed, here you can clear the background if needed
                     }

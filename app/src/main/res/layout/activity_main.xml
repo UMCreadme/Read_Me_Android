@@ -18,6 +18,7 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_height="70dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
@@ -27,6 +28,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:text="Read Me"
             android:textColor="@color/Primary"
             android:textSize="35sp"
@@ -61,7 +63,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:textColor="@color/Black"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_next"
@@ -72,8 +74,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_marginEnd="20sp"
             android:background="@drawable/round"
             android:text="미리 보기"
-            android:visibility="gone"
-             />
+            android:visibility="gone" />
 
     </androidx.appcompat.widget.Toolbar>
 
