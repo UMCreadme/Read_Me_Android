@@ -119,9 +119,9 @@ class Feed2Adapter(
         holder.bind(feed)
     }
 
-//    override fun getItemId(position: Int): Long {
-//        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
-//    }
+    override fun getItemId(position: Int): Long {
+        return list[position].shortsId.hashCode().toLong() // 각 아이템의 고유 ID 반환
+    }
 
     override fun getItemCount(): Int {
         return list.size
@@ -169,7 +169,7 @@ class Feed2Adapter(
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
