@@ -1,92 +1,123 @@
 package com.example.readme.ui.community.explore
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.readme.R
+import com.example.readme.data.entities.CommunityDetailResponse
+import com.example.readme.data.repository.CommunityRepository
 import com.example.readme.databinding.FragmentCommunityDetailBinding
-import com.example.readme.ui.community.Community
-import com.example.readme.utils.RetrofitClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.readme.ui.MainActivity
+import com.example.readme.ui.base.BaseFragment
+import com.example.readme.ui.home.make.preview.FlowLayout
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
-class CommunityDetailFragment : Fragment() {
+class CommunityDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.layout.fragment_community_detail) {
 
-    private var communityId: Int? = null
-    private lateinit var binding: FragmentCommunityDetailBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            communityId = it.getInt("communityId")
-        }
+    private val viewModel: CommunityDetailViewModel by viewModels {
+        CommunityDetailViewModelFactory(CommunityRepository)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCommunityDetailBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initAfterBinding() {
+        super.initAfterBinding()
 
         // communityId가 존재할 경우에만 데이터를 가져옴
-        communityId?.let {
-            fetchCommunityDetails(it)
+        arguments?.getInt("communityId")?.let {
+            viewModel.fetchCommunityDetail(it)
         }
-    }
 
-    private fun fetchCommunityDetails(id: Int) {
-        lifecycleScope.launch {
-            try {
-                val service = RetrofitClient.getReadmeServerService()
-                val response = withContext(Dispatchers.IO) {
-                    service.getCommunityDetail(id)
-                }
+        viewModel.communityDetail.observe(this) { community ->
+            updateUI(community)
+        }
 
-                if (response.isSuccess) {
-                    val community = response.result
-                    updateUI(community)
-                } else {
-                    // 실패 메시지 처리
-                }
-            } catch (e: Exception) {
-                // 예외 처리
+        binding.btnGoToChat.setOnClickListener {
+            // 참여중일 경우
+            if(binding.btnGoToChat.text == "채팅하기") {
+                // 채팅방으로 이동 - 서비스 준비중 토스팅 알림
+                Toast.makeText(context, "서비스 준비중입니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 가입하기
+                viewModel.joinCommunity(arguments?.getInt("communityId") ?: 0)
             }
         }
+
+        binding.backCommunityList.setOnClickListener {
+            (activity as MainActivity).onBackPressed()
+        }
     }
 
-    private fun updateUI(community: Community?) {
+    private fun updateUI(community: CommunityDetailResponse?) {
         community?.let {
             // 이미지 리소스 설정
-            binding.userProfileImg.setImageResource(it.imageResId)
+            binding.bookTitle.text = it.book.title
+            binding.bookAuthor.text = it.book.author
 
-            // 제목, 저자, 위치, 책 커버, 닉네임, 내용, 생성일 설정
-            binding.bookTitle.text = it.title
-            binding.bookAuthor.text = it.author
+            Glide.with(this)
+                .load(it.book.imageUrl)
+                .placeholder(R.drawable.ic_book_placeholder) // TODO: 이미지 로딩 리소스로 바꾸기
+                .into(binding.bookCover)
+
+            Glide.with(this)
+                .load(it.leader.imageUrl)
+                .placeholder(R.drawable.ic_book_placeholder) // TODO: 이미지 로딩 리소스로 바꾸기
+                .into(binding.userProfileImg)
+
+            binding.userName.text = it.leader.account
+            binding.userNickname.text = it.leader.nickname
             binding.userLocation.text = it.location
-            binding.bookCover.setImageResource(it.bookCover)
-            binding.userNickname.text = it.userNickname
-            binding.userComment.text = it.content
-            binding.capacity.text = "${it.currentMembers}/${it.totalMembers}"
+            binding.writeTime.text = getTimeAgo(it.createdAt)
+            binding.userContent.text = it.content
 
-            // 태그 추가
-//            context?.let { ctx ->
-//                binding.tagsContainer.removeAllViews()
-//                it.tags.forEach { tag ->
-//                    val tagView = LayoutInflater.from(ctx).inflate(R.layout.item_tag, binding.tagsContainer, false) as TextView
-//                    tagView.text = tag
-//                    binding.tagsContainer.addView(tagView)
-//                }
-//            }
+            binding.capacity.text = "${it.currentMembers} / ${it.capacity}"
+            if(it.isParticipating) {
+                binding.btnGoToChat.text = "채팅하기"
+            } else {
+                binding.btnGoToChat.text = "가입하기"
+            }
+
+            addTagsToFlowLayout(binding.tagsFlow, it.tags)
+        }
+    }
+
+    private fun getTimeAgo(dateString: String): String {
+        val nowDateTime = Calendar.getInstance().timeInMillis
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREAN)
+        val postingDateTime = df.parse(dateString)?.time ?: return ""
+
+        val timeDiff = nowDateTime - postingDateTime
+
+        val minutes = timeDiff / 60000
+        val hours = minutes / 60
+        val days = hours / 24
+
+        return when {
+            minutes < 1 -> "방금 전"
+            minutes < 60 -> "${minutes}분 전"
+            hours < 24 -> "${hours}시간 전"
+            else -> "${days}일 전"
+        }
+    }
+
+    private fun addTagsToFlowLayout(layout: FlowLayout, tags: List<String>) {
+        layout.removeAllViews()  // 기존 태그 제거
+
+        layout.horizontalSpacing = 16
+        layout.verticalSpacing = 16
+
+        for (tag in tags) {
+            val tagTextView = LayoutInflater.from(layout.context).inflate(R.layout.tag_item, layout, false) as TextView
+            tagTextView.text = tag
+            layout.addView(tagTextView)
         }
     }
 }

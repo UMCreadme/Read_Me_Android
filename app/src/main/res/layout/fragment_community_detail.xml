@@ -2,243 +2,182 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.community.BookDetailFragment">
-
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.readme.ui.community.BookDetailViewModel" />
-    </data>
+    tools:context=".ui.community.explore.CommunityDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
+        <ImageView
+            android:id="@+id/back_community_list"
+            android:layout_width="13dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            tools:ignore="MissingConstraints">
+            android:src="@drawable/backbtn_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 뒤로가기 버튼 -->
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/Black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/back_community_list"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="아무것도 없는 책" />
+
+        <TextView
+            android:id="@+id/bookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginVertical="12dp"
+            android:textColor="@color/Black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/book_img_section"
+            app:layout_constraintStart_toEndOf="@+id/back_community_list"
+            app:layout_constraintTop_toBottomOf="@+id/bookTitle"
+            tools:text="레미 쿠르종 글/그림     이성엽 옮김" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/book_img_section"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bookAuthor">
+
             <ImageView
-                android:id="@+id/back_community_list"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/back_btn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 책 제목과 저자 -->
-            <LinearLayout
-                android:id="@+id/book_name_layout_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
+                android:id="@+id/bookCover"
+                android:layout_width="wrap_content"
+                android:layout_height="280dp"
+                android:src="@drawable/book_cover"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/back_community_list">
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/bookTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아무것도 없는 책"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/bookAuthor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="레미 쿠르종 글/그림    이성엽 옮김"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- ScrollView 시작 -->
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/user_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_layout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="26dp"
+            android:background="@color/Sub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_img_section">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/userProfileImg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="14dp"
+                android:scaleType="centerCrop"
+                android:background="@color/Light_Gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@id/userProfileImg"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                tools:text="kimtomato"/>
+
+            <TextView
+                android:id="@+id/userNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/White"
+                app:layout_constraintStart_toEndOf="@id/userProfileImg"
+                app:layout_constraintTop_toBottomOf="@id/userName"
+                tools:text="김토마" />
+
+            <TextView
+                android:id="@+id/userLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@id/userName"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/Light_Light_Gray"
+                android:textSize="16sp"
+                android:background="@drawable/place_background"
+                tools:text="부산"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_layout">
 
             <LinearLayout
+                android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="12dp"
+                android:orientation="vertical" >
 
-                <!-- 책 커버 이미지 -->
-                <ImageView
-                    android:id="@+id/bookCover"
-                    android:layout_width="200dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/book_cover" />
-
-                <!-- 사용자 정보 섹션 -->
-                <LinearLayout
-                    android:id="@+id/user_layout"
+                <TextView
+                    android:id="@+id/writeTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/Sub"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:textColor="@color/Light_Gray"
+                    android:textSize="12sp"
+                    tools:text="20분 전" />
 
-                    <ImageView
-                        android:id="@+id/userProfileImg"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/user_profile" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/userName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="kimtomato"
-                            android:textColor="@color/White"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/userNickname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="김토마"
-                            android:textColor="@color/White"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/userLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="150dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/place_background"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="부산"
-                        android:textColor="@color/Light_Light_Gray"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <!-- 작성 시간 -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/userContent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="8dp"
-                    android:text="20분 전" />
+                    android:textColor="@color/Black"
+                    android:textSize="14sp"
+                    tools:text="저는 이 책을 읽고 어떠한 부분에서 설렜는데 비슷하게 설렌 분 찾습니다.\n.\n.\n.\n.\n.\n.\n누구든 좋아요~" />
 
-                <!-- 사용자 댓글 -->
-                <TextView
-                    android:id="@+id/userComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="16dp"
-                    android:text="저는 이 책을 읽고 어떤한 부분에서 설렜는데 비슷하게 설렌 분 찾습니다.\n\n누구든 좋아요~"
-                    android:textSize="16sp" />
-
-                <!-- 태그 레이블 -->
                 <TextView
                     android:id="@+id/tagsLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="# 태그"
-                    android:textColor="@color/Black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <!-- 태그를 추가하는 컨테이너 -->
-                <LinearLayout
-                    android:id="@+id/tagsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/tag1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tag4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/tag_detail_background"
-                        android:text="#집에 가고싶다"
-                        android:textColor="@color/Black"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textSize="14sp" />
-
-
-                </LinearLayout>
-
+                    android:layout_marginTop="21dp"
+                    android:textColor="@color/Black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="# 태그" />
 
                 <!-- 태그를 배치하는 Flow -->
-                <androidx.constraintlayout.helper.widget.Flow
+                <com.example.readme.ui.home.make.preview.FlowLayout
                     android:id="@+id/tagsFlow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     app:constraint_referenced_ids="tag1,tag2,tag3,tag4"
                     app:flow_horizontalGap="8dp"
                     app:flow_verticalGap="8dp"
@@ -247,56 +186,59 @@
             </LinearLayout>
         </ScrollView>
 
-        <!-- 멤버 수와 채팅 버튼 -->
-        <LinearLayout
-            android:id="@+id/btn_layout"
+        <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="8dp"
+            android:background="@drawable/upper_shadow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/member_layout"
+            app:layout_constraintVertical_bias="1.0" />
 
-            <LinearLayout
-                android:id="@+id/member_layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/member_layout"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:background="@color/White"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/member"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_members2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/capacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/member"
+                android:textSize="14sp"
+                android:textColor="@color/Black"
+                tools:text="2 / 6"/>
 
-                <ImageView
-                    android:id="@+id/member"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/ic_members2" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/capacity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2/6"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-            </LinearLayout>
             <Button
                 android:id="@+id/btn_go_to_chat"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:text="채팅하기"
-                android:textSize="18sp"
                 android:background="@drawable/btn_rect_background"
+                android:text="채팅하기"
                 android:textColor="@color/White"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"/>
-        </LinearLayout>
-
-
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,6 +21,8 @@ object CommunityRepository {
     suspend fun searchCommunities(keyword: String, page: Int, size: Int) = apiService.searchCommunities(keyword, page, size)
 
     // 특정 커뮤니티 정보 가져오기
-    suspend fun getCommunityInfo(communityId: Int) = apiService.getCommunityDetail(communityId)
+    suspend fun getCommunityDetail(communityId: Int) = apiService.getCommunityDetail(communityId)
 
+    // 커뮤니티 가입하기
+    suspend fun joinCommunity(communityId: Int) = apiService.joinCommunity(communityId)
 }

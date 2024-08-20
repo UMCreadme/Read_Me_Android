@@ -4,6 +4,7 @@ import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
 import com.example.readme.data.entities.BookResponse
 import com.example.readme.data.entities.BookSearchResult
+import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
 import com.example.readme.data.entities.RecentSearch
@@ -116,13 +117,10 @@ interface ReadmeServerService {
     ) : ResponseWithPagination<List<CommunityListResponse>>
 
     @GET("communities/{communityId}")
-    suspend fun getCommunityDetail(@Path("communityId") communityId: Int): CommunityDetailResponse
+    suspend fun getCommunityDetail(@Path("communityId") communityId: Int): ResponseWithData<CommunityDetailResponse>
 
-    @GET("books/search")
-    suspend fun searchBooks(@Query("keyword") keyword: String): BookResponse
-
-    @GET("/communities/{communityId}")
-    suspend fun getCommunityInfo(@Path("communityId") communityId: Int): CommunityDetailResponse
+    @POST("communities/{communityId}")
+    suspend fun joinCommunity(@Path("communityId") communityId: Int): Response
 
 
     /**
