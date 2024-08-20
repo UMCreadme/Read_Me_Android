@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
+        if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager
                 .popBackStack()
         }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     changeFragment(MyPageFragment())
                 }
             }
-            return@setOnItemSelectedListener true
+            true
         }
         binding.bottomNavigationView.setOnItemReselectedListener {  } // 바텀네비 재클릭시 화면 재생성 방지
     }
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 replace(R.id.nav_host_fragment, fragment)
 
-                addToBackStack(null)
+                addToBackStack(fragment.javaClass.simpleName)
             }
     }
 

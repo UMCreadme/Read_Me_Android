@@ -44,10 +44,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         })
 
-
-
-
-
         binding.btnMakeshorts.setOnClickListener {
             (activity as MainActivity).addFragment(MakeFragment())
         }

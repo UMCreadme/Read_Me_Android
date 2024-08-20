@@ -10,7 +10,6 @@ import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.base.BaseFragment
-
 class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragment_shorts) {
 
     private val viewModel: ShortsDetailViewModel by viewModels()
@@ -22,6 +21,9 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     private var isUserScrolling = false
 
     override fun initStartView() {
+
+
+
         super.initStartView()
         (activity as MainActivity).NoShow()
 
@@ -92,16 +94,22 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     }
 
     private fun setupAutoScroll() {
-        handler = Handler(Looper.getMainLooper())
-        runnable = object : Runnable {
-            override fun run() {
-                val itemCount = binding.shortsViewPager.adapter?.itemCount ?: 0
-                val currentItem = binding.shortsViewPager.currentItem
-                val nextItem = if (currentItem < itemCount - 1) currentItem + 1 else itemCount - 1
+        // 초기화가 두 번 이상 되지 않도록 보장
+        if (!::handler.isInitialized) {
+            handler = Handler(Looper.getMainLooper())
+        }
 
-                // 애니메이션이 완료된 후 페이지를 변경
-                binding.shortsViewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, autoScrollInterval)
+        if (!::runnable.isInitialized) {
+            runnable = object : Runnable {
+                override fun run() {
+                    val itemCount = binding.shortsViewPager.adapter?.itemCount ?: 0
+                    val currentItem = binding.shortsViewPager.currentItem
+                    val nextItem = if (currentItem < itemCount - 1) currentItem + 1 else itemCount - 1
+
+                    // 애니메이션이 완료된 후 페이지를 변경
+                    binding.shortsViewPager.setCurrentItem(nextItem, true)
+                    handler.postDelayed(this, autoScrollInterval)
+                }
             }
         }
 
@@ -110,13 +118,19 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     }
 
     private fun startAutoScroll() {
+        // 초기화 상태 확인
+        if (!::handler.isInitialized || !::runnable.isInitialized) {
+            return
+        }
         // 기존의 Runnable을 제거하고 새로 시작
         stopAutoScroll()
         handler.postDelayed(runnable, autoScrollInterval)
     }
 
     private fun stopAutoScroll() {
-        handler.removeCallbacks(runnable)
+        if (::handler.isInitialized && ::runnable.isInitialized) {
+            handler.removeCallbacks(runnable)
+        }
     }
 
     override fun onPause() {
