@@ -71,15 +71,7 @@ class Feed2Adapter(
             }
 
             binding.likeIcon.setOnClickListener {
-                // 좋아요 상태를 업데이트
-                feed.isLike = !feed.isLike
-                feed.likeCnt += if (feed.isLike) 1 else -1
-
-                // 어댑터의 데이터 업데이트
-                notifyItemChanged(adapterPosition)
-
-                // ViewModel에 업데이트된 좋아요 정보를 전달
-                viewModel.updateLikeStatus2(feed)
+                myItemClickListener.onLikeClick(feed, feed.isLike)  // 좋아요 버튼 클릭 시 호출
             }
 
             binding.likeCount.text = "좋아요 ${feed.likeCnt}개"

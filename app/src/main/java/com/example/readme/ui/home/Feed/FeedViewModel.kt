@@ -106,7 +106,7 @@ class FeedViewModel : ViewModel() {
                             it
                         }
                     } ?: emptyList()
-                    _feedsShorts.value = updatedFeeds
+                    _feedsShorts.postValue(updatedFeeds)
 //                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
@@ -131,7 +131,7 @@ class FeedViewModel : ViewModel() {
                             it
                         }
                     } ?: emptyList()
-                    _categoryFeeds.value = updatedFeeds
+                    _categoryFeeds.postValue(updatedFeeds)
 //                    Log.d("FeedViewModel", "Like updated for feed2: ${categoryFeeds.shortsId}")
                 } else {
                     Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
@@ -139,36 +139,6 @@ class FeedViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.d("FeedViewModel", "Failed to update like status: ${e.message}")
             }
-        }
-    }
-
-    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
-    fun updateLikeStatus(item: FeedInfo) {
-        viewModelScope.launch(Dispatchers.IO) {
-            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
-            val updatedItems = _feedsShorts.value.orEmpty().map {
-                if (it.shortsId == item.shortsId) {
-                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
-                } else {
-                    it
-                }
-            }
-            _feedsShorts.postValue(updatedItems)
-        }
-    }
-
-    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
-    fun updateLikeStatus2(item: com.example.readme.data.entities.category.FeedInfo) {
-        viewModelScope.launch(Dispatchers.IO) {
-            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
-            val updatedItems = _categoryFeeds.value.orEmpty().map {
-                if (it.shortsId == item.shortsId) {
-                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
-                } else {
-                    it
-                }
-            }
-            _categoryFeeds.postValue(updatedItems)
         }
     }
 }
