@@ -8,7 +8,10 @@ import com.example.readme.R
 import com.example.readme.data.remote.Book
 import com.example.readme.databinding.ItemShortsCardBinding
 
-class MyBooksAdapter (private val booksList: List<Book>) : RecyclerView.Adapter<MyBooksAdapter.BookViewHolder>() {
+class MyBooksAdapter (
+    private val booksList: List<Book>,
+    private val itemClickListener: (Book) -> Unit
+) : RecyclerView.Adapter<MyBooksAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(private val binding: ItemShortsCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(book: Book) {
@@ -22,6 +25,10 @@ class MyBooksAdapter (private val booksList: List<Book>) : RecyclerView.Adapter<
             } else {
                 binding.shortsImage.setImageResource(R.drawable.img_profile_default)
                 // 나중에 책 기본 이미지 추가!!!
+            }
+
+            binding.root.setOnClickListener {
+                itemClickListener(book)  // 아이템 클릭 시 콜백 호출
             }
         }
     }

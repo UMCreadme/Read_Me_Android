@@ -17,6 +17,7 @@ data class BookPageInfo(
 
 // 책 정보 클래스
 data class Book(
+    val bookId: Int,
     val bookImage: String,
     val bookTitle: String,
     val bookAuthor: String,

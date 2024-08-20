@@ -111,6 +111,10 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- Kakao 로그인 리디렉션 처리 -->
