@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import com.example.readme.data.remote.KakaoLoginService
 import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.ui.data.remote.ShortsPostService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.KeyStore
@@ -22,6 +23,7 @@ object RetrofitClient {
     private var locationRetrofit: Retrofit? = null
     private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
+    private var shortspostRetrofit: Retrofit? = null
     private var createRetrofit: Retrofit? = null
     private var token: String? = null
 
@@ -114,6 +116,17 @@ object RetrofitClient {
                 .build()
         }
         return mainInfoRetrofit!!.create(MainInfoService::class.java)
+    }
+
+    fun getShortsPostService(): ShortsPostService {
+        if (shortspostRetrofit == null) {
+            shortspostRetrofit = Retrofit.Builder()
+                .baseUrl(ShortsPostService.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return shortspostRetrofit!!.create(ShortsPostService::class.java)
     }
 
     // Location 서버 API Retrofit 객체 생성
