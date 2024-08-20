@@ -30,6 +30,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     // ViewModel 초기화
     private val feedViewModel: FeedViewModel by viewModels()
     private var category: String? = null
+    private var isFirstLoad: Boolean = true
 
     override fun initStartView() {
         super.initStartView()
@@ -44,12 +45,32 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         Log.d("CategoryDynamicFragment", "Category: $category")
 
         if (category == "추천") {
-            binding.rvExtra.visibility = View.VISIBLE
-            feedViewModel.fetchCategoryFeeds(category!!)
+            feedViewModel.fetchFeeds()
         } else {
-            binding.rvExtra.visibility = View.GONE
             feedViewModel.fetchCategoryFeeds(category!!)
         }
+
+
+//        // 처음 로드일 때 "추천" 카테고리인지 확인하여 fetchFeeds 호출
+//        if (isFirstLoad) {
+//            if (category == "추천") {
+//                binding.rvExtra.visibility = View.VISIBLE
+//                feedViewModel.fetchFeeds()
+//            } else {
+//                binding.rvExtra.visibility = View.GONE
+//                feedViewModel.fetchCategoryFeeds(category!!)
+//            }
+//            isFirstLoad = false
+//        } else {
+//            // 이후에는 category에 따라 fetchCategoryFeeds 호출
+//            if (category == "추천") {
+//                binding.rvExtra.visibility = View.VISIBLE
+//                feedViewModel.fetchCategoryFeeds(category!!)
+//            } else {
+//                binding.rvExtra.visibility = View.GONE
+//                feedViewModel.fetchCategoryFeeds(category!!)
+//            }
+//        }
 
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
@@ -116,7 +137,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         }
 
 //        // Show or hide rvExtra based on category
-//        binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
+        binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
     }
 
     private fun setupCategoryRecyclerView(categoryFeeds: List<FeedInfo>) {

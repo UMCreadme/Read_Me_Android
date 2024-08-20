@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 
 // ViewModel에서 데이터 요청
 class FeedViewModel : ViewModel() {
+
     private val _feeds = MutableLiveData<List<FeedInfo>>()
     val feeds: LiveData<List<FeedInfo>> get() = _feeds
 
@@ -37,14 +38,14 @@ class FeedViewModel : ViewModel() {
 
         _combinedData.addSource(feeds) { feeds ->
             val shorts = _shorts.value
-            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
+            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
         }
-
         _combinedData.addSource(shorts) { shorts ->
             val feeds = _feeds.value
-            _combinedData.postValue(Pair(feeds ?: emptyList(), shorts ?: emptyList()))
+            _combinedData.value = Pair(feeds ?: emptyList(), shorts ?: emptyList())
         }
     }
+
 
     fun fetchFeeds() {
         viewModelScope.launch {
@@ -55,13 +56,14 @@ class FeedViewModel : ViewModel() {
                 if (response.body()?.isSuccess == true) {
                     val result = response.body()?.result
                     Log.d("FeedViewModel", "Fetched feeds: ${result}")
-
+                    val categories = result?.categories ?: emptyList()
+                    _categories.postValue(categories)
                     // 서버에서 받아온 카테고리 정보를 LiveData에 저장
-                    _categories.postValue(result?.categories ?: emptyList())
-
                     // 필터링 없이 전체 feeds 리스트를 사용
                     _feeds.postValue(result?.feeds ?: emptyList())
-                    _shorts.postValue(result?.shorts ?: emptyList())
+
+                    val shorts = result?.shorts ?: emptyList()
+                    _shorts.postValue(shorts)
                 } else {
                     Log.d("FeedViewModel", "Response not successful")
                 }
@@ -161,7 +163,7 @@ class FeedViewModel : ViewModel() {
     fun updateLikeStatus2(item: com.example.readme.data.entities.category.FeedInfo) {
         viewModelScope.launch(Dispatchers.IO) {
             // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
-            val updatedItems = _feeds.value.orEmpty().map {
+            val updatedItems = _categoryFeeds.value.orEmpty().map {
                 if (it.shortsId == item.shortsId) {
                     it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
                 } else {
@@ -170,7 +172,7 @@ class FeedViewModel : ViewModel() {
             }
 
             // 업데이트된 리스트를 LiveData에 다시 할당
-            _feeds.postValue(updatedItems)
+            _categoryFeeds.postValue(updatedItems)
         }
     }
 }

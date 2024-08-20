@@ -10,15 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.readme.R
-import com.example.readme.databinding.FeedItemBinding
 import com.example.readme.data.entities.inithome.FeedInfo
+import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FeedAdapter(
-    private val viewModel: FeedViewModel,
-    var list: ArrayList<FeedInfo>
-) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
+class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
 
     init {
         setHasStableIds(true)
@@ -82,7 +79,6 @@ class FeedAdapter(
             }
 
             binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
-
             binding.mainTitle.text = feed.title
             binding.content.text = feed.content
             if(feed.commentCnt == 0) {
