@@ -13,9 +13,10 @@ data class ProfileResult(
     val account: String,
     val comment: String,
     val readCount: Int,
-    val followerNum: Int,
+    var followerNum: Int,
     val followingNum: Int,
-    val profileImg: String
+    val profileImg: String,
+    val isFollowed: Boolean
 )
 
 data class ProfileUpdateRequest(

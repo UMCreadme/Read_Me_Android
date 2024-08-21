@@ -68,13 +68,11 @@ interface ReadmeServerService {
 
     @POST("/users/{userId}/follow")
     fun followUser(
-        @Header("Authorization") token: String,
         @Path("userId") userId: Int
     ): Response
 
     @DELETE("/users/{userId}/follow")
     fun unfollowUser(
-        @Header("Authorization") token: String,
         @Path("userId") userId: Int
     ): Response
 

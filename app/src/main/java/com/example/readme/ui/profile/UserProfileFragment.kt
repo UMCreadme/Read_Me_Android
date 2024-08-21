@@ -1,11 +1,10 @@
 package com.example.readme.ui.profile
 
 import android.util.Log
-import androidx.core.content.ContextCompat
+import android.view.View
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
 import com.example.readme.R
 import com.example.readme.databinding.FragmentUserprofileBinding
 import com.example.readme.data.remote.ReadmeServerService
@@ -26,7 +25,7 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).ShowMyPage()
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
     }
 
     override fun initDataBinding() {
@@ -40,21 +39,25 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         super.initAfterBinding()
 
         val userId: Int = arguments?.getInt("userId") ?: 0
-        var token = "example"
+
+        viewModel.fetchProfile(userId)
 
         // 프로필 정보 가져오기
-        viewModel.fetchProfile(userId).observe(viewLifecycleOwner) { profileResponse ->
+        viewModel.profile.observe(viewLifecycleOwner) { profileResponse ->
             if (profileResponse != null) {
                 // 정상적인 응답 처리
                 profileResponse?.let {
-                    Log.d("UserProfileFragment", "Profile Response: $profileResponse")
-
                     // 프로필 정보를 UI에 업데이트
                     binding.profileName.text = it.result.nickname
                     binding.profileId.text = "@${it.result.account}"
                     binding.profileBio.text = it.result.comment ?: ""
                     binding.followersCount.text = "${it.result.followerNum}"
                     binding.followingCount.text = "${it.result.followingNum}"
+                    if(it.result.isFollowed) {
+                        binding.btnPfFollow.isSelected = true
+                    } else {
+                        binding.btnPfFollow.isSelected = false
+                    }
 
                     // 이미지 로딩 Glide : 비동기로 처리
                     Glide.with(this)
@@ -79,18 +82,18 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
             }
         }.attach()
 
-        // 버튼 클릭 리스너 설정
         binding.btnPfFollow.setOnClickListener {
-            binding.btnPfFollow.isSelected = binding.btnPfFollow.isSelected != true;
-
-            val currentFollowingState = viewModel.isFollowing.value ?: false
-            if (currentFollowingState) {
-                viewModel.unfollowUser(token, userId)
+            val currentFollowState = viewModel.isFollowing.value ?: false
+            if (currentFollowState) {
+                viewModel.unfollowUser(userId)
             } else {
-                viewModel.followUser(token, userId)
+                viewModel.followUser(userId)
             }
         }
 
+        viewModel.isFollowing.observe(viewLifecycleOwner) { isFollowing ->
+            binding.btnPfFollow.isSelected = isFollowing
+        }
     }
 
 }
