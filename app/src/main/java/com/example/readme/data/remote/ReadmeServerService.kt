@@ -6,6 +6,7 @@ import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
 import com.example.readme.data.entities.MyCommunityListResponse
+import com.example.readme.data.entities.PostCommunityRequest
 import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
@@ -135,6 +136,8 @@ interface ReadmeServerService {
     @POST("communities/{communityId}")
     suspend fun joinCommunity(@Path("communityId") communityId: Int): Response
 
+    @POST("communities")
+    suspend fun postCommunity(@Body community: PostCommunityRequest): Response
 
     /**
      * RECENT-SEARCH 관련 API

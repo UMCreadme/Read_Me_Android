@@ -1,74 +1,69 @@
 package com.example.readme.ui.community.create
 
-import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
-import androidx.fragment.app.Fragment
+import android.view.View
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.readme.R
+import com.example.readme.data.repository.CommunityRepository
 import com.example.readme.databinding.FragmentCommunityCreateBinding
-import com.example.readme.databinding.FragmentCommunityCreateStartBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 
-class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateStartBinding>(R.layout.fragment_community_create_start) {
+class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateBinding>(R.layout.fragment_community_create) {
+
+    private val viewModel: CommunityCreateViewModel by viewModels {
+        CommunityCreateViewModelFactory(CommunityRepository)
+    }
+
     override fun initStartView() {
         super.initStartView()
-         setFragment(RecentSelectBookFragment())
+        (activity as MainActivity).NoShow()
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
 
-        // 검색 버튼 클릭 시 키보드 숨김
-        binding.searchButton.setOnClickListener {
-            hideKeyboard()
+        // 장소 텍스트 뷰 초기화
+        var placeTextViews = listOf(
+            binding.placeSeoul,
+            binding.placeBusan,
+            binding.placeDaegu,
+            binding.placeIncheon,
+            binding.placeGwangju,
+            binding.placeDaejeon,
+            binding.placeUlsan,
+            binding.placeSejong,
+            binding.placeGyeonggi,
+            binding.placeGangwon,
+            binding.placeChungbuk,
+            binding.placeChungnam,
+            binding.placeJeonbuk,
+            binding.placeJeonnam,
+            binding.placeGyeongbuk,
+            binding.placeGyeongnam,
+            binding.placeJeju
+        )
+
+        val bookCover = arguments?.getString("bookCover")
+        val bookTitle = arguments?.getString("bookTitle")
+        val isbn = arguments?.getString("ISBN") as String
+        val author = arguments?.getString("author")
+
+        binding.bookAuthorTextView.text = bookTitle
+        binding.bookAuthorTextView.text = author
+
+        Glide.with(binding.root.context)
+            .load(bookCover)
+            .into(binding.bookImageView)
+
+        binding.updateButton.setOnClickListener {
+            val content = binding.descriptionEditText.text as String
+            val tags = binding.tagsEditText.text as String
+            val capacity = binding.participantsEditText.text as String
+            //val community = PostCommunityRequest(isbn, content, tags, location, capacity.toInt())
+            //viewModel.createCommunity(community)
         }
-
-        // EditText 검색 버튼 클릭 시 키보드 숨김
-        binding.searchEditText.setOnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP && binding.searchEditText.text.isNotEmpty()) {
-                hideKeyboard()
-                true
-            } else if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                hideKeyboard()
-                true
-            } else {
-                false
-            }
-        }
-
-        // EditText 텍스트 변경 시 책 검색
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                val keyword = binding.searchEditText.text.toString()
-                if (keyword.isEmpty()) {
-                    setFragment(RecentSelectBookFragment())
-                } else {
-                    val bookSearchResultFragment = BookSearchResultFragment()
-                    val bundle = Bundle()
-                    bundle.putString("keyword", keyword)
-                    bookSearchResultFragment.arguments = bundle
-                    setFragment(bookSearchResultFragment)
-                }
-            }
-        })
     }
 
-    fun hideKeyboard() {
-        val imm = requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-        binding.searchEditText.clearFocus() // 포커스 해제
-    }
-
-    fun setFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.search_section_fragment, fragment)
-            .commit()
-    }
 }

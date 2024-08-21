@@ -1,5 +1,6 @@
 package com.example.readme.data.repository
 
+import com.example.readme.data.entities.PostCommunityRequest
 import com.example.readme.data.remote.ReadmeServerService
 
 object CommunityRepository {
@@ -25,4 +26,8 @@ object CommunityRepository {
 
     // 커뮤니티 가입하기
     suspend fun joinCommunity(communityId: Int) = apiService.joinCommunity(communityId)
+
+    //커뮤니티 생성
+
+    suspend fun postCommunity(communityRequest: PostCommunityRequest) = apiService.postCommunity(communityRequest)
 }

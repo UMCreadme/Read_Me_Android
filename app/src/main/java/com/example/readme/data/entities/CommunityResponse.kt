@@ -47,3 +47,11 @@ data class CommunityLeader(
     @SerializedName("nickname") val nickname: String,
     @SerializedName("userId") val userId: Int
 )
+
+data class PostCommunityRequest(
+    @SerializedName("ISBN") var isbn: String,
+    @SerializedName("content") var content: String,
+    @SerializedName("tags") var tags: String,
+    @SerializedName("location") var location: String,
+    @SerializedName("capacity") var capacity: Int
+)
