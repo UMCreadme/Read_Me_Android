@@ -3,10 +3,12 @@ package com.example.readme.ui.mypage
 import MyPageViewModelFactory
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +21,10 @@ import com.example.readme.databinding.FragmentEditMypageBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
 
@@ -44,12 +50,12 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
             result.data?.data?.let { uri ->
                 // 이미지 URI를 사용해 프로필 사진 업데이트
                 binding.profileImage.setImageURI(uri)
+                // 이미지 URI를 MultipartBody.Part로 변환
+                val imagePart = prepareFilePart("profileImg", uri)
 
+                // 프로필 이미지 서버에 저장
+                updateProfileImg(imagePart)
 
-                // URI가 잘 저장되었는지 LiveData를 observe하여 확인
-                viewModel.profileImg.observe(viewLifecycleOwner) { imgUri ->
-                    Log.d("ViewModel uri", imgUri ?: "No URI set")
-                }
             }
         }
     }
@@ -148,6 +154,51 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
             } catch (e: Exception) {
                 // 오류 처리
                 Log.e("EditMyPageFragment", "Error updating profile", e)
+            }
+        }
+    }
+
+    // prepareFilePart 함수 정의
+    private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
+        val file = uriToFile(fileUri)
+        val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+        return MultipartBody.Part.createFormData(partName, file.name, requestFile)
+    }
+
+    // uriToFile 함수 정의
+    private fun uriToFile(uri: Uri): File {
+        val contentResolver = requireContext().contentResolver
+        val file = File(requireContext().cacheDir, "temp_profile_image")
+        val inputStream = contentResolver.openInputStream(uri)
+        val outputStream = file.outputStream()
+
+        inputStream?.use { input ->
+            outputStream.use { output ->
+                input.copyTo(output)
+            }
+        }
+        return file
+    }
+
+    // 서버로 프로필 이미지 업로드
+    private fun updateProfileImg(imagePart: MultipartBody.Part) {
+        lifecycleScope.launch {
+            try {
+                val token = "example_token" // 여기에 실제 토큰을 사용
+                val response = apiService.updateMyProfileImg(token, imagePart)
+                if (response.isSuccess) {
+                    Log.d("EditMyPageFragment", "Profile image updated successfully")
+                    // 업로드 성공 시 완료 토스트 메시지 표시
+                    Toast.makeText(requireContext(), "프로필 이미지가 성공적으로 업데이트되었습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("EditMyPageFragment", "Profile image update failed")
+                    // 업로드 실패 시 실패 토스트 메시지 표시
+                    Toast.makeText(requireContext(), "프로필 이미지 업데이트에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("EditMyPageFragment", "Error updating profile image", e)
+                // 예외 발생 시 실패 토스트 메시지 표시
+                Toast.makeText(requireContext(), "프로필 이미지 업데이트 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -12,13 +12,17 @@ import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.ui.community.Chat
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -47,11 +51,18 @@ interface ReadmeServerService {
         @Header("Authorization") token: String
     ): ProfileBooksResponse
 
-    @PATCH("/users/my")
+    @PUT("/users/my")
     suspend fun updateMyProfile(
         @Header("Authorization") token: String,
         @Body profileUpdateRequest: ProfileUpdateRequest
     ): MyPageResponse
+
+    @Multipart
+    @PUT("/users/my/image?directory=users")
+    suspend fun updateMyProfileImg(
+        @Header("Authorization") token: String,
+        @Part image: MultipartBody.Part
+    ): Response
 
     @DELETE("/users/my")
     suspend fun deleteProfileImage(

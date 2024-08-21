@@ -54,7 +54,7 @@ class EditMyPageViewModel(application: Application) : AndroidViewModel(applicati
         return ProfileUpdateRequest(
             nickname = _profileName.value,
             account = _profileAccount.value,
-            comment = _profileBio.value
+            comment = _profileBio.value ?: ""
         )
     }
 
