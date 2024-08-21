@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.readme.R
 import com.example.readme.databinding.ItemBookBinding
 import com.example.readme.data.entities.recentbook.Book
 
@@ -43,6 +44,7 @@ class RecentBookAdapter(var list: List<Book>, private var isRecent: Boolean = tr
         // 이미지 로딩 (Glide 사용)
         Glide.with(holder.itemView.context)
             .load(book.imageUrl)
+            .placeholder(R.drawable.img_1)
             .into(holder.bookImage)
 
         holder.title.text = book.title

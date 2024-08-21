@@ -20,7 +20,6 @@ class CommunityCreateViewModel(private val repository: CommunityRepository): Vie
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.postCommunity(community)
-
                 _communityCreate.postValue(response)
             } catch (e: Exception) {
                 e.printStackTrace()

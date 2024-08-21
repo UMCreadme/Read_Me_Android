@@ -38,6 +38,7 @@ class SearchShortsAdaptor(
             // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(item.profileImg)
+                .placeholder(R.drawable.userprofile_default)
                 .circleCrop()
                 .into(binding.feedProfile)
             binding.username.text = item.nickname
@@ -45,6 +46,7 @@ class SearchShortsAdaptor(
             // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(item.shortsImg)
+                .placeholder(R.drawable.img_1)
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource

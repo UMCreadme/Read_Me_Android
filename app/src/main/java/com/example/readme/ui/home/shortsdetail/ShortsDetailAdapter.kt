@@ -63,6 +63,7 @@ class ShortsDetailAdapter(private val viewModel: ShortsDetailViewModel, var list
             // 기존 데이터 바인딩 로직
             Glide.with(binding.root.context)
                 .load(shortsDetail.profileImg)
+                .placeholder(R.drawable.userprofile_default)
                 .into(binding.feedProfile)
 
             binding.username.text = shortsDetail.userAccount
@@ -70,6 +71,7 @@ class ShortsDetailAdapter(private val viewModel: ShortsDetailViewModel, var list
             // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(shortsDetail.shortsImg)
+                .placeholder(R.drawable.round)
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource

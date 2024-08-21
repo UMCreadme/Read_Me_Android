@@ -52,6 +52,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
             // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .placeholder(R.drawable.userprofile_default)
                 .centerInside()
                 .circleCrop()
                 .into(binding.feedProfile)
@@ -61,6 +62,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
                 .centerInside()
+                .placeholder(R.drawable.img_1)
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource

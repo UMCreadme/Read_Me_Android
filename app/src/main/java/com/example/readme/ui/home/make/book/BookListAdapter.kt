@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.readme.R
 import com.example.readme.databinding.ItemBookBinding
 import com.example.readme.data.entities.booklist.Book
 
@@ -42,6 +43,7 @@ class BookListAdapter(var list: List<Book>) : RecyclerView.Adapter<BookListAdapt
         // 이미지 로딩 (Glide 사용)
         Glide.with(holder.itemView.context)
             .load(book.bookCover)
+            .placeholder(R.drawable.img_1)
             .into(holder.bookImage)
 
         holder.title.text = book.bookTitle

@@ -85,17 +85,16 @@ class Feed2Adapter(
             // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
-
+                .placeholder(R.drawable.userprofile_default)
                 .centerInside()
-
                 .circleCrop()
-
                 .into(binding.feedProfile)
             binding.username.text = feed.nickname
 
             // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .placeholder(R.drawable.img_1)
                 .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {

@@ -19,7 +19,7 @@ class UserShortsFragment : Fragment(R.layout.fragment_tab_recyclerview) {
     private lateinit var shortsAdapter: UserShortsAdapter
     private val shortsList = mutableListOf<ShortsItem>()
 
-    private val userId: Int = 3 // 테스트용 사용자 ID
+    private var userId: Int = 0
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
@@ -30,6 +30,8 @@ class UserShortsFragment : Fragment(R.layout.fragment_tab_recyclerview) {
         binding.lifecycleOwner = viewLifecycleOwner
         shortsAdapter = UserShortsAdapter(shortsList)
         binding.recyclerView.adapter = shortsAdapter
+
+        userId = arguments?.getInt("userId") ?: 0
 
         // API 호출
         fetchShorts()

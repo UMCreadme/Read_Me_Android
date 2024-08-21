@@ -21,7 +21,7 @@ class UserBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
     private lateinit var booksAdapter: UserBooksAdapter
     private val booksList = mutableListOf<Book>()
 
-    private val userId: Int = 3 // 테스트용 사용자 ID
+    private var userId: Int = 0
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
@@ -30,6 +30,8 @@ class UserBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTabRecyclerviewBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        userId = arguments?.getInt("userId") ?: 0
 
          booksAdapter = UserBooksAdapter(booksList) { book ->
             val intent = Intent(requireContext(), BookDetailActivity::class.java).apply {

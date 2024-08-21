@@ -6,7 +6,9 @@ import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
-class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
+class CommunityFragment(
+    private val position: Int? = null
+) : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
 
     private val tabs = arrayListOf("탐색하기", "개설하기", "나의 채팅방")
 
@@ -27,5 +29,10 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         TabLayoutMediator(binding.communityTab, binding.communityViewPager) { tab, position ->
             tab.text = tabs[position]
         }.attach()
+
+        // position 값이 있는 경우, 해당 위치로 ViewPager2 전환
+        position?.let {
+            binding.communityViewPager.setCurrentItem(it, false)
+        }
     }
 }

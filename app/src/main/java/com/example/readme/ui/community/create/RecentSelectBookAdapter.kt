@@ -9,7 +9,7 @@ import com.example.readme.data.entities.recentbook.Book
 import com.example.readme.databinding.SearchBookPreviewBinding
 
 class RecentSelectBookAdapter(
-    private val onBookClick: (Int) -> Unit
+    private val onBookClick: (Book) -> Unit
 ) : ListAdapter<Book, RecentSelectBookAdapter.RecentSelectBookViewHolder>(RecentSelectBookInfoDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentSelectBookViewHolder {
         val binding = SearchBookPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,6 +27,10 @@ class RecentSelectBookAdapter(
         fun bind(item: Book) {
             binding.selectedBook = item
             binding.executePendingBindings()
+
+            binding.searchBookPreview.setOnClickListener {
+                onBookClick(item)
+            }
         }
     }
 }

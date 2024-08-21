@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.readme.R
 import com.example.readme.data.entities.inithome.ShortsInfo
 import com.example.readme.databinding.ShortsItemBinding
 
@@ -22,6 +23,7 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
             // Glide를 사용하여 이미지 로드
             Glide.with(binding.root.context)
                 .load(shorts.shortsImg) // URL 또는 리소스 ID
+                .placeholder(R.drawable.img_1)
                 .into(img)
 
             binding.shortsPhrase.text = shorts.phrase

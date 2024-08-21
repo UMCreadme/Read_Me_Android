@@ -1,11 +1,13 @@
 package com.example.readme.ui.community.create
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchbookPreviewBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 import com.example.readme.ui.search.book.BookSearchPreviewViewModel
 import com.example.readme.ui.search.book.BookSearchPreviewViewModelFactory
@@ -30,9 +32,18 @@ class BookSearchResultFragment : BaseFragment<FragmentSearchbookPreviewBinding>(
         super.initAfterBinding()
 
         // Set the adapter for the RecyclerView
-        val adapter = SearchBookPreviewAdapter(
-            onBookClick = { ISBN ->
+        val adapter = BookSearchPreviewAdapter(
+            onBookClick = { book ->
                 // TODO: 모임 생성 화면으로 이동
+                val communityCreateFragment = CommunityCreateFragment()
+                val bundle = Bundle().apply {
+                    putString("bookCover", book.bookImg)
+                    putString("bookTitle", book.title)
+                    putString("ISBN", book.ISBN)
+                    putString("author", book.author)
+                }
+                communityCreateFragment.arguments = bundle
+                (activity as MainActivity).addFragment(communityCreateFragment)
             }
         )
         binding.bookSearchesPreviewRecyclerView.adapter = adapter

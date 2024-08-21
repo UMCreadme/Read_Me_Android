@@ -1,10 +1,12 @@
 package com.example.readme.ui.community.create
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentRecentSelectBookBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
 
 class RecentSelectBookFragment : BaseFragment<FragmentRecentSelectBookBinding>(R.layout.fragment_recent_select_book) {
@@ -26,14 +28,17 @@ class RecentSelectBookFragment : BaseFragment<FragmentRecentSelectBookBinding>(R
 
         // RecyclerView 어댑터 설정
         val adapter = RecentSelectBookAdapter(
-            onBookClick = { bookId ->
-//                // TODO: 모임 생성 화면으로 전환
-//                val bookDetailFragment = BookDetailFragment().apply{
-//                    arguments = Bundle().apply {
-//                        putInt("bookId", bookId)
-//                    }
-//                }
-//                (activity as MainActivity).addFragment(bookDetailFragment)
+            onBookClick = { book ->
+                // TODO: 모임 생성 화면으로 이동
+                val communityCreateFragment = CommunityCreateFragment()
+                val bundle = Bundle().apply {
+                    putString("bookCover", book.imageUrl)
+                    putString("bookTitle", book.title)
+                    putString("ISBN", book.isbn)
+                    putString("author", book.author)
+                }
+                communityCreateFragment.arguments = bundle
+                (activity as MainActivity).addFragment(communityCreateFragment)
             }
         )
 

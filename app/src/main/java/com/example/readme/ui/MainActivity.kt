@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainLogo.visibility = View.VISIBLE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
 
@@ -125,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnNext.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
         binding.btnSetting.visibility = View.GONE
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
     fun resetToolbar() {
@@ -137,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainLogo.visibility = View.GONE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
     fun makeShorts(){
@@ -161,6 +164,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainLogo.visibility = View.VISIBLE
         binding.btnSetting.visibility = View.VISIBLE
         binding.btnBack.visibility = View.GONE
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 }
 
