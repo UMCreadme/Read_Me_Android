@@ -23,8 +23,8 @@ class MyBooksAdapter (
                     .load(book.bookImage)
                     .into(binding.shortsImage)
             } else {
-                binding.shortsImage.setImageResource(R.drawable.img_profile_default)
-                // 나중에 책 기본 이미지 추가!!!
+//                binding.shortsImage.setImageResource(R.drawable.userprofile_default)
+                // TODO: 나중에 책 기본 이미지 추가!!!
             }
 
             binding.root.setOnClickListener {

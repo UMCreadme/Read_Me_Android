@@ -33,27 +33,6 @@
         android:enableOnBackInvokedCallback="true">
 
         <activity
-            android:name=".ui.community.BookAppointDoneActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.community.CreateActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".ui.community.ChatActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
-
-        <activity
-            android:name=".ui.community.MapMarkerActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".ui.community.BookAppointActivity"
-            android:exported="true" />
-
-        <activity
             android:name=".ui.search.book.BookDetailActivity"
             android:exported="true" />
 
@@ -88,6 +67,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -101,6 +81,7 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
         </activity>
+
         <activity
             android:name=".ui.userinfo.UserinfoActivity"
             android:exported="true"
@@ -112,20 +93,6 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="${KAKAO_NATIVE_APP_KEY}"/>
-
-        <activity android:name=".ui.community.CreateFragmentActivity"></activity>
-
-        <!-- LoginActivity를 런처로 설정 -->
-<!--        <activity-->
-<!--            android:name=".ui.login.LoginActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.Readme">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
 
         <!-- Kakao 로그인 리디렉션 처리 -->
         <activity

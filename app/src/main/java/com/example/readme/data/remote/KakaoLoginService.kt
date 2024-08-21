@@ -12,7 +12,7 @@ interface KakaoLoginService {
     suspend fun sendKakaoUserInfo(@Body user: KaKaoUser): ResponseWithData<LoginResult>
 
     @POST("users/sign")
-    suspend fun sendSignUpInfo(@Body user: UserData): ResponseWithData<LoginResult>
+    suspend fun sendSignUpInfo(@Body user: UserData): ResponseWithData<LoginResult?>
 
     companion object {
         const val BASE_URL = BuildConfig.SERVER_URL

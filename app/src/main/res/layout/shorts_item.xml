@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp">
-        <androidx.cardview.widget.CardView
-                android:layout_width="160dp"
-                android:layout_height="180dp"
-                app:cardCornerRadius="20dp">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/shorts_card"
+        android:layout_width="125dp"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/transparent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/recommandshorts"
-                    android:scaleType="fitXY"
-                    android:layout_width="160dp"
-                    android:layout_height="180dp"
-                    android:src="@drawable/shorts_item"/>
-        </androidx.cardview.widget.CardView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/shorts_preview_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shorts_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="쇼츠 배경 이미지"
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/RoundCorner"
+                tools:src="@drawable/shorts_picture"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/shorts_phrase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:maxLines="8"
+                android:ellipsize="end"
+                android:textColor="@color/White"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                tools:text="책 구절 블라 블라 블라 블라 블라"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </layout>

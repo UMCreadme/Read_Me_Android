@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/round_edit"
-                android:hint="문장을 입력하세요(255자 이내)"
+                android:hint="추천하고 싶은 책 구절을 입력하세요(255자 이내)"
                 android:inputType="textMultiLine"
                 android:maxLength="255"
                 android:minHeight="100dp"

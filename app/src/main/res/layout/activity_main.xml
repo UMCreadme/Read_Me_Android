@@ -15,7 +15,7 @@ xmlns:tools="http://schemas.android.com/tools">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +24,11 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/Black">
 
-        <TextView
+        <ImageView
             android:id="@+id/main_Logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Read Me"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:src="@drawable/logo_big"
             android:textColor="@color/Primary"
             android:textSize="35sp"
             android:textStyle="bold"
@@ -51,7 +49,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="20dp"
             android:layout_gravity="start"
             android:layout_marginStart="20dp"
-            android:src="@drawable/backbtn_icon"
+            android:src="@drawable/back_btn"
             android:visibility="gone" />
 
         <TextView

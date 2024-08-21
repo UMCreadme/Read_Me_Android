@@ -34,7 +34,6 @@
                     android:layout_height="match_parent"
                     android:contentDescription="책 표지 이미지"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_book_cover"
                     app:imageUrl="@{book.bookImg}" />
 
                 <LinearLayout

@@ -18,7 +18,7 @@ object LoginRepository {
         return apiService.sendKakaoUserInfo(user)
     }
 
-    suspend fun sendSignUpInfo(user: UserData): ResponseWithData<LoginResult> {
+    suspend fun sendSignUpInfo(user: UserData): ResponseWithData<LoginResult?> {
         return apiService.sendSignUpInfo(user)
     }
 }
