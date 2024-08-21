@@ -1,5 +1,6 @@
 package com.example.readme.ui.community.my
 
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@ class CommunityMyFragment : BaseFragment<FragmentCommunityMyBinding>(R.layout.fr
         // RecyclerView에 어댑터 설정
         val adapter = CommunityMyAdapter(
             onCommunityClick = { communityId ->
-                // TODO: 채팅 화면으로 전환
+                Toast.makeText(context, "서비스 준비중입니다.", Toast.LENGTH_SHORT).show()
             }
         )
 

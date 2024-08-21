@@ -59,7 +59,7 @@ class CommunityExploreAdapter(
         layout.verticalSpacing = 16
 
         for (tag in tags) {
-            val tagTextView = LayoutInflater.from(layout.context).inflate(R.layout.tag_item, layout, false) as TextView
+            val tagTextView = LayoutInflater.from(layout.context).inflate(R.layout.item_community_tag, layout, false) as TextView
             tagTextView.text = tag
             layout.addView(tagTextView)
         }

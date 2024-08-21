@@ -12,7 +12,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).NoShow()
+        (activity as MainActivity).ShowCommunity()
     }
 
     override fun initAfterBinding() {

@@ -6,20 +6,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/bookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/Black"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="53dp"
             tools:text="아무것도 없는 책" />
 
         <TextView
@@ -27,11 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
+            android:layout_marginStart="20dp"
             android:textColor="@color/Black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/book_img_section"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookTitle"
-            tools:layout_editor_absoluteX="53dp"
             tools:text="레미 쿠르종 글/그림     이성엽 옮김" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,89 +60,88 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/user_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:paddingVertical="14dp"
-            android:paddingHorizontal="26dp"
-            android:background="@color/Sub"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/book_img_section">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/userProfileImg"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="14dp"
-                android:scaleType="centerCrop"
-                android:background="@color/Light_Gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                app:shapeAppearanceOverlay="@style/RoundImageView" />
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@id/userProfileImg"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/White"
-                android:textSize="14sp"
-                tools:text="kimtomato"/>
-
-            <TextView
-                android:id="@+id/userNickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/White"
-                app:layout_constraintStart_toEndOf="@id/userProfileImg"
-                app:layout_constraintTop_toBottomOf="@id/userName"
-                tools:text="김토마" />
-
-            <TextView
-                android:id="@+id/userLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@id/userName"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/Light_Light_Gray"
-                android:textSize="16sp"
-                android:background="@drawable/place_background"
-                tools:text="부산"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_layout">
+            app:layout_constraintTop_toBottomOf="@id/book_img_section">
 
             <LinearLayout
                 android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="12dp"
                 android:orientation="vertical" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/user_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/Sub"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/book_img_section">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/userProfileImg"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@color/Light_Gray"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textColor="@color/White"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/userProfileImg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="kimtomato" />
+
+                    <TextView
+                        android:id="@+id/userNickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/White"
+                        app:layout_constraintStart_toEndOf="@id/userProfileImg"
+                        app:layout_constraintTop_toBottomOf="@id/userName"
+                        tools:text="김토마" />
+
+                    <TextView
+                        android:id="@+id/userLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/place_background"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="6dp"
+                        android:textColor="@color/Light_Light_Gray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@id/userName"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="부산" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/writeTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginHorizontal="20dp"
                     android:textColor="@color/Light_Gray"
                     android:textSize="12sp"
                     tools:text="20분 전" />
@@ -145,6 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="20dp"
                     android:textColor="@color/Black"
                     android:textSize="14sp"
                     tools:text="저는 이 책을 읽고 어떠한 부분에서 설렜는데 비슷하게 설렌 분 찾습니다.\n.\n.\n.\n.\n.\n.\n누구든 좋아요~" />
@@ -154,6 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="21dp"
+                    android:layout_marginHorizontal="20dp"
                     android:textColor="@color/Black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -165,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    app:constraint_referenced_ids="tag1,tag2,tag3,tag4"
+                    android:layout_marginHorizontal="20dp"
                     app:flow_horizontalGap="8dp"
                     app:flow_verticalGap="8dp"
                     app:flow_wrapMode="chain"

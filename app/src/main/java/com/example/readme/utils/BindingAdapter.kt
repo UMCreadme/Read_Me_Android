@@ -12,9 +12,10 @@ object BindingAdapters {
         if (!url.isNullOrEmpty()) {
             Glide.with(view.context)
                 .load(url)
+                .placeholder(R.drawable.img_1)
                 .into(view)
         } else {
-            view.setImageResource(R.drawable.userprofile_default)
+            view.setImageResource(R.drawable.img_1)
         }
     }
 }
