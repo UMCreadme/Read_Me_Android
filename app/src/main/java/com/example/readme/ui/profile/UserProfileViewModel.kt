@@ -48,11 +48,11 @@ class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewMo
         return profile
     }
 
-    /*fun followUser(token: String, userId: String) {
+    fun followUser(token: String, userId: Int) {
         viewModelScope.launch {
             try {
                 val response = apiService.followUser(token, userId)
-                if (response.isSuccessful) {
+                if (response.isSuccess) {
                     _isFollowing.value = true
                 } else {
                     _isFollowing.value = false
@@ -61,13 +61,13 @@ class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewMo
                 _isFollowing.value = false
             }
         }
-    }*/
+    }
 
-    /*fun unfollowUser(token: String, userId: String) {
+    fun unfollowUser(token: String, userId: Int) {
         viewModelScope.launch {
             try {
                 val response = apiService.unfollowUser(token, userId)
-                if (response.isSuccessful) {
+                if (response.isSuccess) {
                     _isFollowing.value = false
                 } else {
                     _isFollowing.value = true
@@ -76,5 +76,5 @@ class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewMo
                 _isFollowing.value = true
             }
         }
-    }*/
+    }
 }

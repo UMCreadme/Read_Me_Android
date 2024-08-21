@@ -40,16 +40,7 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         super.initAfterBinding()
 
         val userId: Int = arguments?.getInt("userId") ?: 0
-
-        // 버튼 클릭 리스너 설정
-        /*binding.btnPfFollow.setOnClickListener {
-            val currentFollowingState = viewModel.isFollowing.value ?: false
-            if (currentFollowingState) {
-                viewModel.unfollowUser(userId)
-            } else {
-                viewModel.followUser(userId)
-            }
-        }*/
+        var token = "example"
 
         // 프로필 정보 가져오기
         viewModel.fetchProfile(userId).observe(viewLifecycleOwner) { profileResponse ->
@@ -88,17 +79,26 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
             }
         }.attach()
 
-        // 팔로우 상태에 따라 버튼 텍스트 및 색상 변경
-        /*viewModel.isFollowing.observe(viewLifecycleOwner) { isFollowing ->
-            if (isFollowing) {
-                binding.btnPfFollow.text = "팔로잉"
-                binding.btnPfFollow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.White))
-            } else {
-                binding.btnPfFollow.text = "팔로우"
-                binding.btnPfFollow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Primary_Sub))
-            }
-        }*/
+        // 버튼 클릭 리스너 설정
+                binding.btnPfFollow.setOnClickListener {
+                    val currentFollowingState = viewModel.isFollowing.value ?: false
+                    if (currentFollowingState) {
+                        viewModel.unfollowUser(token, userId)
+                    } else {
+                        viewModel.followUser(token, userId)
+                    }
+                }
 
+        // 팔로우 상태에 따라 버튼 이미지 변경
+        viewModel.isFollowing.observe(viewLifecycleOwner) { isFollowing ->
+            val buttonImage = if (isFollowing) {
+                R.drawable.btn_pf_following
+            } else {
+                R.drawable.btn_pf_follow
+            }
+            binding.btnPfFollow.setImageResource(buttonImage)
+        }
     }
 
 }
+

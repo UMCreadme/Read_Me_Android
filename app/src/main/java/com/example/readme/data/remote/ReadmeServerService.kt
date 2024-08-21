@@ -69,6 +69,18 @@ interface ReadmeServerService {
         @Header("Authorization") token: String
     ): Response
 
+    @POST("/users/{userId}/follow")
+    fun followUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: Int
+    ): Response
+
+    @DELETE("/users/{userId}/follow")
+    fun unfollowUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: Int
+    ): Response
+
 
     // UserProfile 관련 API 요청
     @GET("/users/{userId}")
