@@ -1,6 +1,7 @@
 package com.example.readme.ui.profile
 
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -32,12 +33,14 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         super.initDataBinding()
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
 
         val userId: Int = arguments?.getInt("userId") ?: 0
+        var token = "example"
 
         // 프로필 정보 가져오기
         viewModel.fetchProfile(userId).observe(viewLifecycleOwner) { profileResponse ->
@@ -76,6 +79,19 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
             }
         }.attach()
 
+        // 버튼 클릭 리스너 설정
+        binding.btnPfFollow.setOnClickListener {
+            binding.btnPfFollow.isSelected = binding.btnPfFollow.isSelected != true;
+
+            val currentFollowingState = viewModel.isFollowing.value ?: false
+            if (currentFollowingState) {
+                viewModel.unfollowUser(token, userId)
+            } else {
+                viewModel.followUser(token, userId)
+            }
+        }
+
     }
 
 }
+
