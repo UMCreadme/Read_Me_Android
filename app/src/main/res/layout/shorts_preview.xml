@@ -30,7 +30,6 @@
                 android:contentDescription="쇼츠 배경 이미지"
                 android:scaleType="fitXY"
                 app:imageUrl="@{shorts.shortsImg}"
-                android:src="@drawable/ic_book_cover"
                 app:shapeAppearanceOverlay="@style/RoundCorner" />
 
             <TextView

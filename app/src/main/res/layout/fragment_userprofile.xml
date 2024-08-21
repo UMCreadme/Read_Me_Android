@@ -25,7 +25,6 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/circle_background_pf"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_profile_default"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

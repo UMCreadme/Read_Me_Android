@@ -2,7 +2,6 @@ package com.example.readme.data.remote
 
 import com.example.readme.BuildConfig
 import com.example.readme.data.entities.BookDetailResponse
-import com.example.readme.data.entities.BookResponse
 import com.example.readme.data.entities.BookSearchResult
 import com.example.readme.data.entities.CommunityDetailResponse
 import com.example.readme.data.entities.CommunityListResponse
@@ -11,8 +10,6 @@ import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.data.entities.recentbook.Book
-import com.example.readme.ui.community.Chat
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -91,12 +88,6 @@ interface ReadmeServerService {
     /**
      * COMMUNITY 관련 API
      */
-    @POST("/communities/{communityId}/messages")
-    suspend fun postMessage(@Path("communityId") communityId: String, @Body chat: Chat): Call<Chat>
-
-    @GET("/communities/{communityId}/messages")
-    suspend fun getMessages(@Path("communityId") communityId: String): Call<List<Chat>>
-
     @GET("/communities")
     suspend fun getCommunities(
         @Query("page") page: Int = 1,
