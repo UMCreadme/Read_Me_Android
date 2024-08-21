@@ -68,4 +68,10 @@
         <item name="android:textColor">@color/White</item>
         <item name="fontFamily">@font/pretendard_medium</item>
     </style>
+
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
 </resources>
