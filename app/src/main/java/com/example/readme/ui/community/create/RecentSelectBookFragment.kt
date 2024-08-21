@@ -29,7 +29,6 @@ class RecentSelectBookFragment : BaseFragment<FragmentRecentSelectBookBinding>(R
         // RecyclerView 어댑터 설정
         val adapter = RecentSelectBookAdapter(
             onBookClick = { book ->
-                // TODO: 모임 생성 화면으로 이동
                 val communityCreateFragment = CommunityCreateFragment()
                 val bundle = Bundle().apply {
                     putString("bookCover", book.imageUrl)

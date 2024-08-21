@@ -15,6 +15,7 @@ import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class SearchShortsAdaptor(
     private val viewModel: SearchShortsViewModel
@@ -85,10 +86,18 @@ class SearchShortsAdaptor(
     }
 
     fun getTimeAgo(dateString: String): String {
-        val nowDateTime = Calendar.getInstance().timeInMillis
-        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREAN)
+        // 현재 시간을 KST로 설정
+        val nowDateTime = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul")).timeInMillis
+
+        // UTC로 설정된 SimpleDateFormat
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREAN).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+
+        // 서버에서 받은 UTC 시간 파싱
         val postingDateTime = df.parse(dateString)?.time ?: return ""
 
+        // KST로 변환된 현재 시간과의 차이 계산
         val timeDiff = nowDateTime - postingDateTime
 
         val minutes = timeDiff / 60000
@@ -99,7 +108,15 @@ class SearchShortsAdaptor(
             minutes < 1 -> "방금 전"
             minutes < 60 -> "${minutes}분 전"
             hours < 24 -> "${hours}시간 전"
-            else -> "${days}일 전"
+            days <= 6 -> "${days}일 전"
+            else -> {
+                // 날짜를 KST로 포맷
+                val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREAN).apply {
+                    timeZone = TimeZone.getTimeZone("Asia/Seoul")
+                }
+                val postingDate = Calendar.getInstance().apply { timeInMillis = postingDateTime }
+                dateFormat.format(postingDate.time)
+            }
         }
     }
 
