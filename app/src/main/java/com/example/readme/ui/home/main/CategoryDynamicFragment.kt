@@ -30,6 +30,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     // ViewModel 초기화
     private val feedViewModel: FeedViewModel by viewModels()
     private var category: String? = null
+    private var isFirstLoad: Boolean = true
 
     override fun initStartView() {
         super.initStartView()
@@ -43,32 +44,48 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
         category = arguments?.getString(ARG_CATEGORY)
         Log.d("CategoryDynamicFragment", "Category: $category")
 
-        if (category == "추천") {
-            feedViewModel.fetchFeeds()
-        } else {
-            feedViewModel.fetchCategoryFeeds(category!!)
-        }
+        // 이미 데이터를 로드했는지 확인
+        if (isFirstLoad) {
+            isFirstLoad = false  // 데이터 로드를 시작했음을 표시
 
+            // 카테고리에 따라 적절한 데이터 로드 메서드 호출
+            if (category == "추천") {
+                feedViewModel.fetchFeeds()
+            } else {
+                feedViewModel.fetchCategoryFeeds(category!!)
+            }
+        }
 
         feedViewModel.combinedData.observe(viewLifecycleOwner) { (feeds, shorts) ->
             Log.d("FeedViewModel", "Combined Data - Feeds: $feeds")
             Log.d("FeedViewModel", "Combined Data - Shorts: $shorts")
-            setupRecyclerView(feeds, shorts)
+            if (feeds.isNotEmpty() || shorts.isNotEmpty()) {
+                setupRecyclerView(feeds, shorts)
+            }
+
         }
 
         feedViewModel.categoryFeeds.observe(viewLifecycleOwner) { categoryFeeds ->
+//            Log.d("FeedViewModel", "Combined Data - categoryFeeds: $categoryFeeds")
             setupCategoryRecyclerView(categoryFeeds)
         }
+
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.VISIBLE
     }
 
     private fun setupRecyclerView(feeds: List<com.example.readme.data.entities.inithome.FeedInfo>, shorts: List<ShortsInfo>) {
         if (!::feedAdapter.isInitialized) {
             feedListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            feedAdapter = FeedAdapter(ArrayList(feeds))
+            feedAdapter = FeedAdapter(feedViewModel, ArrayList(feeds))
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feedListManager
                 adapter = feedAdapter
+
                 // feedAdapter 초기화 완료 후 클릭 리스너 설정
                 feedAdapter.setMyItemClickListener(object : FeedAdapter.MyItemClickListener {
                     override fun onItemClick(feed: com.example.readme.data.entities.inithome.FeedInfo) {
@@ -80,9 +97,7 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
                                 putInt("shortsId", feed.shortsId)
-                                Log.d("shortId", feed.shortsId.toString())
                                 putString("start", "main")
-                                // 필요한 경우 추가 데이터도 함께 전달
                             }
                         }
                         (context as? MainActivity)?.addFragment(fragment)
@@ -103,35 +118,46 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             binding.rvExtra.apply {
                 setHasFixedSize(true)
                 layoutManager = shortsListManager
-                adapter = shortsAdapter
+                adapter = shortsAdapter // feedAdapter 초기화 완료 후 클릭 리스너 설정
+                shortsAdapter.setMyItemClickListener(object : ShortsAdapter.MyItemClickListener {
+                    override fun onItemClick(shorts: ShortsInfo) {
+                        val fragment = ShortsDetailFragment().apply {
+                            arguments = Bundle().apply {
+                                putInt("shorts_id", shorts.shorts_id)
+                                putString("start", "main")
+                            }
+                        }
+                        (context as? MainActivity)?.addFragment(fragment)
+                    }
+
+                })
             }
         } else {
             shortsAdapter.updateData(shorts)
         }
 
-        // Show or hide rvExtra based on category
+//        // Show or hide rvExtra based on category
         binding.rvExtra.visibility = if (category == "추천") View.VISIBLE else View.GONE
     }
 
     private fun setupCategoryRecyclerView(categoryFeeds: List<FeedInfo>) {
         if (!::feed2Adapter.isInitialized) {
             feed2ListManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            feed2Adapter = Feed2Adapter(ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
+            feed2Adapter = Feed2Adapter(feedViewModel, ArrayList(categoryFeeds))  // 적절한 Adapter를 사용
             binding.rvPost.apply {
                 setHasFixedSize(true)
                 layoutManager = feed2ListManager
                 adapter = feed2Adapter
 
                 feed2Adapter.setMyItemClickListener(object : Feed2Adapter.MyItemClickListener {
-                    override fun onItemClick(categoryFeeds: FeedInfo) {
+                    override fun onItemClick(feed: FeedInfo) {
                         // 아이템 전체 클릭 시의 동작 (기존 코드)
                     }
 
-                    override fun onImageClick(categoryFeeds: FeedInfo) {
+                    override fun onImageClick(feed: FeedInfo) {
                         val fragment = ShortsDetailFragment().apply {
                             arguments = Bundle().apply {
-                                putInt("shortsId", categoryFeeds.shortsId)
-                                Log.d("shortId", categoryFeeds.shortsId.toString())
+                                putInt("shortsId", feed.shortsId)
                                 putString("start", "main")
                             }
                         }
@@ -149,11 +175,6 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
     }
 
 
-    override fun initAfterBinding() {
-        super.initAfterBinding()
-        (activity as MainActivity).binding.bottomNavigationView.visibility = View.VISIBLE
-    }
-
     companion object {
         private const val ARG_CATEGORY = "category"
 
@@ -163,4 +184,5 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
             }
         }
     }
+
 }

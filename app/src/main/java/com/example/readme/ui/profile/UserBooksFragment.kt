@@ -1,5 +1,6 @@
 package com.example.readme.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,8 @@ import com.example.readme.R
 import com.example.readme.data.remote.Book
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentTabRecyclerviewBinding
+import com.example.readme.ui.mypage.MyBooksAdapter
+import com.example.readme.ui.search.book.BookDetailActivity
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
@@ -27,7 +30,14 @@ class UserBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTabRecyclerviewBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
-        booksAdapter = UserBooksAdapter(booksList)
+
+         booksAdapter = UserBooksAdapter(booksList) { book ->
+            val intent = Intent(requireContext(), BookDetailActivity::class.java).apply {
+                putExtra("bookId", book.bookId)
+            }
+            startActivity(intent)
+        }
+
         binding.recyclerView.adapter = booksAdapter
 
         // API 호출

@@ -1,11 +1,14 @@
 package com.example.readme.ui.mypage
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.remote.ProfileUpdateRequest
+import com.example.readme.data.remote.ReadmeServerService
+import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
 class EditMyPageViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,6 +27,8 @@ class EditMyPageViewModel(application: Application) : AndroidViewModel(applicati
 
     private val _profileImg = MutableLiveData<String>()
     val profileImg: LiveData<String> = _profileImg
+
+    private val apiService: ReadmeServerService = RetrofitClient.getReadmeServerService()
 
     fun setProfileEmail(email: String) {
         _profileEmail.value = email
@@ -53,14 +58,17 @@ class EditMyPageViewModel(application: Application) : AndroidViewModel(applicati
         )
     }
 
-    fun saveProfileChanges() {
-        // API를 통해 변경된 프로필 정보 저장
+    fun saveProfileChanges(token: String) {
         viewModelScope.launch {
             try {
-                // API 호출
-                // 성공 시 처리
+                val profileUpdateRequest = getProfileUpdateRequest()
+                val response = apiService.updateMyProfile(token, profileUpdateRequest)
+
+                if (response.isSuccess) {
+                    Log.d("EditMyPageViewModel", "updating isSuccess")
+                }
             } catch (e: Exception) {
-                // 에러 처리
+                Log.e("EditMyPageViewModel", "Error updating profile", e)
             }
         }
     }

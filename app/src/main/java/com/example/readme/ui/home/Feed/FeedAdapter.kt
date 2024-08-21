@@ -11,13 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.readme.databinding.FeedItemBinding
+import com.example.readme.R
 import com.example.readme.data.entities.inithome.FeedInfo
+
+import com.example.readme.databinding.FeedItemBinding
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
+class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdapter.FeedHolder>() {
+
+    init {
+        setHasStableIds(true)
+    }
 
     init {
         setHasStableIds(true)
@@ -29,7 +35,6 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         fun onItemClick(feed: FeedInfo)
         fun onImageClick(feed: FeedInfo)
         fun onLikeClick(feed: FeedInfo, isLiked: Boolean)
-//        fun onProfileClick(feed: FeedInfo) TODO: 프로필 연결
     }
 
     // 리스너를 설정하는 함수
@@ -40,59 +45,23 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
 
     // ViewHolder 정의
     inner class FeedHolder(val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        private var isLiked = false
 
-        init {
-            binding.likeIcon.setOnClickListener {
-                toggleLikeState()
-            }
-
-            binding.likefillIcon.setOnClickListener {
-                toggleLikeState()
-            }
-        }
-
-        // 좋아요 상태 토글
-        private fun toggleLikeState() {
-            isLiked = !isLiked
-            updateLikeIcon()
-            myItemClickListener.onLikeClick(list[adapterPosition], isLiked)
-
-
-        }
-
-        // 좋아요 업데이트
-        private fun updateLikeIcon() {
-            if (isLiked) {
-                binding.likeIcon.visibility = View.GONE
-                binding.likefillIcon.visibility = View.VISIBLE
-            } else {
-                binding.likeIcon.visibility = View.VISIBLE
-                binding.likefillIcon.visibility = View.GONE
-            }
-        }
 
         fun bind(feed: FeedInfo) {
-
-            isLiked = feed.isLike
-            updateLikeIcon()
-
-
+            // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
                 .centerInside()
+                .circleCrop()
                 .into(binding.feedProfile)
-
             binding.username.text = feed.nickname
 
+            // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
                 .centerInside()
                 .into(object : CustomTarget<Drawable>() {
-                    override fun onResourceReady(
-                        resource: Drawable,
-                        transition: Transition<in Drawable>?
-                    ) {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource
                     }
 
@@ -100,13 +69,29 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
                         // Called when the resource is no longer needed, here you can clear the background if needed
                     }
                 })
+            binding.feedSentence.text = feed.phrase
 
+            // 좋아요 버튼
+            if(feed.isLike) {
+                binding.likeIcon.setImageResource(R.drawable.likefill_icon)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.like_icon)
+            }
+
+            binding.likeIcon.setOnClickListener {
+                myItemClickListener.onLikeClick(feed, feed.isLike)  // 좋아요 버튼 클릭 시 호출
+            }
+
+            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
             binding.mainTitle.text = feed.title
             binding.content.text = feed.content
-            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
-            binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            if(feed.commentCnt == 0) {
+                binding.commentTxt.visibility = ViewGroup.GONE
+            } else {
+                binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            }
             binding.timestamp.text = calculateDaysAgo(feed.postingDate)
-
+            binding.executePendingBindings()
 
             adjustViewPosition(binding.feedSentence, feed.phraseX, feed.phraseY)
 
@@ -191,7 +176,7 @@ class FeedAdapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<FeedAdap
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

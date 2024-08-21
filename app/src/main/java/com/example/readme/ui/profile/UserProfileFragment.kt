@@ -16,12 +16,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fragment_userprofile) {
 
-    private val userId: Int = 3 // 테스트용
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
     private val viewModel: UserProfileViewModel by viewModels {
-        UserProfileViewModelFactory(userId, apiService)
+        UserProfileViewModelFactory(apiService)
     }
 
     override fun initStartView() {
@@ -33,9 +32,15 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         super.initDataBinding()
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+
+        val userId: Int = arguments?.getInt("userId") ?: 0
 
         // 프로필 정보 가져오기
-        viewModel.fetchProfile().observe(viewLifecycleOwner) { profileResponse ->
+        viewModel.fetchProfile(userId).observe(viewLifecycleOwner) { profileResponse ->
             if (profileResponse != null) {
                 // 정상적인 응답 처리
                 profileResponse?.let {
@@ -58,10 +63,6 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
                 Log.e("UserProfileFragment", "Failed to get profile data")
             }
         }
-    }
-
-    override fun initAfterBinding() {
-        super.initAfterBinding()
 
         // ViewPager2와 TabLayoutMediator 설정
         val adapter = UserProfileViewPagerAdapter(this)

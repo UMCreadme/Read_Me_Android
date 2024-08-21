@@ -2,13 +2,12 @@ package com.example.readme.ui
 
 import android.os.Bundle
 import android.view.View
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.readme.R
 import com.example.readme.databinding.ActivityMainBinding
-import com.example.readme.ui.community.CommunitySearchFragment
+import com.example.readme.ui.community.explore.CommunityFragment
 import com.example.readme.ui.home.main.HomeFragment
 import com.example.readme.ui.mypage.MyPageFragment
 import com.example.readme.ui.search.SearchFragment
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
+        if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager
                 .popBackStack()
         }
@@ -60,13 +59,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_community -> {
-                    changeFragment(CommunitySearchFragment())
+                    changeFragment(CommunityFragment())
                 }
                 R.id.navigation_mypage -> {
                     changeFragment(MyPageFragment())
                 }
             }
-            return@setOnItemSelectedListener true
+            true
         }
         binding.bottomNavigationView.setOnItemReselectedListener {  } // 바텀네비 재클릭시 화면 재생성 방지
     }
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 replace(R.id.nav_host_fragment, fragment)
 
-                addToBackStack(null)
+                addToBackStack(fragment.javaClass.simpleName)
             }
     }
 
@@ -104,6 +103,16 @@ class MainActivity : AppCompatActivity() {
         binding.mainLogo.visibility = View.VISIBLE
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
+    }
+
+
+    fun ShowCommunity(){
+        binding.btnNext.visibility = View.GONE
+        binding.tvTitle.visibility = View.GONE
+        binding.toolbar.visibility = View.VISIBLE
+        binding.mainLogo.visibility = View.GONE
+        binding.btnSetting.visibility = View.GONE
+        binding.btnBack.visibility = View.VISIBLE
     }
 
     fun resetToolbar() {
@@ -133,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnSetting.visibility = View.GONE
         binding.btnBack.visibility = View.VISIBLE
     }
+
 
     fun ShowMyPage(){
         binding.toolbar.visibility = View.VISIBLE

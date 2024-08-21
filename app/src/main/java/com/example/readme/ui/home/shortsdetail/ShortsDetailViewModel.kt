@@ -8,11 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.readme.ui.data.entities.like.LikeResponse
 import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.data.entities.detail.ShortsDetailResponse
+import com.example.readme.data.entities.inithome.FeedInfo
 import com.example.readme.utils.RetrofitClient
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ShortsDetailViewModel : ViewModel() {
 
@@ -38,34 +41,44 @@ class ShortsDetailViewModel : ViewModel() {
             }
         }
     }
-
-    // Shorts 좋아요 기능 (코루틴 사용)
     fun likeShorts(shorts: ShortsDetailInfo) {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.getMainInfoService().likeShorts(shorts.shortsId)
-
-                if (response.isSuccessful && response.body()?.isSuccess == true) {
-                    val currentFeeds = _shorts.value ?: emptyList()
-
-                    // updatedFeeds 리스트 생성
-                    val updatedFeeds = currentFeeds.map {
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitClient.getMainInfoService().likeShorts(shorts.shortsId)
+                }
+                if (response.body()?.isSuccess == true) {
+                    val updatedFeeds = _shorts.value?.map {
                         if (it.shortsId == shorts.shortsId) {
                             it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
                         } else {
                             it
                         }
-                    }
-
-                    // updatedFeeds를 LiveData에 반영
-                    _shorts.postValue(updatedFeeds)
-                    Log.d("ShortsDetailViewModel", "Like updated for shorts: ${shorts.shortsId}")
+                    } ?: emptyList()
+                    _shorts.value = updatedFeeds
+//                    Log.d("FeedViewModel", "Like updated for feed: ${feed.shortsId}")
                 } else {
-                    Log.d("ShortsDetailViewModel", "Like update failed")
+                    Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.d("ShortsDetailViewModel", "Failed to update like status: ${e.message}")
+                Log.d("FeedViewModel", "Failed to update like status: ${e.message}")
             }
         }
     }
+
+    // 좋아요 상태를 업데이트하고, 필요한 경우 데이터를 다시 불러오는 함수
+    fun updateLikeStatus(item: ShortsDetailInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // 현재 searchShortsItems의 item에 해당하는 부분 업데이트
+            val updatedItems = _shorts.value.orEmpty().map {
+                if (it.shortsId == item.shortsId) {
+                    it.copy(isLike = item.isLike, likeCnt = item.likeCnt)
+                } else {
+                    it
+                }
+            }
+            _shorts.postValue(updatedItems)
+        }
+    }
+
 }

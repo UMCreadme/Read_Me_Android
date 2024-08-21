@@ -2,6 +2,7 @@ package com.example.readme.ui.home.shortsdetail
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
@@ -10,7 +11,6 @@ import com.example.readme.databinding.FragmentShortsBinding
 import com.example.readme.ui.MainActivity
 import com.example.readme.data.entities.detail.ShortsDetailInfo
 import com.example.readme.ui.base.BaseFragment
-
 class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragment_shorts) {
 
     private val viewModel: ShortsDetailViewModel by viewModels()
@@ -24,14 +24,14 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).NoShow()
-
-        val shortsId = arguments?.getInt("shortsId") ?: 0
+        (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
+        val shorts_id = arguments?.getInt("shorts_id") ?: 0
         val start = arguments?.getString("start") ?: ""
 
-        shortsDetailAdapter = ShortsDetailAdapter(ArrayList())
+        shortsDetailAdapter = ShortsDetailAdapter(viewModel, ArrayList())
         binding.shortsViewPager.adapter = shortsDetailAdapter
 
-        viewModel.fetchShortsDetails(shortsId, start="main", page = 1, size = 4)
+        viewModel.fetchShortsDetails(shorts_id, start, page = 1, size = 4)
     }
 
     override fun initDataBinding() {
@@ -39,6 +39,7 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
         (activity as MainActivity).binding.bottomNavigationView.visibility = View.GONE
 
         viewModel.shorts.observe(viewLifecycleOwner) { shortsDetails ->
+            Log.d("shortsDetails", "${shortsDetails}")
             setInit(shortsDetails)
         }
 
@@ -59,9 +60,7 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
 
     private fun setInit(shortsDetails: List<ShortsDetailInfo>) {
         shortsDetailAdapter.updateData(shortsDetails)
-
         setupAutoScroll()
-
         binding.shortsViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
@@ -92,16 +91,22 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     }
 
     private fun setupAutoScroll() {
-        handler = Handler(Looper.getMainLooper())
-        runnable = object : Runnable {
-            override fun run() {
-                val itemCount = binding.shortsViewPager.adapter?.itemCount ?: 0
-                val currentItem = binding.shortsViewPager.currentItem
-                val nextItem = if (currentItem < itemCount - 1) currentItem + 1 else itemCount - 1
+        // 초기화가 두 번 이상 되지 않도록 보장
+        if (!::handler.isInitialized) {
+            handler = Handler(Looper.getMainLooper())
+        }
 
-                // 애니메이션이 완료된 후 페이지를 변경
-                binding.shortsViewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, autoScrollInterval)
+        if (!::runnable.isInitialized) {
+            runnable = object : Runnable {
+                override fun run() {
+                    val itemCount = binding.shortsViewPager.adapter?.itemCount ?: 0
+                    val currentItem = binding.shortsViewPager.currentItem
+                    val nextItem = if (currentItem < itemCount - 1) currentItem + 1 else itemCount - 1
+
+                    // 애니메이션이 완료된 후 페이지를 변경
+                    binding.shortsViewPager.setCurrentItem(nextItem, true)
+                    handler.postDelayed(this, autoScrollInterval)
+                }
             }
         }
 
@@ -110,13 +115,19 @@ class ShortsDetailFragment : BaseFragment<FragmentShortsBinding>(R.layout.fragme
     }
 
     private fun startAutoScroll() {
+        // 초기화 상태 확인
+        if (!::handler.isInitialized || !::runnable.isInitialized) {
+            return
+        }
         // 기존의 Runnable을 제거하고 새로 시작
         stopAutoScroll()
         handler.postDelayed(runnable, autoScrollInterval)
     }
 
     private fun stopAutoScroll() {
-        handler.removeCallbacks(runnable)
+        if (::handler.isInitialized && ::runnable.isInitialized) {
+            handler.removeCallbacks(runnable)
+        }
     }
 
     override fun onPause() {

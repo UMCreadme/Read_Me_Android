@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
+import com.example.readme.R
 import com.example.readme.databinding.FeedItemBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -16,7 +17,14 @@ import com.example.readme.data.entities.category.FeedInfo
 
 import java.util.Calendar
 
-class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
+class Feed2Adapter(
+    private val viewModel: FeedViewModel,
+    var list: ArrayList<FeedInfo>
+) : RecyclerView.Adapter<Feed2Adapter.Feed2Holder>() {
+
+    init {
+        setHasStableIds(true)
+    }
 
     init {
         setHasStableIds(true)
@@ -37,6 +45,7 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
 
     // ViewHolder 정의
     inner class Feed2Holder(val binding: FeedItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
 
         private var isLiked = false
 
@@ -69,19 +78,20 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
             }
         }
 
+
         fun bind(feed: FeedInfo) {
-
-            isLiked = feed.isLike
-            Log.d("feed.isLike", "${isLiked}")
-            updateLikeIcon()
-
+            // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
-                .centerInside()
-                .into(binding.feedProfile)
 
+                .centerInside()
+
+                .circleCrop()
+
+                .into(binding.feedProfile)
             binding.username.text = feed.nickname
 
+            // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
                 .centerInside()
@@ -94,12 +104,32 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
                         // Called when the resource is no longer needed, here you can clear the background if needed
                     }
                 })
+            binding.feedSentence.text = feed.phrase
+
+            // 좋아요 버튼
+            if(feed.isLike) {
+                binding.likeIcon.setImageResource(R.drawable.likefill_icon)
+            } else {
+                binding.likeIcon.setImageResource(R.drawable.like_icon)
+            }
+
+            binding.likeIcon.setOnClickListener {
+                myItemClickListener.onLikeClick(feed, feed.isLike)  // 좋아요 버튼 클릭 시 호출
+            }
+
+            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
 
             binding.mainTitle.text = feed.title
             binding.content.text = feed.content
-            binding.likeCount.text = "좋아요 ${feed.likeCnt}개"
-            binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            if(feed.commentCnt == 0) {
+                binding.commentTxt.visibility = ViewGroup.GONE
+            } else {
+                binding.commentTxt.text = "댓글 ${feed.commentCnt}개 모두 보기"
+            }
             binding.timestamp.text = calculateDaysAgo(feed.postingDate)
+
+            binding.executePendingBindings()
+
 
             adjustViewPosition(binding.feedSentence, feed.phraseX, feed.phraseY)
 
@@ -185,7 +215,7 @@ class Feed2Adapter(var list: ArrayList<FeedInfo>) : RecyclerView.Adapter<Feed2Ad
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].userId == newList[newItemPosition].userId
+            return oldList[oldItemPosition].shortsId == newList[newItemPosition].shortsId
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

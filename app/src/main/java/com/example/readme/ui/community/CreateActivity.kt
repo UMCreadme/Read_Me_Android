@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,6 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.readme.R
+import com.example.readme.utils.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONArray
@@ -30,6 +36,7 @@ class CreateActivity : AppCompatActivity() {
     private lateinit var updateButton: Button
     private lateinit var placeTextViews: List<TextView>
     private var selectedPlace: String? = null
+    private var userId = 134
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +91,35 @@ class CreateActivity : AppCompatActivity() {
         // 업데이트 버튼 클릭 리스너
         updateButton.setOnClickListener {
             if (validateFields()) {
-                val tagsList = getTagsList()
-                postTagsToServer(tagsList)
+                val postData = PostData(
+                    ISBN = "9788971844663", // 실제 데이터
+                    content = descriptionEditText.text.toString(),
+                    tags = convertTagsForServer(getTagsList()),
+                    location = selectedPlace ?: "",
+                    capacity = participantsEditText.text.toString().toInt(),
+                    userId = userId
+                )
 
-                val intent = Intent(this, CreateFragmentActivity::class.java)
-                startActivity(intent)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = RetrofitClient.getCreateService().createPost(postData)
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccess) {
+                                Toast.makeText(this@CreateActivity, "성공적으로 전송되었습니다.", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@CreateActivity, CreateFragmentActivity::class.java)
+                                startActivity(intent)
+
+                            } else {
+                                Toast.makeText(this@CreateActivity, "서버 오류: ${response.code}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@CreateActivity, "전송 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                            Log.e("CreateActivity", "전송 실패: ${e.message}", e)
+                        }
+                    }
+                }
             }
         }
     }
@@ -99,10 +130,15 @@ class CreateActivity : AppCompatActivity() {
         return tagsText.split("#").filter { it.isNotEmpty() } // 빈 문자열 필터링
     }
 
+    // 태그를 서버에 맞게 변환
+    private fun convertTagsForServer(tagsList: List<String>): String {
+        return tagsList.joinToString(separator = "|")
+    }
+
     // 태그를 서버로 POST 요청으로 전송
     private fun postTagsToServer(tagsList: List<String>) {
         val client = OkHttpClient()
-        val url = "https://your-server-endpoint.com/api/tags" // 서버 URL을 여기에 입력
+        val url = "https://api.umcreadme11.shop/communities" // 전체 URL로 변경
 
         // JSON 배열로 태그 리스트 변환
         val jsonArray = JSONArray(tagsList)
@@ -130,7 +166,7 @@ class CreateActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     runOnUiThread {
-                        Toast.makeText(this@CreateActivity, "태그가 성공적으로 전송되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CreateActivity, "성공적으로 전송되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     runOnUiThread {
@@ -201,11 +237,12 @@ class CreateActivity : AppCompatActivity() {
     private fun updateSelectedPlaceUI(selectedTextView: TextView) {
         placeTextViews.forEach { placeTextView ->
             placeTextView.setBackgroundColor(
-                if (placeTextView == selectedTextView) {
-                    ContextCompat.getColor(this, R.color.Primary)
-                } else {
-                    ContextCompat.getColor(this, R.color.Light_Gray)
-                }
+                if (placeTextView == selectedTextView) ContextCompat.getColor(this, R.color.Primary)
+                else ContextCompat.getColor(this, R.color.Light_Gray)
+            )
+            placeTextView.setTextColor(
+                if (placeTextView == selectedTextView) ContextCompat.getColor(this, R.color.White)
+                else ContextCompat.getColor(this, R.color.Black)
             )
         }
     }

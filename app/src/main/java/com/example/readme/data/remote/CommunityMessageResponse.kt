@@ -1,9 +1,9 @@
 package com.example.readme.data.remote
 
 data class CommunityMessageResponse(
-    val id: String,
-    val content: String,
-    val timestamp: String
+    val id: Int = 134,
+    val content: String? = null,
+    val timestamp: String? = null
 )
 
 data class MessageRequest(
@@ -12,6 +12,6 @@ data class MessageRequest(
 
 data class PostResponse(
     val isSuccess: Boolean,
-    val code: String,
-    val message: String
+    val code: Int,
+    val message: String?
 )

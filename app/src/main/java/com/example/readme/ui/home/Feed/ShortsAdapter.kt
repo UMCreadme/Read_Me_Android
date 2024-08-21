@@ -2,6 +2,7 @@ package com.example.readme.ui.home.Feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.readme.databinding.ShortsItemBinding
@@ -9,10 +10,24 @@ import com.example.readme.data.entities.inithome.ShortsInfo
 
 class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<ShortsAdapter.ShortsHolder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
     // ViewHolder 정의
     inner class ShortsHolder(val binding: ShortsItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val img = binding.recommandshorts
 
+        fun bind(shorts: ShortsInfo) {
+            // Glide를 사용하여 이미지 로드
+            Glide.with(binding.root.context)
+                .load(shorts.shortsImg) // URL 또는 리소스 ID
+                .into(img)
+
+            binding.root.setOnClickListener {
+                myItemClickListener?.onItemClick(shorts) // `ShortsInfo` 객체를 전달
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortsHolder {
@@ -27,14 +42,11 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
 
     override fun onBindViewHolder(holder: ShortsHolder, position: Int) {
         val shorts = list[position]
-        // Glide를 사용하여 이미지 로드
-        Glide.with(holder.itemView.context)
-            .load(shorts.shortsImg) // URL 또는 리소스 ID
-            .into(holder.img)
+        holder.bind(shorts)
+    }
 
-        holder.itemView.setOnClickListener {
-            myItemClickListener?.onItemClick(shorts) // `ShortsInfo` 객체를 전달
-        }
+    override fun getItemId(position: Int): Long {
+        return list[position].shorts_id.hashCode().toLong() // 각 아이템의 고유 ID 반환
     }
 
     override fun getItemCount(): Int {
@@ -51,13 +63,33 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
     // 클릭 리스너 인터페이스 정의
     interface MyItemClickListener {
         fun onItemClick(shorts: ShortsInfo) // `ShortsInfo` 객체를 전달
-        //fun onDeleteClick(position: Int)
     }
 
     // 데이터를 업데이트하는 함수
     fun updateData(newList: List<ShortsInfo>) {
+        val diffCallback = ShortsDiffCallback(list, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         list.clear()
         list.addAll(newList)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    // DiffUtil.Callback 구현
+    class ShortsDiffCallback(
+        private val oldList: List<ShortsInfo>,
+        private val newList: List<ShortsInfo>
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].shorts_id == newList[newItemPosition].shorts_id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
     }
 }

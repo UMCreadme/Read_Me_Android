@@ -26,7 +26,7 @@ class SearchShortsFragment : BaseFragment<FragmentSearchShortsBinding>(R.layout.
         super.initAfterBinding()
 
         // RecyclerView에 어댑터 설정
-        val adapter = SearchShortsAdaptor()
+        val adapter = SearchShortsAdaptor(viewModel)
         binding.searchShortsRecyclerView.adapter = adapter
 
         // Bundle로 전달된 검색어를 가져와서 사용

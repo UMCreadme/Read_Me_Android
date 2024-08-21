@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.repository.SearchRepository
+import com.example.readme.utils.RetrofitClient
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchShortsViewModel(
     private val repository: SearchRepository
-) : ViewModel(){
+) : ViewModel() {
     private val TAG = SearchShortsViewModel::class.java.simpleName
     private val _searchShortsItems = MutableLiveData<List<SearchShortsResult>?>()
     val searchShortsItems: LiveData<List<SearchShortsResult>?> get() = _searchShortsItems
@@ -33,14 +36,15 @@ class SearchShortsViewModel(
         }
 
         isLoading = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Retrofit API 호출
                 val response = repository.searchShorts(query, currentPage, 50)
 
                 // 응답이 성공일 경우
                 if (response.isSuccess) {
-                    val items = response.result
+                    // response.result의 타입을 확인하여 적절히 캐스팅합니다.
+                    val items = response.result as? List<SearchShortsResult> ?: emptyList()
 
                     // 현재 페이지 결과를 기존 결과에 추가
                     val currentList = _searchShortsItems.value.orEmpty()
@@ -56,6 +60,30 @@ class SearchShortsViewModel(
                 Log.e(TAG, "Error fetching search shorts items", e)
             } finally {
                 isLoading = false
+            }
+        }
+    }
+
+    fun likeShorts(item: SearchShortsResult) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    RetrofitClient.getMainInfoService().likeShorts(item.shortsId)
+                }
+                if (response.body()?.isSuccess == true) {
+                    val updatedFeeds = _searchShortsItems.value?.map {
+                        if (it.shortsId == item.shortsId) {
+                            it.copy(isLike = !it.isLike, likeCnt = response.body()?.result ?: it.likeCnt)
+                        } else {
+                            it
+                        }
+                    } ?: emptyList()
+                    _searchShortsItems.postValue(updatedFeeds)
+                } else {
+                    Log.d("FeedViewModel", "Like update failed: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.d("FeedViewModel", "Failed to update like status: ${e.message}")
             }
         }
     }

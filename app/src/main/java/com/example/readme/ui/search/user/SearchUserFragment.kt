@@ -1,12 +1,17 @@
 package com.example.readme.ui.search.user
 
+import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.readme.R
 import com.example.readme.data.repository.SearchRepository
 import com.example.readme.databinding.FragmentSearchUserBinding
+import com.example.readme.ui.MainActivity
 import com.example.readme.ui.base.BaseFragment
+import com.example.readme.ui.profile.UserProfileFragment
+import com.example.readme.ui.search.SearchFragment
 
 class SearchUserFragment : BaseFragment<FragmentSearchUserBinding>(R.layout.fragment_search_user) {
     private val viewModel: SearchUserViewModel by viewModels {
@@ -26,7 +31,17 @@ class SearchUserFragment : BaseFragment<FragmentSearchUserBinding>(R.layout.frag
         super.initAfterBinding()
 
         // RecyclerView에 어댑터 설정
-        val adapter = SearchUserAdaptor()
+        val adapter = SearchUserAdaptor(
+            onUserClick = { userId ->
+                // 사용자 상세 화면으로 전환
+                val userProfileFragment = UserProfileFragment()
+                val bundle = Bundle().apply {
+                    putInt("userId", userId)
+                }
+                userProfileFragment.arguments = bundle
+                (activity as MainActivity).addFragment(userProfileFragment)
+            }
+        )
         binding.searchUserRecyclerView.adapter = adapter
 
         // Bundle로 전달된 검색어를 가져와서 사용

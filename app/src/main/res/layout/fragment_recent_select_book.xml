@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.community.create.RecentSelectBookFragment"
+    android:paddingTop="10dp">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.readme.ui.community.create.RecentSelectBookViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recent_select_book_section"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
+
+        <!-- Recent Searches Title -->
+        <TextView
+            android:id="@+id/recent_select_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 선택한 책"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Book Searches List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recent_select_book_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:contentDescription="최근 선택한 책 목록"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recent_select_title"
+            tools:listitem="@layout/search_book_preview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
