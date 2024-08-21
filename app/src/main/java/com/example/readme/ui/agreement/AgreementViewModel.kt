@@ -1,4 +1,4 @@
-package com.example.readme.ui.agreement
-
-class AgreementViewModel {
-}
+//package com.example.readme.ui.agreement
+//
+//class AgreementViewModel {
+//}
