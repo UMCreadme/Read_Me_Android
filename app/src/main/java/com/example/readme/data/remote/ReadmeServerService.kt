@@ -58,9 +58,9 @@ interface ReadmeServerService {
     ): MyPageResponse
 
     @Multipart
-    @PUT("/users/my/image?directory=users")
+    @PUT("/users/my/image")
     suspend fun updateMyProfileImg(
-        @Header("Authorization") token: String,
+        @Query("directory") directory: String,
         @Part image: MultipartBody.Part
     ): Response
 

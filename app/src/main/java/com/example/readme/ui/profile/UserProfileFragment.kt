@@ -1,6 +1,7 @@
 package com.example.readme.ui.profile
 
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -32,12 +33,23 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         super.initDataBinding()
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
 
         val userId: Int = arguments?.getInt("userId") ?: 0
+
+        // 버튼 클릭 리스너 설정
+        /*binding.btnPfFollow.setOnClickListener {
+            val currentFollowingState = viewModel.isFollowing.value ?: false
+            if (currentFollowingState) {
+                viewModel.unfollowUser(userId)
+            } else {
+                viewModel.followUser(userId)
+            }
+        }*/
 
         // 프로필 정보 가져오기
         viewModel.fetchProfile(userId).observe(viewLifecycleOwner) { profileResponse ->
@@ -75,6 +87,17 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
                 2 -> { tab.setIcon(R.drawable.ic_tab_books) }
             }
         }.attach()
+
+        // 팔로우 상태에 따라 버튼 텍스트 및 색상 변경
+        /*viewModel.isFollowing.observe(viewLifecycleOwner) { isFollowing ->
+            if (isFollowing) {
+                binding.btnPfFollow.text = "팔로잉"
+                binding.btnPfFollow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.White))
+            } else {
+                binding.btnPfFollow.text = "팔로우"
+                binding.btnPfFollow.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.Primary_Sub))
+            }
+        }*/
 
     }
 

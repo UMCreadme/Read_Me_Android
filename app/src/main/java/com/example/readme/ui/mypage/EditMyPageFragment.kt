@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
@@ -161,9 +162,11 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
     // prepareFilePart 함수 정의
     private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
         val file = uriToFile(fileUri)
-        val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+        val mediaType = if (file.extension == "png") "image/png" else "image/jpeg"
+        val requestFile = file.asRequestBody(mediaType.toMediaTypeOrNull())
         return MultipartBody.Part.createFormData(partName, file.name, requestFile)
     }
+
 
     // uriToFile 함수 정의
     private fun uriToFile(uri: Uri): File {
@@ -184,8 +187,8 @@ class EditMyPageFragment : Fragment(R.layout.fragment_edit_mypage) {
     private fun updateProfileImg(imagePart: MultipartBody.Part) {
         lifecycleScope.launch {
             try {
-                val token = "example_token" // 여기에 실제 토큰을 사용
-                val response = apiService.updateMyProfileImg(token, imagePart)
+                val directory = "users"
+                val response = apiService.updateMyProfileImg(directory, imagePart)
                 if (response.isSuccess) {
                     Log.d("EditMyPageFragment", "Profile image updated successfully")
                     // 업로드 성공 시 완료 토스트 메시지 표시
