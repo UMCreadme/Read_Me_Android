@@ -17,6 +17,7 @@ import com.example.readme.ui.home.Feed.FeedAdapter
 import com.example.readme.ui.home.Feed.FeedViewModel
 import com.example.readme.ui.home.Feed.ShortsAdapter
 import com.example.readme.ui.home.shortsdetail.ShortsDetailFragment
+import com.example.readme.ui.profile.UserProfileFragment
 
 class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fragment_dynamic) {
 
@@ -106,6 +107,17 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
                     override fun onLikeClick(feed: com.example.readme.data.entities.inithome.FeedInfo, isLiked: Boolean) {
                         feedViewModel.likeShorts(feed)
                     }
+
+                    override fun onProfileClick(feed: com.example.readme.data.entities.inithome.FeedInfo) {
+                        // 프로필 클릭 시 Profile 이동
+                        val fragment = UserProfileFragment().apply {
+                            arguments = Bundle().apply {
+                                putInt("userId", feed.userId)
+                                Log.d("profile", "${feed.userId}")
+                            }
+                        }
+                        (context as? MainActivity)?.addFragment(fragment)
+                    }
                 })
             }
         } else {
@@ -166,6 +178,17 @@ class CategoryDynamicFragment : BaseFragment<FragmentDynamicBinding>(R.layout.fr
 
                     override fun onLikeClick(feed: FeedInfo, isLiked: Boolean) {
                         feedViewModel.likeShorts2(feed)
+                    }
+
+                    override fun onProfileClick(feed: FeedInfo) {
+                        // 프로필 클릭 시 Profile 이동
+                        val fragment = UserProfileFragment().apply {
+                            arguments = Bundle().apply {
+                                putInt("userId", feed.userId)
+                                Log.d("profile", "${feed.userId}")
+                            }
+                        }
+                        (context as? MainActivity)?.addFragment(fragment)
                     }
                 })
             }

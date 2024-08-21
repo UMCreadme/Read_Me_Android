@@ -285,10 +285,14 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             )
         }
 
-        // EditText의 내용을 수정하는 방식
         binding.etTags.removeTextChangedListener(tagTextWatcher)
-        binding.etTags.text = spannableStringBuilder
-        binding.etTags.setSelection(spannableStringBuilder.length)
+
+
+        if (spannableStringBuilder.toString() != input.toString()) {
+            binding.etTags.text = spannableStringBuilder
+            binding.etTags.setSelection(spannableStringBuilder.length)
+        }
+
         binding.etTags.addTextChangedListener(tagTextWatcher)
         checkFormValidity()
     }

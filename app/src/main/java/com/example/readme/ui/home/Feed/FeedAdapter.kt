@@ -35,6 +35,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
         fun onItemClick(feed: FeedInfo)
         fun onImageClick(feed: FeedInfo)
         fun onLikeClick(feed: FeedInfo, isLiked: Boolean)
+        fun onProfileClick(feed: FeedInfo)
     }
 
     // 리스너를 설정하는 함수
@@ -80,6 +81,10 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
 
             binding.likeIcon.setOnClickListener {
                 myItemClickListener.onLikeClick(feed, feed.isLike)  // 좋아요 버튼 클릭 시 호출
+            }
+
+            binding.feedProfile.setOnClickListener {
+                myItemClickListener.onProfileClick((feed))
             }
 
             binding.likeCount.text = "좋아요 ${feed.likeCnt}개"

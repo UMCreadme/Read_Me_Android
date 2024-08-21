@@ -6,12 +6,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -53,7 +53,7 @@
             <EditText
                 android:id="@+id/et_title"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/round_edit"
                 android:hint="제목을 입력하세요(30자 이내)"
@@ -107,7 +107,7 @@
                 android:background="@drawable/round_edit"
                 android:hint="내용을 입력하세요(300자 이내)"
                 android:maxLength="300"
-                android:minHeight="100dp"
+                android:minHeight="130dp"
                 android:padding="12dp"
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="true"
@@ -122,12 +122,12 @@
                 android:id="@+id/et_sentence"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/round_edit"
                 android:hint="추천하고 싶은 책 구절을 입력하세요(255자 이내)"
                 android:inputType="textMultiLine"
                 android:maxLength="255"
-                android:minHeight="100dp"
+                android:minHeight="130dp"
                 android:padding="12dp"
                 android:textSize="14sp"
                 android:scrollHorizontally="true"
@@ -222,12 +222,12 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/round_edit"
                 android:hint="#김밥처럼만두처럼달콤해, #노래추천"
-                android:padding="12dp"
+                android:padding="15dp"
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_tags"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_default="spread" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
