@@ -80,24 +80,17 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         }.attach()
 
         // 버튼 클릭 리스너 설정
-                binding.btnPfFollow.setOnClickListener {
-                    val currentFollowingState = viewModel.isFollowing.value ?: false
-                    if (currentFollowingState) {
-                        viewModel.unfollowUser(token, userId)
-                    } else {
-                        viewModel.followUser(token, userId)
-                    }
-                }
+        binding.btnPfFollow.setOnClickListener {
+            binding.btnPfFollow.isSelected = binding.btnPfFollow.isSelected != true;
 
-        // 팔로우 상태에 따라 버튼 이미지 변경
-        viewModel.isFollowing.observe(viewLifecycleOwner) { isFollowing ->
-            val buttonImage = if (isFollowing) {
-                R.drawable.btn_pf_following
+            val currentFollowingState = viewModel.isFollowing.value ?: false
+            if (currentFollowingState) {
+                viewModel.unfollowUser(token, userId)
             } else {
-                R.drawable.btn_pf_follow
+                viewModel.followUser(token, userId)
             }
-            binding.btnPfFollow.setImageResource(buttonImage)
         }
+
     }
 
 }
