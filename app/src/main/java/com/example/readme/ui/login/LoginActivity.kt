@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
             }
             token != null -> {
                 Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
-                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
                 getUserInfo()
             }
         }
