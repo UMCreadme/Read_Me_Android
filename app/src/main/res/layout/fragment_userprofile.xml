@@ -156,13 +156,14 @@
                 </LinearLayout>
             </LinearLayout>
 
-        <!-- 팔로잉 버튼 ImageView 추가하고 상태에 따라 다르게 -->
-        <ImageView
+        <!-- 팔로잉 버튼 Button으로 변경 -->
+        <ImageButton
             android:id="@+id/btn_pf_follow"
             android:layout_width="320dp"
             android:layout_height="42dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/btn_pf_follow"
+            android:background="@drawable/btn_pf_follow"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_bio" />
