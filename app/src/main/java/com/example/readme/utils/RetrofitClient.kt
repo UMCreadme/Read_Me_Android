@@ -27,6 +27,7 @@ object RetrofitClient {
     private var mainInfoRetrofit: Retrofit? = null
     private var shortspostRetrofit: Retrofit? = null
     private var createRetrofit: Retrofit? = null
+    private  var commentRetrofit : Retrofit? = null
     private var token: String? = null
 
     fun setToken(accessToken: String) {
@@ -181,8 +182,19 @@ object RetrofitClient {
     }
 
     // CommentListService Retrofit 객체 생성
-    fun getCommentListService(): CommentListService {
-        return getRetrofit(ReadmeServerService.BASE_URL).create(CommentListService::class.java)
+//    fun getCommentListService(): CommentListService {
+//        return getRetrofit(ReadmeServerService.BASE_URL).create(CommentListService::class.java)
+//    }
+
+    fun getCommentListService() : CommentListService {
+        if (commentRetrofit == null) {
+            commentRetrofit = Retrofit.Builder()
+                .baseUrl(ReadmeServerService.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return commentRetrofit!!.create(CommentListService::class.java)
     }
 
 }
