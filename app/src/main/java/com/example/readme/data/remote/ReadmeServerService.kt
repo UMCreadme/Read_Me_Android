@@ -14,8 +14,11 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -44,15 +47,34 @@ interface ReadmeServerService {
         @Header("Authorization") token: String
     ): ProfileBooksResponse
 
-    @PATCH("/users/my")
+    @PUT("/users/my")
     suspend fun updateMyProfile(
         @Header("Authorization") token: String,
         @Body profileUpdateRequest: ProfileUpdateRequest
     ): MyPageResponse
 
+    @Multipart
+    @PUT("/users/my/image")
+    suspend fun updateMyProfileImg(
+        @Query("directory") directory: String,
+        @Part image: MultipartBody.Part
+    ): Response
+
     @DELETE("/users/my")
     suspend fun deleteProfileImage(
         @Header("Authorization") token: String
+    ): Response
+
+    @POST("/users/{userId}/follow")
+    fun followUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: Int
+    ): Response
+
+    @DELETE("/users/{userId}/follow")
+    fun unfollowUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: Int
     ): Response
 
 
