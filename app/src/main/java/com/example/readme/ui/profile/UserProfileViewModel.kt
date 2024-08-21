@@ -18,6 +18,9 @@ class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewMo
     private val _profile = MutableLiveData<ProfileResponse>()
     val profile: LiveData<ProfileResponse> get() = _profile
 
+    private val _isFollowing = MutableLiveData<Boolean>()
+    val isFollowing: LiveData<Boolean> get() = _isFollowing
+
 
     // 프로필 정보를 가져오는 함수
     fun fetchProfile(userId: Int): LiveData<ProfileResponse> {
@@ -43,5 +46,35 @@ class UserProfileViewModel(private val apiService: ReadmeServerService) : ViewMo
             }
         }
         return profile
+    }
+
+    fun followUser(token: String, userId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.followUser(token, userId)
+                if (response.isSuccess) {
+                    _isFollowing.value = true
+                } else {
+                    _isFollowing.value = false
+                }
+            } catch (e: Exception) {
+                _isFollowing.value = false
+            }
+        }
+    }
+
+    fun unfollowUser(token: String, userId: Int) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.unfollowUser(token, userId)
+                if (response.isSuccess) {
+                    _isFollowing.value = false
+                } else {
+                    _isFollowing.value = true
+                }
+            } catch (e: Exception) {
+                _isFollowing.value = true
+            }
+        }
     }
 }
