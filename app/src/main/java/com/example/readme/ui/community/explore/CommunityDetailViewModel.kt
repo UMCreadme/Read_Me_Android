@@ -16,6 +16,9 @@ class CommunityDetailViewModel(
     private val _communityDetail = MutableLiveData<CommunityDetailResponse?>()
     val communityDetail: LiveData<CommunityDetailResponse?> get() = _communityDetail
 
+    private val _errMessage = MutableLiveData<String>()
+    val errMessage: LiveData<String> get() = _errMessage
+
     fun fetchCommunityDetail(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -36,9 +39,11 @@ class CommunityDetailViewModel(
                 if(response.isSuccess) {
                     fetchCommunityDetail(id)
                 } else {
+                    _errMessage.postValue("${response.message}")
                     Log.e("CommunityDetailViewModel", "Failed to join community: ${response.code} - ${response.message}")
                 }
             } catch (e: Exception) {
+                _errMessage.postValue("한번 더 시도해주세요.")
                 Log.e("CommunityDetailViewModel", "Failed to join community", e)
             }
         }

@@ -51,6 +51,10 @@ class CommunityDetailFragment : BaseFragment<FragmentCommunityDetailBinding>(R.l
                 viewModel.joinCommunity(arguments?.getInt("communityId") ?: 0)
             }
         }
+
+        viewModel.errMessage.observe(this) {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun updateUI(community: CommunityDetailResponse?) {
