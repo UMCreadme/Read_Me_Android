@@ -74,6 +74,11 @@ class LoginActivity : AppCompatActivity() {
 
         // 비회원 로그인 버튼 클릭 리스너
         binding.nonMembersTv.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putBoolean("is_logged_in", false)
+                apply()
+            }
             nextMainActivity()
         }
 
@@ -87,6 +92,11 @@ class LoginActivity : AppCompatActivity() {
         // 카카오 사용자 응답 옵저버 설정
         loginViewModel.kakaoUserResponse.observe(this) { response ->
             response?.let {
+                val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putBoolean("is_logged_in", true)
+                    apply()
+                }
                 nextMainActivity()
             }
         }
