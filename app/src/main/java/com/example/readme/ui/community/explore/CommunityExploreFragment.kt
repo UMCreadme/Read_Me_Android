@@ -33,7 +33,7 @@ class CommunityExploreFragment : BaseFragment<FragmentCommunityExploreBinding>(R
                     putInt("communityId", communityId)
                 }
                 communityDetailFragment.arguments = bundle
-                (activity as MainActivity).changeFragment(communityDetailFragment)
+                (activity as MainActivity).addFragment(communityDetailFragment)
             }
         )
         binding.communityExploreRecyclerView.adapter = adapter

@@ -107,12 +107,11 @@ class MainActivity : AppCompatActivity() {
 
 
     fun ShowCommunity(){
+        binding.toolbar.visibility = View.GONE
+        binding.mainLogo.visibility = View.GONE
         binding.btnNext.visibility = View.GONE
         binding.tvTitle.visibility = View.GONE
-        binding.toolbar.visibility = View.VISIBLE
-        binding.mainLogo.visibility = View.GONE
         binding.btnSetting.visibility = View.GONE
-        binding.btnBack.visibility = View.VISIBLE
     }
 
     fun resetToolbar() {
