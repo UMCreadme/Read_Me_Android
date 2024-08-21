@@ -2,6 +2,8 @@ package com.example.readme.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -33,15 +35,26 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+        val lp = window.attributes
+        lp.flags = lp.flags and WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN.inv()
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        window.attributes = lp
     }
 
     override fun onBackPressed() {
+        // 백스택이 비어 있지 않으면 popBackStack
         if (supportFragmentManager.backStackEntryCount > 1) {
-            supportFragmentManager
-                .popBackStack()
+            supportFragmentManager.popBackStack()
+        }
+        // 백스택에 남은 Fragment가 하나일 경우 (초기화면)
+        else if (supportFragmentManager.backStackEntryCount == 1) {
+            supportFragmentManager.popBackStack()
+            // 추가 동작을 수행하거나, 앱 종료를 막을 수 있음
+            Toast.makeText(this, "뒤로 가기를 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
         }
         else {
-            super.onBackPressed()
+            super.onBackPressed() // 기본 동작 (앱 종료)
         }
     }
 
@@ -77,12 +90,12 @@ class MainActivity : AppCompatActivity() {
     fun addFragment(fragment: Fragment) {
         supportFragmentManager
             .commit {
-                setCustomAnimations(
-                    R.anim.slide_3,
-                    R.anim.fade_out,
-                    R.anim.slide_1,
-                    R.anim.fade_out
-                )
+//                setCustomAnimations(
+//                    R.anim.slide_3,
+//                    R.anim.fade_out,
+//                    R.anim.slide_1,
+//                    R.anim.fade_out
+//                )
                 replace(R.id.nav_host_fragment, fragment)
 
                 addToBackStack(fragment.javaClass.simpleName)
