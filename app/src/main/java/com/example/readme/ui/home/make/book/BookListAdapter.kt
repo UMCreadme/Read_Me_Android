@@ -24,7 +24,6 @@ class BookListAdapter(var list: List<Book>) : RecyclerView.Adapter<BookListAdapt
         val bookImage = binding.bookImage
         val title = binding.title
         val author = binding.author
-        val del = binding.btnDel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {
@@ -49,9 +48,6 @@ class BookListAdapter(var list: List<Book>) : RecyclerView.Adapter<BookListAdapt
         holder.author.text = book.author
 
         holder.itemView.setOnClickListener { myItemClickListener.onItemClick(book) }
-        holder.del.setOnClickListener { myItemClickListener.onDeleteClick(book) }
-
-
     }
 
     override fun getItemCount(): Int {
@@ -60,11 +56,6 @@ class BookListAdapter(var list: List<Book>) : RecyclerView.Adapter<BookListAdapt
 
     fun updateList(newItems: List<Book>) {
         this.list = newItems
-        notifyDataSetChanged()
-    }
-
-    fun deleteItem(book: Book) {
-        this.list = list.filter { it != book }
         notifyDataSetChanged()
     }
 }

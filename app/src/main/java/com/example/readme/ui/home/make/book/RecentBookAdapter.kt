@@ -25,7 +25,6 @@ class RecentBookAdapter(var list: List<Book>, private var isRecent: Boolean = tr
         val bookImage = binding.bookImage
         val title = binding.title
         val author = binding.author
-        val del = binding.btnDel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {
@@ -50,14 +49,6 @@ class RecentBookAdapter(var list: List<Book>, private var isRecent: Boolean = tr
         holder.author.text = book.author
 
         holder.itemView.setOnClickListener { myItemClickListener.onItemClick(book) }
-        holder.del.setOnClickListener { myItemClickListener.onDeleteClick(book) }
-
-        // 최근 검색된 항목인 경우 삭제 버튼 표시
-        if (isRecent) {
-            holder.del.visibility = View.VISIBLE
-        } else {
-            holder.del.visibility = View.GONE
-        }
     }
 
     override fun getItemCount(): Int {
