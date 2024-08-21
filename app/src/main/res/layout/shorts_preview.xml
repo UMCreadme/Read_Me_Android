@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="shorts"
-            type="com.example.readme.data.entities.ShortsPreview" />
-    </data>
-
     <androidx.cardview.widget.CardView
+        android:id="@+id/shorts_card"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_margin="8dp"
@@ -29,8 +24,8 @@
                 android:layout_height="match_parent"
                 android:contentDescription="쇼츠 배경 이미지"
                 android:scaleType="fitXY"
-                app:imageUrl="@{shorts.shortsImg}"
-                app:shapeAppearanceOverlay="@style/RoundCorner" />
+                app:shapeAppearanceOverlay="@style/RoundCorner"
+                tools:src="@drawable/shorts_picture"/>
 
             <TextView
                 android:id="@+id/shorts_phrase"
@@ -38,11 +33,10 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@{shorts.phrase}"
                 android:textColor="@color/White"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                tools:text="책 구절 블라 블라 블라 블라 블라"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

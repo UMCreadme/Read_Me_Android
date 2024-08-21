@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.readme.data.entities.ShortsPreview
 import com.example.readme.databinding.ShortsPreviewBinding
 
@@ -26,7 +27,12 @@ class BookDetailAdapter: ListAdapter<ShortsPreview, BookDetailAdapter.ShortsView
 
         inner class ShortsViewHolder(private val binding: ShortsPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
             fun bind(item: ShortsPreview) {
-                binding.shorts = item
+                Glide.with(binding.root.context)
+                    .load(item.shortsImg)
+                    .into(binding.shortsImg)
+
+                binding.shortsPhrase.text = item.phrase
+                binding.shortsPhrase.maxLines = 2
                 binding.executePendingBindings()
             }
         }

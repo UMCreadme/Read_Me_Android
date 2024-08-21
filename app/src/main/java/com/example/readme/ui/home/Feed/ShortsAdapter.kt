@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.readme.databinding.ShortsItemBinding
 import com.example.readme.data.entities.inithome.ShortsInfo
+import com.example.readme.databinding.ShortsItemBinding
 
 class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<ShortsAdapter.ShortsHolder>() {
 
@@ -16,13 +16,15 @@ class ShortsAdapter(var list: ArrayList<ShortsInfo>) : RecyclerView.Adapter<Shor
 
     // ViewHolder 정의
     inner class ShortsHolder(val binding: ShortsItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val img = binding.recommandshorts
+        val img = binding.shortsImg
 
         fun bind(shorts: ShortsInfo) {
             // Glide를 사용하여 이미지 로드
             Glide.with(binding.root.context)
                 .load(shorts.shortsImg) // URL 또는 리소스 ID
                 .into(img)
+
+            binding.shortsPhrase.text = shorts.phrase
 
             binding.root.setOnClickListener {
                 myItemClickListener?.onItemClick(shorts) // `ShortsInfo` 객체를 전달

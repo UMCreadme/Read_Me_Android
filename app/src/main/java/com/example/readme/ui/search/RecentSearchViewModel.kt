@@ -42,11 +42,6 @@ class RecentSearchViewModel(
         return _recentSearchItems
     }
 
-    fun addSearchItem(searchItem: RecentSearch) {
-        val currentItems = _recentSearchItems.value ?: listOf()
-        _recentSearchItems.value = currentItems + searchItem
-    }
-
     fun removeSearchItem(searchItem: RecentSearch) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -55,7 +50,7 @@ class RecentSearchViewModel(
 
                 // 응답이 성공일 경우
                 if(response.isSuccess){
-                    _recentSearchItems.value = _recentSearchItems.value?.filter { it != searchItem }
+                    _recentSearchItems.postValue(recentSearchItems.value?.filter { it != searchItem })
                 } else if(response.code == "TOKEN4005"){
                     // 액세스 토큰 재발급 후 재요청?
                     Log.e(TAG, "Failed to delete recent search item: ${response.code} - ${response.message}")
