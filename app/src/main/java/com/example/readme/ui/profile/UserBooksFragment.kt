@@ -15,13 +15,12 @@ import com.example.readme.ui.search.book.BookDetailActivity
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
-class UserBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
+class UserBooksFragment(private val userId: Int) : Fragment(R.layout.fragment_tab_recyclerview) {
 
     private lateinit var binding: FragmentTabRecyclerviewBinding
     private lateinit var booksAdapter: UserBooksAdapter
     private val booksList = mutableListOf<Book>()
 
-    private var userId: Int = 0
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
@@ -30,8 +29,6 @@ class UserBooksFragment : Fragment(R.layout.fragment_tab_recyclerview) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTabRecyclerviewBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        userId = arguments?.getInt("userId") ?: 0
 
          booksAdapter = UserBooksAdapter(booksList) { book ->
             val intent = Intent(requireContext(), BookDetailActivity::class.java).apply {

@@ -68,7 +68,7 @@ class UserProfileFragment : BaseFragment<FragmentUserprofileBinding>(R.layout.fr
         }
 
         // ViewPager2와 TabLayoutMediator 설정
-        val adapter = UserProfileViewPagerAdapter(this)
+        val adapter = UserProfileViewPagerAdapter(this, userId)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

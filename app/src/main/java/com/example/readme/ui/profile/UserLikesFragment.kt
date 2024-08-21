@@ -13,13 +13,12 @@ import com.example.readme.databinding.FragmentTabRecyclerviewBinding
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
-class UserLikesFragment : Fragment(R.layout.fragment_tab_recyclerview) {
+class UserLikesFragment(private val userId: Int) : Fragment(R.layout.fragment_tab_recyclerview) {
 
     private lateinit var binding: FragmentTabRecyclerviewBinding
     private lateinit var shortsAdapter: UserShortsAdapter
     private val shortsList = mutableListOf<ShortsItem>()
 
-    private var userId: Int = 0
     private val apiService: ReadmeServerService by lazy {
         RetrofitClient.getReadmeServerService()
     }
@@ -30,8 +29,6 @@ class UserLikesFragment : Fragment(R.layout.fragment_tab_recyclerview) {
         binding.lifecycleOwner = viewLifecycleOwner
         shortsAdapter = UserShortsAdapter(shortsList)
         binding.recyclerView.adapter = shortsAdapter
-
-        userId = arguments?.getInt("userId") ?: 0
 
         // API 호출
         fetchShorts()
