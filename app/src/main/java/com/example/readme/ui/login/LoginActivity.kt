@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.readme.BuildConfig
+import com.android.identity.BuildConfig
 import com.example.readme.ui.category.CategoryActivity
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.repository.LoginRepository
@@ -14,6 +14,8 @@ import com.example.readme.databinding.ActivityLoginBinding
 import com.example.readme.ui.MainActivity
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
 
 import com.kakao.sdk.user.UserApiClient
 
