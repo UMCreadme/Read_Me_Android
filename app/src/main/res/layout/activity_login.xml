@@ -19,10 +19,11 @@
             android:id="@+id/readme_logo_iv"
             android:layout_width="209dp"
             android:layout_height="50dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="300dp"
             android:src="@drawable/logo_big"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +31,12 @@
             android:id="@+id/howto_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="8dp"
             android:text="프레로 시작하는 독서생활"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/readme_logo_iv" />
 
@@ -42,23 +44,23 @@
             android:id="@+id/non_members_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="348dp"
+            android:layout_marginBottom="14dp"
             android:text="비회원으로 둘러보기"
+            app:layout_constraintBottom_toTopOf="@+id/kakao_login_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/howto_tv" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/kakao_login_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_width="325dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/non_members_tv"
             app:srcCompat="@drawable/kakao_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

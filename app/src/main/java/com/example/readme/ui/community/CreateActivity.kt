@@ -40,7 +40,7 @@ class CreateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create)
+        setContentView(R.layout.fragment_community_create_start)
 
         // 뷰 초기화
         bookImageView = findViewById(R.id.bookImageView)
