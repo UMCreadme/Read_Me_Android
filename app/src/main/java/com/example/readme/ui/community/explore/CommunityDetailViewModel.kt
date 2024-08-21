@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.readme.data.entities.CommunityDetailResponse
+import com.example.readme.data.remote.Response
 import com.example.readme.data.repository.CommunityRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class CommunityDetailViewModel(
     private val repository: CommunityRepository
@@ -42,7 +45,17 @@ class CommunityDetailViewModel(
                     _errMessage.postValue("${response.message}")
                     Log.e("CommunityDetailViewModel", "Failed to join community: ${response.code} - ${response.message}")
                 }
-            } catch (e: Exception) {
+            } catch (e: HttpException) {
+                val errorBody = e.response()?.errorBody()?.string()
+                val errorBodyParsing = errorBody?.let {
+                    Gson().fromJson(it, Response::class.java)  // Gson으로 파싱
+                }
+
+                if (errorBodyParsing != null) {
+                    _errMessage.postValue(errorBodyParsing.message)
+                }
+            }
+            catch (e: Exception) {
                 _errMessage.postValue("한번 더 시도해주세요.")
                 Log.e("CommunityDetailViewModel", "Failed to join community", e)
             }
