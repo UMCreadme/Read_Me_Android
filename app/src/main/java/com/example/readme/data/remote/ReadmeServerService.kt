@@ -10,12 +10,12 @@ import com.example.readme.data.entities.RecentSearch
 import com.example.readme.data.entities.SearchShortsResult
 import com.example.readme.data.entities.SearchUserResult
 import com.example.readme.data.entities.recentbook.Book
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
