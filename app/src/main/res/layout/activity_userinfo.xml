@@ -89,8 +89,8 @@
             android:layout_marginEnd="92dp"
             android:text="아이디는 공백없이 30자 이하, 기호는 사용할 수 없습니다."
             android:textSize="12dp"
-
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/category_title_tv"
+             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nickname_info_tv" />
 
         <com.google.android.material.textfield.TextInputLayout

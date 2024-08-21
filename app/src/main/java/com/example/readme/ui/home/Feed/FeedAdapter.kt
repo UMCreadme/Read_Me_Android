@@ -1,9 +1,11 @@
 package com.example.readme.ui.home.Feed
 
+import CommentFragment
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -11,7 +13,9 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.readme.R
 import com.example.readme.data.entities.inithome.FeedInfo
+
 import com.example.readme.databinding.FeedItemBinding
+
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +24,11 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
     init {
         setHasStableIds(true)
     }
+
+    init {
+        setHasStableIds(true)
+    }
+
 
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
@@ -42,6 +51,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
             // 유저 정보 세팅
             Glide.with(binding.root.context)
                 .load(feed.profileImg)
+                .centerInside()
                 .circleCrop()
                 .into(binding.feedProfile)
             binding.username.text = feed.nickname
@@ -49,6 +59,7 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
             // 쇼츠 정보 세팅 (이미지 & 구절)
             Glide.with(binding.root.context)
                 .load(feed.shortsImg)
+                .centerInside()
                 .into(object : CustomTarget<Drawable>() {
                     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                         binding.shortsImage.background = resource
@@ -86,6 +97,15 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
 
             binding.shortsImage.setOnClickListener {
                 myItemClickListener.onImageClick(feed)  // 이미지 클릭 시 호출
+            }
+
+            binding.commentIcon.setOnClickListener {
+                // FragmentActivity를 통해 FragmentManager를 가져옴
+                val fragmentActivity = itemView.context as? FragmentActivity
+                fragmentActivity?.let {
+                    val commentFragment = CommentFragment()
+                    commentFragment.show(it.supportFragmentManager, "CommentFragment")
+                }
             }
         }
     }

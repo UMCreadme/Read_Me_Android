@@ -1,5 +1,6 @@
 package com.example.readme.utils
 
+import CommentListService
 import android.util.Log
 import com.example.readme.data.remote.*
 import com.example.readme.data.repository.SearchRepository
@@ -178,4 +179,10 @@ object RetrofitClient {
         }
         return readmeRetrofit!!.create(ReadmeServerService::class.java)
     }
+
+    // CommentListService Retrofit 객체 생성
+    fun getCommentListService(): CommentListService {
+        return getRetrofit(ReadmeServerService.BASE_URL).create(CommentListService::class.java)
+    }
+
 }

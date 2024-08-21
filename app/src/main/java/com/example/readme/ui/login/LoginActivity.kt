@@ -49,7 +49,22 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoLoginBtn.setOnClickListener {
             // 로그인 방법 선택
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = mCallback)
+
+                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                    if (error != null) {
+                        Log.e("LoginActivity", "로그인 실패 $error")
+                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                            return@loginWithKakaoTalk
+                        } else {
+                            UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
+                        }
+                    } else if (token != null) {
+                        Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
+//                        Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                        getUserInfo()
+                    }
+                }
+
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
             }

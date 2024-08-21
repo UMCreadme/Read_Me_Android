@@ -84,37 +84,37 @@ class LoginViewModel(
         }
     }
 
-    fun setNickname(nickname: String) {
-        _userData.value = _userData.value?.copy(nickname = nickname) ?: UserData(
-            uniqueId = "",
-            email = "",
-            nickname = nickname,
-            account = "",
-            categoryIdList = listOf()
-        )
-    }
-
-    fun setAccount(account: String) {
-        _userData.value = _userData.value?.copy(account = account) ?: UserData(
-            uniqueId = "",
-            email = "",
-            nickname = "",
-            account = account,
-            categoryIdList = listOf()
-        )
-    }
-
-    fun setCategoryIdList(categoryIdList: List<Int>) {
-        _userData.value = _userData.value?.copy(categoryIdList = categoryIdList) ?: UserData(
-            uniqueId = "",
-            email = "",
-            nickname = "",
-            account = "",
-            categoryIdList = categoryIdList
-        )
-    }
-
-    fun updateUserData() {
-        _userData.value?.let { sendSignUpInfo(it) }
-    }
+//    fun setNickname(nickname: String) {
+//        _userData.value = _userData.value?.copy(nickname = nickname) ?: UserData(
+//            uniqueId = "",
+//            email = "",
+//            nickname = nickname,
+//            account = "",
+//            categoryIdList = listOf()
+//        )
+//    }
+//
+//    fun setAccount(account: String) {
+//        _userData.value = _userData.value?.copy(account = account) ?: UserData(
+//            uniqueId = "",
+//            email = "",
+//            nickname = "",
+//            account = account,
+//            categoryIdList = listOf()
+//        )
+//    }
+//
+//    fun setCategoryIdList(categoryIdList: List<Int>) {
+//        _userData.value = _userData.value?.copy(categoryIdList = categoryIdList) ?: UserData(
+//            uniqueId = "",
+//            email = "",
+//            nickname = "",
+//            account = "",
+//            categoryIdList = categoryIdList
+//        )
+//    }
+//
+//    fun updateUserData() {
+//        _userData.value?.let { sendSignUpInfo(it) }
+//    }
 }
