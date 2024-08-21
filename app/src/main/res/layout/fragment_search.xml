@@ -19,6 +19,7 @@
             android:layout_marginHorizontal="15dp"
             android:background="@drawable/rounded_search_view"
             android:orientation="horizontal"
+            android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
