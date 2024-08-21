@@ -9,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity.INPUT_METHOD_SERVICE
 import androidx.fragment.app.Fragment
 import com.example.readme.R
 import com.example.readme.databinding.FragmentCommunityCreateBinding
+import com.example.readme.databinding.FragmentCommunityCreateStartBinding
 import com.example.readme.ui.base.BaseFragment
 
-class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateBinding>(R.layout.fragment_community_create) {
+class CommunityCreateFragment : BaseFragment<FragmentCommunityCreateStartBinding>(R.layout.fragment_community_create_start) {
     override fun initStartView() {
         super.initStartView()
          setFragment(RecentSelectBookFragment())

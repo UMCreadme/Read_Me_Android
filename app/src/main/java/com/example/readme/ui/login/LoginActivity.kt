@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.readme.BuildConfig
+import com.android.identity.BuildConfig
 import com.example.readme.ui.category.CategoryActivity
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.repository.LoginRepository
@@ -14,6 +14,8 @@ import com.example.readme.databinding.ActivityLoginBinding
 import com.example.readme.ui.MainActivity
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
 
 import com.kakao.sdk.user.UserApiClient
 
@@ -49,7 +51,22 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoLoginBtn.setOnClickListener {
             // 로그인 방법 선택
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = mCallback)
+
+                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                    if (error != null) {
+                        Log.e("LoginActivity", "로그인 실패 $error")
+                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                            return@loginWithKakaoTalk
+                        } else {
+                            UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
+                        }
+                    } else if (token != null) {
+                        Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
+//                        Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+                        getUserInfo()
+                    }
+                }
+
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
             }
@@ -57,6 +74,11 @@ class LoginActivity : AppCompatActivity() {
 
         // 비회원 로그인 버튼 클릭 리스너
         binding.nonMembersTv.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putBoolean("is_logged_in", false)
+                apply()
+            }
             nextMainActivity()
         }
 
@@ -70,6 +92,11 @@ class LoginActivity : AppCompatActivity() {
         // 카카오 사용자 응답 옵저버 설정
         loginViewModel.kakaoUserResponse.observe(this) { response ->
             response?.let {
+                val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putBoolean("is_logged_in", true)
+                    apply()
+                }
                 nextMainActivity()
             }
         }
@@ -90,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
             }
             token != null -> {
                 Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
-                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
                 getUserInfo()
             }
         }

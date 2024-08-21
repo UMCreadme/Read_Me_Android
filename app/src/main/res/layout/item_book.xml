@@ -31,10 +31,4 @@
             android:layout_height="wrap_content"
             android:text="Item Subtitle" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/btn_del"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/del_book_item_icon"/>
 </LinearLayout>

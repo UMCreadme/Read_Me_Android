@@ -196,7 +196,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.categorySpinner.adapter = adapter
     }
 
     private fun goToPreviewFragment() {
@@ -204,7 +203,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
         val content = binding.etContent.text.toString()
         val sentence = binding.etSentence.text.toString()
         val tags = binding.etTags.text.toString()
-        val category = binding.tvCategory.text.toString()
         val ISBN = binding.ISBN.text.toString()
 
         // checkedImage에서 URI 가져오기
@@ -215,7 +213,6 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             putString("content", content)
             putString("sentence", sentence)
             putString("tags", tags)
-            putString("category", category)
             putString("imageUri", imageUri)
             Log.d("imageUri", imageUri.toString())
             putString("ISBN", ISBN)
@@ -288,10 +285,14 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
             )
         }
 
-        // EditText의 내용을 수정하는 방식
         binding.etTags.removeTextChangedListener(tagTextWatcher)
-        binding.etTags.text = spannableStringBuilder
-        binding.etTags.setSelection(spannableStringBuilder.length)
+
+
+        if (spannableStringBuilder.toString() != input.toString()) {
+            binding.etTags.text = spannableStringBuilder
+            binding.etTags.setSelection(spannableStringBuilder.length)
+        }
+
         binding.etTags.addTextChangedListener(tagTextWatcher)
         checkFormValidity()
     }

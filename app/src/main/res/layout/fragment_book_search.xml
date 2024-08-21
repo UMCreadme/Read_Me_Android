@@ -21,17 +21,18 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
-            android:layout_width="380dp"
-            android:layout_height="60dp"
-            android:background="@drawable/round_edit"
-            android:padding="12dp"
-            app:iconifiedByDefault="false"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rounded_search_view"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:queryHint="   책을 검색하세요."
-            app:searchIcon="@drawable/search_icon" />
+            app:queryBackground="@null"
+            app:queryHint="책을 검색하세요." />
 
 
         <TextView
@@ -54,7 +55,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:listitem="@layout/item_book"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
