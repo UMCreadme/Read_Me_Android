@@ -99,8 +99,8 @@
                 <!-- Back Button -->
                 <ImageButton
                     android:id="@+id/book_detail_back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="13dp"
+                    android:layout_height="22dp"
                     android:layout_margin="20dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="뒤로가기 버튼"

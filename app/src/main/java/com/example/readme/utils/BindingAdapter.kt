@@ -14,7 +14,7 @@ object BindingAdapters {
                 .load(url)
                 .into(view)
         } else {
-            view.setImageResource(R.drawable.img_profile_default)
+            view.setImageResource(R.drawable.userprofile_default)
         }
     }
 }

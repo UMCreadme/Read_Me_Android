@@ -3,7 +3,6 @@ package com.example.readme.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.identity.BuildConfig
@@ -74,11 +73,6 @@ class LoginActivity : AppCompatActivity() {
 
         // 비회원 로그인 버튼 클릭 리스너
         binding.nonMembersTv.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
-            with(sharedPreferences.edit()) {
-                putBoolean("is_logged_in", false)
-                apply()
-            }
             nextMainActivity()
         }
 
@@ -94,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
             response?.let {
                 val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
                 with(sharedPreferences.edit()) {
-                    putBoolean("is_logged_in", true)
+                    putString("access_token", it.accessToken)
                     apply()
                 }
                 nextMainActivity()

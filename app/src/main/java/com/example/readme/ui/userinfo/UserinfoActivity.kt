@@ -54,6 +54,17 @@ class UserinfoActivity : AppCompatActivity() {
             submitUserInfo()
         }
 
+        userinfoViewModel.signResponse.observe(this) { response ->
+            if (response != null) {
+                val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("access_token", response.result?.accessToken)
+                    apply()
+                }
+                goToMainActivity()
+            }
+        }
+
 
         userinfoViewModel.member4005Error.observe(this) { isMember4005 ->
             if (isMember4005) {
@@ -66,7 +77,6 @@ class UserinfoActivity : AppCompatActivity() {
             } else {
                 idDuplicateTextView.visibility = View.GONE
                 idDuplicateTextView.text = ""
-                goToMainActivity()
             }
         }
     }

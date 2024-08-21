@@ -72,8 +72,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when(position){
                 0 -> { tab.setIcon(R.drawable.ic_tab_shorts) }
-                1 -> { tab.setIcon(R.drawable.ic_tab_likes) }
-                2 -> { tab.setIcon(R.drawable.ic_tab_books) }
+                1 -> { tab.setIcon(R.drawable.like_icon) }
+                2 -> { tab.setIcon(R.drawable.post_detail_icon) }
             }
         }.attach()
 

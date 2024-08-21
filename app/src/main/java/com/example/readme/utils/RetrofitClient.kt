@@ -22,11 +22,8 @@ object RetrofitClient {
 
     private var kakaoRetrofit: Retrofit? = null
     private var readmeRetrofit: Retrofit? = null
-    private var locationRetrofit: Retrofit? = null
-    private var chatRetrofit: Retrofit? = null
     private var mainInfoRetrofit: Retrofit? = null
     private var shortspostRetrofit: Retrofit? = null
-    private var createRetrofit: Retrofit? = null
     private  var commentRetrofit : Retrofit? = null
     private var token: String? = null
 
@@ -37,8 +34,6 @@ object RetrofitClient {
         // 토큰이 변경되었으므로, 기존의 Retrofit 인스턴스를 무효화
         readmeRetrofit = null
         mainInfoRetrofit = null
-        locationRetrofit = null
-        chatRetrofit = null
 
         SearchRepository.init(getReadmeServerService())
         CommunityRepository.init(getReadmeServerService())
@@ -133,42 +128,6 @@ object RetrofitClient {
         return shortspostRetrofit!!.create(ShortsPostService::class.java)
     }
 
-    // Location 서버 API Retrofit 객체 생성
-    fun getLocationService(): LocationService {
-        if (locationRetrofit == null) {
-            locationRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return locationRetrofit!!.create(LocationService::class.java)
-    }
-
-    // ChatFetchService Retrofit 객체 생성
-    fun getChatFetchService(): ChatFetchService {
-        if (chatRetrofit == null) {
-            chatRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(chatClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return chatRetrofit!!.create(ChatFetchService::class.java)
-    }
-
-    // CreateService Retrofit 객체 생성
-    fun getCreateService(): CreateService {
-        if (createRetrofit == null) {
-            createRetrofit = Retrofit.Builder()
-                .baseUrl(ReadmeServerService.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-        return createRetrofit!!.create(CreateService::class.java)
-    }
-
     // Readme 서버 API Retrofit 객체 생성
     fun getReadmeServerService(): ReadmeServerService {
         if (readmeRetrofit == null) {
@@ -180,11 +139,6 @@ object RetrofitClient {
         }
         return readmeRetrofit!!.create(ReadmeServerService::class.java)
     }
-
-    // CommentListService Retrofit 객체 생성
-//    fun getCommentListService(): CommentListService {
-//        return getRetrofit(ReadmeServerService.BASE_URL).create(CommentListService::class.java)
-//    }
 
     fun getCommentListService() : CommentListService {
         if (commentRetrofit == null) {

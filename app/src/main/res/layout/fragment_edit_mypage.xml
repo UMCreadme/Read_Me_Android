@@ -27,7 +27,7 @@
                 android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/btn_pf_back"
+                android:src="@drawable/back_btn"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back"/>
 
@@ -47,10 +47,10 @@
                 android:id="@+id/completeButton"
                 android:layout_width="64dp"
                 android:layout_height="40dp"
-                android:text="완료"
                 android:textStyle="bold"
                 android:textColor="@color/White"
-                android:background="@drawable/btn_pf_finish"/>
+                android:background="@drawable/btn_rect_background"
+                android:text="완료"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
