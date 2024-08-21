@@ -33,9 +33,6 @@
         android:enableOnBackInvokedCallback="true">
 
         <activity
-            android:name=".ui.community.BookDetailActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.community.BookAppointDoneActivity"
             android:exported="false" />
 
@@ -57,10 +54,6 @@
             android:exported="true" />
 
         <activity
-            android:name=".ui.community.TabLayoutActivity"
-            android:exported="true" />
-
-        <activity
             android:name=".ui.search.book.BookDetailActivity"
             android:exported="true" />
 
@@ -71,6 +64,14 @@
 
         <!-- MainActivity에 대한 선언 -->
         <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Readme">
+        </activity>
+
+        <!-- StartActivity에 대한 선언 -->
+        <activity
             android:name=".ui.start.StartActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -79,14 +80,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- LoginActivity에 대한 선언 -->
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Readme">
         </activity>
 
         <activity
@@ -107,13 +100,18 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="${KAKAO_NATIVE_APP_KEY}"/>
 
-        <!-- StartActivity를 런처로 설정 -->
+        <activity android:name=".ui.community.CreateFragmentActivity"></activity>
+
+        <!-- LoginActivity를 런처로 설정 -->
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Readme">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- Kakao 로그인 리디렉션 처리 -->
