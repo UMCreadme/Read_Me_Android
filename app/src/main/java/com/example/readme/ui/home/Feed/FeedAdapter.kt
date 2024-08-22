@@ -102,10 +102,9 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
             }
 
             binding.commentIcon.setOnClickListener {
-                // FragmentActivity를 통해 FragmentManager를 가져옴
                 val fragmentActivity = itemView.context as? FragmentActivity
                 fragmentActivity?.let {
-                    val commentFragment = CommentFragment()
+                    val commentFragment = CommentFragment.newInstance(feed.shortsId.toString())
                     commentFragment.show(it.supportFragmentManager, "CommentFragment")
                 }
             }
