@@ -85,6 +85,11 @@
           <theme>@style/Theme.Readme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_make.xml">
+        <config>
+          <theme>@style/Theme.Readme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notice.xml">
         <config>
           <theme>@style/Theme.Readme</theme>
@@ -101,6 +106,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_shorts.xml">
+        <config>
+          <theme>@style/Theme.Readme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_userprofile.xml">
         <config>
           <theme>@style/Theme.Readme</theme>
         </config>
@@ -141,7 +151,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e669e127-f9f7-4785-bfd1-889fda07cc15" name="Changes" comment="" />
+    <list default="true" id="e669e127-f9f7-4785-bfd1-889fda07cc15" name="Changes" comment="Feat: 회원가입 성공시 액세스 토큰 설정되도록 추가" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -150,7 +160,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=R3CW10A3BMB)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\qsdnv\.android\avd\Pixel_8_API_33_1.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

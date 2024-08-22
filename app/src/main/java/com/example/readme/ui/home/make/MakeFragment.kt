@@ -314,7 +314,8 @@ class MakeFragment : BaseFragment<FragmentMakeBinding>(R.layout.fragment_make) {
 
     // 해쉬태그 추출
     private fun getTags(text: String): Sequence<MatchResult> {
-        val pattern = """#([^#\sㄱ-ㅣ가-힣]+)""" // 태그 추출 정규식
+        val pattern = """#([^\s#]+)""" // 태그 추출 정규식
+
         val regex = pattern.toRegex()
         val matches = regex.findAll(text)
 

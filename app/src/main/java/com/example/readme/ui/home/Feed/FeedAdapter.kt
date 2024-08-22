@@ -25,11 +25,6 @@ class FeedAdapter(private val viewModel: FeedViewModel, var list: ArrayList<Feed
         setHasStableIds(true)
     }
 
-    init {
-        setHasStableIds(true)
-    }
-
-
     // 인터페이스 정의 (아이템 클릭 리스너)
     interface MyItemClickListener {
         fun onItemClick(feed: FeedInfo)
