@@ -3,20 +3,22 @@ package com.example.readme.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.identity.BuildConfig
-import com.example.readme.ui.category.CategoryActivity
+import com.example.readme.R
 import com.example.readme.data.entities.KaKaoUser
 import com.example.readme.data.repository.LoginRepository
 import com.example.readme.databinding.ActivityLoginBinding
 import com.example.readme.ui.MainActivity
+import com.example.readme.ui.category.CategoryActivity
+import com.example.readme.ui.start.StartFragment
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-
 import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
@@ -27,46 +29,25 @@ class LoginActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private var kakaoUser: KaKaoUser? = null
 
-    // 로그인 콜백
-    private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        handleLoginResult(token, error)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Kakao SDK 초기화는 Application 클래스에서 진행
         setContentView(binding.root)
+        Log.d("LoginActivity", "onCreate called")
 
-        // 로그인 상태 확인 후 토큰이 있으면 사용자 정보 요청
-        if (AuthApiClient.instance.hasToken()) {
-            UserApiClient.instance.accessTokenInfo { _, error ->
-                if (error == null) {
-                    getUserInfo()
-                }
-            }
+        // 초기에는 StartFragment를 로드하여 보여줍니다.
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, StartFragment())
+                .commitNow()
+            Log.d("LoginActivity", "StartFragment loaded")
         }
 
         // 카카오 로그인 버튼 클릭 리스너
         binding.kakaoLoginBtn.setOnClickListener {
-            // 로그인 방법 선택
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-
                 UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                    if (error != null) {
-                        Log.e("LoginActivity", "로그인 실패 $error")
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        } else {
-                            UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
-                        }
-                    } else if (token != null) {
-                        Log.d("LoginActivity", "로그인 성공 ${token.accessToken}")
-//                        Toast.makeText(this, "로그인 성공!", Toast.LENGTH_SHORT).show()
-                        getUserInfo()
-                    }
+                    handleLoginResult(token, error)
                 }
-
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = mCallback)
             }
@@ -150,5 +131,27 @@ class LoginActivity : AppCompatActivity() {
         }
         startActivity(intent)
         finish()
+    }
+
+    // StartFragment에서 호출되는 메서드로, StartFragment를 제거하고 로그인 UI를 표시
+    fun showLoginUI() {
+        Log.d("LoginActivity", "showLoginUI called")
+        // StartFragment를 제거
+        supportFragmentManager.findFragmentById(R.id.fragment_container)?.let { fragment ->
+            supportFragmentManager.beginTransaction()
+                .remove(fragment)
+                .commitNow()
+        }
+
+        // 로그인 UI 요소를 보이게 설정
+        binding.readmeLogoIv.visibility = View.VISIBLE
+        binding.howtoTv.visibility = View.VISIBLE
+        binding.nonMembersTv.visibility = View.VISIBLE
+        binding.kakaoLoginBtn.visibility = View.VISIBLE
+    }
+
+    // 로그인 콜백
+    private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        handleLoginResult(token, error)
     }
 }

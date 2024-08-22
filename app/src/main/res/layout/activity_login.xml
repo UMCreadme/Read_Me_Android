@@ -15,17 +15,25 @@
         android:background="@color/design_default_color_background"
         tools:context=".ui.login.LoginActivity">
 
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- 로고 이미지 -->
         <ImageView
             android:id="@+id/readme_logo_iv"
             android:layout_width="209dp"
             android:layout_height="50dp"
             android:layout_marginTop="300dp"
             android:src="@drawable/logo_big"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- 설명 텍스트 -->
         <TextView
             android:id="@+id/howto_tv"
             android:layout_width="wrap_content"
@@ -33,29 +41,33 @@
             android:layout_marginTop="8dp"
             android:text="프레로 시작하는 독서생활"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/readme_logo_iv" />
 
+        <!-- 비회원으로 둘러보기 텍스트뷰 -->
         <TextView
             android:id="@+id/non_members_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="348dp"
             android:text="비회원으로 둘러보기"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/howto_tv" />
 
+        <!-- 카카오 로그인 버튼 -->
         <ImageButton
             android:id="@+id/kakao_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/non_members_tv"

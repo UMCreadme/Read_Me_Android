@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.readme.R
-import com.example.readme.ui.start.StartActivity
+import com.example.readme.ui.login.LoginActivity
+import com.example.readme.ui.start.StartFragment
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
                 // 비회원 상태라면 StartActivity로 이동
-                startActivity(Intent(this, StartActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
             }
             finish() // Splash 화면 종료
         }, 2000)

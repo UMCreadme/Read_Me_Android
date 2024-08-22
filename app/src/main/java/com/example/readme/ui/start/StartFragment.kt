@@ -1,58 +1,60 @@
 package com.example.readme.ui.start
 
 import ImagePagerAdapter
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.example.readme.R
-import com.example.readme.databinding.ActivityStartBinding
+import com.example.readme.databinding.FragmentStartBinding
 import com.example.readme.ui.login.LoginActivity
 import me.relex.circleindicator.CircleIndicator3
 
-class StartActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityStartBinding
+class StartFragment : Fragment() {
+    private var _binding: FragmentStartBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: StartImgViewModel
-    private var handler: Handler? = null  // nullable로 변경
-    private var runnable: Runnable? = null  // nullable로 변경
+    private var handler: Handler? = null
+    private var runnable: Runnable? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityStartBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentStartBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("StartFragment", "onViewCreated called")
 
         viewModel = ViewModelProvider(this).get(StartImgViewModel::class.java)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         setupViewPager()
         setupButtonState()
-        //setupAutoSlide() // 자동 슬라이드 설정
 
-        // LiveData 관찰 및 LoginActivity로의 전환 처리
-        viewModel.navigateToLogin.observe(this, Observer { shouldNavigate ->
-            if (shouldNavigate) {
-                navigateToLogin()
-                viewModel.onNavigatedToLogin() // 상태 초기화
-            }
-        })
-    }
+        // LiveData 관찰 및 LoginActivity의 UI 전환 처리
+        binding.startBtn.setOnClickListener {
+            Log.d("StartFragment", "Start button clicked")
+            (activity as? LoginActivity)?.showLoginUI()
+        }
 
-    private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
     private fun setupViewPager() {
-        viewModel.imageList.observe(this, { images ->
+        viewModel.imageList.observe(viewLifecycleOwner, { images ->
             val adapter = ImagePagerAdapter(images)
             binding.startVp.adapter = adapter
-            val indicator = findViewById<CircleIndicator3>(R.id.start_indicator)
+            val indicator = binding.root.findViewById<CircleIndicator3>(R.id.start_indicator)
             indicator.setViewPager(binding.startVp)
 
             // ViewPager2에서 페이지 변경 리스너 설정
@@ -71,7 +73,8 @@ class StartActivity : AppCompatActivity() {
         binding.startBtn.setBackgroundColor(resources.getColor(R.color.Light_Gray))
 
         binding.startBtn.setOnClickListener {
-            navigateToLogin()
+            Log.d("StartFragment", "Start button clicked")
+            (activity as? LoginActivity)?.showLoginUI()
         }
     }
 
@@ -79,29 +82,22 @@ class StartActivity : AppCompatActivity() {
         if (isLastPage) {
             binding.startBtn.isEnabled = true
             binding.startBtn.setBackgroundColor(resources.getColor(R.color.Primary))
+            binding.startBtn.setOnClickListener {
+                Log.d("StartFragment", "Start button clicked from updateButtonState")
+                (activity as? LoginActivity)?.showLoginUI()
+            }
         } else {
             binding.startBtn.isEnabled = false
             binding.startBtn.setBackgroundColor(resources.getColor(R.color.Light_Gray))
+            binding.startBtn.setOnClickListener(null) // 클릭 리스너를 제거
         }
     }
 
-//    private fun setupAutoSlide() {
-//        handler = Handler(Looper.getMainLooper())
-//        runnable = object : Runnable {
-//            override fun run() {
-//                var currentItem = binding.startVp.currentItem
-//                val totalItem = binding.startVp.adapter?.itemCount ?: 0
-//                currentItem = (currentItem + 1) % totalItem
-//                binding.startVp.setCurrentItem(currentItem, true)
-//                handler?.postDelayed(this, 3000) // 3초마다 슬라이드
-//            }
-//        }
-//        handler?.postDelayed(runnable!!, 3000)
-//    }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         // handler가 초기화 되었을 때만 removeCallbacks 호출
         handler?.removeCallbacks(runnable!!)
+        _binding = null
     }
 }

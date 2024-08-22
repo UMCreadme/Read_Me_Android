@@ -70,12 +70,12 @@
             android:theme="@style/Theme.Readme">
         </activity>
 
-        <activity android:name=".ui.start.StartActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Readme">
+<!--        <activity android:name=".ui.start.StartFragment"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:theme="@style/Theme.Readme">-->
 
-        </activity>
+<!--        </activity>-->
 
         <!-- StartActivity에 대한 선언 -->
         <activity
