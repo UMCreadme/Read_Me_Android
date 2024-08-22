@@ -10,6 +10,8 @@ import com.example.readme.data.entities.ShortsItem
 import com.example.readme.data.remote.ProfileShortsItem
 import com.example.readme.data.remote.ReadmeServerService
 import com.example.readme.databinding.FragmentTabRecyclerviewBinding
+import com.example.readme.ui.MainActivity
+import com.example.readme.ui.home.shortsdetail.ShortsDetailFragment
 import com.example.readme.utils.RetrofitClient
 import kotlinx.coroutines.launch
 
@@ -28,7 +30,17 @@ class MyShortsFragment: Fragment(R.layout.fragment_tab_recyclerview) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTabRecyclerviewBinding.bind(view)
         binding.lifecycleOwner = viewLifecycleOwner
-        shortsAdapter = MyShortsAdapter(shortsList)
+        shortsAdapter = MyShortsAdapter(
+            shortsList,
+            onShortsClick =  { shortsId ->
+                // 아이템 클릭 시의 동작
+                val shortsDetailFragment = ShortsDetailFragment()
+                val bundle = Bundle()
+                bundle.putInt("shorts_id", shortsId)
+                bundle.putString("start", "user")
+                shortsDetailFragment.arguments = bundle
+                (activity as MainActivity).addFragment(shortsDetailFragment)
+            })
         binding.recyclerView.adapter = shortsAdapter
 
         // API 호출

@@ -7,7 +7,10 @@ import com.bumptech.glide.Glide
 import com.example.readme.data.entities.ShortsItem
 import com.example.readme.databinding.ItemShortsCardBinding
 
-class MyShortsAdapter (private val shortsList: List<ShortsItem>) : RecyclerView.Adapter<MyShortsAdapter.ShortsViewHolder>() {
+class MyShortsAdapter (
+    private val shortsList: List<ShortsItem>,
+    private val onShortsClick: (Int) -> Unit
+) : RecyclerView.Adapter<MyShortsAdapter.ShortsViewHolder>() {
 
     inner class ShortsViewHolder(private val binding: ItemShortsCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(shorts: ShortsItem) {
@@ -18,6 +21,10 @@ class MyShortsAdapter (private val shortsList: List<ShortsItem>) : RecyclerView.
                 Glide.with(binding.shortsImage.context)
                     .load(shorts.shortsImage)
                     .into(binding.shortsImage)
+            }
+
+            binding.root.setOnClickListener {
+                onShortsClick(shorts.shortsId)
             }
         }
     }
